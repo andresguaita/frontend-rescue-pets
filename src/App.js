@@ -75,12 +75,6 @@ function App() {
         } />
 
 
-        <Route path="/favorites" element={
-          <PublicRoute>
-            <Navbar/>
-            <Favorites />
-    </PublicRoute>
-        } />
 
         
 <Route path="/admin/login" element={
@@ -93,7 +87,12 @@ function App() {
         } />
 
 
-
+<Route path="/favorites" element={
+          <PublicRoute>
+          
+            <Favorites />
+    </PublicRoute>
+        } />
 
 
         <Route path="/register" element={
