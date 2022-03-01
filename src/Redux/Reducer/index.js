@@ -49,9 +49,29 @@ import {
   GET_FOLLOW_UPS_STATUSES,
   GET_COUNT_SHELTER,
   GET_COUNT_ADOPTED2,
-  GET_COUNT_ADOPTED3
-
+  GET_COUNT_ADOPTED3,
+  REMOVE_FROM_FAVORITES,
+  ADD_TO_FAVORITES
 } from "../Actions/types";
+
+
+const checkLocalStorage = (term) => {
+ 
+  return Object.assign(
+    {},
+    
+    ...Object.entries(localStorage).filter(([key,value])=> key >= 5 )
+   . map(([key, value]) => (
+      {
+      [key]: (value)
+
+    }))
+  );
+};
+
+
+
+
 
 const initialState = {
   countries: [],
@@ -97,8 +117,10 @@ const initialState = {
   followUpStatuses: [],
   countShelters:{},
   countAdopted2:{},
-  countAdopted3:{}
+  countAdopted3:{},
 
+
+  favorites: checkLocalStorage()
 
 };
 
@@ -465,7 +487,21 @@ export default function rooReducer(state = initialState, { type, payload }) {
               ...state,
               countAdopted3:payload
             }   
-
+            case ADD_TO_FAVORITES:
+              return {
+                ...state,
+                favorites: { ...state.favorites, [payload.id]: payload },
+              };
+            case REMOVE_FROM_FAVORITES:
+              return {
+                ...state,
+                favorites: Object.keys(state.favorites)
+                  .filter((item) => item !== payload.toString())
+                  .reduce(
+                    (object, item) => ({ ...object, [item]: state.favorites[item] }),
+                    {}
+                  ),
+              };
 
         default:
           return state;

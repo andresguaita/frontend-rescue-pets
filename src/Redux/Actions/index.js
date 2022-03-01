@@ -61,8 +61,9 @@ import {
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3
-
+    GET_COUNT_ADOPTED3,
+    REMOVE_FROM_FAVORITES,
+    ADD_TO_FAVORITES
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -760,3 +761,21 @@ export const getCountAdopted3 = () => {
         })
     }
 }
+
+export function addToFavorites(pet) {
+    const jsonPet = JSON.stringify(pet);
+    localStorage.setItem(pet.id, jsonPet);
+  
+    return { type: ADD_TO_FAVORITES, payload: pet };
+  }
+  
+export function removeFromFavorites(pet) {
+    localStorage.removeItem(pet.id);
+  
+    return {
+      type: REMOVE_FROM_FAVORITES,
+      payload: pet.id,
+    };
+  }
+
+  
