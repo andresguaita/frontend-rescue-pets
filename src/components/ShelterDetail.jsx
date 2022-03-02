@@ -19,6 +19,7 @@ const ShelterDetail = () => {
   let Data = useSelector((state) => state.shelterDetail);
   let cityId= Data.cityId
 
+
   const [input, setInput] = useState({})
  
 
@@ -46,7 +47,7 @@ const ShelterDetail = () => {
       <ShelterDetailNav id={id}  />
       <Routes>
         <Route path="/" element={<ShelterInfo Data={Data} pets = {pets} input={input} setInput={setInput}/>} />
-        <Route path="/form" element={<FormTransit id={id}/>} />
+        <Route path="/form" element={<FormTransit id={id} shelterName={Data.name}/>} />
       </Routes>
     </StyledDiv>
   ); 

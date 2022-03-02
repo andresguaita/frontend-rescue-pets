@@ -4,6 +4,8 @@ import {
   getFormAdoption,
   postRequestTransit,
   findOrCreateProfileUser,
+  sendEmailForms,
+  sendEmailFormstoShelter
 } from "../Redux/Actions/index";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +15,11 @@ import TerminosyCondiciones from "./TerminosyCondiciones";
 //estilos
 import { DivContainer } from "../Styles/StyledFormTransit";
 
-const FormTransit = ({ id }) => {
+const FormTransit = ({ id,shelterName }) => {
   const dispatch = useDispatch();
   const history = useNavigate();
   const form = useSelector((state) => state.formAdoption);
+  
 
   const [input, setInput] = useState([]);
   const [profileData, setProfileData] = useState({
@@ -105,6 +108,21 @@ const FormTransit = ({ id }) => {
     };
 
     dispatch(postRequestTransit(payload));
+
+    let data = {
+      email: profileData.email, 
+      ShelterName: shelterName,
+      type:2
+    }
+  
+    dispatch(sendEmailForms(data))
+    
+    let info = {
+      userMail: profileData.email, 
+      type:2
+    }
+    dispatch(sendEmailFormstoShelter(info))
+
     Swal.fire(
       "Genial!",
       "Registro realizado correctamente. Si has sido seleccionado pronto nos comunicaremos contigo",

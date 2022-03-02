@@ -632,6 +632,21 @@ export const checkForm = (shelterid) => {
 
 }
 
+export const sendEmailForms = (payload) => {
+    return async function(){
+        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailForms`,payload)
+        return json
+    }
+}
+
+
+export const sendEmailFormstoShelter = (payload) => {
+    return async function(){
+        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailFormstoShelter`,payload)
+        return json
+    }
+}
+
 
 
 
