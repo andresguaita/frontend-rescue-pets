@@ -1,0 +1,114 @@
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+
+    /* 1REM = 10px  */
+
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+
+}
+
+.ok {
+
+    background-image: url('../src/Icos/wave.svg');
+    margin: 0 !important;
+
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+ 
+    cursor: pointer;
+    font-size: 10px;
+}
+
+div {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+.active {
+position: relative;
+  border-radius: 5px;
+  border: 0;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #63ac44;
+padding: 12px 20px 2px 20px;
+bottom: 12px;
+
+  
+
+}
+
+.icos {
+    width: 8%;
+    padding-right: 5px;
+}
+.icos20 {
+    width: 78%;
+    align-items: center;
+text-align: center;
+margin-left: 20PX;
+}
+
+.icos50 {
+    width: 50%;
+    align-items: center;
+text-align: center;
+margin-left: 20PX;
+border-radius: 12px;
+}
+
+.icos40 {
+    width: 90%;
+    align-items: center;
+text-align: center;
+margin-left: 20PX;
+}
+
+.but{
+    width: 30%;
+    padding-right: 5px;
+    align-items: center;
+    text-align: center;
+    padding:5px;
+    border: 0px;
+    margin: 8px;
+    cursor: pointer;
+}
+.active a {
+background-color: #63ac44;
+padding: 20px;
+border-width: 3px;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    /* 1REM = 10px  */
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
