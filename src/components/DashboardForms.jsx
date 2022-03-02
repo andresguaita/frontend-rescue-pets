@@ -97,7 +97,7 @@ export const DashboardForms= () => {
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
                                 <td>{check ? check.filter(e => e.adoptionId === element.id).length ? 'Aceptado': 'por revisar':'No carga'}</td>
-                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                         </tbody>
@@ -118,7 +118,7 @@ export const DashboardForms= () => {
                                 <td>{element.id}</td>
                                 <td><Link to={`view/${element.id}/${formtypes[0].id}/${1}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>{check? check.filter(e => e.requestId === element.id).length ? 'Aceptado': 'por revisar':'No carga'}</td>
-                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                     </tbody>
