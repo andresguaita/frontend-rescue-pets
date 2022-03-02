@@ -1,4 +1,8 @@
 import React from 'react'
+import {
+    Container, Center, CenterChild ,Table,Button,Button3
+  } from "../Styles/StyledPetsInDashboard"
+  
 
 const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, allSpecies, allTemperaments, allPetStatus, allAges, allGenres}) => {
     
@@ -99,8 +103,8 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
             </select>
         </td>
         <td>
-            <button type='submit' >Guardar</button>
-            <button type='button' onClick={handleCancelClick}>Cancelar</button>
+            <Button type='submit' >Guardar</Button>
+            <Button type='button' onClick={handleCancelClick}>Cancelar</Button>
         </td>
     </tr>
   )
