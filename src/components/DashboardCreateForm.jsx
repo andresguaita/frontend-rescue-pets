@@ -118,7 +118,7 @@ export const DashboardCreateForm = () => {
                     <StyleButtonMini onClick={() => handleClickShow()}>Mostrar</StyleButtonMini> 
                     <br></br>
                     <br></br>
-                    {existingform.length ? <StyleButtonAccepted onClick={() => handleClickEdit()}>Editar</StyleButtonAccepted> : <button onClick={() => handleSubmitFormCreated()}>Crear</button>}   
+                    {existingform.length ? <StyleButtonAccepted onClick={() => handleClickEdit()}>Editar</StyleButtonAccepted> : <StyleButtonAccepted onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonAccepted>}   
                 </div>
                 <br></br>
                 <br></br>
