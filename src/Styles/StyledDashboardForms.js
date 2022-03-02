@@ -14,20 +14,17 @@ export const StyledDashboardForms = styled.div`
     padding: 1rem;
   
 
-  button{
-    width: 120px;
-    font-size: 20px;
-    border-radius: 10px;
-  }
-
   select{
     font-size: 25px;
     width: 200px;
+    border-radius: 10px;
   }
   
   table {
     border-collapse: collapse;
     width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
   }
   
   th,

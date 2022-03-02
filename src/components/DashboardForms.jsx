@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {checkForm, deleteAnswerForm, getForms, getFormtypes, getPetsForDashboard} from '../Redux/Actions/index'
 //import './DashboardForms.css'
 import { Link, useNavigate } from 'react-router-dom'
-import {StyleButton, StyleButtonMini, StyleButtonRejected} from '../Styles/StyledButtons.js';
+import {StyleButton, StyleButtonBack, StyleButtonRejected, StyleButtonView} from '../Styles/StyledButtons.js';
 import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
 import { APIGATEWAY_URL } from '../utils/constant'
 
@@ -61,7 +61,7 @@ export const DashboardForms= () => {
    
     return (
             <StyledDashboardForms>
-                    <StyleButtonMini onClick={handleClick}>{"<"}</StyleButtonMini>
+                    <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
                     <h1>Tabla de formularios de {typeform}</h1>
                     
                     <select name='opcion' onChange={e => handleSubmitGetForm(e)}>
@@ -88,7 +88,7 @@ export const DashboardForms= () => {
                         {typeof(forms) !== 'string'? forms.map(element => (
                             <tr key={element.id}>
                                 <td>{element.id}</td>
-                                <td><Link to={`view/${element.id}/${formtypes[1].id}/${element.petId}`}><button>Ver Formulario</button></Link></td>
+                                <td><Link to={`view/${element.id}/${formtypes[1].id}/${element.petId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>
                                 {filterimages ? filterimages.map(e => {
                                     if(e.id === Number(element.petId))
@@ -116,7 +116,7 @@ export const DashboardForms= () => {
                         {typeof(forms) !== 'string' ? forms.map(element => (
                             <tr key={element.id}>
                                 <td>{element.id}</td>
-                                <td><Link to={`view/${element.id}/${formtypes[0].id}/${1}`}><button>Ver Formulario</button></Link></td>
+                                <td><Link to={`view/${element.id}/${formtypes[0].id}/${1}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>{check? check.filter(e => e.requestId === element.id).length ? 'Aceptado': 'por revisar':'No carga'}</td>
                                 <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
                             </tr>

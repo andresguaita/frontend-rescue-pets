@@ -83,11 +83,66 @@ export const StyleButtonMini2 = styled.button`
   }
 `;
 
+export const StyleButtonAccepted = styled.button`
+  margin: 1em;
+  background-color: ${allColors.colors[8]};
+  border-radius: 5px;
+  width: 100px;
+  height: 50px;
+  font-size: 17px;
+  padding: 10px;
+  border: 0;
+  font-weight: bold;
+  color : white;
+  cursor: pointer;
+  a {
+    color: white;
+  }
+  &:hover {
+    background-color: ${allColors.colors[2]};
+  }
+`;
 
 export const StyleButtonRejected = styled.button`
   margin: 1em;
   background-color: ${allColors.colors[1]};
   border-radius: 5px;
+  width: 100px;
+  height: 50px;
+  font-size: 17px;
+  padding: 10px;
+  border: 0;
+  font-weight: bold;
+  color : white;
+  cursor: pointer;
+  a {
+    color: white;
+  }
+  &:hover {
+    background-color: ${allColors.colors[2]};
+  }
+`;
+
+export const StyleButtonView = styled.button`
+  width: 120px;
+  font-size: 20px;
+  border-radius: 10px;
+  border-style: none;
+  &:hover{
+    background-color: ${allColors.colors[8]};
+    position: fixed;
+    margin-left: -65px;
+    margin-top: -29px; 
+    height: 60px;
+    width: 130px;
+  }
+`;
+
+export const StyleButtonBack = styled.button`
+  margin: 1em;
+  background-color: ${allColors.colors[3]};
+  border-radius: 5px;
+  width: 100px;
   height: 50px;
   font-size: 17px;
   padding: 10px;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected} from "../Redux/Actions/index"
 import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
-import {StyleButton, StyleButtonMini, StyleButtonRejected} from '../Styles/StyledButtons.js';
+import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
 
 export const AnswerFormView = () => {
     const dispatch = useDispatch()
@@ -53,7 +53,7 @@ export const AnswerFormView = () => {
 
     return (<StyledDashboardForms>
     
-    <StyleButtonMini onClick={handleClick}>{"<"}</StyleButtonMini>
+    <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
     
     {detailform.length ? detailform[1].map(e => (
         <div key={e.answer}>
@@ -62,7 +62,7 @@ export const AnswerFormView = () => {
             <hr></hr>
         </div>
     )): <h1>Loading..</h1>}
-    <StyleButton onClick={handleAllow}> ✔</StyleButton>
+    <StyleButtonAccepted onClick={handleAllow}> ✔</StyleButtonAccepted>
     <StyleButtonRejected onClick={handleDeny}> ✘</StyleButtonRejected>
     </StyledDashboardForms>
     )
