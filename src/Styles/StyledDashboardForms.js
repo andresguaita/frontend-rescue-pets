@@ -15,8 +15,9 @@ export const StyledDashboardForms = styled.div`
   
 
   button{
-    width: 60px;
+    width: 120px;
     font-size: 20px;
+    border-radius: 10px;
   }
 
   select{
@@ -32,17 +33,18 @@ export const StyledDashboardForms = styled.div`
   th,
   td {
     border: 1px solid #ffffff;
-    text-align: left;
+    text-align: center;
     padding: 8px;
-    font-size: 22px;
+    font-size: 20px;
   }
   
   th {
-    background-color: rgb(117, 201, 250);
+    background-color: ${allColors.colors[1]};
+    color: rgba(255,255,255,0.8);
   }
   
   td {
-    background-color: rgb(205, 235, 253);
+    background-color: rgba(204, 194, 234, 0.6);
   }
   
   form {
