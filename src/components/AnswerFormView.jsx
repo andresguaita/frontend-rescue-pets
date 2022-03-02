@@ -42,12 +42,13 @@ export const AnswerFormView = () => {
             requestId:Number(formtypeid) === 1 ? Number(formid) : null,
             userId : profile.userId
         }))
-            
+        //dispatch(setFormStatus({status:false}))    
         dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))         
     }
 
     const handleDeny = () => {
         alert('Petición denegada')
+        //dispatch(setFormStatus({status:true}))  
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
 

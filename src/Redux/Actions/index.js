@@ -56,7 +56,7 @@ import {
     CHECK_FORM,
    
     MODAL_DASHBOARD,
-
+ 
     GET_PROFILE,
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
@@ -773,5 +773,11 @@ export const getCountAdopted3 = () => {
             type: GET_COUNT_ADOPTED3,
             payload: json.data
         })
+    }
+}
+
+export const setFormStatus = (payload) => {
+    return async function(dispatch){
+        let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus`,payload)
     }
 }
