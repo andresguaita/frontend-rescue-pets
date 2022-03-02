@@ -1,19 +1,22 @@
 import React, { useEffect, useState, Fragment} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet } from '../Redux/Actions'
+import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen } from '../Redux/Actions'
 import styled from 'styled-components';
 import ReadOnlyRows from './ReadOnlyRows';
 import EditableRows from './EditableRows';
 import { Link } from 'react-router-dom';
 import { APIGATEWAY_URL } from '../utils/constant';
+import CreatePets from './CreatePets'
 
 
-
+import {
+  Container, Center, CenterChild ,Table,Button,Button3
+} from "../Styles/StyledPetsInDashboard"
 
 
 
 const PetsInDashboard = () => {
-
+  let modaldashboard = useSelector((state) => state.modaldashboard);
     const dispatch = useDispatch()
 
     
@@ -145,12 +148,34 @@ const PetsInDashboard = () => {
       // setData(newData)
     }
 
+    function handleClickModalCreate(evento, data) {
+      dispatch(ModalDashboardOpen(data));
+  }
+
+
   return (
     <Center>
+      
+         {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
         <CenterChild>
+        <Button3 onClick={
+                    (event) => handleClickModalCreate(event, "CreatePets")
+                }
+                className="but">
+            
+                <br/>
+                Nueva Mascota
+            </Button3>
+          
+            <Link to='/dashboard/pets/FollowUp'>
+      <Button3>Seguimiento a Mascotas adoptadas</Button3>
+      </Link> 
 
+      <Link to='/dashboard'>
+      <Button3>Regresar</Button3>
+      </Link> <br></br><br></br>
       <form onSubmit={handleEditedFormSubmit}>
-          <Table>
+          <Table  >
               <thead>
               <tr>
                   <th>Nombre</th>
@@ -194,107 +219,22 @@ const PetsInDashboard = () => {
               </tbody>
           </Table>
       </form>
-      <Link to='/dashboard/pets/FollowUp'>
-      <Button2>Dar seguimiento a Mascotas adoptadas</Button2>
-      </Link>  
+      
 
-      <Link to='/dashboard/CreatePets'>
+       
+     
+
+      {/* <Link to='/dashboard/CreatePets'>
       <Button>Crear nueva Mascota</Button>
-      </Link>  
+      </Link>   */}
           </CenterChild>
     </Center>
+    
+
+    
   )
 }
 
 export default PetsInDashboard
 
 
-
-export const Center = styled.div`
-position: relative;
-min-height: calc(100vh - 170px);
-display: grid;
-`
-
-export const CenterChild = styled.div`
-position: relative;
-align-self: center;
-justify-self: center;
-font-size: 10px;
-`
-
-export const Button = styled.button`
-position: relative; 
-margin-top: 1.5%;
-/* bottom: 10%; */
-right: 0;
-/* align-self: center;
-justify-self: center; */
-font-size: 14px;
-
-&:hover {
-        cursor: pointer;;
-    }
-`
-
-export const Button2 = styled.button`
-margin-top: 1.5%;
-position: absolute; 
-right: 0;
-/* align-self: center; */
-justify-self: right;
-font-size: 14px;
-
-&:hover {
-        cursor: pointer;;
-    }
-`
-
-
-
-
-export const Table = styled.table`
-
-.app-container {
-display: flex;
-flex-direction: column;
-gap: 10px;
-padding: 1rem;
-}
-
-table {
-border-collapse: collapse;
-width: 100%;
-}
-
-th,
-td {
-border: 1px solid #ffffff;
-text-align: left;
-padding: 8px;
-font-size: 12px;
-}
-
-th {
-background-color: #63ac44;
-color: #ffffff;
-}
-
-td {
-background-color: #ddf4ff;
-}
-
-form {
-display: flex;
-gap: 5px;
-}
-
-form td:last-child {
-display: flex;
-justify-content: space-evenly;
-}
-
-form * {
-font-size: 28px;
-}
-`

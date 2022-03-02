@@ -14,35 +14,38 @@ export const StyledDashboardForms = styled.div`
     padding: 1rem;
   
 
-  button{
-    width: 60px;
-    font-size: 20px;
-  }
-
   select{
     font-size: 25px;
     width: 200px;
+    border-radius: 10px;
+    &:hover{
+      background-color : ${allColors.colors[2]};
+      color: rgba(255,255,255,0.8);
+    }
   }
   
   table {
     border-collapse: collapse;
     width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
   }
   
   th,
   td {
     border: 1px solid #ffffff;
-    text-align: left;
+    text-align: center;
     padding: 8px;
-    font-size: 22px;
+    font-size: 20px;
   }
   
   th {
-    background-color: rgb(117, 201, 250);
+    background-color: ${allColors.colors[1]};
+    color: rgba(255,255,255,0.8);
   }
   
   td {
-    background-color: rgb(205, 235, 253);
+    background-color: rgba(204, 194, 234, 0.6);
   }
   
   form {

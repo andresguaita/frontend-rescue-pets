@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected} from "../Redux/Actions/index"
-import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
+import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
+import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
 
 export const AnswerFormView = () => {
     const dispatch = useDispatch()
@@ -41,28 +42,28 @@ export const AnswerFormView = () => {
             requestId:Number(formtypeid) === 1 ? Number(formid) : null,
             userId : profile.userId
         }))
-            
+        //dispatch(setFormStatus({status:false}))    
         dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))         
     }
 
     const handleDeny = () => {
         alert('Petición denegada')
+        //dispatch(setFormStatus({status:true}))  
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
 
-    return (<StyledDashboardForms>
+    return (<StyledAnswersView>
     
-    <button onClick={handleClick}>{"<"}volver</button>
+    <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
     
     {detailform.length ? detailform[1].map(e => (
         <div key={e.answer}>
             <h2>{e.question}</h2>
-            <h3>{e.answer}</h3>
-            <hr></hr>
+            <h3>: {e.answer}</h3>
         </div>
     )): <h1>Loading..</h1>}
-    <button onClick={handleAllow}>Aceptar ✔</button>
-    <button onClick={handleDeny}>Denegar ✘</button>
-    </StyledDashboardForms>
+    <StyleButtonAccepted onClick={handleAllow}> ✔</StyleButtonAccepted>
+    <StyleButtonRejected onClick={handleDeny}> ✘</StyleButtonRejected>
+    </StyledAnswersView>
     )
 }

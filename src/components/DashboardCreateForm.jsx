@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
 import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateForm } from '../Redux/Actions/index'
+import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
 import { useState } from "react"
 
 export const DashboardCreateForm = () => {
@@ -87,7 +88,7 @@ export const DashboardCreateForm = () => {
 
     return (
         <StyledDashboardForms>
-            <button onClick={handleClick}>{'<'}Volver</button>
+            <StyleButtonBack onClick={handleClick}>{'<'}</StyleButtonBack>
             <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>
             <div>
                 <div>
@@ -111,13 +112,13 @@ export const DashboardCreateForm = () => {
                     </select>
                     <br></br>
                     <br></br>
-                    <button onClick={(e) => handleClickDelete(e)} value='all'>Delete ✘</button>
+                    <StyleButtonRejected onClick={(e) => handleClickDelete(e)} value='all'> ✘</StyleButtonRejected>
                     <br></br>
                     <br></br>
-                    <button onClick={() => handleClickShow()}>Mostrar</button> 
+                    <StyleButtonMini onClick={() => handleClickShow()}>Mostrar</StyleButtonMini> 
                     <br></br>
                     <br></br>
-                    {existingform.length ? <button onClick={() => handleClickEdit()}>Editar</button> : <button onClick={() => handleSubmitFormCreated()}>Crear</button>}   
+                    {existingform.length ? <StyleButtonAccepted onClick={() => handleClickEdit()}>Editar</StyleButtonAccepted> : <StyleButtonAccepted onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonAccepted>}   
                 </div>
                 <br></br>
                 <br></br>
@@ -134,7 +135,7 @@ export const DashboardCreateForm = () => {
                                 <tr key={e}>
                                     <td>{questions.filter(q => q.id === Number(e))[0].id}</td>
                                     <td>{questions.filter(q => q.id === Number(e))[0].question}</td>
-                                    <td><button onClick={() => handleClickDelete(e)}>✘</button></td>
+                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}>✘</StyleButtonRejected></td>
                                 </tr>
                             )): null}
                         </tbody>
