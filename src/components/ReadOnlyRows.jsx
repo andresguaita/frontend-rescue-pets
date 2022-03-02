@@ -1,5 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Del from "../Icos/del.png";
+import Edi from "../Icos/edit.png";
 
+
+import {
+    Container, Center, CenterChild ,Table,Button,Button3
+  } from "../Styles/StyledPetsInDashboard"
 
 const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
     
@@ -9,7 +15,7 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             {data.sterilization? <td>True</td> : <td>False</td> }
             <td>{data.weight}</td>
             <td>{data.description}</td>
-            <td>{data.image}</td>
+            <td><img src={data.image} className="icos20"></img> </td>
             <td>{data.speciesId}</td>
             {data.temperament.temperament? 
                 <td>{data.temperament.temperament}</td> :
@@ -24,8 +30,8 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             }
             <td>{data.genreId}</td>
             <td>
-                <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>
-                <button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Eliminar</button>
+                <Button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</Button>
+                <Button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Eliminar</Button>
             </td>
         </tr>
     )

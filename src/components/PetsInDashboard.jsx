@@ -10,7 +10,7 @@ import CreatePets from './CreatePets'
 
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button2
+  Container, Center, CenterChild ,Table,Button,Button3
 } from "../Styles/StyledPetsInDashboard"
 
 
@@ -97,7 +97,7 @@ const PetsInDashboard = () => {
         sterilization: data.sterilization,
         weight: data.weight,
         description: data.description,
-        image: <img src={data.image}></img>,
+        image: data.image,
         speciesId: data.speciesId,
         temperament: data.temperament,
         age: data.age,
@@ -155,11 +155,27 @@ const PetsInDashboard = () => {
 
   return (
     <Center>
+      
          {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
         <CenterChild>
+        <Button3 onClick={
+                    (event) => handleClickModalCreate(event, "CreatePets")
+                }
+                className="but">
+            
+                <br/>
+                Nueva Mascota
+            </Button3>
+          
+            <Link to='/dashboard/pets/FollowUp'>
+      <Button3>Seguimiento a Mascotas adoptadas</Button3>
+      </Link> 
 
+      <Link to='/dashboard'>
+      <Button3>Regresar</Button3>
+      </Link> <br></br><br></br>
       <form onSubmit={handleEditedFormSubmit}>
-          <Table>
+          <Table  >
               <thead>
               <tr>
                   <th>Nombre</th>
@@ -206,22 +222,7 @@ const PetsInDashboard = () => {
       
 
        
-      <Button onClick={
-                    (event) => handleClickModalCreate(event, "CreatePets")
-                }
-                className="but">
-            
-                <br/>
-                Nueva Mascota
-            </Button>
-          
-            <Link to='/dashboard/pets/FollowUp'>
-      <Button>Seguimiento a Mascotas adoptadas</Button>
-      </Link> 
-
-      <Link to='/dashboard'>
-      <Button>Regresar</Button>
-      </Link> 
+     
 
       {/* <Link to='/dashboard/CreatePets'>
       <Button>Crear nueva Mascota</Button>
