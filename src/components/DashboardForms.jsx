@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {checkForm, deleteAnswerForm, getForms, getFormtypes, getPetsForDashboard} from '../Redux/Actions/index'
 //import './DashboardForms.css'
 import { Link, useNavigate } from 'react-router-dom'
-
+import {StyleButton, StyleButtonMini, StyleButtonRejected} from '../Styles/StyledButtons.js';
 import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
 import { APIGATEWAY_URL } from '../utils/constant'
 
@@ -61,7 +61,7 @@ export const DashboardForms= () => {
    
     return (
             <StyledDashboardForms>
-                    <button onClick={handleClick}>{"<"}volver</button>
+                    <StyleButtonMini onClick={handleClick}>{"<"}</StyleButtonMini>
                     <h1>Tabla de formularios de {typeform}</h1>
                     
                     <select name='opcion' onChange={e => handleSubmitGetForm(e)}>
@@ -97,7 +97,7 @@ export const DashboardForms= () => {
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
                                 <td>{check ? check.filter(e => e.adoptionId === element.id).length ? 'Aceptado': 'por revisar':'No carga'}</td>
-                                <td><button onClick={() => handleDeleteRequest(element.id)}>✘</button></td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                         </tbody>
@@ -118,7 +118,7 @@ export const DashboardForms= () => {
                                 <td>{element.id}</td>
                                 <td><Link to={`view/${element.id}/${formtypes[0].id}/${1}`}><button>Ver Formulario</button></Link></td>
                                 <td>{check? check.filter(e => e.requestId === element.id).length ? 'Aceptado': 'por revisar':'No carga'}</td>
-                                <td><button onClick={() => handleDeleteAdoption(element.id)}>✘</button></td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                     </tbody>

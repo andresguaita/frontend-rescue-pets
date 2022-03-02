@@ -82,3 +82,23 @@ export const StyleButtonMini2 = styled.button`
     background-color: ${allColors.colors[2]};
   }
 `;
+
+
+export const StyleButtonRejected = styled.button`
+  margin: 1em;
+  background-color: ${allColors.colors[1]};
+  border-radius: 5px;
+  height: 50px;
+  font-size: 17px;
+  padding: 10px;
+  border: 0;
+  font-weight: bold;
+  color : white;
+  cursor: pointer;
+  a {
+    color: white;
+  }
+  &:hover {
+    background-color: ${allColors.colors[2]};
+  }
+`;
