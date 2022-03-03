@@ -133,9 +133,10 @@ export const StyleButtonView = styled.button`
   box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   &:hover{
     background-color: ${allColors.colors[8]};
-    position: fixed;
+    position: absolute;
+    z-index: 2;
     margin-left: -65px;
-    margin-top: -29px; 
+    margin-top: -28px;
     height: 60px;
     width: 130px;
   }

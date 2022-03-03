@@ -21,7 +21,7 @@ export const StyledCard = styled.div`
   
   align-self: start;
 
-  
+
   &:hover {
   top: -2px;
   background-color:${allColors.colors[8]};
@@ -35,7 +35,7 @@ export const StyledCard = styled.div`
  
 
 }
-`;
+`
 
 export const StyledCardContainer = styled.div`
   padding-top: 1em;
@@ -62,7 +62,47 @@ export const StyledCardContainer = styled.div`
     font-size: 12px;
     
   }
-`;
+`
+
+
+export const StyledCardMini = styled.div`
+  height: 230px ;
+  width: 285px;
+  background-color: ${allColors.colors[3]};
+  border-radius: 4px;
+  padding-top: 1em;
+  margin: 1%;
+  transition: top ease 0.5s;
+  cursor: pointer;
+  text-decoration: none;
+  transition: ease-in 0.3s;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ddd;
+  background: #fff;
+  text-align: center;
+  text-decoration: none;
+  
+  align-self: start;
+
+  
+
+  &:hover {
+  top: -2px;
+  background-color:${allColors.colors[8]};
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(0.89);
+ 
+
+}
+`
+
+
 
 export const ImgCard = styled.img`
  height :92%;
