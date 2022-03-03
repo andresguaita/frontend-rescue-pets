@@ -839,3 +839,5 @@ export const createAdmin= (email,password,roleId,userRole) =>{
         } else {
             alert(body.msg);
         }
+    }
+}
