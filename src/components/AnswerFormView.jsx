@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected} from "../Redux/Actions/index"
+import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm} from "../Redux/Actions/index"
 import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
 
@@ -20,6 +20,7 @@ export const AnswerFormView = () => {
     let idform = formByChangeStatus ? formByChangeStatus.find(e => e.id === adoYreqid).adoYreqid : null
 
     useEffect(()=>{
+        dispatch(checkForm(shelterid))
         dispatch(getIndividualForm(shelterid,formtypeid,adoYreqid))
         // dispatch(getProfile())
         console.log(detailform[0])
@@ -35,7 +36,6 @@ export const AnswerFormView = () => {
 
     const handleAllow = () => {
         alert('Petición aceptada')
-        alert(formId)
         dispatch(addFollowUp({
             followUpStatusId:1,
             profileId:Number(detailform[0]),
@@ -51,7 +51,8 @@ export const AnswerFormView = () => {
 
     const handleDeny = () => {
         alert('Petición denegada')
-        alert(formId)
+        let temp = checkf.filter(e => Number(e.adoptionId) === Number(adoYreqid))
+        dispatch(deleteFollowUp(temp[0].id))
         dispatch(setFormStatus(false,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
