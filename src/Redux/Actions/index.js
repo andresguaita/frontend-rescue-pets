@@ -820,5 +820,22 @@ export const hidePetInDashbaord = (petId, payload) => {
         return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload:hidePetInDashbaord });
         // console.log(editPet)
         // return editPet
+
     };
 }
+
+export const createAdmin= (email,password,roleId,userRole) =>{
+    return async (dispatch) => {
+        const resp = await fetchSinToken("createAdmin", {
+            email,
+            password,
+            roleId,
+            userRole
+        }, "POST");
+        const body = await resp.json();
+      
+        if (body.ok) {
+            alert(body.msg);
+        } else {
+            alert(body.msg);
+        }

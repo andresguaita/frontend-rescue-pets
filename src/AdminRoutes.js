@@ -13,9 +13,7 @@ export const AdminRoutes = ({ children }) => {
         return <h1>Espere...</h1>
       }
     
-    console.log(rol)
-    
     return !!rol
         ? children
-        : <Navigate to="/loginadmin" />
+        : <Navigate to="/admin/login" />
 }
