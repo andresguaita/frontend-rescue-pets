@@ -36,9 +36,9 @@ const FormTransit = ({ id,shelterName }) => {
   const [Modal, cambiarEstadoModal] = useState(false);
 
   useEffect(() => {
-    if (form.length === 0) {
+ 
       dispatch(getFormAdoption(id, 1));
-    }
+
   }, []);
 
   function handleChangeProfile(event) {

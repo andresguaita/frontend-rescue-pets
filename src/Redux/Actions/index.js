@@ -748,7 +748,7 @@ export const editFollowUp = (followUpId, payload) => {
 
 export const getCountShelter = () => {
     return async function (dispatch) {
-        let json = await axios(`http://localhost:3001/countshelter`)
+        let json = await axios(`${APIGATEWAY_URL}/countshelter`)
         return dispatch({
             type: GET_COUNT_SHELTER,
             payload: json.data
@@ -758,7 +758,7 @@ export const getCountShelter = () => {
 
 export const getCountAdopted2 = () => {
     return async function (dispatch) {
-        let json = await axios(`http://localhost:3001/petAdopted2`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted2`)
         return dispatch({
             type: GET_COUNT_ADOPTED2,
             payload: json.data
@@ -768,7 +768,7 @@ export const getCountAdopted2 = () => {
 
 export const getCountAdopted3 = () => {
     return async function (dispatch) {
-        let json = await axios(`http://localhost:3001/petAdopted3`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted3`)
         return dispatch({
             type: GET_COUNT_ADOPTED3,
             payload: json.data
