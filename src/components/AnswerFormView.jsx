@@ -51,8 +51,14 @@ export const AnswerFormView = () => {
 
     const handleDeny = () => {
         alert('Petición denegada')
-        let temp = checkf.filter(e => Number(e.adoptionId) === Number(adoYreqid))
-        dispatch(deleteFollowUp(temp[0].id))
+        let temp = 'inicio'
+        if(formtypeid === 2){
+            temp = checkf.filter(e => Number(e.adoptionId) === Number(adoYreqid))
+        }
+        if(formtypeid == 3){
+            temp = checkf.filter(e => Number(e.questionId) === Number(adoYreqid))
+        }
+        if(temp.length){dispatch(deleteFollowUp(temp[0].id))}
         dispatch(setFormStatus(false,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
