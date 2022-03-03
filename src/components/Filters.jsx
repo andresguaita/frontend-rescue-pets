@@ -131,12 +131,12 @@ const Filters = ({idcity, cambiarEstado}) => {
                     }
                </SelectStyle>
           {/* <label>Status:</label> */}
-          <SelectStyle name='petStatusId' onChange={(e)=>handleSelect(e)}>
+          {/* <SelectStyle name='petStatusId' onChange={(e)=>handleSelect(e)}>
                     <option hidden >Status</option>
                     {status?.map(element => (
                          <option key={element.id} value={element.id} >{element.status}</option>
                     ))}
-               </SelectStyle>
+               </SelectStyle> */}
      </Container>
      )
 }
