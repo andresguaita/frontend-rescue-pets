@@ -57,16 +57,18 @@ const PetsInDashboard = () => {
 
 
     const [editFormData, seteditFormData] = useState({
-      name: '',
-      sterilization: '',
-      weight: '',
-      description: '',
-      image: '',
-      speciesId: '',
-      temperament: '',
-      age: '',
-      petStatus: '',
-      genreId: ''
+      // name: '',
+      // sterilization: '',
+      // weight: '',
+      // description: '',
+      // image: '',
+      // speciesId: '',
+      // temperament: '',
+      // temperament2: '',
+      // age: '',
+      // petStatus: '',
+      // genreId: ''
+      
     })
 
     const handleEditFormChange = (event) => {
@@ -95,14 +97,20 @@ const PetsInDashboard = () => {
       const formValues = {
         name: data.name,
         sterilization: data.sterilization,
+        sterilization2: data.sterilization,
         weight: data.weight,
         description: data.description,
         image: data.image,
         speciesId: data.speciesId,
-        temperament: data.temperament,
-        age: data.age,
-        petStatus: data.petStatus,
-        genreId: data.genreId
+        species2: data.species,
+        temperament: data.temperament.id,
+        temperament2: data.temperament,
+        age: data.age.id,
+        age2: data.age,
+        petStatus: data.petStatus.id,
+        petStatus2: data.petStatus,
+        genreId: data.genre.id,
+        genre2: data.genre
       }
       seteditFormData(formValues)
       
