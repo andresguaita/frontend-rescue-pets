@@ -149,14 +149,14 @@ const PetsInDashboard = () => {
       seteditPetId(null);
     }
 
-    const handleDeleteClick = (event, petId) => {
+    const handleDeleteClick = async (event, petId) => {
       event.preventDefault();
       // dispatch(deletePet(petId))
       const hidden = {
           hideFromDash: true
       }
-      dispatch(hidePetInDashbaord(petId, hidden))
-      dispatch(getPetsForDashboard(route))
+      await dispatch(hidePetInDashbaord(petId, hidden))
+      await dispatch(getPetsForDashboard(route))
       // const newData = [...data];
       // const index = data.findIndex((pet) => pet.id === petId)
       // newData.splice(index, 1)
