@@ -31,7 +31,7 @@ height: 100%;
   background-image: url(${Img});
   background-repeat: no-repeat;
   background-size: cover;
-  margin-top: 80px;
+  margin-top: 10px;
   padding :40px;
 
   
@@ -124,21 +124,24 @@ export const Table = styled.table`
 border-radius: 3px ;
 
 border-spacing: 0;
-table {
+
  
 border-collapse: collapse;
-width:70%  !important;
+
 overflow-x:auto;
 border-spacing:0px; 
+border-collapse: collapse;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
 
 
-}
 
 
 
 th,
 td {
-border: 1px solid  gray;
+border: 1px solid  white;
 text-align: center;
 padding: 8px;
 font-size: 10px;

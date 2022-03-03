@@ -6,6 +6,12 @@ import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollo
 import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
 
+import {
+  Container, Center, CenterChild ,Table,Button,Button3
+} from "../Styles/StyledPetsInDashboard"
+
+
+
 const FollowUP = () => {
 
   const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
@@ -136,62 +142,3 @@ const FollowUP = () => {
 }
 
 export default FollowUP
-
-export const Center = styled.div`
-position: relative;
-min-height: calc(100vh - 170px);
-display: grid;
-`
-
-export const CenterChild = styled.div`
-position: relative;
-align-self: center;
-justify-self: center;
-font-size: 10px;
-`
-
-export const Table = styled.table`
-
-.app-container {
-display: flex;
-flex-direction: column;
-gap: 10px;
-padding: 1rem;
-}
-
-table {
-border-collapse: collapse;
-width: 100%;
-}
-
-th,
-td {
-border: 1px solid #ffffff;
-text-align: left;
-padding: 8px;
-font-size: 12px;
-}
-
-th {
-background-color: #63ac44;
-color: #ffffff;
-}
-
-td {
-background-color: #ddf4ff;
-}
-
-form {
-display: flex;
-gap: 5px;
-}
-
-form td:last-child {
-display: flex;
-justify-content: space-evenly;
-}
-
-form * {
-font-size: 28px;
-}
-`
