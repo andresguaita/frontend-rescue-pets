@@ -62,8 +62,10 @@ export const DashboardForms= () => {
         if(forms.length && typeof(forms) !== 'string' && !typeform){
             let temp = forms[0].form.formtypeId === 2 ? 'Adopción' : forms[0].form.formtypeId === 1 ? 'Tránsito' : 'otro'
             settypeform(temp)
+            dispatch(getForms(iduser,forms[0].form.formtypeId))
         }
-    },[typeform])
+        
+    },[typeform,check])
    
     return (
             <StyledDashboardForms>
@@ -98,7 +100,7 @@ export const DashboardForms= () => {
                                 <td>
                                 {filterimages ? filterimages.map(e => {
                                     if(e.id === Number(element.petId))
-                                    {return (<div><h4>{element.petId}</h4><img src={`${e.image}`} width="100" height="100" /></div>)
+                                    {return (<div><div><h4>{element.petId}</h4></div><div><img src={`${e.image}`} width="100" height="100" /></div></div>)
                                     }
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
