@@ -61,7 +61,8 @@ import {
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3
+    GET_COUNT_ADOPTED3,
+    EDIT_HIDE_PETS_IN_DASHBOARD
 
     } from './types.js'
 import { async } from '@firebase/util';
@@ -780,4 +781,14 @@ export const setFormStatus = (payload) => {
     return async function(dispatch){
         let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus`,payload)
     }
+}
+
+
+export const hidePetInDashbaord = (petId, payload) => {
+    return async function (dispatch) {
+        const hidePetInDashbaord = await axios.put(`${APIGATEWAY_URL}/pets/hide/${petId}`, payload);
+        return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload:hidePetInDashbaord });
+        // console.log(editPet)
+        // return editPet
+    };
 }
