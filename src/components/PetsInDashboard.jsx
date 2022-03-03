@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen } from '../Redux/Actions'
+import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen, hidePetInDashbaord } from '../Redux/Actions'
 import styled from 'styled-components';
 import ReadOnlyRows from './ReadOnlyRows';
 import EditableRows from './EditableRows';
@@ -19,7 +19,7 @@ const PetsInDashboard = () => {
   let modaldashboard = useSelector((state) => state.modaldashboard);
     const dispatch = useDispatch()
 
-    
+
     useEffect(() => {
       dispatch(getAllSpecies())
       dispatch(gettTemperaments())
@@ -27,7 +27,7 @@ const PetsInDashboard = () => {
       dispatch(getAllAges())
       dispatch(getGenres())
     }, [])
-    
+
     const allSpecies = useSelector(state => state.allspecies)
     const allTemperaments = useSelector(state => state.ttemperaments)
     const allPetStatus = useSelector(state => state.petStatus)
@@ -37,10 +37,12 @@ const PetsInDashboard = () => {
 
     const routeInfo = useSelector(state => state.ShelterAndCityId)
     const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
-    
+
     const petsFromShelter = useSelector( state => state.petsForDashboard )
-    // console.log("petsFromShelter -------------->", petsFromShelter)
+    console.log("petsFromShelter -------------->", petsFromShelter)
     
+    // console.log("filteredPets---------------->", filteredPets)
+
     const [data, setData] = useState('')
 
     useEffect(()=>{
@@ -49,11 +51,12 @@ const PetsInDashboard = () => {
 
 
 
-      
+
       useEffect(() => {
-          setData(petsFromShelter)
+        const filteredPets = petsFromShelter.filter(el => el.hideFromDash === false)
+          setData(filteredPets)
       }, [petsFromShelter])
-      
+
 
 
     const [editFormData, seteditFormData] = useState({
@@ -68,7 +71,7 @@ const PetsInDashboard = () => {
       // age: '',
       // petStatus: '',
       // genreId: ''
-      
+
     })
 
     const handleEditFormChange = (event) => {
@@ -113,7 +116,7 @@ const PetsInDashboard = () => {
         genre2: data.genre
       }
       seteditFormData(formValues)
-      
+
     }
 
     const handleEditedFormSubmit = async (event) => {
@@ -146,10 +149,14 @@ const PetsInDashboard = () => {
       seteditPetId(null);
     }
 
-    const handleDeleteClick = (event, petId) => {
+    const handleDeleteClick = async (event, petId) => {
       event.preventDefault();
-      dispatch(deletePet(petId))
-      dispatch(getPetsForDashboard(route))
+      // dispatch(deletePet(petId))
+      const hidden = {
+          hideFromDash: true
+      }
+      await dispatch(hidePetInDashbaord(petId, hidden))
+      await dispatch(getPetsForDashboard(route))
       // const newData = [...data];
       // const index = data.findIndex((pet) => pet.id === petId)
       // newData.splice(index, 1)
@@ -163,21 +170,21 @@ const PetsInDashboard = () => {
 
   return (
     <Center>
-      
-         {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
+
+        {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
         <CenterChild>
         <Button3 onClick={
                     (event) => handleClickModalCreate(event, "CreatePets")
                 }
                 className="but">
-            
+
                 <br/>
                 Nueva Mascota
             </Button3>
-          
+
             <Link to='/dashboard/pets/FollowUp'>
       <Button3>Seguimiento a Mascotas adoptadas</Button3>
-      </Link> 
+      </Link>
 
       <Link to='/dashboard'>
       <Button3>Regresar</Button3>
@@ -201,7 +208,7 @@ const PetsInDashboard = () => {
               </thead>
               <tbody>
               {
-                typeof(data) !== "string" && data.length? data.map(data => 
+                typeof(data) !== "string" && data.length? data.map(data =>
                   <Fragment>
                     {editPetId === data.id ? (
                       <EditableRows
@@ -227,19 +234,19 @@ const PetsInDashboard = () => {
               </tbody>
           </Table>
       </form>
-      
 
-       
-     
+
+
+
 
       {/* <Link to='/dashboard/CreatePets'>
       <Button>Crear nueva Mascota</Button>
       </Link>   */}
           </CenterChild>
     </Center>
-    
 
-    
+
+
   )
 }
 

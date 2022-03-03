@@ -46,6 +46,7 @@ export const StyledDashboardForms = styled.div`
   
   td {
     background-color: rgba(204, 194, 234, 0.6);
+    height: 250px;
   }
   
   form {
@@ -60,5 +61,25 @@ export const StyledDashboardForms = styled.div`
   
   form * {
     font-size: 18px;
+  }
+
+  img {
+    border-radius: 20px;
+    transition: 1s all;
+    &:hover{
+      z-index: 2;
+      postion:absolute;
+      height: 150px;
+      width: 150px;
+      transition: 1s all;
+      opacity: 0.8 ;
+    }
+  }
+
+  div{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   `;

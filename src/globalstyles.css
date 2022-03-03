@@ -71,6 +71,28 @@ text-align: center;
 margin-left: 20PX;
 border-radius: 12px;
 }
+ .hashtag{
+     
+    color: white !important;
+    background-color: #7fbb65 ;
+    display: block;
+    padding:5px;font-size:20px;
+    display: inline-block;
+ }
+
+ .hashtag p {
+   
+    background-color:rgb(42, 170, 42);
+    color:#ffffff;
+    
+ }
+
+ .hashtag:hover {
+   
+    background-color:rgb(99, 189, 224);
+    color:#ffffff;
+    
+ }
 
 .icos50 {
     width: 50%;
