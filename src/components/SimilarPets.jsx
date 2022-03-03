@@ -49,7 +49,7 @@ export function SimilarPets() {
     return (
       <Fragment>
         
-       <StyledInfo ><h1>Más recomendaciones para ti </h1></StyledInfo  > 
+        {pets.length ? (<StyledInfo ><h1>Más recomendaciones para ti </h1></StyledInfo  >)  :""}
         <StyledCardContainer  onPointerEnter={(e) => handleClick2(e)}>
         {Datos.length ? ( pets.map((e) => (
             <Link to={`/details/${e.id}`}  onChange={(e) => handleClick2(e) } key={e.id} onClick= {(e) => {handleClick(e); handleClick2(e)}} key={e.id}>
