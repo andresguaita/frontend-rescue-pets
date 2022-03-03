@@ -12,7 +12,7 @@ import {getPets} from "../Redux/Actions";
 
 
 import Navbar from "./Navbar";
-import StatisHome from "./StatisHome";
+
 
 export function Home() {
 
@@ -64,7 +64,7 @@ export function Home() {
         {estadoModal == true ? (<Modal modal={true} setidcity={setidcity} estado={estadoModal} cambiarEstado={cambiarEstadoModal}/>) : ""}
            
             <Cards  pets={pets}></Cards>
-            <StatisHome />
+           
             <PreFooter/>
            
 
