@@ -810,3 +810,21 @@ export const setFormStatus = (status,formid,id) => {
         let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus/${id}/${formid}/${status}`)
     }
 }
+
+export const createAdmin= (email,password,roleId,userRole) =>{
+    return async (dispatch) => {
+        const resp = await fetchSinToken("createAdmin", {
+            email,
+            password,
+            roleId,
+            userRole
+        }, "POST");
+        const body = await resp.json();
+      
+        if (body.ok) {
+            alert(body.msg);
+        } else {
+            alert(body.msg);
+        }
+    };
+}

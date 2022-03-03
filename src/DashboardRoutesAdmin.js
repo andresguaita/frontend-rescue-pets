@@ -10,6 +10,7 @@ import PetsInDashboard from './components/PetsInDashboard'
 import { ShelterProfile } from './components/ShelterProfile';
 import FollowUp from './components/FollowUp';
 import { DashboardAdmin } from './components/DashboardAdmin';
+import { CreateAdmin } from './components/CreateAdmin';
 
 
 
@@ -21,6 +22,7 @@ export const DashboardRoutesAdmin = () => {
         <NavbarDashboard/>
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
+                <Route path="dashboard/createadmin" element={<CreateAdmin />} />
                
             
            
