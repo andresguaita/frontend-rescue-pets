@@ -49,7 +49,8 @@ import {
   GET_FOLLOW_UPS_STATUSES,
   GET_COUNT_SHELTER,
   GET_COUNT_ADOPTED2,
-  GET_COUNT_ADOPTED3
+  GET_COUNT_ADOPTED3,
+  authLoginAdmin
 
 } from "../Actions/types";
 
@@ -165,6 +166,14 @@ export default function rooReducer(state = initialState, { type, payload }) {
         checking: false,
         ...payload,
       };
+    
+    case authLoginAdmin:{
+      return{
+        ...state,
+        checking:false,
+        ...payload
+      }
+    }
 
     case authCheckingFinish:
       return {
@@ -306,6 +315,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
         checking : false,
         id: null,
         email: null,
+        rol: null,
         formtypes: [],
        petsForDashboard: []
        ,ShelterAndCityId : [],

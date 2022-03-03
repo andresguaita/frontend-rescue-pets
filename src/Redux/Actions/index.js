@@ -61,7 +61,8 @@ import {
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3
+    GET_COUNT_ADOPTED3,
+    authLoginAdmin
 
     } from './types.js'
 import { async } from '@firebase/util';
@@ -204,6 +205,28 @@ export const startLogin = (email, password) => {
         }
     };
 };
+
+export const startLoginAdmin = (email, password) => {
+    return async (dispatch) => {
+        const resp = await fetchSinToken("loginadmin", {
+            email,
+            password
+        }, "POST");
+        const body = await resp.json();
+        if (body.ok) {
+            localStorage.setItem("token", body.token);
+            localStorage.setItem("token-init-date", new Date().getTime());
+            dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
+        } else {
+            alert(body.msg);
+        }
+    };
+};
+
+export const loginAdmin = (user) => ({
+    type: authLoginAdmin,
+    payload: user
+})
 
 export const startRegister = (name, phoneNumber, description, address, email, password, cityId, role, img) => {
     return async (dispatch) => {
@@ -361,10 +384,16 @@ export const startChecking = () => {
         const body = await resp.json()
         
         if (body.ok) {
-            console.log('Entro aqui')
+           
             localStorage.setItem('token', body.token)
             localStorage.setItem('token-init-date', new Date().getTime())
-            dispatch(login({ id: body.id, email: body.email }))
+            if(body.role==3){
+                dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
+            }
+
+            else{
+                dispatch(login({ id: body.id, email: body.email}));
+            }
         }
         else {
             
