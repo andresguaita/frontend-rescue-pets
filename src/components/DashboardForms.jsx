@@ -22,7 +22,7 @@ export const DashboardForms= () => {
     const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
     const check = useSelector((state) => state.checkForm)
     let alreadyData = typeof(forms) !== 'string' && forms.length? forms[0].form.formtypeId : null
-    const [typeform, settypeform] = useState(forms.length && typeof(forms) !== 'string' && formtypes.length? formtypes.find(e => e.id === alreadyData).typeName : null)
+    const [typeform, settypeform] = useState()
 
     useEffect(() => {
         dispatch(getFormtypes(routeInfo.shelterId))
@@ -34,7 +34,13 @@ export const DashboardForms= () => {
     let filterimages = typeof(pet) !== 'string'? pet.map(e => {return {id:e.id,image:e.image}}) : null
 
     const handleSubmitGetForm = (e) => {
-        settypeform(e.target[e.target.value].attributes.name.nodeValue)
+        if(Number(e.target.value) === 2){
+            settypeform('Adopción')
+        }
+        if(Number(e.target.value) === 1){
+            settypeform('Tránsito')
+        }
+        // settypeform(e.target[2].attributes.name.nodeValue)
         dispatch(getForms(iduser,e.target.value))
     }
 
@@ -54,7 +60,7 @@ export const DashboardForms= () => {
 
     useEffect(() => {
         if(forms.length && typeof(forms) !== 'string' && !typeform){
-            let temp = forms[0].form.formtypeId === 2 ? formtypes[0].typeName : forms[0].form.formtypeId === 1 ? formtypes[1].typeName : 'otro'
+            let temp = forms[0].form.formtypeId === 2 ? 'Adopción' : forms[0].form.formtypeId === 1 ? 'Tránsito' : 'otro'
             settypeform(temp)
         }
     },[typeform])
@@ -74,7 +80,7 @@ export const DashboardForms= () => {
                         typeof(formtypes) === 'string'? (<option>{formtypes}</option>): <option>Cargando...</option>}
                     </select>
                 
-                {typeof(formtypes) !== 'string' && formtypes.length && formtypes[1].typeName === typeform && forms.length && forms[0].form.formtypeId === 2? (<table>
+                {typeof(formtypes) !== 'string' && formtypes.length && formtypes[0].typeName === typeform && forms.length && forms[0].form.formtypeId === 2? (<table>
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -88,7 +94,7 @@ export const DashboardForms= () => {
                         {typeof(forms) !== 'string'? forms.map(element => (
                             <tr key={element.id}>
                                 <td>{element.id}</td>
-                                <td><Link to={`view/${element.id}/${formtypes[1].id}/${element.petId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
+                                <td><Link to={`view/${element.id}/${formtypes[0].id}/${element.petId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>
                                 {filterimages ? filterimages.map(e => {
                                     if(e.id === Number(element.petId))
@@ -103,7 +109,7 @@ export const DashboardForms= () => {
                         </tbody>
                 </table>):
                 
-                typeof(formtypes) !== 'string' && formtypes.length && formtypes[0].typeName === typeform && forms.length && forms[0].form.formtypeId === 1?(<table>
+                typeof(formtypes) !== 'string' && formtypes.length && formtypes[1].typeName === typeform && forms.length && forms[0].form.formtypeId === 1?(<table>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -116,7 +122,7 @@ export const DashboardForms= () => {
                         {typeof(forms) !== 'string' ? forms.map(element => (
                             <tr key={element.id}>
                                 <td>{element.id}</td>
-                                <td><Link to={`view/${element.id}/${formtypes[0].id}/${1}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
+                                <td><Link to={`view/${element.id}/${formtypes[1].id}/${1}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>{element.status && element.status == true? 'Aceptado': element.status && element.status == false? 'Rechazado': 'Por revisar'}</td>
                                 <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
                             </tr>

@@ -36,7 +36,7 @@ const FormAdoption = ({ petId, Datos }) => {
   const [Modal, cambiarEstadoModal] = useState(false);
 
   useEffect(() => {
-    if (form.length === 0 && Datos[0]) {
+    if (Datos[0]) {
       let idShelter = Datos[0].shelterId;
       dispatch(getFormAdoption(idShelter, 2));
     }
