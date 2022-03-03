@@ -31,7 +31,7 @@ height: 100%;
   background-image: url(${Img});
   background-repeat: no-repeat;
   background-size: cover;
-  margin-top: 10px;
+  margin-top: 35px;
   padding :40px;
 
   

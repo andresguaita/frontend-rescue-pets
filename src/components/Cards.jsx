@@ -14,6 +14,7 @@ export default function Cards({pets}) {
                 <StyledCard >
                     <h1>{p.name}</h1>
                     
+                    <p> #{[p.temperament][0].temperament} #{[p.shelter][0].name.replace(/\s/g, '')}</p>
                     {/* <p>{p.description}</p> */}
                     <ImgCard src={p.image}/>
 

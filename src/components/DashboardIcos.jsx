@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 // import CreatePets from './CreatePets'
 // import ShelterProfile from './ShelterProfile'
 import {ModalDashboardOpen} from "../Redux/Actions/index";
-export default function DashboardIcos() {
+export default function DashboardIcos({refugio}) {
     const dispatch = useDispatch();
 
     function handleClick(evento, data) {
@@ -20,14 +20,11 @@ export default function DashboardIcos() {
 
     return (
         <Fragment>
-            <button className="but"
-                onClick={
-                    (event) => handleClick(event, "profile")
-            }>
+            <Link to={`/shelters/${refugio}`} ><button className="but" >
                 <img src={Img}></img>
                 <br/>
                 Mi Refugio
-            </button>
+            </button></Link> 
             <Link to="/dashboard/pets">
                 <button className="but">
                     {" "}

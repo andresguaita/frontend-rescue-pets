@@ -15,7 +15,13 @@ export const Dashboard = () => {
 
     const idUser = useSelector(state => state.id)
 
-    console.log(idUser)
+    console.log(idUser , "id user")
+
+const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
+  console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
+  
+  const shelterId = ShelterAndCityINfo.shelterId
+  console.log("shelterId------------>",shelterId)
 
     const dispatch = useDispatch()
 
@@ -42,7 +48,7 @@ export const Dashboard = () => {
                 <Right>
 
 
-                    <DashboardIcos></DashboardIcos>
+                    <DashboardIcos  refugio={shelterId}></DashboardIcos>
                 </Right>
             </Container>
 
