@@ -30,7 +30,7 @@ const FormAdoption = ({ petId, Datos }) => {
     phoneNumber: "",
     address: "",
     email: "",
-    roleId: "3",
+    roleId: "4",
   });
   const [errors, setErrors] = useState({});
   const [Modal, cambiarEstadoModal] = useState(false);
@@ -106,13 +106,14 @@ const FormAdoption = ({ petId, Datos }) => {
       idpet: Datos[0].id,
       profileId: profile.foundProfile ? profile.foundProfile.id : profile.createProfile.id
     }
+
     dispatch(sendAdoption(payload))
     
     let data = {
-      email: profileData.email, 
+      userMail: profileData.email, 
       petName: Datos[0].name,
       ShelterName: Datos[0].shelter.name,
-      type:1
+      type:2
     }
   
     dispatch(sendEmailForms(data))
@@ -120,7 +121,7 @@ const FormAdoption = ({ petId, Datos }) => {
     let info = {
       userMail: profileData.email, 
       petName: Datos[0].name,
-      type:1
+      type:2
     }
     dispatch(sendEmailFormstoShelter(info))
     

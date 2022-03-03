@@ -28,7 +28,7 @@ const FormTransit = ({ id,shelterName }) => {
     phoneNumber: "",
     address: "",
     email: "",
-    roleId: "3",
+    roleId: "4",
   });
 
   const [errors, setErrors] = useState({});
@@ -110,16 +110,16 @@ const FormTransit = ({ id,shelterName }) => {
     dispatch(postRequestTransit(payload));
 
     let data = {
-      email: profileData.email, 
+      userMail: profileData.email, 
       ShelterName: shelterName,
-      type:2
+      type:1
     }
   
     dispatch(sendEmailForms(data))
     
     let info = {
       userMail: profileData.email, 
-      type:2
+      type:1
     }
     dispatch(sendEmailFormstoShelter(info))
 
