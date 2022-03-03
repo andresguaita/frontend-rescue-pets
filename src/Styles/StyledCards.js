@@ -48,11 +48,11 @@ export const StyledCardContainer = styled.div`
   justify-content: space-around; 
   text-decoration: none;
   a{
-    color:  ${allColors.colors[8]}
+    color:  ${allColors.colors[2]}
   }
   h1{
     text-align: center !important;
-    padding: 3px;
+    padding: 2px;
     
   }
   
