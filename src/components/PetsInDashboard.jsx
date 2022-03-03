@@ -116,10 +116,10 @@ const PetsInDashboard = () => {
       
     }
 
-    const handleEditedFormSubmit = (event) => {
+    const handleEditedFormSubmit = async (event) => {
       event.preventDefault();
-      dispatch(editPet(editPetId, editFormData))
-      dispatch(getPetsForDashboard(route))
+      await dispatch(editPet(editPetId, editFormData))
+      await dispatch(getPetsForDashboard(route))
       seteditPetId(null);
       // const editedPetInfo = {
       //   id: editPetId,
