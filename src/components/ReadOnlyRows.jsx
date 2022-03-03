@@ -16,7 +16,7 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             <td>{data.weight}</td>
             <td>{data.description}</td>
             <td><img src={data.image} className="icos20"></img> </td>
-            <td>{data.speciesId}</td>
+            <td>{data.species.specie}</td>
             {data.temperament.temperament? 
                 <td>{data.temperament.temperament}</td> :
                 <td>{data.temperament}</td> 
@@ -28,7 +28,7 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             {data.petStatus.status ? <td>{data.petStatus.status}</td> :
             <td>{data.petStatus}</td>
             }
-            <td>{data.genreId}</td>
+            <td>{data.genre.genre}</td>
             <td>
                 <Button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</Button>
                 <Button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Eliminar</Button>

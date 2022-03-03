@@ -6,7 +6,10 @@ import {
 
 const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, allSpecies, allTemperaments, allPetStatus, allAges, allGenres}) => {
     
+    const stringy = editFormData.sterilization.toString()
     
+    console.log("editFormData.sterilization", editFormData.sterilization)
+    console.log("stringy", stringy)
   return (
     <tr>
         <td>
@@ -21,7 +24,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
             <select name='sterilization' onChange={handleEditFormChange}>
-                <option hidden name='default' >Esterelización</option>
+                <option value="editFormData.sterilization" hidden name='default' >{(editFormData.sterilization2.toString())}</option>
                 <option name='sterilization' value="true" >True</option>
                 <option name='sterilization' value="false" >False</option>
             </select>
@@ -59,7 +62,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
             <select name='speciesId' onChange={handleEditFormChange}>
-                <option hidden name='default' >Especie</option>
+                <option hidden value="editFormData.speciesId" name='default' >{editFormData.species2.specie}</option>
                     {allSpecies?.map(el => 
                         <option key={el.id} value={el.id}>{el.specie}</option>   
                     )
@@ -68,7 +71,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
             <select name='temperament' onChange={handleEditFormChange}>
-                <option hidden name='default' >Temperamento</option>
+                <option hidden value="editFormData.temperament" name='default' >{editFormData.temperament2.temperament}</option>
                 {allTemperaments?.map(el => 
                         <option key={el.id} value={el.id}>{el.temperament}</option>   
                     )
@@ -77,7 +80,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
             <select name='age' onChange={handleEditFormChange}>
-                <option hidden name='default' >Edad</option>
+                <option hidden value="editFormData.age" name='default' >{editFormData.age2.age}</option>
                 {allAges?.map(el => 
                         <option key={el.id} value={el.id}>{el.age}</option>   
                     )
@@ -86,7 +89,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
             <select name='petStatus' onChange={handleEditFormChange}>
-                <option hidden name='default' >Estado</option>
+                <option hidden value="editFormData.petStatus" name='default' >{editFormData.petStatus2.status}</option>
                 {allPetStatus?.map(el => 
                         <option key={el.id} value={el.id}>{el.status}</option>   
                     )
@@ -95,7 +98,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
         <select name='genreId' onChange={handleEditFormChange}>
-                <option hidden name='default' >Género</option>
+                <option hidden value="editFormData.genreId" name='default' >{editFormData.genre2.genre}</option>
                 {allGenres?.map(el => 
                         <option key={el.id} value={el.id}>{el.genre}</option>   
                     )
