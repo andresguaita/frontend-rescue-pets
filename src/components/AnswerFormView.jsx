@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected} from "../Redux/Actions/index"
+import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected} from "../Redux/Actions/index"
 import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
 
@@ -10,15 +10,17 @@ export const AnswerFormView = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const {formid,formtypeid,petId} = useParams()
+    const {adoYreqid,formtypeid,petId,formId} = useParams()
     const cityandshelter = useSelector((state) => state.ShelterAndCityId)
     const detailform = useSelector((state) => state.individualform)
     const shelterid = cityandshelter.shelterId
     const checkf = useSelector((state) => state.checkForm)
     const profile = useSelector((state) => state.profileForSend)
+    const formByChangeStatus = useSelector((state) => state.form)
+    let idform = formByChangeStatus ? formByChangeStatus.find(e => e.id === adoYreqid).adoYreqid : null
 
     useEffect(()=>{
-        dispatch(getIndividualForm(shelterid,formtypeid,formid))
+        dispatch(getIndividualForm(shelterid,formtypeid,adoYreqid))
         // dispatch(getProfile())
         console.log(detailform[0])
     },[])
@@ -33,22 +35,24 @@ export const AnswerFormView = () => {
 
     const handleAllow = () => {
         alert('Petición aceptada')
+        alert(formId)
         dispatch(addFollowUp({
             followUpStatusId:1,
             profileId:Number(detailform[0]),
             shelterId:shelterid,
             petId:Number(formtypeid) === 2 ? Number(petId) : null,
-            adoptionId:Number(formtypeid) === 2 ? Number(formid) : null,
-            requestId:Number(formtypeid) === 1 ? Number(formid) : null,
+            adoptionId:Number(formtypeid) === 2 ? Number(adoYreqid) : null,
+            requestId:Number(formtypeid) === 1 ? Number(adoYreqid) : null,
             userId : profile.userId
         }))
-        //dispatch(setFormStatus({status:false}))    
+        dispatch(setFormStatus(true,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))         
     }
 
     const handleDeny = () => {
         alert('Petición denegada')
-        //dispatch(setFormStatus({status:true}))  
+        alert(formId)
+        dispatch(setFormStatus(false,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
 

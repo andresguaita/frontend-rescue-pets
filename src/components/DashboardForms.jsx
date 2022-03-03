@@ -28,7 +28,7 @@ export const DashboardForms= () => {
         dispatch(getFormtypes(routeInfo.shelterId))
         dispatch(checkForm(routeInfo.shelterId))
         if(routeInfo)dispatch(getPetsForDashboard(route))
-    }, [])
+    }, [dispatch])
 
     
     let filterimages = typeof(pet) !== 'string'? pet.map(e => {return {id:e.id,image:e.image}}) : null
@@ -94,7 +94,7 @@ export const DashboardForms= () => {
                         {typeof(forms) !== 'string'? forms.map(element => (
                             <tr key={element.id}>
                                 <td>{element.id}</td>
-                                <td><Link to={`view/${element.id}/${formtypes[0].id}/${element.petId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
+                                <td><Link to={`view/${element.id}/${formtypes[0].id}/${element.petId}/${forms[0].formId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>
                                 {filterimages ? filterimages.map(e => {
                                     if(e.id === Number(element.petId))
@@ -102,7 +102,7 @@ export const DashboardForms= () => {
                                     }
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
-                                <td>{element.status && element.status == true? 'Aceptado': element.status && element.status == false? 'Rechazado': 'Por revisar'}</td>
+                                <td>{element.status == true && check.filter(e => e.adoptionId === element.id).length? 'Aceptado':element.status == false? 'Rechazado': 'Por revisar'}</td>
                                 <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
@@ -122,8 +122,8 @@ export const DashboardForms= () => {
                         {typeof(forms) !== 'string' ? forms.map(element => (
                             <tr key={element.id}>
                                 <td>{element.id}</td>
-                                <td><Link to={`view/${element.id}/${formtypes[1].id}/${1}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
-                                <td>{element.status && element.status == true? 'Aceptado': element.status && element.status == false? 'Rechazado': 'Por revisar'}</td>
+                                <td><Link to={`view/${element.id}/${formtypes[1].id}/${1}/${forms[0].formId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
+                                <td>{element.status == true && check.filter(e => e.adoptionId === element.id).length? 'Aceptado': element.status == false? 'Rechazado': 'Por revisar'}</td>
                                 <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}

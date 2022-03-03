@@ -776,8 +776,8 @@ export const getCountAdopted3 = () => {
     }
 }
 
-export const setFormStatus = (payload) => {
+export const setFormStatus = (status,formid,id) => {
     return async function(dispatch){
-        let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus`,payload)
+        let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus/${id}/${formid}/${status}`)
     }
 }
