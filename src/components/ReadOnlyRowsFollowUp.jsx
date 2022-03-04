@@ -12,9 +12,9 @@ const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick}) => {
             <td>{data.user.email}</td>
             <td>{data.profile.address}</td>
             <td>{data.profile.phoneNumber}</td>
-            <td>{data.followUpDate1}</td>
-            <td>{data.followUpDate2}</td>
-            <td>{data.followUpDate3}</td>
+            <td>{data.followUpDate1? data.followUpDate1.slice(0,10) : null}</td>
+            <td>{data.followUpDate2? data.followUpDate2.slice(0,10) : null}</td>
+            <td>{data.followUpDate3? data.followUpDate3.slice(0,10) : null}</td>
             <td>
                 <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>
                 <button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Eliminar</button>
