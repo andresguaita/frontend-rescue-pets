@@ -3,7 +3,6 @@ import allColors from "../variables/Colors";
 
 export const StyledDashboardPetAdmin = styled.div`
 
-    margin-top: 150px;
     margin-left: 50px;
     margin-right: 50px;
 

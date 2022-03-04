@@ -4,7 +4,6 @@ import allColors from "../variables/Colors";
 export const StyledAnswersView = styled.div`
     margin-left: 50px;
     margin-right: 50px;
-    margin-top: 150px;
     margin-bottom: 150px;
     display: flex;
     flex-direction: column;
