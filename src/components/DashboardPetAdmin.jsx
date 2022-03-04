@@ -7,12 +7,19 @@ import { StyledDashboardPetAdmin, StyledDivFlexAdmin,
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
     StyledInputSearch, StyledInputButton,
     StyledInputCheck } from "../Styles/StyledDashboardPetAdmin"
+import {StyleButtonBack} from "../Styles/StyledButtons"
+
 
 
 export const DashboardPetAdmin = () => {
-    
+    const navigate = useNavigate()
+
+    const Back = () => {
+        navigate('/dashboard')
+    }
     return (
         <StyledDashboardPetAdmin>
+            <StyleButtonBack onClick={Back}>{'<'}</StyleButtonBack>
             <h1>DashboardPetAdmin</h1>
             <StyledDivFlexAdmin>
                 <form>
