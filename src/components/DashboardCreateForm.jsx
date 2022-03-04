@@ -2,9 +2,9 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
 import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateForm } from '../Redux/Actions/index'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
+import { StyledDivFlexrow, StyledDashboardAnswersForm } from "../Styles/StyledDivFlexrow"
 import { useState } from "react"
 
 export const DashboardCreateForm = () => {
@@ -87,9 +87,11 @@ export const DashboardCreateForm = () => {
     }
 
     return (
-        <StyledDashboardForms>
+        <StyledDashboardAnswersForm>
             <StyleButtonBack onClick={handleClick}>{'<'}</StyleButtonBack>
-            <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>
+            <div>
+                <h1>{existingform.length ? 'Edita formulario '+titleFormType: 'Crea formulario '+titleFormType}</h1>
+            </div>
             <div>
                 <div>
                     <select name='type' onChange={(e) => handleSubmitChange(e)}>
@@ -110,20 +112,21 @@ export const DashboardCreateForm = () => {
                             <option key={e.id} value={e.id}>{e.question}</option>
                         )):'No cargó preguntas'}
                     </select>
-                    <br></br>
-                    <br></br>
-                    <StyleButtonRejected onClick={(e) => handleClickDelete(e)} value='all'> ✘</StyleButtonRejected>
-                    <br></br>
-                    <br></br>
-                    <StyleButtonMini onClick={() => handleClickShow()}>Mostrar</StyleButtonMini> 
-                    <br></br>
-                    <br></br>
-                    {existingform.length ? <StyleButtonAccepted onClick={() => handleClickEdit()}>Editar</StyleButtonAccepted> : <StyleButtonAccepted onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonAccepted>}   
+                    <StyledDivFlexrow>
+                        <div>
+                        <StyleButtonRejected onClick={(e) => handleClickDelete(e)} value='all'> ✘</StyleButtonRejected>
+                        </div>
+                        <div>
+                        <StyleButtonBack onClick={() => handleClickShow()}>Mostrar</StyleButtonBack> 
+                        </div>
+                        <div>
+                        {existingform.length ? <StyleButtonAccepted onClick={() => handleClickEdit()}>Editar</StyleButtonAccepted> : <StyleButtonAccepted onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonAccepted>} 
+                        </div> 
+                    </StyledDivFlexrow>   
                 </div>
                 <br></br>
                 <br></br>
                 <div>
-                    {<h2>{titleFormType}</h2>}
                     <table>
                         <tr>
                             <th>#</th>
@@ -143,7 +146,7 @@ export const DashboardCreateForm = () => {
                 </div>
             
             </div>
-        </StyledDashboardForms>
+        </StyledDashboardAnswersForm>
     )
 }
 
