@@ -2,6 +2,7 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyleNavBar = styled.nav`
+background-color: ${allColors.colors[1]} ;
   padding: 0px;
   position: relative;
   z-index: 100;

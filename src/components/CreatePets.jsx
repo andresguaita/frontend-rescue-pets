@@ -73,10 +73,10 @@ export function CreatePets() {
     description: "",
     image: "",
     speciesId: "",
-    shelterId: shelterID? shelterID.shelterId : '',
+    shelterId: '',
     temperamentId: "",
     ageId: "",
-    petStatusId: Status? Status[0].id : '',
+    petStatusId:  '',
     genreId: "",
   });
 
@@ -231,7 +231,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        {/* <select onChange={handleSelectShelter}>
+        <select onChange={handleSelectShelter}>
           <option disabled selected>
             -- Seleccione Refugio --
           </option>
@@ -240,7 +240,7 @@ export function CreatePets() {
               {e.name}
             </option>
           ))}
-        </select> */}
+        </select>
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -267,7 +267,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        {/* <select onChange={handleSelectState}>
+        <select onChange={handleSelectState}>
           <option disabled selected>
             -- Seleccione Estado --
           </option>
@@ -276,7 +276,7 @@ export function CreatePets() {
               {e.status}
             </option>
           ))}
-        </select> */}
+        </select>
         <br />
         <br />
         <select onChange={handleSelectGenres}>
