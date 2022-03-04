@@ -8,16 +8,18 @@ import {
 } from "../Styles/StyledCardShelter.js";
 import Navbar from "./Navbar";
 
+
 export default function Favorites() {
   const favorites = useSelector((state) => state.favorites);
 
   return (
     <div>
       <Navbar />
-      <StyledCardContainer>
-        {favorites && favorites.msg !== "No hay mascotas favoritas" ? (
+     
+        {favorites.lenght   ? (
           Object.values(favorites).map((favorite) => {
             return (
+              <StyledCardContainer>
               <CardsFavorites
                id={favorite.id}
                 key={favorite.id}
@@ -29,14 +31,11 @@ export default function Favorites() {
                 shelter={favorite.shelter}
                 image={favorite.image}
               />
+                </StyledCardContainer>
             );
           })
-        ) : !favorites ? (
-          <h1> {favorites.msg}</h1>
-        ) : (
-          <h1> Cargando datos</h1>
-        )}
-      </StyledCardContainer>
+        ) : <h2>No hay mascotas favoritas</h2>}
+     
     </div>
   );
 }
