@@ -2,7 +2,7 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyledCard = styled.div`
-  height: 330px ;
+  height: 390px ;
   width: 285px;
   background-color: ${allColors.colors[3]};
   border-radius: 4px;
@@ -52,7 +52,7 @@ export const StyledCardContainer = styled.div`
   }
   h1{
     text-align: center !important;
-    padding: 2px;
+    padding: 1px;
     
   }
   
@@ -105,7 +105,7 @@ export const StyledCardMini = styled.div`
 
 
 export const ImgCard = styled.img`
- height :92%;
+ height :80%;
 image-orientation: flip;
  
 `;
