@@ -39,7 +39,7 @@ const PetsInDashboard = () => {
     const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
 
     const petsFromShelter = useSelector( state => state.petsForDashboard )
-    console.log("petsFromShelter -------------->", petsFromShelter)
+    // console.log("petsFromShelter -------------->", petsFromShelter)
     
     // console.log("filteredPets---------------->", filteredPets)
 
@@ -56,6 +56,7 @@ const PetsInDashboard = () => {
         const filteredPets = petsFromShelter.filter(el => el.hideFromDash === false)
           setData(filteredPets)
       }, [petsFromShelter])
+
 
 
 
@@ -165,6 +166,7 @@ const PetsInDashboard = () => {
 
     function handleClickModalCreate(evento, data) {
       dispatch(ModalDashboardOpen(data));
+    
   }
 
 
