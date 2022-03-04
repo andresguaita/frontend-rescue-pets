@@ -63,6 +63,7 @@ const FollowUP = () => {
       setEditFollowUpId(data.id)
       const formValues = {
         followUpStatusId: data.followUpStatusId,
+        followUpStatus: data.followUpStatus,
         followUpDate1: data.followUpDate1,
         followUpDate2: data.followUpDate2,
         followUpDate3: data.followUpDate3,
@@ -86,10 +87,10 @@ const FollowUP = () => {
       setEditFollowUpId(null);
     }
 
-    const handleDeleteClick = (event, followUpId) => {
+    const handleDeleteClick = async (event, followUpId) => {
       event.preventDefault();
-      dispatch(deleteFollowUp(followUpId))
-      dispatch(getFollowUpsFromShelter(shelterId))
+      await dispatch(deleteFollowUp(followUpId))
+      await dispatch(getFollowUpsFromShelter(shelterId))
     }
 
   return (
