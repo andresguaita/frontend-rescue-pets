@@ -22,6 +22,10 @@ import { ForgotPassword } from "./components/ForgotPassword";
 import { ResetPassword } from "./components/ResetPassword";
 import { ConfirmedAccount } from "./components/ConfirmedAccount";
 import { ReviewEmail } from "./components/ReviewEmail";
+import LoginAdmin from "./components/LoginAdmin";
+import { AdminRoutes } from "./AdminRoutes";
+import { DashboardRoutesAdmin } from "./DashboardRoutesAdmin";
+import { DashboardAdmin } from "./components/DashboardAdmin";
 
 
 
@@ -47,6 +51,8 @@ function App() {
           <Home />
           
         } />
+
+
          <Route path="/Shelters" element={<Shelters/>}/>
 
         
@@ -59,6 +65,15 @@ function App() {
           <PublicRoute>
             <Navbar/>
             <Login />
+
+          </PublicRoute>
+        } />
+
+        
+<Route path="/admin/login" element={
+          <PublicRoute>
+            <Navbar/>
+            <LoginAdmin />
 
           </PublicRoute>
         } />
@@ -123,6 +138,16 @@ function App() {
             <DashboardRoutes />
           </PrivateRoute>
         } />
+    
+
+      <Route path="/admin/*" element={
+          <AdminRoutes>
+            <DashboardRoutesAdmin />
+          </AdminRoutes>
+        } />
+
+
+
       </Routes>
 
 

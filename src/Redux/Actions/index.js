@@ -61,7 +61,11 @@ import {
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3
+    GET_COUNT_ADOPTED3,
+    EDIT_HIDE_PETS_IN_DASHBOARD,
+    authLoginAdmin,
+    EDIT_PET_STAUTS_ID
+
 
     } from './types.js'
 import { async } from '@firebase/util';
@@ -204,6 +208,28 @@ export const startLogin = (email, password) => {
         }
     };
 };
+
+export const startLoginAdmin = (email, password) => {
+    return async (dispatch) => {
+        const resp = await fetchSinToken("loginadmin", {
+            email,
+            password
+        }, "POST");
+        const body = await resp.json();
+        if (body.ok) {
+            localStorage.setItem("token", body.token);
+            localStorage.setItem("token-init-date", new Date().getTime());
+            dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
+        } else {
+            alert(body.msg);
+        }
+    };
+};
+
+export const loginAdmin = (user) => ({
+    type: authLoginAdmin,
+    payload: user
+})
 
 export const startRegister = (name, phoneNumber, description, address, email, password, cityId, role, img) => {
     return async (dispatch) => {
@@ -361,10 +387,16 @@ export const startChecking = () => {
         const body = await resp.json()
         
         if (body.ok) {
-            console.log('Entro aqui')
+           
             localStorage.setItem('token', body.token)
             localStorage.setItem('token-init-date', new Date().getTime())
-            dispatch(login({ id: body.id, email: body.email }))
+            if(body.role==3){
+                dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
+            }
+
+            else{
+                dispatch(login({ id: body.id, email: body.email}));
+            }
         }
         else {
             
@@ -776,8 +808,46 @@ export const getCountAdopted3 = () => {
     }
 }
 
-export const setFormStatus = (payload) => {
+export const setFormStatus = (status,formid,id) => {
     return async function(dispatch){
-        let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus`,payload)
+        let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus/${id}/${formid}/${status}`)
     }
+}
+
+
+export const hidePetInDashbaord = (petId, payload) => {
+    return async function (dispatch) {
+        const hidePetInDashbaord = await axios.put(`${APIGATEWAY_URL}/pets/hide/${petId}`, payload);
+        return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload:hidePetInDashbaord });
+        // console.log(editPet)
+        // return editPet
+
+    };
+}
+
+export const createAdmin= (email,password,roleId,userRole) =>{
+    return async (dispatch) => {
+        const resp = await fetchSinToken("createAdmin", {
+            email,
+            password,
+            roleId,
+            userRole
+        }, "POST");
+        const body = await resp.json();
+      
+        if (body.ok) {
+            alert(body.msg);
+        } else {
+            alert(body.msg);
+        }
+    }
+}
+
+
+export const updatePetStatus = (petId, payload) => {
+    return async function (dispatch) {
+        const updatePetStatus = await axios.put(`${APIGATEWAY_URL}/pets/updateStatus/${petId}`, payload); 
+        return dispatch({ type: EDIT_PET_STAUTS_ID, payload:updatePetStatus });
+
+    };
 }

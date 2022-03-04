@@ -2,9 +2,12 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+
 import { Left, Right, StyledDashboardForms } from '../Styles/StyledDashboardForms'
+
 import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateForm } from '../Redux/Actions/index'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
+import { StyledDivFlexrow, StyledDashboardAnswersForm } from "../Styles/StyledDivFlexrow"
 import { useState } from "react"
 import Img from "../Icos/homeim1.svg"
 
@@ -89,11 +92,20 @@ export const DashboardCreateForm = () => {
     }
 
     return (
-        <StyledDashboardForms>
-            <Left><img src={Img}/></Left>
+
+           
+
+      
+ <Left><img src={Img}/></Left>
+
+
             <Right>
             <StyleButtonBack onClick={handleClick}>{'Regresar'}</StyleButtonBack>
-            <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>
+
+            <div>
+                <h1>{existingform.length ? 'Edita formulario '+titleFormType: 'Crea formulario '+titleFormType}</h1>
+            </div>
+
             <div>
                 <div>
                     <select name='type' onChange={(e) => handleSubmitChange(e)}>
@@ -113,6 +125,7 @@ export const DashboardCreateForm = () => {
                             <option key={e.id} value={e.id}>{e.question}</option>
                         )):'No cargó preguntas'}
                     </select>
+
                     <br></br>
                    
                     {question.length > 0 ? <StyleButtonMini onClick={(e) => handleClickDelete(e)} value='all'> Limpiar</StyleButtonMini>: ""}  
@@ -122,11 +135,11 @@ export const DashboardCreateForm = () => {
                    
                    
                     {existingform.length ? <StyleButtonMini onClick={() => handleClickEdit()}>Editar</StyleButtonMini> : <StyleButtonMini onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonMini>}   
-                </div>
-                <br></br>
+
+                   
+                  
                 <br></br> 
                 <div>
-                    {<h2>{titleFormType}</h2>}
                     <table>
                         <tr>
                             <th>#</th>
@@ -144,10 +157,12 @@ export const DashboardCreateForm = () => {
                         </tbody>
                     </table>
                 </div>
-            
+
             </div></Right>
            
         </StyledDashboardForms>
+
+            
     )
 }
 

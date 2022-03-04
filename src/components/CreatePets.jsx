@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { APIGATEWAY_URL } from '../utils/constant';
 import {
   postPets,
   getShelters,
@@ -11,7 +12,8 @@ import {
   getAllPetStatus,
   getGenres,
   ModalDashboardOpen,
-  uploadImageCloud
+  uploadImageCloud,
+  getPetsForDashboard
 } from "../Redux/Actions/index";
 
 import { DivContainer } from "../Styles/StyledCreatePets";
@@ -62,6 +64,8 @@ export function CreatePets() {
 
   const Genres = useSelector((state) => state.allGenres);
 
+  const shelterID = useSelector(state => state.ShelterAndCityId);
+
   const [state, setState] = useState({
     name: "",
     sterilization: "",
@@ -69,10 +73,10 @@ export function CreatePets() {
     description: "",
     image: "",
     speciesId: "",
-    shelterId: "",
+    shelterId: shelterID? shelterID.shelterId : '',
     temperamentId: "",
     ageId: "",
-    petStatusId: "",
+    petStatusId: Status? Status[0].id : '',
     genreId: "",
   });
 
@@ -152,6 +156,9 @@ export function CreatePets() {
     });
   };
 
+  const routeInfo = useSelector(state => state.ShelterAndCityId)
+  const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postPets(state));
@@ -161,7 +168,7 @@ export function CreatePets() {
 
     alert('¡La mascota fue creada con exito!');
     // navigate('/dashboard/pets');
-   
+    dispatch(getPetsForDashboard(route))
   };
 
   function handleClickCencel(e) {
@@ -224,7 +231,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        <select onChange={handleSelectShelter}>
+        {/* <select onChange={handleSelectShelter}>
           <option disabled selected>
             -- Seleccione Refugio --
           </option>
@@ -233,7 +240,7 @@ export function CreatePets() {
               {e.name}
             </option>
           ))}
-        </select>
+        </select> */}
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -260,7 +267,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        <select onChange={handleSelectState}>
+        {/* <select onChange={handleSelectState}>
           <option disabled selected>
             -- Seleccione Estado --
           </option>
@@ -269,7 +276,7 @@ export function CreatePets() {
               {e.status}
             </option>
           ))}
-        </select>
+        </select> */}
         <br />
         <br />
         <select onChange={handleSelectGenres}>

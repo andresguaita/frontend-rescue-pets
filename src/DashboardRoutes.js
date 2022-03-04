@@ -26,7 +26,7 @@ export const DashboardRoutes = () => {
                 <Route path="dashboard/forms/views" element={<AnswerFormView/>}/>
                 <Route path="dashboard/profile" element={<ShelterProfile/>}/>
                 <Route path="dashboard/config" element={<ChangePassword/>}/>
-                <Route path="dashboard/forms/view/:formid/:formtypeid/:petId" element={<AnswerFormView/>}/>
+                <Route path="dashboard/forms/view/:adoYreqid/:formtypeid/:petId/:formId" element={<AnswerFormView/>}/>
                 <Route path="dashboard/createForm" element={<DashboardCreateForm/>}/>
              
             </Routes>

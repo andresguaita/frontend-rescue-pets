@@ -49,7 +49,7 @@ export function SimilarPets() {
     return (
       <Fragment>
         
-        {console.log(pets[0].shelter.name)}
+      
         {pets.length ? (<StyledInfo2 ><h1>Más recomendaciones del refugio {pets[0].shelter.name} </h1></StyledInfo2  >)  :""}
         <StyledCardContainer  onPointerEnter={(e) => handleClick2(e)}>
         {Datos.length ? ( pets.map((e) => (

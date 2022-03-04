@@ -47,6 +47,7 @@ height: 100%;
   
   td {
     background-color: rgba(204, 194, 234, 0.6);
+    height: 250px;
   }
   
   form {
@@ -62,6 +63,7 @@ height: 100%;
   form * {
     font-size: 18px;
   }
+
   `;
 
   
@@ -137,3 +139,6 @@ font-size : 15px;
 }
 
 `;
+
+
+
