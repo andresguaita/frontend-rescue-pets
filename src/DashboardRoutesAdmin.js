@@ -11,6 +11,7 @@ import { ShelterProfile } from './components/ShelterProfile';
 import FollowUp from './components/FollowUp';
 import { DashboardAdmin } from './components/DashboardAdmin';
 import { CreateAdmin } from './components/CreateAdmin';
+import { DashboardPetAdmin } from './components/DashboardPetAdmin';
 
 
 
@@ -23,7 +24,7 @@ export const DashboardRoutesAdmin = () => {
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
                 <Route path="dashboard/createadmin" element={<CreateAdmin />} />
-               
+                <Route path="dashboard/DashboardPetAdmin" element={<DashboardPetAdmin/>} /> 
             
            
             </Routes>

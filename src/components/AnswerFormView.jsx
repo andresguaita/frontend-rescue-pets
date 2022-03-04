@@ -47,7 +47,7 @@ export const AnswerFormView = () => {
         }))
         dispatch(setFormStatus(true,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))
-        dispatch(updatePetStatus(petId, {petStatusId: 2}))      
+        if(petId){dispatch(updatePetStatus(petId, {petStatusId: 2}))}      
     }
 
     const handleDeny = () => {
