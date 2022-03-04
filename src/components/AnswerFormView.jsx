@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm} from "../Redux/Actions/index"
+import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm, updatePetStatus} from "../Redux/Actions/index"
 import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
 
@@ -46,7 +46,8 @@ export const AnswerFormView = () => {
             userId : profile.userId
         }))
         dispatch(setFormStatus(true,Number(formId),Number(adoYreqid)))
-        dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))         
+        dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))
+        dispatch(updatePetStatus(petId, {petStatusId: 2}))      
     }
 
     const handleDeny = () => {

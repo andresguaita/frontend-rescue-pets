@@ -63,7 +63,8 @@ import {
     GET_COUNT_ADOPTED2,
     GET_COUNT_ADOPTED3,
     EDIT_HIDE_PETS_IN_DASHBOARD,
-    authLoginAdmin
+    authLoginAdmin,
+    EDIT_PET_STAUTS_ID
 
 
     } from './types.js'
@@ -840,4 +841,13 @@ export const createAdmin= (email,password,roleId,userRole) =>{
             alert(body.msg);
         }
     }
+}
+
+
+export const updatePetStatus = (petId, payload) => {
+    return async function (dispatch) {
+        const updatePetStatus = await axios.put(`${APIGATEWAY_URL}/pets/updateStatus/${petId}`, payload); 
+        return dispatch({ type: EDIT_PET_STAUTS_ID, payload:updatePetStatus });
+
+    };
 }
