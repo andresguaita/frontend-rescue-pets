@@ -2,10 +2,14 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+
+import { Left, Right, StyledDashboardForms } from '../Styles/StyledDashboardForms'
+
 import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateForm } from '../Redux/Actions/index'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
 import { StyledDivFlexrow, StyledDashboardAnswersForm } from "../Styles/StyledDivFlexrow"
 import { useState } from "react"
+import Img from "../Icos/homeim1.svg"
 
 export const DashboardCreateForm = () => {
     const navigate = useNavigate()
@@ -19,6 +23,7 @@ export const DashboardCreateForm = () => {
     const [question, setquestion] = useState([])
     const [form, setform] = useState()
 
+    
     useEffect(() => {
         dispatch(getFormtypes())
         dispatch(getAllQuestions())
@@ -87,11 +92,20 @@ export const DashboardCreateForm = () => {
     }
 
     return (
-        <StyledDashboardAnswersForm>
-            <StyleButtonBack onClick={handleClick}>{'<'}</StyleButtonBack>
+
+           
+
+      
+ <Left><img src={Img}/></Left>
+
+
+            <Right>
+            <StyleButtonBack onClick={handleClick}>{'Regresar'}</StyleButtonBack>
+
             <div>
                 <h1>{existingform.length ? 'Edita formulario '+titleFormType: 'Crea formulario '+titleFormType}</h1>
             </div>
+
             <div>
                 <div>
                     <select name='type' onChange={(e) => handleSubmitChange(e)}>
@@ -102,8 +116,7 @@ export const DashboardCreateForm = () => {
                             <option key={e.id} value={e.id} name={e.typeName}>{e.typeName}</option>
                         )):'Cargando'}
                     </select>
-                        <br></br>
-                        <br></br>
+                     
                     <select onChange={(e) => handleSubmitQuestion(e)}>
                         <option disabled selected>
                             Preguntas
@@ -112,20 +125,20 @@ export const DashboardCreateForm = () => {
                             <option key={e.id} value={e.id}>{e.question}</option>
                         )):'No cargó preguntas'}
                     </select>
-                    <StyledDivFlexrow>
-                        <div>
-                        <StyleButtonRejected onClick={(e) => handleClickDelete(e)} value='all'> ✘</StyleButtonRejected>
-                        </div>
-                        <div>
-                        <StyleButtonBack onClick={() => handleClickShow()}>Mostrar</StyleButtonBack> 
-                        </div>
-                        <div>
-                        {existingform.length ? <StyleButtonAccepted onClick={() => handleClickEdit()}>Editar</StyleButtonAccepted> : <StyleButtonAccepted onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonAccepted>} 
-                        </div> 
-                    </StyledDivFlexrow>   
-                </div>
-                <br></br>
-                <br></br>
+
+                    <br></br>
+                   
+                    {question.length > 0 ? <StyleButtonMini onClick={(e) => handleClickDelete(e)} value='all'> Limpiar</StyleButtonMini>: ""}  
+                  
+                  
+                    <StyleButtonMini onClick={() => handleClickShow()}>Mostrar</StyleButtonMini> 
+                   
+                   
+                    {existingform.length ? <StyleButtonMini onClick={() => handleClickEdit()}>Editar</StyleButtonMini> : <StyleButtonMini onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonMini>}   
+
+                   
+                  
+                <br></br> 
                 <div>
                     <table>
                         <tr>
@@ -138,15 +151,18 @@ export const DashboardCreateForm = () => {
                                 <tr key={e}>
                                     <td>{questions.filter(q => q.id === Number(e))[0].id}</td>
                                     <td>{questions.filter(q => q.id === Number(e))[0].question}</td>
-                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}>✘</StyleButtonRejected></td>
+                                    <td><StyleButtonMini onClick={() => handleClickDelete(e)}>✘</StyleButtonMini></td>
                                 </tr>
                             )): null}
                         </tbody>
                     </table>
                 </div>
+
+            </div></Right>
+           
+        </StyledDashboardForms>
+
             
-            </div>
-        </StyledDashboardAnswersForm>
     )
 }
 

@@ -9,7 +9,7 @@ export const DivContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-top: 5px;
-  padding :13px;
+  padding :15px;
  
  
   h1 {
