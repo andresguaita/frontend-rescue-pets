@@ -78,6 +78,13 @@ line-height: 1px;
 
 `
 
+export const LongInput = styled.input`
+font-size: 12px;
+width: 100%;
+height: 20px;
+margin: 0;
+`
+
 export const Button3 = styled.button`
 margin: 0.2em;
   background-color: ${allColors.colors[8]};
@@ -144,6 +151,8 @@ td {
 border: 1px solid  white;
 text-align: center;
 padding: 8px;
+padding-left: 4px;
+padding-right: 4px;
 font-size: 10px;
 
 overflow-x:auto;
