@@ -26,6 +26,7 @@ import LoginAdmin from "./components/LoginAdmin";
 import { AdminRoutes } from "./AdminRoutes";
 import { DashboardRoutesAdmin } from "./DashboardRoutesAdmin";
 import { DashboardAdmin } from "./components/DashboardAdmin";
+import TechSupport from './components/TechSupport.jsx'
 
 
 
@@ -147,7 +148,12 @@ function App() {
         } />
 
 
-
+        <Route path='/help' element={
+        <>
+        <Navbar/>
+        <TechSupport/>
+        </>
+      }/>
       </Routes>
 
 

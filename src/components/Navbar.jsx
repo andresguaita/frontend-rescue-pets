@@ -7,9 +7,8 @@ import Search from './Search';
 
 export default function Navbar() {
     return (
-        <Fragment>
-            <header>
-              
+        <div style={{backgroundColor:'#6F8AB7'}}>
+              <header>
                     <StyleNavBar>
                         <ul>
                         <Divmenu>
@@ -27,8 +26,7 @@ export default function Navbar() {
                             </Divmenu> 
                             </ul>
                     </StyleNavBar>
-                
-            </header>
-        </Fragment>
+                    </header>
+        </div>
     );
 }
