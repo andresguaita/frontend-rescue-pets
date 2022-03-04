@@ -64,6 +64,8 @@ export function CreatePets() {
 
   const Genres = useSelector((state) => state.allGenres);
 
+  const shelterID = useSelector(state => state.ShelterAndCityId);
+
   const [state, setState] = useState({
     name: "",
     sterilization: "",
@@ -71,10 +73,10 @@ export function CreatePets() {
     description: "",
     image: "",
     speciesId: "",
-    shelterId: "",
+    shelterId: shelterID? shelterID.shelterId : '',
     temperamentId: "",
     ageId: "",
-    petStatusId: "",
+    petStatusId: Status? Status[0].id : '',
     genreId: "",
   });
 
@@ -229,7 +231,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        <select onChange={handleSelectShelter}>
+        {/* <select onChange={handleSelectShelter}>
           <option disabled selected>
             -- Seleccione Refugio --
           </option>
@@ -238,7 +240,7 @@ export function CreatePets() {
               {e.name}
             </option>
           ))}
-        </select>
+        </select> */}
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -265,7 +267,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        <select onChange={handleSelectState}>
+        {/* <select onChange={handleSelectState}>
           <option disabled selected>
             -- Seleccione Estado --
           </option>
@@ -274,7 +276,7 @@ export function CreatePets() {
               {e.status}
             </option>
           ))}
-        </select>
+        </select> */}
         <br />
         <br />
         <select onChange={handleSelectGenres}>
