@@ -7,7 +7,7 @@ import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button3
+  Container, Center, CenterChild ,Table,Button,Button3, 
 } from "../Styles/StyledPetsInDashboard"
 
 
@@ -52,7 +52,7 @@ const FollowUP = () => {
     event.preventDefault();
     seteditFormData({
       ...editFormData,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value === "" ? null : event.target.value
       
     })}
 
@@ -76,7 +76,7 @@ const FollowUP = () => {
 
     const handleEditedFormSubmit =  async (event) => {
       event.preventDefault();
-     await dispatch(editFollowUp(editFollowUpId, editFormData))
+      await dispatch(editFollowUp(editFollowUpId, editFormData))
       await dispatch(getFollowUpsFromShelter(shelterId))
       setEditFollowUpId(null);
 

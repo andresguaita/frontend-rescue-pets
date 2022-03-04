@@ -1,4 +1,5 @@
 import React from 'react'
+import { LongInput } from '../Styles/StyledPetsInDashboard'
 
 const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleCancelClick, allFollowUpStatuses}) => {
     
@@ -20,18 +21,18 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
         <td>{data.profile.address}</td>
         <td>{data.profile.phoneNumber}</td>
         <td>
-            <input
-            type="input"
+            <LongInput
+            type="date"
             // required="required"
             // placeholder='Capture fecha...'
             name='followUpDate1'
-            value={editFormData.followUpDate1? editFormData.followUpDate1.slice(0,10) : null}
+            value={editFormData.followUpDate1? editFormData.followUpDate1.slice(0,10) : null }
             onChange={handleEditFormChange}
-            ></input>
+            ></LongInput>
         </td>
         <td>
             <input
-            type="input"
+            type="date"
             // required="required"
             // placeholder='Capture fecha...'
             name='followUpDate2'
@@ -41,7 +42,7 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
         </td>
         <td>
             <input
-            type="input"
+            type="date"
             // required="required"
             // placeholder='Capture fecha...'
             name='followUpDate3'
@@ -56,5 +57,7 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
     </tr>
   )
 }
+
+
 
 export default EditableRowsFollowUp
