@@ -11,9 +11,11 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { validateForm } from "../helpers/validation";
 import TerminosyCondiciones from "./TerminosyCondiciones";
+import Img from "../Icos/homeim5.svg"
 
 //estilos
-import { DivContainer } from "../Styles/StyledFormTransit";
+import { DivContainer ,  Left, Right , Centro} from "../Styles/StyledFormTransit";
+
 
 const FormTransit = ({ id,shelterName }) => {
   const dispatch = useDispatch();
@@ -134,65 +136,71 @@ const FormTransit = ({ id,shelterName }) => {
   }
 
   return (
-    <DivContainer>
+    <DivContainer> 
+    
+      
+       <Left>
       <h1>FORMULARIO DE TRÁNSITO</h1>
       <p>Estas a un paso de cambiar una vida</p>
       <form className="formulario">
-        <div>
-          <label>Nombre obligatorio</label>
+     
+         
           <input
             type="text"
+            placeholder="Nombre obligatorio"
             className="inputForm"
             value={profileData.name}
             name="name"
             onChange={(e) => handleChangeProfile(e)}
           />
-        </div>
+        <br></br>
 
-        <div>
-          <label>Apellido</label>
+       
           <input
             type="text"
             className="inputForm"
             value={profileData.lastName}
             name="lastName"
+            placeholder="Apellido"
             onChange={(e) => handleChangeProfile(e)}
           />
-        </div>
+       
 
-        <div>
-          <label>Whastapp</label>
+       
+       <br></br>
           <input
             type="tel"
             className="inputForm"
             value={profileData.phoneNumber}
             name="phoneNumber"
+            placeholder="Whastapp"
             onChange={(e) => handleChangeProfile(e)}
           />
-        </div>
+         <br></br> 
 
-        <div>
-          <label>Dirección</label>
-          <span>dirección, ciudad, provincia/estado</span>
+       
+        
           <input
             type="text"
+            placeholder="Dirección (Ciudad, provincia/estado)"
             className="inputForm"
             value={profileData.address}
             name="address"
             onChange={(e) => handleChangeProfile(e)}
           />
-        </div>
+       <br></br> 
 
-        <div>
-          <label>Email</label>
+     
+         
           <input
+          placeholder="Email"
             type="email"
             className="inputForm"
             value={profileData.email}
             name="email"
             onChange={(e) => handleChangeProfile(e)}
           />
-        </div>
+    
 
         {form[0] &&
           form[0].questions.map((e) => (
@@ -243,7 +251,13 @@ const FormTransit = ({ id,shelterName }) => {
           {errors.email && <p>{errors.email}</p>}
         </div>
       </form>
-    </DivContainer>
+      </Left>
+
+        <Right>
+<img src={Img} className="icos40"></img>
+
+        </Right>
+</DivContainer>
   );
 };
 
