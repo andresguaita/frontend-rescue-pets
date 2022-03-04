@@ -17,7 +17,7 @@ export default function NavbarDashboard() {
     }
 
     return (
-        <Fragment>
+        <div style={{backgroundColor:'#6F8AB7'}}>
             <header>
               
                     <StyleNavBar>
@@ -41,6 +41,6 @@ export default function NavbarDashboard() {
                     </StyleNavBar>
                 
             </header>
-        </Fragment>
+        </div>
     );
 }
