@@ -157,7 +157,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
     case GET_PETS_FILTER:
       return {
         ...state,
-        petsfilter: payload,
+        petsfilter: payload.filter(e => e.petStatusId === 1 && e.hideFromDash === false),
       };
 
     case authLogin:
