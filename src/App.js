@@ -22,11 +22,15 @@ import { ForgotPassword } from "./components/ForgotPassword";
 import { ResetPassword } from "./components/ResetPassword";
 import { ConfirmedAccount } from "./components/ConfirmedAccount";
 import { ReviewEmail } from "./components/ReviewEmail";
+
+import Favorites from "./components/Favorites";
+
 import LoginAdmin from "./components/LoginAdmin";
 import { AdminRoutes } from "./AdminRoutes";
 import { DashboardRoutesAdmin } from "./DashboardRoutesAdmin";
 import { DashboardAdmin } from "./components/DashboardAdmin";
 import TechSupport from './components/TechSupport.jsx'
+
 
 
 
@@ -70,14 +74,27 @@ function App() {
           </PublicRoute>
         } />
 
+
+        <Route path="/favorites" element={
+          <PublicRoute>
+            <Navbar/>
+            <Favorites />
+    </PublicRoute>
+        } />
+
         
 <Route path="/admin/login" element={
           <PublicRoute>
             <Navbar/>
             <LoginAdmin />
 
+
           </PublicRoute>
         } />
+
+
+
+
 
         <Route path="/register" element={
           <PublicRoute>

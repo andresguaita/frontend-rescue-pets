@@ -64,7 +64,12 @@ export const GET_FOLLOW_UPS_STATUSES = 'GET_FOLLOW_UPS_STATUSES'
 export const GET_COUNT_SHELTER = 'GET_COUNT_SHELTER'
 export const GET_COUNT_ADOPTED2 = 'GET_COUNT_ADOPTED2'
 export const GET_COUNT_ADOPTED3 = 'GET_COUNT_ADOPTED3'
+
+export const ADD_TO_FAVORITES= 'ADD_TO_FAVORITES'
+export const REMOVE_FROM_FAVORITES ='REMOVE_FROM_FAVORITES'
+
 export const EDIT_HIDE_PETS_IN_DASHBOARD = 'EDIT_HIDE_PETS_IN_DASHBOARD'
 export const authStartLoginAdmin = 'Start Login Admin'
 export const authLoginAdmin= 'authLoginAdmin'
 export const EDIT_PET_STAUTS_ID = 'EDIT_PET_STAUTS_ID'
+
