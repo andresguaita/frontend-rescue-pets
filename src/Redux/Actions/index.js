@@ -684,11 +684,16 @@ export const sendEmailFormstoShelter = (payload) => {
 }
 
 export const postHelpSupport = (payload) => {
-    console.log(payload)
     return async function () {
-        let response = await axios.post(`${APIGATEWAY_URL}/techSuport`, payload);
-        return response;
+        await axios.post(`${APIGATEWAY_URL}/techSuport`, payload);
+        Swal.fire(
+            "Genial!",
+            "Registro realizado correctamente. Pronto nos comunicaremos contigo",
+            "sucess"
+          );
+        
     }
+    
 };
 
 

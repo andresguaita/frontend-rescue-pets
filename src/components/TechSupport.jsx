@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { DivContainer, StyledButton } from "../Styles/StyledTech.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {postHelpSupport} from '../Redux/Actions/index'
 import Swal from "sweetalert2";
 
@@ -8,11 +8,14 @@ function TechSupport() {
 
 const dispatch = useDispatch()
 
+let {email} = useSelector(state => state)
+
+
 let [payload, setPayload] = useState({
-    email: "",
+    email: email ? email : '',
     type: "",
     description: "",
-    isUser: false
+    isUser: email ? true : false
 })
 
 const handleChange = (e) => {
@@ -32,11 +35,7 @@ const handleSelect = (e) => {
 function handleSubmit(e){
 e.preventDefault()
 dispatch(postHelpSupport(payload))
-Swal.fire(
-  "Genial!",
-  "Registro realizado correctamente. Pronto nos comunicaremos contigo",
-  "sucess"
-);
+
 setPayload({
   email: "",
   type: "",
@@ -53,7 +52,7 @@ setPayload({
         <fieldset>
           <legend>Escribenos tu consulta</legend>
 
-          <div className="campo">
+          {!email && <div className="campo">
             <label>Email: </label>
             <input
               className="inputForm"
@@ -63,7 +62,7 @@ setPayload({
               value={payload.email}
               onChange={(e)=>handleChange(e)}
             />
-          </div>
+          </div>}
 
           <div className="campo">
             <label>Motivo: </label>
