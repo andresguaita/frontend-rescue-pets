@@ -17,21 +17,13 @@ export default function NavbarDashboard() {
     }
 
     return (
-        <div style={{backgroundColor:'#6F8AB7'}}>
+        <Fragment>
             <header>
               
                     <StyleNavBar>
                         <ul>
                         <Divmenu>
-                            <StyleLi>
-                            <NavLink activeclassname="active" to="/" >Al sitio</ NavLink>
-                            </StyleLi>
-                            <StyleLi>
-                                <NavLink activeclassname="active" to="dashboard/profile">Perfil</NavLink>
-                            </StyleLi>
-                            <StyleLi>
-                                <NavLink activeclassname="active" to="dashboard/config"><i className="fas fa-cog"></i></NavLink>
-                            </StyleLi>
+
                             <StyleLi>
                                 <Button onClick={handleLogout}>Salir</Button>
                             </StyleLi>
@@ -41,6 +33,6 @@ export default function NavbarDashboard() {
                     </StyleNavBar>
                 
             </header>
-        </div>
+        </Fragment>
     );
 }

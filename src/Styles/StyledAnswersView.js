@@ -19,7 +19,7 @@ export const StyledAnswersView = styled.div`
       font-size: 20px;
       background-color: rgba(97, 93, 108,0.6);
       color: rgba(255,255,255,0.9);
-    
+      box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
     }
 
     h2{

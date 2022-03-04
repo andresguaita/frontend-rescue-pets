@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen } from '../Redux/Actions'
+import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen, hidePetInDashbaord } from '../Redux/Actions'
 import styled from 'styled-components';
 import ReadOnlyRows from './ReadOnlyRows';
 import EditableRows from './EditableRows';
@@ -10,7 +10,7 @@ import CreatePets from './CreatePets'
 
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button2
+  Container, Center, CenterChild ,Table,Button,Button3
 } from "../Styles/StyledPetsInDashboard"
 
 
@@ -19,7 +19,7 @@ const PetsInDashboard = () => {
   let modaldashboard = useSelector((state) => state.modaldashboard);
     const dispatch = useDispatch()
 
-    
+
     useEffect(() => {
       dispatch(getAllSpecies())
       dispatch(gettTemperaments())
@@ -27,7 +27,7 @@ const PetsInDashboard = () => {
       dispatch(getAllAges())
       dispatch(getGenres())
     }, [])
-    
+
     const allSpecies = useSelector(state => state.allspecies)
     const allTemperaments = useSelector(state => state.ttemperaments)
     const allPetStatus = useSelector(state => state.petStatus)
@@ -37,10 +37,12 @@ const PetsInDashboard = () => {
 
     const routeInfo = useSelector(state => state.ShelterAndCityId)
     const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
-    
+
     const petsFromShelter = useSelector( state => state.petsForDashboard )
     // console.log("petsFromShelter -------------->", petsFromShelter)
     
+    // console.log("filteredPets---------------->", filteredPets)
+
     const [data, setData] = useState('')
 
     useEffect(()=>{
@@ -49,24 +51,28 @@ const PetsInDashboard = () => {
 
 
 
-      
+
       useEffect(() => {
-          setData(petsFromShelter)
+        const filteredPets = petsFromShelter.filter(el => el.hideFromDash === false)
+          setData(filteredPets)
       }, [petsFromShelter])
-      
+
+
 
 
     const [editFormData, seteditFormData] = useState({
-      name: '',
-      sterilization: '',
-      weight: '',
-      description: '',
-      image: '',
-      speciesId: '',
-      temperament: '',
-      age: '',
-      petStatus: '',
-      genreId: ''
+      // name: '',
+      // sterilization: '',
+      // weight: '',
+      // description: '',
+      // image: '',
+      // speciesId: '',
+      // temperament: '',
+      // temperament2: '',
+      // age: '',
+      // petStatus: '',
+      // genreId: ''
+
     })
 
     const handleEditFormChange = (event) => {
@@ -95,23 +101,29 @@ const PetsInDashboard = () => {
       const formValues = {
         name: data.name,
         sterilization: data.sterilization,
+        sterilization2: data.sterilization,
         weight: data.weight,
         description: data.description,
-        image: <img src={data.image}></img>,
+        image: data.image,
         speciesId: data.speciesId,
-        temperament: data.temperament,
-        age: data.age,
-        petStatus: data.petStatus,
-        genreId: data.genreId
+        species2: data.species,
+        temperament: data.temperament.id,
+        temperament2: data.temperament,
+        age: data.age.id,
+        age2: data.age,
+        petStatus: data.petStatus.id,
+        petStatus2: data.petStatus,
+        genreId: data.genre.id,
+        genre2: data.genre
       }
       seteditFormData(formValues)
-      
+
     }
 
-    const handleEditedFormSubmit = (event) => {
+    const handleEditedFormSubmit = async (event) => {
       event.preventDefault();
-      dispatch(editPet(editPetId, editFormData))
-      dispatch(getPetsForDashboard(route))
+      await dispatch(editPet(editPetId, editFormData))
+      await dispatch(getPetsForDashboard(route))
       seteditPetId(null);
       // const editedPetInfo = {
       //   id: editPetId,
@@ -138,10 +150,14 @@ const PetsInDashboard = () => {
       seteditPetId(null);
     }
 
-    const handleDeleteClick = (event, petId) => {
+    const handleDeleteClick = async (event, petId) => {
       event.preventDefault();
-      dispatch(deletePet(petId))
-      dispatch(getPetsForDashboard(route))
+      // dispatch(deletePet(petId))
+      const hidden = {
+          hideFromDash: true
+      }
+      await dispatch(hidePetInDashbaord(petId, hidden))
+      await dispatch(getPetsForDashboard(route))
       // const newData = [...data];
       // const index = data.findIndex((pet) => pet.id === petId)
       // newData.splice(index, 1)
@@ -150,16 +166,33 @@ const PetsInDashboard = () => {
 
     function handleClickModalCreate(evento, data) {
       dispatch(ModalDashboardOpen(data));
+    
   }
 
 
   return (
     <Center>
-         {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
-        <CenterChild>
 
+        {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
+        <CenterChild>
+        <Button3 onClick={
+                    (event) => handleClickModalCreate(event, "CreatePets")
+                }
+                className="but">
+
+                <br/>
+                Nueva Mascota
+            </Button3>
+
+            <Link to='/dashboard/pets/FollowUp'>
+      <Button3>Seguimiento a Mascotas adoptadas</Button3>
+      </Link>
+
+      <Link to='/dashboard'>
+      <Button3>Regresar</Button3>
+      </Link> <br></br><br></br>
       <form onSubmit={handleEditedFormSubmit}>
-          <Table>
+          <Table  >
               <thead>
               <tr>
                   <th>Nombre</th>
@@ -177,7 +210,7 @@ const PetsInDashboard = () => {
               </thead>
               <tbody>
               {
-                typeof(data) !== "string" && data.length? data.map(data => 
+                typeof(data) !== "string" && data.length? data.map(data =>
                   <Fragment>
                     {editPetId === data.id ? (
                       <EditableRows
@@ -203,34 +236,19 @@ const PetsInDashboard = () => {
               </tbody>
           </Table>
       </form>
-      
 
-       
-      <Button onClick={
-                    (event) => handleClickModalCreate(event, "CreatePets")
-                }
-                className="but">
-            
-                <br/>
-                Nueva Mascota
-            </Button>
-          
-            <Link to='/dashboard/pets/FollowUp'>
-      <Button>Seguimiento a Mascotas adoptadas</Button>
-      </Link> 
 
-      <Link to='/dashboard'>
-      <Button>Regresar</Button>
-      </Link> 
+
+
 
       {/* <Link to='/dashboard/CreatePets'>
       <Button>Crear nueva Mascota</Button>
       </Link>   */}
           </CenterChild>
     </Center>
-    
 
-    
+
+
   )
 }
 

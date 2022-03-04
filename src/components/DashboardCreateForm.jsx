@@ -2,9 +2,11 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
+import { Left, Right, StyledDashboardForms } from '../Styles/StyledDashboardForms'
 import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateForm } from '../Redux/Actions/index'
+import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
 import { useState } from "react"
+import Img from "../Icos/homeim1.svg"
 
 export const DashboardCreateForm = () => {
     const navigate = useNavigate()
@@ -18,6 +20,7 @@ export const DashboardCreateForm = () => {
     const [question, setquestion] = useState([])
     const [form, setform] = useState()
 
+    
     useEffect(() => {
         dispatch(getFormtypes())
         dispatch(getAllQuestions())
@@ -87,7 +90,9 @@ export const DashboardCreateForm = () => {
 
     return (
         <StyledDashboardForms>
-            <button onClick={handleClick}>{'<'}Volver</button>
+            <Left><img src={Img}/></Left>
+            <Right>
+            <StyleButtonBack onClick={handleClick}>{'Regresar'}</StyleButtonBack>
             <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>
             <div>
                 <div>
@@ -99,8 +104,7 @@ export const DashboardCreateForm = () => {
                             <option key={e.id} value={e.id} name={e.typeName}>{e.typeName}</option>
                         )):'Cargando'}
                     </select>
-                        <br></br>
-                        <br></br>
+                     
                     <select onChange={(e) => handleSubmitQuestion(e)}>
                         <option disabled selected>
                             Preguntas
@@ -110,17 +114,17 @@ export const DashboardCreateForm = () => {
                         )):'No cargó preguntas'}
                     </select>
                     <br></br>
-                    <br></br>
-                    <button onClick={(e) => handleClickDelete(e)} value='all'>Delete ✘</button>
-                    <br></br>
-                    <br></br>
-                    <button onClick={() => handleClickShow()}>Mostrar</button> 
-                    <br></br>
-                    <br></br>
-                    {existingform.length ? <button onClick={() => handleClickEdit()}>Editar</button> : <button onClick={() => handleSubmitFormCreated()}>Crear</button>}   
+                   
+                    {question.length > 0 ? <StyleButtonMini onClick={(e) => handleClickDelete(e)} value='all'> Limpiar</StyleButtonMini>: ""}  
+                  
+                  
+                    <StyleButtonMini onClick={() => handleClickShow()}>Mostrar</StyleButtonMini> 
+                   
+                    
+                    {existingform.length ? <StyleButtonMini onClick={() => handleClickEdit()}>Editar</StyleButtonMini> : <StyleButtonMini onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonMini>}   
                 </div>
                 <br></br>
-                <br></br>
+                <br></br> 
                 <div>
                     {<h2>{titleFormType}</h2>}
                     <table>
@@ -134,15 +138,15 @@ export const DashboardCreateForm = () => {
                                 <tr key={e}>
                                     <td>{questions.filter(q => q.id === Number(e))[0].id}</td>
                                     <td>{questions.filter(q => q.id === Number(e))[0].question}</td>
-                                    <td><button onClick={() => handleClickDelete(e)}>✘</button></td>
+                                    <td><StyleButtonMini onClick={() => handleClickDelete(e)}>✘</StyleButtonMini></td>
                                 </tr>
                             )): null}
                         </tbody>
                     </table>
                 </div>
             
-            </div>
+            </div></Right>
+           
         </StyledDashboardForms>
     )
 }
-

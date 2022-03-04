@@ -95,6 +95,7 @@ export const StyleButtonAccepted = styled.button`
   font-weight: bold;
   color : white;
   cursor: pointer;
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   a {
     color: white;
   }
@@ -115,6 +116,7 @@ export const StyleButtonRejected = styled.button`
   font-weight: bold;
   color : white;
   cursor: pointer;
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   a {
     color: white;
   }
@@ -128,11 +130,13 @@ export const StyleButtonView = styled.button`
   font-size: 20px;
   border-radius: 10px;
   border-style: none;
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   &:hover{
     background-color: ${allColors.colors[8]};
-    position: fixed;
+    position: absolute;
+    z-index: 2;
     margin-left: -65px;
-    margin-top: -29px; 
+    margin-top: -28px;
     height: 60px;
     width: 130px;
   }
@@ -150,6 +154,7 @@ export const StyleButtonBack = styled.button`
   font-weight: bold;
   color : white;
   cursor: pointer;
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   a {
     color: white;
   }

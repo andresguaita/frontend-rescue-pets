@@ -50,8 +50,13 @@ import {
   GET_COUNT_SHELTER,
   GET_COUNT_ADOPTED2,
   GET_COUNT_ADOPTED3,
+
   REMOVE_FROM_FAVORITES,
   ADD_TO_FAVORITES
+
+  authLoginAdmin
+
+
 } from "../Actions/types";
 
 
@@ -178,7 +183,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
     case GET_PETS_FILTER:
       return {
         ...state,
-        petsfilter: payload,
+        petsfilter: payload.filter(e => e.petStatusId === 1 && e.hideFromDash === false),
       };
 
     case authLogin:
@@ -187,6 +192,14 @@ export default function rooReducer(state = initialState, { type, payload }) {
         checking: false,
         ...payload,
       };
+    
+    case authLoginAdmin:{
+      return{
+        ...state,
+        checking:false,
+        ...payload
+      }
+    }
 
     case authCheckingFinish:
       return {
@@ -328,6 +341,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
         checking : false,
         id: null,
         email: null,
+        rol: null,
         formtypes: [],
        petsForDashboard: []
        ,ShelterAndCityId : [],

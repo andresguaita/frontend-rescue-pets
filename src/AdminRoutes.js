@@ -5,15 +5,15 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 
 
-export const PrivateRoute = ({ children }) => {
+export const AdminRoutes = ({ children }) => {
 
-    const { checking ,id, rol} = useSelector(state => state)
+    const { checking ,id, rol } = useSelector(state => state)
 
     if (checking) {
         return <h1>Espere...</h1>
       }
     
-    return (!!id && rol!=3)
+    return !!rol
         ? children
-        : <Navigate to="/login" />
+        : <Navigate to="/admin/login" />
 }
