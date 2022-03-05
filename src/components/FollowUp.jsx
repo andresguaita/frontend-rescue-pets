@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp } from '../Redux/Actions'
+import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp, hideFollowUpfromDash } from '../Redux/Actions'
 import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
 
@@ -38,7 +38,8 @@ const FollowUP = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-    setData(allFollowUps)
+    const filteredFollowUps = allFollowUps.filter(el => el.hideFollowUp === false)
+    setData(filteredFollowUps)
   }, [allFollowUps])
 
   const [editFormData, seteditFormData] = useState({
@@ -89,7 +90,11 @@ const FollowUP = () => {
 
     const handleDeleteClick = async (event, followUpId) => {
       event.preventDefault();
-      await dispatch(deleteFollowUp(followUpId))
+      const payload = {
+        hideFollowUp: true
+      }
+      // await dispatch(deleteFollowUp(followUpId))
+      await dispatch(hideFollowUpfromDash(followUpId, payload))
       await dispatch(getFollowUpsFromShelter(shelterId))
     }
 

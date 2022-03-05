@@ -17,7 +17,7 @@ const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick}) => {
             <td>{data.followUpDate3? data.followUpDate3.slice(0,10) : null}</td>
             <td>
                 <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>
-                <button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Eliminar</button>
+                <button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Ocultar</button>
             </td>
         </tr>
     )
