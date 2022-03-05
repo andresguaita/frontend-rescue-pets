@@ -99,7 +99,6 @@ const initialState = {
   shelter: [],
   Shelters: [],
   forms: [],
-  status: [],
   petOne: [],
   ShelterAndCityId: {},
   shelterDetail: {},
