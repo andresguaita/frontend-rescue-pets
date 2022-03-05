@@ -56,8 +56,11 @@ import {
   GET_PETS_FILTER_FOR_ADMIN,
   GET_ONLY_STATES_WITH_SHELTERS,
   authLoginAdmin,
-  GET_STATUS_FOR_ADMIN
-
+  GET_STATUS_FOR_ADMIN,
+  GET_SPECIES_FOR_ADMIN,
+  GET_PET_GENRE_FOR_ADMIN,
+  GET_PET_HIDE_FOR_ADMIN,
+  GET_SHELTER_OF_PET_FOR_ADMIN
 } from "../Actions/types";
 
 
@@ -126,8 +129,11 @@ const initialState = {
   countAdopted2:{},
   onlyStatesWithShelter : [],
   statusForAdmin: [],
+  speciesForAdmin: [],
+  genresForAdmin: [],
+  hideForAdmin: [],
+  shelterOfPetForAdmin: [],
   favorites: checkLocalStorage()
-
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -551,7 +557,63 @@ export default function rooReducer(state = initialState, { type, payload }) {
               return {
                 ...state,
                 statusForAdmin: filteredStatusForAdmin,
-              };  
+              };
+            
+            case GET_SPECIES_FOR_ADMIN:
+              let filterSpeciesForAdmin = [];
+
+              state.petsfilterforadmin.map((e) => {
+                if (!filterSpeciesForAdmin.length) return filterSpeciesForAdmin.push(e.species);
+                let ele = e.species.id;
+                let obj = filterSpeciesForAdmin.find((s) => s.id === ele);
+                if (!obj) return filterSpeciesForAdmin.push(e.species);
+              });
+              return {
+                ...state,
+                speciesForAdmin: filterSpeciesForAdmin,
+              };
+
+            case GET_PET_GENRE_FOR_ADMIN:
+              let filterGenresForAdmin = []
+              
+              state.petsfilterforadmin.map((e) => {
+                if(!filterGenresForAdmin.length) return filterGenresForAdmin.push(e.genre)
+                let ele = e.genre.id
+                let obj = filterGenresForAdmin.find((g) => g.id === ele)
+                if(!obj) return filterGenresForAdmin.push(e.genre)
+              })
+              return {
+                ...state,
+                genresForAdmin: filterGenresForAdmin,
+              }
+            
+            case GET_PET_HIDE_FOR_ADMIN:
+              let filterHideForAdmin = []
+              
+              state.petsfilterforadmin.map((e) => {
+                if(!filterHideForAdmin.length) return filterHideForAdmin.push(e.hideFromDash)
+                let ele = e.hideFromDash
+                let obj = filterHideForAdmin.find((h) => h === ele)
+                if(!obj) return filterHideForAdmin.push(e.hideFromDash)
+              })
+              return {
+                ...state,
+                hideForAdmin : filterHideForAdmin,
+              }
+
+            case GET_SHELTER_OF_PET_FOR_ADMIN:
+              let filterShelterPetForAdmin = []
+              
+              state.petsfilterforadmin.map((e) => {
+                if(!filterShelterPetForAdmin.length) return filterShelterPetForAdmin.push(e.shelter)
+                let ele = e.shelter.id
+                let obj = filterShelterPetForAdmin.find(sh => sh.id === ele)
+                if(!obj) return filterShelterPetForAdmin.push(e.shelter)
+              })
+              return {
+                ...state,
+                shelterOfPetForAdmin: filterShelterPetForAdmin,
+              }
         default:
           return state;
       }
