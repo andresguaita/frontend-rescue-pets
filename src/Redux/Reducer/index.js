@@ -54,7 +54,8 @@ import {
   REMOVE_FROM_FAVORITES,
   ADD_TO_FAVORITES,
 
-  authLoginAdmin
+  authLoginAdmin,
+  GET_ALL_SHELTERS
 
 
 } from "../Actions/types";
@@ -94,8 +95,6 @@ const initialState = {
   Shelters: [],
   forms: [],
   status: [],
-  shelter: [],
-  Shelters: [],
   petOne: [],
   ShelterAndCityId: {},
   shelterDetail: {},
@@ -123,7 +122,8 @@ const initialState = {
   countShelters:{},
   countAdopted2:{},
   countAdopted3:{},
-
+ 
+  allShelters: {},
 
   favorites: checkLocalStorage()
 
@@ -516,6 +516,13 @@ export default function rooReducer(state = initialState, { type, payload }) {
                     {}
                   ),
               };
+
+          case GET_ALL_SHELTERS:
+
+          return {
+            ...state,
+            allShelters: payload
+          }
 
         default:
           return state;

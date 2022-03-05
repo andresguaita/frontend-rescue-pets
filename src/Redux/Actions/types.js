@@ -73,3 +73,4 @@ export const authStartLoginAdmin = 'Start Login Admin'
 export const authLoginAdmin= 'authLoginAdmin'
 export const EDIT_PET_STAUTS_ID = 'EDIT_PET_STAUTS_ID'
 
+export const GET_ALL_SHELTERS= 'GET_ALL_SHELTERS'

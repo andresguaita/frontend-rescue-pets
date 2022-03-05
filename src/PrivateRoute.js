@@ -13,7 +13,7 @@ export const PrivateRoute = ({ children }) => {
         return <h1>Espere...</h1>
       }
     
-    return (!!id && rol!=3)
+    return (!!id && rol==1)
         ? children
         : <Navigate to="/login" />
 }
