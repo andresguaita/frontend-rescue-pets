@@ -61,8 +61,8 @@ import {
   GET_SPECIES_FOR_ADMIN,
   GET_PET_GENRE_FOR_ADMIN,
   GET_PET_HIDE_FOR_ADMIN,
-  GET_SHELTER_OF_PET_FOR_ADMIN
-
+  GET_SHELTER_OF_PET_FOR_ADMIN,
+  RESET_INDIVIDUAL_FORM
 } from "../Actions/types";
 
 
@@ -624,6 +624,13 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 shelterOfPetForAdmin: filterShelterPetForAdmin,
               }
+            
+              
+            case RESET_INDIVIDUAL_FORM:
+              return {
+                ...state,
+                individualform: []
+              }  
 
         default:
           return state;
