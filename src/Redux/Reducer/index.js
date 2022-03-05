@@ -61,7 +61,8 @@ import {
   GET_SPECIES_FOR_ADMIN,
   GET_PET_GENRE_FOR_ADMIN,
   GET_PET_HIDE_FOR_ADMIN,
-  GET_SHELTER_OF_PET_FOR_ADMIN
+  GET_SHELTER_OF_PET_FOR_ADMIN,
+  GET_ALL_FOLLOW_UP_TRANSITS
 
 } from "../Actions/types";
 
@@ -134,6 +135,7 @@ const initialState = {
   genresForAdmin: [],
   hideForAdmin: [],
   shelterOfPetForAdmin: [],
+  followUpTransits: [],
   favorites: checkLocalStorage()
 };
 
@@ -624,6 +626,12 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 shelterOfPetForAdmin: filterShelterPetForAdmin,
               }
+
+              case GET_ALL_FOLLOW_UP_TRANSITS:
+                return {
+                  ...state,
+                  followUpTransits : payload
+                }
 
         default:
           return state;
