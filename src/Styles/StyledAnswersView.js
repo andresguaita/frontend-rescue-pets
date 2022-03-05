@@ -13,6 +13,8 @@ export const StyledAnswersView = styled.div`
     border-radius: 20px;
     
     div{
+      margin-right: 50px;
+      margin-left: 50px;
       border-radius: 20px;
       text-align: center;
       font-size: 20px;
@@ -23,8 +25,10 @@ export const StyledAnswersView = styled.div`
 
     h2{
       font-size: 22px;
+      font-weight: bold;
     }
     h3{
       font-size: 18px;
+      color: black;
     }
   `;

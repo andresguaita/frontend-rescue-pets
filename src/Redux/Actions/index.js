@@ -76,6 +76,7 @@ import {
     GET_PET_HIDE_FOR_ADMIN,
     GET_SHELTER_OF_PET_FOR_ADMIN,
     ADD_FOLLOW_UP_TRANSIT,
+    RESET_INDIVIDUAL_FORM,
     GET_ALL_FOLLOW_UP_TRANSITS
     } from './types.js'
 import { async } from '@firebase/util';
@@ -705,8 +706,8 @@ export const postHelpSupport = (payload) => {
 
 export const addFollowUpTransit = (data) => {
     return async function (dispatch) {
-        const followUpTransit= await axios.post(`${APIGATEWAY_URL}/addFollowUpTransit`);
-        return dispatch({ type: ADD_FOLLOW_UP_TRANSIT, payload:data });
+        const followUpTransit= await axios.post(`${APIGATEWAY_URL}/addFollowUpTransit`, data);
+        return dispatch({ type: ADD_FOLLOW_UP_TRANSIT, payload:followUpTransit });
     };
 }
 
@@ -994,4 +995,8 @@ export const getHideForAdmin = () => {
 export const getShelterOfPetForAdmin = () => {
     return {type: GET_SHELTER_OF_PET_FOR_ADMIN, payload:null}
 
+}
+
+export const resetIndivualForm = () => {
+    return {type: RESET_INDIVIDUAL_FORM, payload: null}
 }
