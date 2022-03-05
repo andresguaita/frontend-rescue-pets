@@ -55,8 +55,8 @@ import {
   ADD_TO_FAVORITES,
   GET_PETS_FILTER_FOR_ADMIN,
   GET_ONLY_STATES_WITH_SHELTERS,
-  authLoginAdmin
-
+  authLoginAdmin,
+  GET_STATUS_FOR_ADMIN
 
 } from "../Actions/types";
 
@@ -125,7 +125,7 @@ const initialState = {
   countAdopted1:{},
   countAdopted2:{},
   onlyStatesWithShelter : [],
-
+  statusForAdmin: [],
   favorites: checkLocalStorage()
 
 };
@@ -537,7 +537,21 @@ export default function rooReducer(state = initialState, { type, payload }) {
               return{
                 ...state,
                 onlyStatesWithShelter : temporal2
-              }  
+              }
+            
+            case GET_STATUS_FOR_ADMIN:
+              let filteredStatusForAdmin = [];
+        
+              state.petsfilterforadmin.map((el) => {
+                if (!filteredStatusForAdmin.length) return filteredStatusForAdmin.push(el.petStatus);
+                let ele = el.petStatus.id;
+                let obj = filteredStatusForAdmin.find((sta) => sta.id === ele);
+                if (!obj) return filteredStatusForAdmin.push(el.petStatus);
+              });
+              return {
+                ...state,
+                statusForAdmin: filteredStatusForAdmin,
+              };  
         default:
           return state;
       }

@@ -54,7 +54,7 @@ import {
     GET_FORM_BY_SHELTER,
     GET_FOLLOW_UPS_FROM_SHELTER,
     CHECK_FORM,
-   
+    GET_STATUS_FOR_ADMIN,
     MODAL_DASHBOARD,
     GET_ONLY_STATES_WITH_SHELTERS,
     GET_PROFILE,
@@ -922,3 +922,7 @@ export const getPetsFilterForAdmin = (link) => {
     };
 }
 
+
+export const getStatusForAdmin = () => {
+    return { type: GET_STATUS_FOR_ADMIN, payload: null };
+};
