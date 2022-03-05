@@ -69,6 +69,7 @@ import {
     EDIT_HIDE_PETS_IN_DASHBOARD,
     authLoginAdmin,
     EDIT_PET_STAUTS_ID,
+    GET_ALL_SHELTERS,
     HIDE_FOLLOW_UP_IN_DASHBOARD,
     GET_SPECIES_FOR_ADMIN,
     GET_PET_GENRE_FOR_ADMIN,
@@ -398,7 +399,7 @@ export const startChecking = () => {
            
             localStorage.setItem('token', body.token)
             localStorage.setItem('token-init-date', new Date().getTime())
-            if(body.role==3){
+            if(body.role==3 || body.rol==2){
                 dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
             }
 
@@ -897,6 +898,41 @@ export const updatePetStatus = (petId, payload) => {
 }
 
 
+
+
+
+export const getAllShelters= () =>{
+
+    return async (dispatch) => {
+        const resp = await fetchSinToken("getAllShelter");
+        const body = await resp.json();
+        if (body.ok) {
+          dispatch(allShelters(body.shelters))
+        } else {
+            alert(body.msg);
+        }
+    };
+}
+
+const allShelters = (shelters) =>({type: GET_ALL_SHELTERS, payload: shelters})
+
+export const editShelterByAdmin = (id, email, status) =>{
+
+    return async (dispatch) => {
+        const resp = await fetchSinToken("editShelter", {
+            id,
+            email,
+            status
+        }, "PUT");
+        const body = await resp.json();
+        if (body.ok) {
+            alert(body.msg)
+            dispatch(getAllShelters())
+        } else {
+            alert(body.msg);
+        }
+    };
+
 export const hideFollowUpfromDash = (followUpId, payload) => {
     return async function (dispatch) {
         const hideFollowUp = await axios.put(`${APIGATEWAY_URL}/hideFollowUp/${followUpId}`, payload);
@@ -950,4 +986,5 @@ export const getHideForAdmin = () => {
 
 export const getShelterOfPetForAdmin = () => {
     return {type: GET_SHELTER_OF_PET_FOR_ADMIN, payload:null}
+
 }

@@ -10,6 +10,7 @@ export const PublicRoute = ({children}) => {
 
     if(rol==3) route ='/admin/dashboard'
     if(rol!=3) route ='/dashboard'
+    if(rol==2) route ='/admin/dashboard'
     
 
     if (checking) {

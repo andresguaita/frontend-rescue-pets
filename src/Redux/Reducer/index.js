@@ -53,6 +53,8 @@ import {
   GET_ONLY_CITIES_WITH_SHELTERS,
   REMOVE_FROM_FAVORITES,
   ADD_TO_FAVORITES,
+  authLoginAdmin,
+  GET_ALL_SHELTERS,
   GET_PETS_FILTER_FOR_ADMIN,
   GET_ONLY_STATES_WITH_SHELTERS,
   authLoginAdmin,
@@ -61,6 +63,7 @@ import {
   GET_PET_GENRE_FOR_ADMIN,
   GET_PET_HIDE_FOR_ADMIN,
   GET_SHELTER_OF_PET_FOR_ADMIN
+
 } from "../Actions/types";
 
 
@@ -98,8 +101,6 @@ const initialState = {
   Shelters: [],
   forms: [],
   status: [],
-  shelter: [],
-  Shelters: [],
   petOne: [],
   ShelterAndCityId: {},
   shelterDetail: {},
@@ -127,6 +128,8 @@ const initialState = {
   countShelters:{},
   countAdopted1:{},
   countAdopted2:{},
+  countAdopted3:{},
+  allShelters: {},
   onlyStatesWithShelter : [],
   statusForAdmin: [],
   speciesForAdmin: [],
@@ -573,6 +576,14 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 speciesForAdmin: filterSpeciesForAdmin,
               };
 
+
+          case GET_ALL_SHELTERS:
+
+          return {
+            ...state,
+            allShelters: payload
+          }
+
             case GET_PET_GENRE_FOR_ADMIN:
               let filterGenresForAdmin = []
               
@@ -615,6 +626,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 shelterOfPetForAdmin: filterShelterPetForAdmin,
               }
+
         default:
           return state;
       }

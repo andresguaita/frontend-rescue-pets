@@ -8,7 +8,7 @@ import {StyleNavBar, StyleLi , Divmenu } from '../Styles/StyledNav';
 import { StyleInput} from '../Styles/StyledSearch'
 import Search from './Search';
 
-export default function NavbarDashboard() {
+export default function NavbarDashboardAdmin() {
 
     const dispatch=  useDispatch()
 
