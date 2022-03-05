@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp } from '../Redux/Actions'
+import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp, hideFollowUpfromDash } from '../Redux/Actions'
 import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button3
+  Container, Center, CenterChild ,Table,Button,Button3, 
 } from "../Styles/StyledPetsInDashboard"
 
 
@@ -38,7 +38,8 @@ const FollowUP = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-    setData(allFollowUps)
+    const filteredFollowUps = allFollowUps.filter(el => el.hideFollowUp === false)
+    setData(filteredFollowUps)
   }, [allFollowUps])
 
   const [editFormData, seteditFormData] = useState({
@@ -52,7 +53,7 @@ const FollowUP = () => {
     event.preventDefault();
     seteditFormData({
       ...editFormData,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value === "" ? null : event.target.value
       
     })}
 
@@ -76,7 +77,7 @@ const FollowUP = () => {
 
     const handleEditedFormSubmit =  async (event) => {
       event.preventDefault();
-     await dispatch(editFollowUp(editFollowUpId, editFormData))
+      await dispatch(editFollowUp(editFollowUpId, editFormData))
       await dispatch(getFollowUpsFromShelter(shelterId))
       setEditFollowUpId(null);
 
@@ -89,7 +90,11 @@ const FollowUP = () => {
 
     const handleDeleteClick = async (event, followUpId) => {
       event.preventDefault();
-      await dispatch(deleteFollowUp(followUpId))
+      const payload = {
+        hideFollowUp: true
+      }
+      // await dispatch(deleteFollowUp(followUpId))
+      await dispatch(hideFollowUpfromDash(followUpId, payload))
       await dispatch(getFollowUpsFromShelter(shelterId))
     }
 

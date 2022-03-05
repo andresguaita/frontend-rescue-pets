@@ -5,9 +5,9 @@ import {checkForm, deleteAnswerForm, getForms, getFormtypes, getPetsForDashboard
 //import './DashboardForms.css'
 import { Link, useNavigate } from 'react-router-dom'
 import {StyleButton, StyleButtonBack, StyleButtonRejected, StyleButtonView} from '../Styles/StyledButtons.js';
-import { StyledDashboardForms } from '../Styles/StyledDashboardForms'
+import { StyledDashboardForms, Left } from '../Styles/StyledDashboardForms'
 import { APIGATEWAY_URL } from '../utils/constant'
-
+import Img from "../Icos/homeim1.svg"
 
 
 export const DashboardForms= () => {
@@ -69,6 +69,7 @@ export const DashboardForms= () => {
    
     return (
             <StyledDashboardForms>
+                <Left><img src={Img}/></Left>
                     <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
                     <h1>Tabla de formularios de {typeform}</h1>
                     

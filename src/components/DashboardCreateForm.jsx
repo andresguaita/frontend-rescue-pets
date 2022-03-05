@@ -91,10 +91,11 @@ export const DashboardCreateForm = () => {
     return (
         <StyledDashboardForms>
             <Left><img src={Img}/></Left>
-            <Right>
+            
             <StyleButtonBack onClick={handleClick}>{'Regresar'}</StyleButtonBack>
             <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>
             <div>
+                <Right>
                 <div>
                     <select name='type' onChange={(e) => handleSubmitChange(e)}>
                         <option disabled selected>
@@ -123,6 +124,7 @@ export const DashboardCreateForm = () => {
                     
                     {existingform.length ? <StyleButtonMini onClick={() => handleClickEdit()}>Editar</StyleButtonMini> : <StyleButtonMini onClick={() => handleSubmitFormCreated()}>Crear</StyleButtonMini>}   
                 </div>
+                </Right>
                 <br></br>
                 <br></br> 
                 <div>
@@ -138,14 +140,14 @@ export const DashboardCreateForm = () => {
                                 <tr key={e}>
                                     <td>{questions.filter(q => q.id === Number(e))[0].id}</td>
                                     <td>{questions.filter(q => q.id === Number(e))[0].question}</td>
-                                    <td><StyleButtonMini onClick={() => handleClickDelete(e)}>✘</StyleButtonMini></td>
+                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}>✘</StyleButtonRejected></td>
                                 </tr>
                             )): null}
                         </tbody>
                     </table>
                 </div>
             
-            </div></Right>
+            </div>
            
         </StyledDashboardForms>
     )

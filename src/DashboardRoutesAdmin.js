@@ -13,6 +13,7 @@ import { CreateAdmin } from './components/CreateAdmin';
 import { DashboardPetAdmin } from './components/DashboardPetAdmin';
 import { DashboardShelterAdmin } from './components/DashboardShelterAdmin';
 import NavbarDashboardAdmin from './components/NavbarDashboardAdmin';
+import DashboardAdminHelp from './components/DashboardAdminHelp';
 
 
 
@@ -27,7 +28,8 @@ export const DashboardRoutesAdmin = () => {
                 <Route path="dashboard/createadmin" element={<CreateAdmin />} />
                 <Route path="dashboard/DashboardPetAdmin" element={<DashboardPetAdmin/>} /> 
                 <Route path="dashboard/DashboardShelterAdmin" element={<DashboardShelterAdmin/>} /> 
-            
+                <Route path="dashboard/help" element={<DashboardAdminHelp/>} /> 
+
            
             </Routes>
         </div>

@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {StyledCard, StyledCardContainer, ImgCard} from '../Styles/StyledCards.js';
 import {Link} from "react-router-dom";
 
-//import Img from "../Icos/homeim1.svg"
+import img1 from "../Icos/ref.png"
 
 export default function Cards({pets}) {
     return (<Fragment >
@@ -13,8 +13,8 @@ export default function Cards({pets}) {
  
                 <StyledCard >
                 <Link to={`/details/${p.id}`}>   <h1>{p.name}</h1></Link>
-                   
-                <Link to={`/shelters/${[p.shelter][0].id}`}>  <p className="hashtag"> #{[p.temperament][0].temperament} </p> <p className="hashtag"> #{[p.shelter][0].name.replace(/\s/g, '')}</p> </Link>
+                <Link to={`/shelters/${[p.shelter][0].id}`}> <h2 className="ref">  {[p.shelter][0].name}</h2>  </Link>
+                <Link to={`/shelters/${[p.shelter][0].id}`}>  <p className="hashtag"> #{[p.temperament][0].temperament} </p> </Link>
                     {/* <p>{p.description}</p> */
                     
                     }

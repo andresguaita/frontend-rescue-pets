@@ -3,21 +3,31 @@ import allColors from "../variables/Colors";
 
 export const StyledDashboardForms = styled.div`
 
-
-height: 100%;
+  margin-bottom: 252px;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   color: ${allColors.colors[8]};
-  align-items: center;
+  align-items: felx-end;
   justify-content: space-around;
-  margin-top: 6%;
   padding :40px;
   
+  h1{
+    color: black;
+  }
+
+  h2{
+    color:black;
+    font-size: 20px;
+  }
 
   select{
     font-size: 25px;
     width: 200px;
     border-radius: 10px;
-    margin: 10px;
+    margin-top: 30px;
+    margin-right: 25px;
+    margin-bottom: 50px;
     &:hover{
       background-color : ${allColors.colors[2]};
       color: rgba(255,255,255,0.8);
@@ -30,24 +40,28 @@ height: 100%;
     width: 100%;
     border-radius: 15px;
     overflow: hidden;
+    img{
+      border-radius: 10px;
+    }
   }
   
   th,
   td {
-    border: 1px solid ${allColors.colors[3]};
+    border: 1px solid #ffffff;
     text-align: center;
     padding: 8px;
-    font-size: 20px;
+    font-size: 18px;
   }
   
   th {
-    background-color: ${allColors.colors[3]};
+    background-color: ${allColors.colors[1]};
     color: rgba(255,255,255,0.8);
   }
   
   td {
     background-color: rgba(204, 194, 234, 0.6);
-    height: 250px;
+    height: 200px;
+    color: black;
   }
   
   form {
@@ -79,7 +93,6 @@ padding: 20px;
 color: white;
 h1 {
   color: white;
- 
 }
 
 `;
@@ -105,10 +118,17 @@ h1 {
 
 export const Left = styled.div`
 background-color: white;
+position: fixed;
+z-index: -1;
+width: 48%;
+left: 30%;
+top: 80px;
 
-width: 50%;
-padding: 18px;
-margin:19px;
+img{
+  width: 100%;
+  height: 90%;
+  object-fit: cover;
+}
 
 h2 {
   color: ${allColors.colors[8]};
@@ -134,8 +154,6 @@ h3 {
 
 p{
 font-size : 15px;
-
-
 }
 
 `;

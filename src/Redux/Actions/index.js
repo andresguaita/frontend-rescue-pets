@@ -54,24 +54,28 @@ import {
     GET_FORM_BY_SHELTER,
     GET_FOLLOW_UPS_FROM_SHELTER,
     CHECK_FORM,
-   
+    GET_STATUS_FOR_ADMIN,
     MODAL_DASHBOARD,
- 
+    GET_ONLY_STATES_WITH_SHELTERS,
     GET_PROFILE,
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
+    GET_COUNT_ADOPTED1,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3,
-
+    GET_PETS_FILTER_FOR_ADMIN,
     REMOVE_FROM_FAVORITES,
     ADD_TO_FAVORITES,
-
+    GET_ONLY_CITIES_WITH_SHELTERS,
     EDIT_HIDE_PETS_IN_DASHBOARD,
     authLoginAdmin,
     EDIT_PET_STAUTS_ID,
-    GET_ALL_SHELTERS
-
-
+    GET_ALL_SHELTERS,
+    HIDE_FOLLOW_UP_IN_DASHBOARD,
+    GET_SPECIES_FOR_ADMIN,
+    GET_PET_GENRE_FOR_ADMIN,
+    GET_PET_HIDE_FOR_ADMIN,
+    GET_SHELTER_OF_PET_FOR_ADMIN,
+    ADD_FOLLOW_UP_TRANSIT
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -684,9 +688,26 @@ export const sendEmailFormstoShelter = (payload) => {
     }
 }
 
+export const postHelpSupport = (payload) => {
+    return async function () {
+        await axios.post(`${APIGATEWAY_URL}/techSuport`, payload);
+        Swal.fire(
+            "Genial!",
+            "Registro realizado correctamente. Pronto nos comunicaremos contigo",
+            "sucess"
+          );
+        
+    }
+    
+};
 
 
-
+export const addFollowUpTransit = (data) => {
+    return async function (dispatch) {
+        const followUpTransit= await axios.post(`${APIGATEWAY_URL}/addFollowUpTransit`);
+        return dispatch({ type: ADD_FOLLOW_UP_TRANSIT, payload:data });
+    };
+}
 
 
 
@@ -793,21 +814,21 @@ export const getCountShelter = () => {
     }
 }
 
-export const getCountAdopted2 = () => {
+export const getCountAdopted1 = () => {
     return async function (dispatch) {
-        let json = await axios(`${APIGATEWAY_URL}/petAdopted2`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted1`)
         return dispatch({
-            type: GET_COUNT_ADOPTED2,
+            type: GET_COUNT_ADOPTED1,
             payload: json.data
         })
     }
 }
 
-export const getCountAdopted3 = () => {
+export const getCountAdopted2 = () => {
     return async function (dispatch) {
-        let json = await axios(`${APIGATEWAY_URL}/petAdopted3`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted2`)
         return dispatch({
-            type: GET_COUNT_ADOPTED3,
+            type: GET_COUNT_ADOPTED2,
             payload: json.data
         })
     }
@@ -879,6 +900,7 @@ export const updatePetStatus = (petId, payload) => {
 
 
 
+
 export const getAllShelters= () =>{
 
     return async (dispatch) => {
@@ -910,5 +932,59 @@ export const editShelterByAdmin = (id, email, status) =>{
             alert(body.msg);
         }
     };
+
+export const hideFollowUpfromDash = (followUpId, payload) => {
+    return async function (dispatch) {
+        const hideFollowUp = await axios.put(`${APIGATEWAY_URL}/hideFollowUp/${followUpId}`, payload);
+        return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload:hideFollowUp });
+    };
+}
+
+
+export const getOnlyCitiesWithShelter = () => {
+    return async function (dispatch){
+        return dispatch({type:GET_ONLY_CITIES_WITH_SHELTERS,
+                        payload: null})
+    }
+}
+
+export const getOnlyStatesWithShelter = () => {
+    return async function (dispatch){
+        return dispatch({type:GET_ONLY_STATES_WITH_SHELTERS,
+                        payload: null})
+    }
+}
+
+export const getPetsFilterForAdmin = (link) => {
+    return async function (dispatch) {
+        try {
+            let json = await axios(link);
+            return dispatch({ type: GET_PETS_FILTER_FOR_ADMIN, payload: json.data });
+        } catch (error) {
+            return error;
+        }
+    };
+}
+
+
+export const getStatusForAdmin = () => {
+    return { type: GET_STATUS_FOR_ADMIN, payload: null}
+};
+
+
+export const getSpeciesForAdmin = () => {
+    return {type: GET_SPECIES_FOR_ADMIN, payload: null}
+}
+
+export const getGenresForAdmin = () => {
+    return {type: GET_PET_GENRE_FOR_ADMIN, payload:null}
+}
+
+export const getHideForAdmin = () => {
+    return {type: GET_PET_HIDE_FOR_ADMIN, payload:null}
+}
+
+export const getShelterOfPetForAdmin = () => {
+    return {type: GET_SHELTER_OF_PET_FOR_ADMIN, payload:null}
 
 }
