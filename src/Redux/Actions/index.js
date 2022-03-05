@@ -69,8 +69,11 @@ import {
     EDIT_HIDE_PETS_IN_DASHBOARD,
     authLoginAdmin,
     EDIT_PET_STAUTS_ID,
-    HIDE_FOLLOW_UP_IN_DASHBOARD
-
+    HIDE_FOLLOW_UP_IN_DASHBOARD,
+    GET_SPECIES_FOR_ADMIN,
+    GET_PET_GENRE_FOR_ADMIN,
+    GET_PET_HIDE_FOR_ADMIN,
+    GET_SHELTER_OF_PET_FOR_ADMIN
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -924,5 +927,22 @@ export const getPetsFilterForAdmin = (link) => {
 
 
 export const getStatusForAdmin = () => {
-    return { type: GET_STATUS_FOR_ADMIN, payload: null };
+    return { type: GET_STATUS_FOR_ADMIN, payload: null}
 };
+
+
+export const getSpeciesForAdmin = () => {
+    return {type: GET_SPECIES_FOR_ADMIN, payload: null}
+}
+
+export const getGenresForAdmin = () => {
+    return {type: GET_PET_GENRE_FOR_ADMIN, payload:null}
+}
+
+export const getHideForAdmin = () => {
+    return {type: GET_PET_HIDE_FOR_ADMIN, payload:null}
+}
+
+export const getShelterOfPetForAdmin = () => {
+    return {type: GET_SHELTER_OF_PET_FOR_ADMIN, payload:null}
+}
