@@ -108,7 +108,7 @@ const FormTransit = ({ id,shelterName }) => {
         ? profile.foundProfile.id
         : profile.createProfile.id,
     };
-
+    console.log('---->'+payload.profileId)
     dispatch(postRequestTransit(payload));
 
     let data = {

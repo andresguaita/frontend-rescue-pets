@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getFilterShelters, getGenres, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelters, getSpecies, getStates, getTemperaments} from '../Redux/Actions/index'
+import {getcities, getCountries, getFilterShelters, getGenres, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelters, getSpecies, getStates, getStatusForAdmin, getTemperaments} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
@@ -27,6 +27,7 @@ export const DashboardPetAdmin = () => {
     const onlycitieswithshelter = useSelector((state) => state.onlyCitiesWithShelter)
     const onlystateswithshelter = useSelector((state) => state.onlyStatesWithShelter)
     const pets = useSelector((state) => state.petsfilterforadmin)
+    const petstatus = useSelector((state) => state.statusForAdmin)
     /// estados para filtrar ↑
     
     const [link, setLink] = useState()
@@ -36,15 +37,17 @@ export const DashboardPetAdmin = () => {
     useEffect(() => {
         dispatch(getCountries())
       }, [])
-      useEffect(() => {
+      useEffect(async() => {
           dispatch(getCountries())
           dispatch(getShelters())
           if(cities.length){dispatch(getOnlyCitiesWithShelter())}
-          if(link){ dispatch(getPetsFilterForAdmin(link))}
+          if(link){ await dispatch(getPetsFilterForAdmin(link))}
+          if(pets)await dispatch(getStatusForAdmin())
       }, [dispatch,cities,link])
 
       useEffect(()=> {
         dispatch(getOnlyStatesWithShelter())
+        if(pets)dispatch(getStatusForAdmin())
       },[states])
       /// obtener estados principales ↑
 
@@ -147,6 +150,7 @@ export const DashboardPetAdmin = () => {
                             <option disabled selected>
                                     Estado/ Provincia/ Departamento
                             </option>
+                            <option> Todos </option>
                             {onlystateswithshelter.length? onlystateswithshelter.map(state => (
                                 <option key={state.id} value={state.id} >{state.state}</option>
                             )):<p>Cargando...</p>}
@@ -159,6 +163,7 @@ export const DashboardPetAdmin = () => {
 
             <StyledDivFlexAdmin>
                 
+                {/* Ubicación local city ↓ */}
                 <StyledSelectForDashboardPetAdmin name="City" onChange={e => handleSubmitPrincipalLocation(e)}>
                     <option disabled selected>
                             Ciudad
@@ -166,9 +171,11 @@ export const DashboardPetAdmin = () => {
                     <option value={''}>Todos</option>
                     {onlycitieswithshelter.length ? onlycitieswithshelter.map(city => (
                         <option key={city.id} value={city.id}>{city.city}</option>
-                    )):<p>Cargando...</p>}
-                    
+                    )):<p>Cargando...</p>}   
                 </StyledSelectForDashboardPetAdmin>
+                {/* Ubicación local city ↑ */}
+                
+                {/*  */}
                 <StyledSelectForDashboardPetAdmin>
                     <option disabled selected>
                             Refugio
@@ -177,6 +184,9 @@ export const DashboardPetAdmin = () => {
                     <option>refugio 1</option>
                     <option>refugio 2</option>
                 </StyledSelectForDashboardPetAdmin>
+                {/*  */}
+                
+                {/*  */}
                 <StyledSelectForDashboardPetAdmin>
                     <option disabled selected>
                             Especie
@@ -187,14 +197,21 @@ export const DashboardPetAdmin = () => {
                     <option>Pajaro</option>
                     <option>Cerdo</option>
                 </StyledSelectForDashboardPetAdmin>
+                {/*  */}
+
+                {/* Filtro por el estado de la mascota ↓ */}
                 <StyledSelectForDashboardPetAdmin>
                     <option disabled selected>
                             Estatus mascota
                     </option>
                     <option>Todos</option>
-                    <option>En adopción</option>
-                    <option>Adoptados</option>
+                    {petstatus? petstatus.map(status => (
+                        <option key={status.id} value={status.id} >{status.status}</option>
+                    )):<p>Cargando...</p>}
                 </StyledSelectForDashboardPetAdmin>
+                {/* Filtro por el estado de la mascota ↑ */}
+
+                {/*  */}
                 <StyledSelectForDashboardPetAdmin>
                     <option disabled selected>
                             Género
@@ -202,6 +219,9 @@ export const DashboardPetAdmin = () => {
                     <option>Macho</option>
                     <option>Hembra</option>
                 </StyledSelectForDashboardPetAdmin>
+                {/*  */}
+
+                {/*  */}
                 <StyledSelectForDashboardPetAdmin>
                     <option disabled selected>
                             Hide
@@ -209,6 +229,7 @@ export const DashboardPetAdmin = () => {
                     <option>True</option>
                     <option>False</option>
                 </StyledSelectForDashboardPetAdmin>
+                {/*  */}
             </StyledDivFlexAdmin>
             <div>
                 <table>
