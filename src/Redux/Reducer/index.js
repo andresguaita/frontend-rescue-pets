@@ -596,9 +596,10 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 let obj = filterHideForAdmin.find((h) => h === ele)
                 if(!obj) return filterHideForAdmin.push(e.hideFromDash)
               })
+              let plusRes = [...new Set(filterHideForAdmin)]
               return {
                 ...state,
-                hideForAdmin : filterHideForAdmin,
+                hideForAdmin : plusRes,
               }
 
             case GET_SHELTER_OF_PET_FOR_ADMIN:
@@ -606,7 +607,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
               
               state.petsfilterforadmin.map((e) => {
                 if(!filterShelterPetForAdmin.length) return filterShelterPetForAdmin.push(e.shelter)
-                let ele = e.shelter.id
+                let ele = e.shelterId
                 let obj = filterShelterPetForAdmin.find(sh => sh.id === ele)
                 if(!obj) return filterShelterPetForAdmin.push(e.shelter)
               })
