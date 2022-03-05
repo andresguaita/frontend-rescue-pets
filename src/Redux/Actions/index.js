@@ -68,8 +68,8 @@ import {
     GET_ONLY_CITIES_WITH_SHELTERS,
     EDIT_HIDE_PETS_IN_DASHBOARD,
     authLoginAdmin,
-    EDIT_PET_STAUTS_ID
-
+    EDIT_PET_STAUTS_ID,
+    HIDE_FOLLOW_UP_IN_DASHBOARD
 
     } from './types.js'
 import { async } from '@firebase/util';
@@ -889,6 +889,14 @@ export const updatePetStatus = (petId, payload) => {
 }
 
 
+export const hideFollowUpfromDash = (followUpId, payload) => {
+    return async function (dispatch) {
+        const hideFollowUp = await axios.put(`${APIGATEWAY_URL}/hideFollowUp/${followUpId}`, payload);
+        return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload:hideFollowUp });
+    };
+}
+
+
 export const getOnlyCitiesWithShelter = () => {
     return async function (dispatch){
         return dispatch({type:GET_ONLY_CITIES_WITH_SHELTERS,
@@ -913,3 +921,4 @@ export const getPetsFilterForAdmin = (link) => {
         }
     };
 }
+

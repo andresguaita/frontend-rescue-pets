@@ -72,4 +72,4 @@ export const EDIT_HIDE_PETS_IN_DASHBOARD = 'EDIT_HIDE_PETS_IN_DASHBOARD'
 export const authStartLoginAdmin = 'Start Login Admin'
 export const authLoginAdmin= 'authLoginAdmin'
 export const EDIT_PET_STAUTS_ID = 'EDIT_PET_STAUTS_ID'
-
+export const HIDE_FOLLOW_UP_IN_DASHBOARD = 'HIDE_FOLLOW_UP_IN_DASHBOARD'
