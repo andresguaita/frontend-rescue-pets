@@ -14,6 +14,7 @@ export default function NavbarDashboard() {
 
     const handleLogout= () =>{
         dispatch(startLogout())
+       
     }
 
     return (
