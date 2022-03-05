@@ -4,7 +4,7 @@ import {StyledPreFooter, StyledCard} from "../Styles/StyledPreFooter.js";
 import {StyleButton, StyleButtonMini} from '../Styles/StyledButtons.js';
 import {Link} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountShelter, getCountAdopted2, getCountAdopted3 } from '../Redux/Actions';
+import { getCountShelter, getCountAdopted1, getCountAdopted2 } from '../Redux/Actions';
 
 
 export default function PreFooter() {
@@ -13,29 +13,29 @@ export default function PreFooter() {
 var auxDatos=[];
 
 const countShelters = useSelector(state => state.countShelters)
+const countAdopted1 = useSelector(state => state.countAdopted1)
 const countAdopted2 = useSelector(state => state.countAdopted2)
-const countAdopted3 = useSelector(state => state.countAdopted3)
 
 const shelter=countShelters.count
+const adopted1=countAdopted1.count
 const adopted2=countAdopted2.count
-const adopted3=countAdopted3.count
 
 if (shelter){
   auxDatos.push(shelter)
 }
+if (adopted1){
+  auxDatos.push(adopted1)
+}
 if (adopted2){
   auxDatos.push(adopted2)
-}
-if (adopted3){
-  auxDatos.push(adopted3)
 }
 
 const estado=auxDatos
 
 useEffect(() => {
   dispatch(getCountShelter());
+  dispatch(getCountAdopted1());
   dispatch(getCountAdopted2());
-  dispatch(getCountAdopted3());
 },[])
     return (
         <Fragment>
