@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { APIGATEWAY_URL } from '../utils/constant';
 import {
@@ -21,12 +20,9 @@ import { DivContainer } from "../Styles/StyledCreatePets";
 import { StyleButton } from "../Styles/StyledButtons.js";
 export function CreatePets() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  
 
   useEffect(() => {
     dispatch(getAllSpecies());
@@ -38,7 +34,7 @@ export function CreatePets() {
     dispatch(getShelters());
   }, [dispatch]);
 
-  const Shelters = useSelector((state) => state.Shelters);
+  const Shelters = useSelector((state) => state.ShelterAndCityId.shelterId); //Refugio
 
   useEffect(() => {
     dispatch(gettTemperaments());
@@ -56,15 +52,13 @@ export function CreatePets() {
     dispatch(getAllPetStatus());
   }, [dispatch]);
 
-  const Status = useSelector((state) => state.petStatus);
+  const Status = useSelector((state) => state.petStatus[0].id); //Estado
 
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
 
   const Genres = useSelector((state) => state.allGenres);
-
-  const shelterID = useSelector(state => state.ShelterAndCityId);
 
   const [state, setState] = useState({
     name: "",
@@ -73,12 +67,14 @@ export function CreatePets() {
     description: "",
     image: "",
     speciesId: "",
-    shelterId: '',
+    shelterId: Shelters,
     temperamentId: "",
     ageId: "",
-    petStatusId:  '',
+    petStatusId:  Status,
     genreId: "",
   });
+
+  console.log('state: ', state);
 
   const uploadImage = async (e) => {
     const formData = new FormData()
@@ -167,7 +163,6 @@ export function CreatePets() {
             temperamentId:'',ageId:'',petStatusId:'',genreId:''})
 
     alert('¡La mascota fue creada con exito!');
-    // navigate('/dashboard/pets');
     dispatch(getPetsForDashboard(route))
   };
 
@@ -231,7 +226,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        <select onChange={handleSelectShelter}>
+        {/* <select onChange={handleSelectShelter}>
           <option disabled selected>
             -- Seleccione Refugio --
           </option>
@@ -240,7 +235,7 @@ export function CreatePets() {
               {e.name}
             </option>
           ))}
-        </select>
+        </select> */}
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -267,7 +262,7 @@ export function CreatePets() {
         </select>
         <br />
         <br />
-        <select onChange={handleSelectState}>
+        {/* <select onChange={handleSelectState}>
           <option disabled selected>
             -- Seleccione Estado --
           </option>
@@ -276,7 +271,7 @@ export function CreatePets() {
               {e.status}
             </option>
           ))}
-        </select>
+        </select> */}
         <br />
         <br />
         <select onChange={handleSelectGenres}>
