@@ -932,6 +932,7 @@ export const editShelterByAdmin = (id, email, status) =>{
             alert(body.msg);
         }
     };
+}
 
 export const hideFollowUpfromDash = (followUpId, payload) => {
     return async function (dispatch) {
