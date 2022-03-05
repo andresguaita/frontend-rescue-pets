@@ -4,6 +4,7 @@ import Chart from 'chart.js/auto';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCountShelter, getCountAdopted1, getCountAdopted2 } from '../Redux/Actions';
 
+//Estados de pets Actualizados
 
 const StatisHome = () => {
 

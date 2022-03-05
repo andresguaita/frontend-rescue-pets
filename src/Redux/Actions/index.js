@@ -70,7 +70,6 @@ import {
     authLoginAdmin,
     EDIT_PET_STAUTS_ID
 
-
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
