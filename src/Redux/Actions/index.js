@@ -60,8 +60,8 @@ import {
     GET_PROFILE,
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
+    GET_COUNT_ADOPTED1,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3,
     GET_PETS_FILTER_FOR_ADMIN,
     REMOVE_FROM_FAVORITES,
     ADD_TO_FAVORITES,
@@ -805,21 +805,21 @@ export const getCountShelter = () => {
     }
 }
 
-export const getCountAdopted2 = () => {
+export const getCountAdopted1 = () => {
     return async function (dispatch) {
-        let json = await axios(`${APIGATEWAY_URL}/petAdopted2`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted1`)
         return dispatch({
-            type: GET_COUNT_ADOPTED2,
+            type: GET_COUNT_ADOPTED1,
             payload: json.data
         })
     }
 }
 
-export const getCountAdopted3 = () => {
+export const getCountAdopted2 = () => {
     return async function (dispatch) {
-        let json = await axios(`${APIGATEWAY_URL}/petAdopted3`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted2`)
         return dispatch({
-            type: GET_COUNT_ADOPTED3,
+            type: GET_COUNT_ADOPTED2,
             payload: json.data
         })
     }

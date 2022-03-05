@@ -48,8 +48,8 @@ import {
   GET_PROFILE,
   GET_FOLLOW_UPS_STATUSES,
   GET_COUNT_SHELTER,
+  GET_COUNT_ADOPTED1,
   GET_COUNT_ADOPTED2,
-  GET_COUNT_ADOPTED3,
   GET_ONLY_CITIES_WITH_SHELTERS,
   REMOVE_FROM_FAVORITES,
   ADD_TO_FAVORITES,
@@ -122,8 +122,8 @@ const initialState = {
   profileForSend : [],
   followUpStatuses: [],
   countShelters:{},
+  countAdopted1:{},
   countAdopted2:{},
-  countAdopted3:{},
   onlyStatesWithShelter : [],
 
   favorites: checkLocalStorage()
@@ -491,16 +491,16 @@ export default function rooReducer(state = initialState, { type, payload }) {
               countShelters:payload
             }  
         
+          case GET_COUNT_ADOPTED1:
+            return{
+              ...state,
+              countAdopted1:payload
+            } 
+
           case GET_COUNT_ADOPTED2:
             return{
               ...state,
               countAdopted2:payload
-            } 
-
-          case GET_COUNT_ADOPTED3:
-            return{
-              ...state,
-              countAdopted3:payload
             }   
             case ADD_TO_FAVORITES:
               return {
