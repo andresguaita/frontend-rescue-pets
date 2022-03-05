@@ -56,16 +56,16 @@ import {
     CHECK_FORM,
    
     MODAL_DASHBOARD,
- 
+    GET_ONLY_STATES_WITH_SHELTERS,
     GET_PROFILE,
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
     GET_COUNT_ADOPTED2,
     GET_COUNT_ADOPTED3,
-
+    GET_PETS_FILTER_FOR_ADMIN,
     REMOVE_FROM_FAVORITES,
     ADD_TO_FAVORITES,
-
+    GET_ONLY_CITIES_WITH_SHELTERS,
     EDIT_HIDE_PETS_IN_DASHBOARD,
     authLoginAdmin,
     EDIT_PET_STAUTS_ID
@@ -888,3 +888,28 @@ export const updatePetStatus = (petId, payload) => {
     };
 }
 
+
+export const getOnlyCitiesWithShelter = () => {
+    return async function (dispatch){
+        return dispatch({type:GET_ONLY_CITIES_WITH_SHELTERS,
+                        payload: null})
+    }
+}
+
+export const getOnlyStatesWithShelter = () => {
+    return async function (dispatch){
+        return dispatch({type:GET_ONLY_STATES_WITH_SHELTERS,
+                        payload: null})
+    }
+}
+
+export const getPetsFilterForAdmin = (link) => {
+    return async function (dispatch) {
+        try {
+            let json = await axios(link);
+            return dispatch({ type: GET_PETS_FILTER_FOR_ADMIN, payload: json.data });
+        } catch (error) {
+            return error;
+        }
+    };
+}

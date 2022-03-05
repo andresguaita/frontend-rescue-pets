@@ -50,10 +50,11 @@ import {
   GET_COUNT_SHELTER,
   GET_COUNT_ADOPTED2,
   GET_COUNT_ADOPTED3,
-
+  GET_ONLY_CITIES_WITH_SHELTERS,
   REMOVE_FROM_FAVORITES,
   ADD_TO_FAVORITES,
-
+  GET_PETS_FILTER_FOR_ADMIN,
+  GET_ONLY_STATES_WITH_SHELTERS,
   authLoginAdmin
 
 
@@ -115,15 +116,15 @@ const initialState = {
   formstatus : [],
   followUps : [],
   checkForm : [],
-
+  onlyCitiesWithShelter : [],
   modaldashboard:"icos",
- 
+  petsfilterforadmin: [],
   profileForSend : [],
   followUpStatuses: [],
   countShelters:{},
   countAdopted2:{},
   countAdopted3:{},
-
+  onlyStatesWithShelter : [],
 
   favorites: checkLocalStorage()
 
@@ -516,7 +517,27 @@ export default function rooReducer(state = initialState, { type, payload }) {
                     {}
                   ),
               };
-
+            
+            case GET_ONLY_CITIES_WITH_SHELTERS:
+              let temporal = state.cities.filter(c => state.Shelters.find(s => s.cityId === c.id))
+              return{
+                ...state,
+                onlyCitiesWithShelter : temporal
+              }
+            
+            case GET_PETS_FILTER_FOR_ADMIN:
+              return{
+                ...state,
+                petsfilterforadmin : payload
+              }
+            
+            case GET_ONLY_STATES_WITH_SHELTERS:
+              let temporal2 = state.states.filter(s => state.Shelters.find(sh => Number(sh.city.stateId) === Number(s.id)))
+              
+              return{
+                ...state,
+                onlyStatesWithShelter : temporal2
+              }  
         default:
           return state;
       }
