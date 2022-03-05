@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getFilterShelters, getGenres, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments} from '../Redux/Actions/index'
+import {getcities, getCountries, getFilterShelters, getGenres, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
@@ -31,6 +31,7 @@ export const DashboardPetAdmin = () => {
     const petspecies = useSelector((state) => state.speciesForAdmin)
     const petsgenres = useSelector((state) => state.genresForAdmin)
     const petshide = useSelector((state) => state.hideForAdmin)
+    const petshelters = useSelector((state) => state.shelterOfPetForAdmin)
     /// estados para filtrar ↑
     
     /// estados locales para modificar petición ↓
@@ -51,7 +52,8 @@ export const DashboardPetAdmin = () => {
               await dispatch(getStatusForAdmin())
               await dispatch(getSpeciesForAdmin())
               await dispatch(getGenresForAdmin())
-              await dispatch(getHideForAdmin())  
+              await dispatch(getHideForAdmin())
+              await dispatch(getShelterOfPetForAdmin())  
             }
       }, [dispatch,cities,link])
 
@@ -76,10 +78,13 @@ export const DashboardPetAdmin = () => {
     },[input])
 
     const handleForGetPets = (e) => {
-        if(isNaN(Number(e.target.value))){
+        let data = e.target.value === 'true' ? true : e.target.value === 'false' ? false : e.target.value
+        
+        if(isNaN(Number(e.target.value)) && typeof(data) !== 'boolean'){
             let temp = input
             delete temp[e.target.name]
             setInput((input) => {return{...input}})
+            console.log(temp)
         }else{
                 setInput( (input) => { return {
                     ...input,
@@ -188,13 +193,14 @@ export const DashboardPetAdmin = () => {
                 {/* Ubicación local city ↑ */}
                 
                 {/* Filtro para refugio ↓ */}
-                <StyledSelectForDashboardPetAdmin>
+                <StyledSelectForDashboardPetAdmin name="shelterId" onChange={e =>handleForGetPets(e)}>
                     <option disabled selected>
                             Refugio
                     </option>
                     <option>Refugios</option>
-                    <option>refugio 1</option>
-                    <option>refugio 2</option>
+                    {petshelters? petshelters.map(shelter => (
+                        <option key={shelter.id} value={shelter.id}>{shelter.name}</option>
+                    )):<p>Cargando...</p>}
                 </StyledSelectForDashboardPetAdmin>
                 {/* filtro para refugio ↑ */}
                 
@@ -239,9 +245,9 @@ export const DashboardPetAdmin = () => {
                     <option disabled selected>
                             Hide
                     </option>
-                    <option>Todo</option>
+                    <option value={'all'}>Hides</option>
                     {petshide? petshide.map(hide => (
-                        <option key={hide} value={hide}>{hide.toString()}</option>
+                        <option key={hide.toString()} value={hide}>{hide.toString()}</option>
                     )):<p>Cargando...</p>}
                 </StyledSelectForDashboardPetAdmin>
                 {/* filtro para la prop oculata de las mascotas ↑ */}
