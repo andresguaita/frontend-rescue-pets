@@ -157,7 +157,7 @@ export const DashboardShelterAdmin = () => {
 
               {
 
-                shelters && shelters?.map(shelter => (
+                shelters.length && shelters?.map(shelter => (
 
                   <tr key={shelter.id}>
                     <td>{shelter.id}</td>
