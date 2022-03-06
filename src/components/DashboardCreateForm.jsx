@@ -7,6 +7,7 @@ import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateFo
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
 import { useState } from "react"
 import Img from "../Icos/homeim1.svg"
+import trash from "../Icos/trash-solid.svg"
 
 export const DashboardCreateForm = () => {
     const navigate = useNavigate()
@@ -140,7 +141,7 @@ export const DashboardCreateForm = () => {
                                 <tr key={e}>
                                     <td>{questions.filter(q => q.id === Number(e))[0].id}</td>
                                     <td>{questions.filter(q => q.id === Number(e))[0].question}</td>
-                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}>✘</StyleButtonRejected></td>
+                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}><img src={trash}/></StyleButtonRejected></td>
                                 </tr>
                             )): null}
                         </tbody>

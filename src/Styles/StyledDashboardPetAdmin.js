@@ -3,8 +3,7 @@ import allColors from "../variables/Colors";
 
 export const StyledDashboardPetAdmin = styled.div`
 
-    margin-left: 50px;
-    margin-right: 50px;
+    
 
 
     table {
@@ -21,6 +20,7 @@ export const StyledDashboardPetAdmin = styled.div`
         text-align: center;
         padding: 8px;
         font-size: 18px;
+        font-weight: bold;
       }
       
       th {
@@ -87,6 +87,7 @@ export const StyledDivFlexAdmin = styled.div`
 
 export const StyledSelectForTable = styled.select`
     font-size: 18px;
+    font-weight: bold;
     border-radius: 10px;
     background-color : ${allColors.colors[1]};
     color: rgba(255,255,255,0.8);
@@ -99,7 +100,7 @@ export const StyledSelectForTable = styled.select`
 export const StyledButtonDeleteAdminPet = styled.button`
     margin: 5px;
     padding: 5px;
-    width: 35px;
+    width: 40px;
     font-size: 20px;
     border-radius: 8px;
     border-style: none;
@@ -153,4 +154,30 @@ export const StyledInputButton = styled.input`
 
 export const StyledInputCheck = styled.input`
     
+`
+
+export const StyledButtonSearch = styled.button`
+    position: relative;
+    width: 80px;
+    margin: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+    background: ${allColors.colors[8]};
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    &:hover {
+    background-color: ${allColors.colors[2]};
+    }
+    img{
+      margin-top: 8px;
+      margin-left: 4px;
+      width: 17px;
+      height: 17px;
+    }
 `

@@ -6,10 +6,13 @@ import {getcities, getCountries, getFilterShelters, getGenres, getGenresForAdmin
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
-    StyledInputSearch, StyledInputButton,
-    StyledInputCheck } from "../Styles/StyledDashboardPetAdmin"
+    StyledInputSearch,
+    StyledInputCheck, StyledButtonSearch } from "../Styles/StyledDashboardPetAdmin"
 import {StyleButtonBack} from "../Styles/StyledButtons"
 import { APIGATEWAY_URL } from '../utils/constant';
+import trash from "../Icos/trash-solid.svg"
+import edit from "../Icos/marker-solid.svg"
+import search from "../Icos/search-solid.svg"
 
 
 export const DashboardPetAdmin = () => {
@@ -63,7 +66,7 @@ export const DashboardPetAdmin = () => {
       },[states])
       /// obtener estados principales ↑
 
-    /// setear el estado input, para hacer la petición com las querys y obtener las mascotas ↓
+    /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↓
     useEffect(()=>{
         setLink(link)
     },[onlycitieswithshelter])
@@ -92,7 +95,7 @@ export const DashboardPetAdmin = () => {
                 }})
         }
     }
-    /// setear el estado input, para hacer la petición com las querys y obtener las mascotas ↑
+    /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↑
 
 
     /// manejar cambios en la ubicación ↓
@@ -126,8 +129,7 @@ export const DashboardPetAdmin = () => {
                             <StyledInputSearch type="text" placeholder="Ingrese dato a buscar"/>
                         </div>
                         <div>
-                            
-                            <StyledInputButton type="button" value="buscar"/>
+                            <StyledButtonSearch>Buscar <img src={search}/></StyledButtonSearch>
                         </div>
                         <div>
                             <br></br>
@@ -150,7 +152,7 @@ export const DashboardPetAdmin = () => {
             
             <StyledDivFlexAdmin>
                 <div>
-                    <h2>Ubicación obligatoria</h2>
+                    <h2>Ubicación:</h2>
                 </div>
                     {/* Ubicación obligatoria ↓*/}
 
@@ -315,7 +317,7 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.name}</td>
                                 <td>{pet.species.specie}</td>
                                 <td>{pet.genre.genre}</td>
-                                <td>{pet.weight}</td>
+                                <td>{pet.weight} kg</td>
                                 <td>{pet.age.age}</td>
                                 <td>{pet.sterilization.toString()}</td>
                                 <td>{pet.petStatus.status}</td>
@@ -323,8 +325,8 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.shelter.name}</td>
                                 <td>
                                 <div>
-                                    <StyledButtonDeleteAdminPet>x</StyledButtonDeleteAdminPet>
-                                    <StyledButtonEditAdminPet>Edit</StyledButtonEditAdminPet>
+                                    <StyledButtonDeleteAdminPet><img src={trash}/></StyledButtonDeleteAdminPet>
+                                    <StyledButtonEditAdminPet><img src={edit}/></StyledButtonEditAdminPet>
                                 </div>
                                 </td>
                            </tbody> 
