@@ -6,7 +6,7 @@ import {getcities, getCountries, getFilterShelters, getGenres, getGenresForAdmin
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
-    StyledInputSearch, StyledInputButton,
+    StyledInputSearch,
     StyledInputCheck, StyledButtonSearch } from "../Styles/StyledDashboardPetAdmin"
 import {StyleButtonBack} from "../Styles/StyledButtons"
 import { APIGATEWAY_URL } from '../utils/constant';
