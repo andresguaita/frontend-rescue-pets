@@ -65,7 +65,8 @@ import {
   RESET_INDIVIDUAL_FORM,
   GET_ALL_FOLLOW_UP_TRANSITS,
   GET_INDIVIDUAL_PET_FOR_ADMIN,
-  CURRENT_CITY
+  CURRENT_CITY,
+  GET_PETS_ALL
 } from "../Actions/types";
 
 
@@ -140,7 +141,8 @@ const initialState = {
   followUpTransits: [],
   individualPetForAdmin : [],
   currentcity: [],
-  favorites: checkLocalStorage()
+  favorites: checkLocalStorage(),
+  allPets:[]
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -656,6 +658,13 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 currentcity: payload
               }  
+
+            case GET_PETS_ALL:
+              return {
+                ...state,
+                allPets: payload
+              } 
+
         default:
           return state;
       }
