@@ -81,21 +81,16 @@ export function CreatePets() {
   });
 
   const uploadImage = async (e) => {
-    const formData = new FormData()
-    formData.append("file", e.target.files[0])
-    formData.append("upload_preset", "rescuePetsUpload")
-
-    let link = await dispatch(uploadImageCloud(formData))
-    setState({
-      ...state,
-      image:link
-    })
-  
-      let link = await dispatch(uploadImageCloud(formData))
-      setState({
-        ...state,
-        image: [...state.image, link]
-      })
+    if(state.image.length < 5){
+      const formData = new FormData()
+      formData.append("file", e.target.files[0])
+      formData.append("upload_preset", "rescuePetsUpload")
+    
+        let link = await dispatch(uploadImageCloud(formData))
+        setState({
+          ...state,
+          image: [...state.image, link]
+        })
     } else {
       alert('No se pueden cargar mas de 5 Imagenes.');
     }
