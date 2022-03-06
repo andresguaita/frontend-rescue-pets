@@ -16,11 +16,12 @@ export default function Favorites() {
     <div>
       <Navbar />
      
-        {favorites.lenght   ? (
+        { Object.keys(favorites).length !== 0  ? (
           Object.values(favorites).map((favorite) => {
+            
             return (
               <StyledCardContainer>
-              <CardsFavorites
+              <CardsFavorites 
                id={favorite.id}
                 key={favorite.id}
                 name={favorite.name}
@@ -33,6 +34,7 @@ export default function Favorites() {
               />
                 </StyledCardContainer>
             );
+           
           })
         ) : <h2>No hay mascotas favoritas</h2>}
      
