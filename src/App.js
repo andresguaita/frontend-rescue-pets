@@ -23,15 +23,6 @@ import { ResetPassword } from "./components/ResetPassword";
 import { ConfirmedAccount } from "./components/ConfirmedAccount";
 import { ReviewEmail } from "./components/ReviewEmail";
 
-import Favorites from "./components/Favorites";
-
-import LoginAdmin from "./components/LoginAdmin";
-import { AdminRoutes } from "./AdminRoutes";
-import { DashboardRoutesAdmin } from "./DashboardRoutesAdmin";
-import { DashboardAdmin } from "./components/DashboardAdmin";
-import TechSupport from './components/TechSupport.jsx'
-import DashStatisChelter from './components/DashStatisChelter'
-
 
 
 function App() {
@@ -56,16 +47,12 @@ function App() {
           <Home />
           
         } />
-
-
          <Route path="/Shelters" element={<Shelters/>}/>
 
         
          <Route path="/dashboard/CreatePets" element={
          <CreatePets/>}/>
        
-       <Route path="/dashboard/DashStatisChelter" element={
-         <DashStatisChelter/>}/>
 
 
         <Route path="/login" element={
@@ -75,27 +62,6 @@ function App() {
 
           </PublicRoute>
         } />
-
-
-
-        
-<Route path="/admin/login" element={
-          <PublicRoute>
-            <Navbar/>
-            <LoginAdmin />
-
-
-          </PublicRoute>
-        } />
-
-
-<Route path="/favorites" element={
-          <PublicRoute>
-          
-            <Favorites />
-    </PublicRoute>
-        } />
-
 
         <Route path="/register" element={
           <PublicRoute>
@@ -157,21 +123,6 @@ function App() {
             <DashboardRoutes />
           </PrivateRoute>
         } />
-    
-
-      <Route path="/admin/*" element={
-          <AdminRoutes>
-            <DashboardRoutesAdmin />
-          </AdminRoutes>
-        } />
-
-
-        <Route path='/help' element={
-        <>
-        <Navbar/>
-        <TechSupport/>
-        </>
-      }/>
       </Routes>
 
 

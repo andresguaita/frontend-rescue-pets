@@ -2,15 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp, hideFollowUpfromDash } from '../Redux/Actions'
+import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp } from '../Redux/Actions'
 import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
-
-import {
-  Container, Center, CenterChild ,Table,Button,Button3, 
-} from "../Styles/StyledPetsInDashboard"
-
-
 
 const FollowUP = () => {
 
@@ -38,8 +32,7 @@ const FollowUP = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-    const filteredFollowUps = allFollowUps.filter(el => el.hideFollowUp === false)
-    setData(filteredFollowUps)
+    setData(allFollowUps)
   }, [allFollowUps])
 
   const [editFormData, seteditFormData] = useState({
@@ -53,7 +46,7 @@ const FollowUP = () => {
     event.preventDefault();
     seteditFormData({
       ...editFormData,
-      [event.target.name]: event.target.value === "" ? null : event.target.value
+      [event.target.name]: event.target.value
       
     })}
 
@@ -64,7 +57,6 @@ const FollowUP = () => {
       setEditFollowUpId(data.id)
       const formValues = {
         followUpStatusId: data.followUpStatusId,
-        followUpStatus: data.followUpStatus,
         followUpDate1: data.followUpDate1,
         followUpDate2: data.followUpDate2,
         followUpDate3: data.followUpDate3,
@@ -77,7 +69,7 @@ const FollowUP = () => {
 
     const handleEditedFormSubmit =  async (event) => {
       event.preventDefault();
-      await dispatch(editFollowUp(editFollowUpId, editFormData))
+     await dispatch(editFollowUp(editFollowUpId, editFormData))
       await dispatch(getFollowUpsFromShelter(shelterId))
       setEditFollowUpId(null);
 
@@ -88,14 +80,10 @@ const FollowUP = () => {
       setEditFollowUpId(null);
     }
 
-    const handleDeleteClick = async (event, followUpId) => {
+    const handleDeleteClick = (event, followUpId) => {
       event.preventDefault();
-      const payload = {
-        hideFollowUp: true
-      }
-      // await dispatch(deleteFollowUp(followUpId))
-      await dispatch(hideFollowUpfromDash(followUpId, payload))
-      await dispatch(getFollowUpsFromShelter(shelterId))
+      dispatch(deleteFollowUp(followUpId))
+      dispatch(getFollowUpsFromShelter(shelterId))
     }
 
   return (
@@ -148,3 +136,62 @@ const FollowUP = () => {
 }
 
 export default FollowUP
+
+export const Center = styled.div`
+position: relative;
+min-height: calc(100vh - 170px);
+display: grid;
+`
+
+export const CenterChild = styled.div`
+position: relative;
+align-self: center;
+justify-self: center;
+font-size: 10px;
+`
+
+export const Table = styled.table`
+
+.app-container {
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 1rem;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+}
+
+th,
+td {
+border: 1px solid #ffffff;
+text-align: left;
+padding: 8px;
+font-size: 12px;
+}
+
+th {
+background-color: #63ac44;
+color: #ffffff;
+}
+
+td {
+background-color: #ddf4ff;
+}
+
+form {
+display: flex;
+gap: 5px;
+}
+
+form td:last-child {
+display: flex;
+justify-content: space-evenly;
+}
+
+form * {
+font-size: 28px;
+}
+`

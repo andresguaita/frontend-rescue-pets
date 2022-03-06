@@ -2,13 +2,13 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyleNavBar = styled.nav`
-background-color: ${allColors.colors[1]} ;
+  background-color: ${allColors.colors[3]};
   padding: 0px;
-  position: relative;
+  position: fixed;
   z-index: 100;
   width: 100%;
   height: 14%;
- 
+
  
 `;
 

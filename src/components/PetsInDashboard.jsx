@@ -1,25 +1,22 @@
 import React, { useEffect, useState, Fragment} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen, hidePetInDashbaord } from '../Redux/Actions'
+import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet } from '../Redux/Actions'
 import styled from 'styled-components';
 import ReadOnlyRows from './ReadOnlyRows';
 import EditableRows from './EditableRows';
 import { Link } from 'react-router-dom';
 import { APIGATEWAY_URL } from '../utils/constant';
-import CreatePets from './CreatePets'
 
 
-import {
-  Container, Center, CenterChild ,Table,Button,Button3
-} from "../Styles/StyledPetsInDashboard"
+
 
 
 
 const PetsInDashboard = () => {
-  let modaldashboard = useSelector((state) => state.modaldashboard);
+
     const dispatch = useDispatch()
 
-
+    
     useEffect(() => {
       dispatch(getAllSpecies())
       dispatch(gettTemperaments())
@@ -27,7 +24,7 @@ const PetsInDashboard = () => {
       dispatch(getAllAges())
       dispatch(getGenres())
     }, [])
-
+    
     const allSpecies = useSelector(state => state.allspecies)
     const allTemperaments = useSelector(state => state.ttemperaments)
     const allPetStatus = useSelector(state => state.petStatus)
@@ -37,12 +34,10 @@ const PetsInDashboard = () => {
 
     const routeInfo = useSelector(state => state.ShelterAndCityId)
     const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
-
+    
     const petsFromShelter = useSelector( state => state.petsForDashboard )
     // console.log("petsFromShelter -------------->", petsFromShelter)
     
-    // console.log("filteredPets---------------->", filteredPets)
-
     const [data, setData] = useState('')
 
     useEffect(()=>{
@@ -51,28 +46,24 @@ const PetsInDashboard = () => {
 
 
 
-
+      
       useEffect(() => {
-        const filteredPets = petsFromShelter.filter(el => el.hideFromDash === false)
-          setData(filteredPets)
+          setData(petsFromShelter)
       }, [petsFromShelter])
-
-
+      
 
 
     const [editFormData, seteditFormData] = useState({
-      // name: '',
-      // sterilization: '',
-      // weight: '',
-      // description: '',
-      // image: '',
-      // speciesId: '',
-      // temperament: '',
-      // temperament2: '',
-      // age: '',
-      // petStatus: '',
-      // genreId: ''
-
+      name: '',
+      sterilization: '',
+      weight: '',
+      description: '',
+      image: '',
+      speciesId: '',
+      temperament: '',
+      age: '',
+      petStatus: '',
+      genreId: ''
     })
 
     const handleEditFormChange = (event) => {
@@ -101,29 +92,23 @@ const PetsInDashboard = () => {
       const formValues = {
         name: data.name,
         sterilization: data.sterilization,
-        sterilization2: data.sterilization,
         weight: data.weight,
         description: data.description,
         image: data.image,
         speciesId: data.speciesId,
-        species2: data.species,
-        temperament: data.temperament.id,
-        temperament2: data.temperament,
-        age: data.age.id,
-        age2: data.age,
-        petStatus: data.petStatus.id,
-        petStatus2: data.petStatus,
-        genreId: data.genre.id,
-        genre2: data.genre
+        temperament: data.temperament,
+        age: data.age,
+        petStatus: data.petStatus,
+        genreId: data.genreId
       }
       seteditFormData(formValues)
-
+      
     }
 
-    const handleEditedFormSubmit = async (event) => {
+    const handleEditedFormSubmit = (event) => {
       event.preventDefault();
-      await dispatch(editPet(editPetId, editFormData))
-      await dispatch(getPetsForDashboard(route))
+      dispatch(editPet(editPetId, editFormData))
+      dispatch(getPetsForDashboard(route))
       seteditPetId(null);
       // const editedPetInfo = {
       //   id: editPetId,
@@ -150,49 +135,22 @@ const PetsInDashboard = () => {
       seteditPetId(null);
     }
 
-    const handleDeleteClick = async (event, petId) => {
+    const handleDeleteClick = (event, petId) => {
       event.preventDefault();
-      // dispatch(deletePet(petId))
-      const hidden = {
-          hideFromDash: true
-      }
-      await dispatch(hidePetInDashbaord(petId, hidden))
-      await dispatch(getPetsForDashboard(route))
+      dispatch(deletePet(petId))
+      dispatch(getPetsForDashboard(route))
       // const newData = [...data];
       // const index = data.findIndex((pet) => pet.id === petId)
       // newData.splice(index, 1)
       // setData(newData)
     }
 
-    function handleClickModalCreate(evento, data) {
-      dispatch(ModalDashboardOpen(data));
-    
-  }
-
-
   return (
     <Center>
-
-        {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
         <CenterChild>
-        <Button3 onClick={
-                    (event) => handleClickModalCreate(event, "CreatePets")
-                }
-                className="but">
 
-                <br/>
-                Nueva Mascota
-            </Button3>
-
-            <Link to='/dashboard/pets/FollowUp'>
-      <Button3>Seguimiento a Mascotas adoptadas</Button3>
-      </Link>
-
-      <Link to='/dashboard'>
-      <Button3>Regresar</Button3>
-      </Link> <br></br><br></br>
       <form onSubmit={handleEditedFormSubmit}>
-          <Table  >
+          <Table>
               <thead>
               <tr>
                   <th>Nombre</th>
@@ -210,7 +168,7 @@ const PetsInDashboard = () => {
               </thead>
               <tbody>
               {
-                typeof(data) !== "string" && data.length? data.map(data =>
+                typeof(data) !== "string" && data.length? data.map(data => 
                   <Fragment>
                     {editPetId === data.id ? (
                       <EditableRows
@@ -236,22 +194,107 @@ const PetsInDashboard = () => {
               </tbody>
           </Table>
       </form>
+      <Link to='/dashboard/pets/FollowUp'>
+      <Button2>Dar seguimiento a Mascotas adoptadas</Button2>
+      </Link>  
 
-
-
-
-
-      {/* <Link to='/dashboard/CreatePets'>
+      <Link to='/dashboard/CreatePets'>
       <Button>Crear nueva Mascota</Button>
-      </Link>   */}
+      </Link>  
           </CenterChild>
     </Center>
-
-
-
   )
 }
 
 export default PetsInDashboard
 
 
+
+export const Center = styled.div`
+position: relative;
+min-height: calc(100vh - 170px);
+display: grid;
+`
+
+export const CenterChild = styled.div`
+position: relative;
+align-self: center;
+justify-self: center;
+font-size: 10px;
+`
+
+export const Button = styled.button`
+position: relative; 
+margin-top: 1.5%;
+/* bottom: 10%; */
+right: 0;
+/* align-self: center;
+justify-self: center; */
+font-size: 14px;
+
+&:hover {
+        cursor: pointer;;
+    }
+`
+
+export const Button2 = styled.button`
+margin-top: 1.5%;
+position: absolute; 
+right: 0;
+/* align-self: center; */
+justify-self: right;
+font-size: 14px;
+
+&:hover {
+        cursor: pointer;;
+    }
+`
+
+
+
+
+export const Table = styled.table`
+
+.app-container {
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 1rem;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+}
+
+th,
+td {
+border: 1px solid #ffffff;
+text-align: left;
+padding: 8px;
+font-size: 12px;
+}
+
+th {
+background-color: #63ac44;
+color: #ffffff;
+}
+
+td {
+background-color: #ddf4ff;
+}
+
+form {
+display: flex;
+gap: 5px;
+}
+
+form td:last-child {
+display: flex;
+justify-content: space-evenly;
+}
+
+form * {
+font-size: 28px;
+}
+`

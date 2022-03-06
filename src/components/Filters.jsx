@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {getcities, getCountries, getFilterShelters, getGenres, getPetsFilter, getSpecies, getStates, getTemperaments} from '../Redux/Actions/index'
+import {getcities, getCountries, getFilterShelters, getPetsFilter, getSpecies, getStates, getTemperaments} from '../Redux/Actions/index'
 import { Container,SelectStyle } from '../Styles/StyledFilters'
 import {StyleButton, StyleButtonMini, StyleButtonUbicacion} from '../Styles/StyledButtons'
 import {IoNavigateCircle} from "react-icons/io5";
@@ -20,7 +20,7 @@ const Filters = ({idcity, cambiarEstado}) => {
      const temperaments = useSelector((state) => state.temperaments)
      const ages = useSelector((state) => state.ages)
      const city = useSelector((state) => state.cityId)
-     const genres =useSelector((state)=>state.allGenres)
+     const status=useSelector((state)=>state.status)
      const species = useSelector((state) => state.species)
      const shelter = useSelector((state) => state.shelter)
      
@@ -38,7 +38,6 @@ const Filters = ({idcity, cambiarEstado}) => {
 
      useEffect(()=>{
           dispatch(getCountries())
-          dispatch(getGenres())
      },[dispatch])
 
      useEffect(()=>{
@@ -104,7 +103,7 @@ const Filters = ({idcity, cambiarEstado}) => {
 
           {/* <label>Por Refugio:</label> */}
           <SelectStyle name='shelterId' onChange={(e)=>handleSelect(e)}>
-                    <option  value={"Refugios"} >Refugios</option>
+                    <option  hidden >Refugios</option>
                     {shelter.map(e => (
                        <option key={e.id} value={e.id} >{e.name}</option> 
                     ))}
@@ -125,17 +124,17 @@ const Filters = ({idcity, cambiarEstado}) => {
                </SelectStyle>
           {/* <label>Temperamento:</label> */}
           <SelectStyle name='temperamentId' onChange={(e)=>handleSelect(e)}>
-                    <option value={"Temperament"} >Temperamento</option>
+                    <option hidden >Temperamento</option>
                     {temperaments && temperaments?.map(element => (
                          <option key={element.id} value={element.id} >{element.temperament}</option> 
                     )) 
                     }
                </SelectStyle>
           {/* <label>Status:</label> */}
-          <SelectStyle name='genreId' onChange={(e)=>handleSelect(e)}>
-                    <option value={"Género"} >Género</option>
-                    {genres?.map(element => (
-                         <option key={element.id} value={element.id} >{element.genre}</option>
+          <SelectStyle name='petStatusId' onChange={(e)=>handleSelect(e)}>
+                    <option hidden >Status</option>
+                    {status?.map(element => (
+                         <option key={element.id} value={element.id} >{element.status}</option>
                     ))}
                </SelectStyle>
      </Container>

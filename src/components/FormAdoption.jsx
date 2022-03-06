@@ -4,8 +4,6 @@ import {
   getFormAdoption,
   sendAdoption,
   findOrCreateProfileUser,
-  sendEmailForms,
-  sendEmailFormstoShelter
 } from "../Redux/Actions/index";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +15,6 @@ import { Centro, DivContainer, Left, Right } from "../Styles/StyledFormTransit";
 
 
 const FormAdoption = ({ petId, Datos }) => {
-
-  
   const dispatch = useDispatch();
   const history = useNavigate();
   const form = useSelector((state) => state.formAdoption);
@@ -30,13 +26,13 @@ const FormAdoption = ({ petId, Datos }) => {
     phoneNumber: "",
     address: "",
     email: "",
-    roleId: "4",
+    roleId: "3",
   });
   const [errors, setErrors] = useState({});
   const [Modal, cambiarEstadoModal] = useState(false);
 
   useEffect(() => {
-    if (Datos[0]) {
+    if (form.length === 0 && Datos[0]) {
       let idShelter = Datos[0].shelterId;
       dispatch(getFormAdoption(idShelter, 2));
     }
@@ -106,25 +102,7 @@ const FormAdoption = ({ petId, Datos }) => {
       idpet: Datos[0].id,
       profileId: profile.foundProfile ? profile.foundProfile.id : profile.createProfile.id
     }
-
     dispatch(sendAdoption(payload))
-    
-    let data = {
-      userMail: profileData.email, 
-      petName: Datos[0].name,
-      ShelterName: Datos[0].shelter.name,
-      type:2
-    }
-  
-    dispatch(sendEmailForms(data))
-    
-    let info = {
-      userMail: profileData.email, 
-      petName: Datos[0].name,
-      type:2
-    }
-    dispatch(sendEmailFormstoShelter(info))
-    
     Swal.fire(
       "Genial!",
       "Registro realizado correctamente. Si has sido seleccionado pronto nos comunicaremos contigo",

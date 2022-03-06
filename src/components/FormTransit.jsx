@@ -4,24 +4,19 @@ import {
   getFormAdoption,
   postRequestTransit,
   findOrCreateProfileUser,
-  sendEmailForms,
-  sendEmailFormstoShelter
 } from "../Redux/Actions/index";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { validateForm } from "../helpers/validation";
 import TerminosyCondiciones from "./TerminosyCondiciones";
-import Img from "../Icos/homeim5.svg"
 
 //estilos
-import { DivContainer ,  Left, Right , Centro} from "../Styles/StyledFormTransit";
+import { DivContainer } from "../Styles/StyledFormTransit";
 
-
-const FormTransit = ({ id,shelterName }) => {
+const FormTransit = ({ id }) => {
   const dispatch = useDispatch();
   const history = useNavigate();
   const form = useSelector((state) => state.formAdoption);
-  
 
   const [input, setInput] = useState([]);
   const [profileData, setProfileData] = useState({
@@ -30,7 +25,7 @@ const FormTransit = ({ id,shelterName }) => {
     phoneNumber: "",
     address: "",
     email: "",
-    roleId: "4",
+    roleId: "3",
   });
 
   const [errors, setErrors] = useState({});
@@ -38,9 +33,9 @@ const FormTransit = ({ id,shelterName }) => {
   const [Modal, cambiarEstadoModal] = useState(false);
 
   useEffect(() => {
- 
+    if (form.length === 0) {
       dispatch(getFormAdoption(id, 1));
-
+    }
   }, []);
 
   function handleChangeProfile(event) {
@@ -108,23 +103,8 @@ const FormTransit = ({ id,shelterName }) => {
         ? profile.foundProfile.id
         : profile.createProfile.id,
     };
-    console.log('---->'+payload.profileId)
+
     dispatch(postRequestTransit(payload));
-
-    let data = {
-      userMail: profileData.email, 
-      ShelterName: shelterName,
-      type:1
-    }
-  
-    dispatch(sendEmailForms(data))
-    
-    let info = {
-      userMail: profileData.email, 
-      type:1
-    }
-    dispatch(sendEmailFormstoShelter(info))
-
     Swal.fire(
       "Genial!",
       "Registro realizado correctamente. Si has sido seleccionado pronto nos comunicaremos contigo",
@@ -136,71 +116,65 @@ const FormTransit = ({ id,shelterName }) => {
   }
 
   return (
-    <DivContainer> 
-    
-      
-       <Left>
+    <DivContainer>
       <h1>FORMULARIO DE TRÁNSITO</h1>
       <p>Estas a un paso de cambiar una vida</p>
       <form className="formulario">
-     
-         
+        <div>
+          <label>Nombre obligatorio</label>
           <input
             type="text"
-            placeholder="Nombre obligatorio"
             className="inputForm"
             value={profileData.name}
             name="name"
             onChange={(e) => handleChangeProfile(e)}
           />
-        <br></br>
+        </div>
 
-       
+        <div>
+          <label>Apellido</label>
           <input
             type="text"
             className="inputForm"
             value={profileData.lastName}
             name="lastName"
-            placeholder="Apellido"
             onChange={(e) => handleChangeProfile(e)}
           />
-       
+        </div>
 
-       
-       <br></br>
+        <div>
+          <label>Whastapp</label>
           <input
             type="tel"
             className="inputForm"
             value={profileData.phoneNumber}
             name="phoneNumber"
-            placeholder="Whastapp"
             onChange={(e) => handleChangeProfile(e)}
           />
-         <br></br> 
+        </div>
 
-       
-        
+        <div>
+          <label>Dirección</label>
+          <span>dirección, ciudad, provincia/estado</span>
           <input
             type="text"
-            placeholder="Dirección (Ciudad, provincia/estado)"
             className="inputForm"
             value={profileData.address}
             name="address"
             onChange={(e) => handleChangeProfile(e)}
           />
-       <br></br> 
+        </div>
 
-     
-         
+        <div>
+          <label>Email</label>
           <input
-          placeholder="Email"
             type="email"
             className="inputForm"
             value={profileData.email}
             name="email"
             onChange={(e) => handleChangeProfile(e)}
           />
-    
+        </div>
 
         {form[0] &&
           form[0].questions.map((e) => (
@@ -251,13 +225,7 @@ const FormTransit = ({ id,shelterName }) => {
           {errors.email && <p>{errors.email}</p>}
         </div>
       </form>
-      </Left>
-
-        <Right>
-<img src={Img} className="icos40"></img>
-
-        </Right>
-</DivContainer>
+    </DivContainer>
   );
 };
 
