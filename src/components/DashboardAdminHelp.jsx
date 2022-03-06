@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { editShelterByAdmin, getTechHelp } from "../Redux/Actions";
+import { editHelpByAdmin, getTechHelp } from "../Redux/Actions";
 import {
   StyledDashboardPetAdmin,
   StyledDivFlexAdmin,
@@ -79,9 +79,17 @@ const DashboardAdminHelp = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(editShelterByAdmin(form.id, form.email, form.status));
+    let payload = {
+        status: form.status,
+        comments: form.comments,
+        userId: form.userId
+    }
+    let idSuport = form.id
+
+    dispatch(editHelpByAdmin(payload, idSuport));
     setModal(false);
   };
+
   const filter = (searchTerm) => {
     let result = allTechHelp.filter((el) => {
       if (
