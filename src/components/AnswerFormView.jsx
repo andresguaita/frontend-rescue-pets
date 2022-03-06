@@ -84,8 +84,8 @@ export const AnswerFormView = () => {
             <h3>: {e.answer}</h3>
         </div>
     )): <h1>Loading..</h1>}
-    <StyleButtonAccepted onClick={handleAllow}> ✔</StyleButtonAccepted>
-    <StyleButtonRejected onClick={handleDeny}> ✘</StyleButtonRejected>
+    <StyleButtonAccepted onClick={handleAllow}><i class="fas fa-check"></i></StyleButtonAccepted>
+    <StyleButtonRejected onClick={handleDeny}><i class="fas fa-trash"></i></StyleButtonRejected>
     </StyledAnswersView>
     )
 }

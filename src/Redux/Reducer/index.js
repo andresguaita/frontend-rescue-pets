@@ -63,7 +63,9 @@ import {
   GET_PET_HIDE_FOR_ADMIN,
   GET_SHELTER_OF_PET_FOR_ADMIN,
   RESET_INDIVIDUAL_FORM,
-  GET_ALL_FOLLOW_UP_TRANSITS
+  GET_ALL_FOLLOW_UP_TRANSITS,
+  GET_INDIVIDUAL_PET_FOR_ADMIN,
+  CURRENT_CITY
 } from "../Actions/types";
 
 
@@ -136,6 +138,8 @@ const initialState = {
   hideForAdmin: [],
   shelterOfPetForAdmin: [],
   followUpTransits: [],
+  individualPetForAdmin : [],
+  currentcity: [],
   favorites: checkLocalStorage()
 };
 
@@ -639,7 +643,19 @@ export default function rooReducer(state = initialState, { type, payload }) {
                   ...state,
                   followUpTransits : payload
                 }
-
+            
+            case GET_INDIVIDUAL_PET_FOR_ADMIN:
+              return {
+                ...state,
+                individualPetForAdmin: payload
+              }
+            
+            case CURRENT_CITY:
+              console.log(payload)
+              return {
+                ...state,
+                currentcity: payload
+              }  
         default:
           return state;
       }

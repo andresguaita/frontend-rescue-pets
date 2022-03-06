@@ -141,7 +141,7 @@ export const DashboardCreateForm = () => {
                                 <tr key={e}>
                                     <td>{questions.filter(q => q.id === Number(e))[0].id}</td>
                                     <td>{questions.filter(q => q.id === Number(e))[0].question}</td>
-                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}><img src={trash}/></StyleButtonRejected></td>
+                                    <td><StyleButtonRejected onClick={() => handleClickDelete(e)}><i class="fas fa-trash"></i></StyleButtonRejected></td>
                                 </tr>
                             )): null}
                         </tbody>
