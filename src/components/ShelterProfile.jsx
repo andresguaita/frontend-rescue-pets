@@ -19,14 +19,24 @@ export const ShelterProfile = () => {
   const {name, address, phoneNumber, description} = useSelector((state) => state.shelterProfile);
 
   const [input, setInput] = useState({
-    id: id,
-    name,
-    phoneNumber,
-    description,
-    address 
+    id: '',
+    name:'',
+    phoneNumber: '',
+    description: '',
+    address : ''
   });
 
-  
+  useEffect(() => {
+    setInput({
+      ...input,
+      id: id,
+    name: name,
+    phoneNumber: phoneNumber,
+    description: description,
+    address : address
+    })
+ }, [name,address,phoneNumber,description])
+
 
   const handleChange = (e) => {
     setInput({
