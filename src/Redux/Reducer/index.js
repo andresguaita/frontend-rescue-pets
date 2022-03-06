@@ -66,7 +66,9 @@ import {
   GET_ALL_FOLLOW_UP_TRANSITS,
   GET_INDIVIDUAL_PET_FOR_ADMIN,
   CURRENT_CITY,
-  GET_PETS_ALL
+   GET_PETS_ALL,
+   GET_TECH_HELP
+
 } from "../Actions/types";
 
 
@@ -142,7 +144,9 @@ const initialState = {
   individualPetForAdmin : [],
   currentcity: [],
   favorites: checkLocalStorage(),
-  allPets:[]
+   allPets:[],
+  allTechHelp:[]
+
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -152,7 +156,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
         ...state,
         countries: payload,
       };
-
+    case GET_TECH_HELP:
+      return {
+        ...state,
+        allTechHelp: payload
+      };
     case GET_STATES:
       return {
         ...state,

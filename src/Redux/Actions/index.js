@@ -80,7 +80,9 @@ import {
     GET_ALL_FOLLOW_UP_TRANSITS,
     GET_INDIVIDUAL_PET_FOR_ADMIN,
     CURRENT_CITY,
-    GET_PETS_ALL
+   GET_PETS_ALL,
+   GET_TECH_HELP
+
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -1027,5 +1029,13 @@ export const getAllPets = () => {
         } catch (error) {
             console.log(error);
         }
+      
+ export const getTechHelp = () => {
+    return async function (dispatch) {
+      
+        let json = await axios(`${APIGATEWAY_URL}/techSuport`);
+        return dispatch({ type: GET_TECH_HELP, payload: json.data });
+
+
     };
 };

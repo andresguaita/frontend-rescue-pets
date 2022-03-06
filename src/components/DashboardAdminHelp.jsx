@@ -1,290 +1,292 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getFilterShelters, getGenres, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelters, getSpecies, getStates, getStatusForAdmin, getTemperaments} from '../Redux/Actions/index'
-import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
-    StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
-    StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
-    StyledInputSearch, StyledInputButton,
-    StyledInputCheck } from "../Styles/StyledDashboardPetAdmin"
-import {StyleButtonBack} from "../Styles/StyledButtons"
-import { APIGATEWAY_URL } from '../utils/constant';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { editShelterByAdmin, getTechHelp } from "../Redux/Actions";
+import {
+  StyledDashboardPetAdmin,
+  StyledDivFlexAdmin,
+  StyledSelectForTable,
+  StyledSelectForDashboardPetAdmin,
+  StyledButtonDeleteAdminPet,
+  StyledButtonEditAdminPet,
+  StyledInputSearch,
+  StyledInputButton,
+  StyledInputCheck,
+} from "../Styles/StyledDashboardPetAdmin";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Table,
+  Button,
+  Container,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  FormGroup,
+  ModalFooter,
+  Label,
+  Input,
+} from "reactstrap";
 
-function DashboardAdminHelp() {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+const DashboardAdminHelp = () => {
+  const dispatch = useDispatch();
 
-    /// estados principales
-    const countries = useSelector((state) => state.countries)
-    const states = useSelector((state) => state.states)
-    const cities = useSelector((state) => state.cities)
-    ///  estados principales
-
-
-    /// estados para filtrar ↓
-    const onlycitieswithshelter = useSelector((state) => state.onlyCitiesWithShelter)
-    const onlystateswithshelter = useSelector((state) => state.onlyStatesWithShelter)
-    const pets = useSelector((state) => state.petsfilterforadmin)
-    const petstatus = useSelector((state) => state.statusForAdmin)
-    /// estados para filtrar ↑
-    
-    const [link, setLink] = useState()
-    const [input, setInput] = useState({})
-    
-    /// obtener estados princiales ↓
-    useEffect(() => {
-        dispatch(getCountries())
-      }, [])
-      useEffect(async() => {
-          dispatch(getCountries())
-          dispatch(getShelters())
-          if(cities.length){dispatch(getOnlyCitiesWithShelter())}
-          if(link){ await dispatch(getPetsFilterForAdmin(link))}
-          if(pets)await dispatch(getStatusForAdmin())
-      }, [dispatch,cities,link])
-
-      useEffect(()=> {
-        dispatch(getOnlyStatesWithShelter())
-        if(pets)dispatch(getStatusForAdmin())
-      },[states])
-      /// obtener estados principales ↑
-
-    /// setear el estado input, para hacer la petición com las querys y obtener las mascotas ↓
-    // useEffect(()=>{
-    //     setLink(`${APIGATEWAY_URL}/pets/${}`)
-    // },[onlycitieswithshelter])
-
-    // useEffect(()=>{
-    //     let query = `${link}?`
-    //     Object.entries(input).forEach(([key,value])=> {
-    //          query = `${query}${[key]}=${[value]}&`
-        
-    //     })  
-    //     dispatch(getPetsFilter(query))
-    // },[input])
-
-    const handleForGetPets = (e) => {
-        if(isNaN(Number(e.target.value))){
-            let temp = input
-            delete temp[e.target.name]
-            setInput((input) => {return{...input}})
-        }else{
-                setInput( (input) => { return {
-                    ...input,
-                    [e.target.name]: e.target.value
-                }})
-        }
+  const [help, setHelp] = useState([]);
+  const [form, setForm] = useState(
+    {
+        id: "",
+        email: "",
+        type: "",
+        description: "",
+        isUser: null,
+        status: null,
+        comments: null,
+        createdAt: "",
+        updatedAt: "",
+        userId: null
     }
-    /// setear el estado input, para hacer la petición com las querys y obtener las mascotas ↑
+  );
+  const [modal, setModal] = useState(false);
+  const [search, setSearch] = useState("");
 
-    const handleSubmitPrincipalLocation = (e) => {
-        if(e.target.name === 'Country'){
-            dispatch(getStates(e.target.value))
-        }
-        if(e.target.name === 'State'){
-            dispatch(getcities(e.target.value))
-        }
-        if(e.target.name === 'City'){
-            dispatch(setLink(`${APIGATEWAY_URL}/pets/${Number(e.target.value)}`))
-        }
-    }
+  useEffect(() => {
+    dispatch(getTechHelp());
+  }, [dispatch]);
 
+  const { allTechHelp } = useSelector((state) => state);
 
-    const Back = () => {
-        navigate('/dashboard')
-    }
+  useEffect(() => {
+    setHelp(allTechHelp);
+  }, [allTechHelp]);
 
-    return (
-        <StyledDashboardPetAdmin>
-            <StyleButtonBack onClick={Back}>{'<'}</StyleButtonBack>
-            <h1>Tickets de Sorte</h1>
+  const handleInputChange = (e) => {
+    setSearch(e.target.value);
+    filter(e.target.value);
+  };
 
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      email: e.target.value,
+    });
+  };
+
+  const handleSelectStatus = (e) => {
+    setForm({
+      ...form,
+      status: e.target.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    dispatch(editShelterByAdmin(form.id, form.email, form.status));
+    setModal(false);
+  };
+  const filter = (searchTerm) => {
+    let result = allTechHelp.filter((el) => {
+      if (
+        el.shelter.name
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        el.email.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return el;
+      }
+    });
+
+    setHelp(result);
+  };
+
+  const closeUpdateModal = () => {
+    setModal(false);
+  };
+
+  const openUpdateModal = (data) => {
+    setModal(true);
+    setForm({
+        id: data.id,
+        email: data.email,
+        type: data.type,
+        description: data.description,
+        isUser: data.isUser,
+        status: data.status,
+        comments: data.comments,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+        userId: data.userId
+    });
+  };
+
+  return (
+    <>
+      <Modal isOpen={modal}>
+        <ModalHeader>
+          <div>
+            <h3>Ver / Editar Registro</h3>
+          </div>
+        </ModalHeader>
+
+        <ModalBody>
+          <FormGroup>
+            <label>Id:</label>
+            <input
+              className="form-control"
+              name="email"
+              type="text"
+              onChange={handleChange}
+              value={form.id}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Email:</label>
+            <input
+              className="form-control"
+              name="email"
+              type="text"
+              onChange={handleChange}
+              value={form.email}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Type:</label>
+            <input
+              className="form-control"
+              name="type"
+              type="text"
+              onChange={handleChange}
+              value={form.type}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Description:</label>
+            <textarea
+              className="form-control"
+              name="description"
+              type="text"
+              onChange={handleChange}
+              value={form.description}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>isUser:</label>
+            <textarea
+              className="form-control"
+              name="isUser"
+              type="text"
+              onChange={handleChange}
+              value={form.isUser}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>isUser:</label>
+            <textarea
+              className="form-control"
+              name="isUser"
+              type="text"
+              onChange={handleChange}
+              value={form.isUser}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <Label>Status</Label>
+            <Input type="select" name="status" onChange={handleSelectStatus}>
+              <option value="PENDIENTE" selected={form.status === "PENDIENTE" ? true : false}>PENDIENTE</option>
+              <option value="SOLUCIONADO" selected={form.status === "SOLUCIONADO" ? true : false}>SOLUCIONADO</option>
+            </Input>
+          </FormGroup>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button color="primary" onClick={handleSubmit}>
+            Guardar Cambios
+          </Button>
+          <Button color="danger" onClick={closeUpdateModal}>
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
+
+      <StyledDashboardPetAdmin>
+        <h1>Tickets de Soporte Técnico</h1>
+
+        <StyledDivFlexAdmin>
+          <form>
             <StyledDivFlexAdmin>
-
-                <form>
-                    <StyledDivFlexAdmin>
-                        <div>
-                            <h3>BUSQUEDA</h3>
-                            <StyledInputSearch type="text" placeholder="Ingrese dato a buscar"/>
-                        </div>
-                        <div>
-                            
-                            <StyledInputButton type="button" value="buscar"/>
-                        </div>
-                        <div>
-                            <br></br>
-                            <label>Ciudad</label>
-                            <StyledInputCheck type="checkbox"/>
-
-                            <label>Refugio</label>
-                            <StyledInputCheck type="checkbox"/>
-
-                            <label>Especie</label>
-                            <StyledInputCheck type="checkbox"/>
-
-                            <label>Nombre</label>
-                            <StyledInputCheck type="checkbox"/>
-                        </div>
-                    </StyledDivFlexAdmin>    
-                </form>
-
+              <div>
+                <h3>BUSQUEDA</h3>
+                <StyledInputSearch
+                  type="text"
+                  placeholder="Buscar por..."
+                  value={search}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <StyledInputButton type="button" value="buscar" />
+              </div>
             </StyledDivFlexAdmin>
-            
+          </form>
+        </StyledDivFlexAdmin>
 
-            <hr></hr>
+        <div>
+          <table>
+            <thead>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+              {/* <th>isUser</th> */}
+              <th>Status</th>
+              {/* <th>Fecha</th>
+              <th>Comentarios</th> */}
+              <th>Resuelto por</th>
+              <th>Acciones</th>
+            </thead>
+            <tbody>
+              {help &&
+                help?.map((help) => (
+                  <tr key={help.id}>
+                    <td>{help.id}</td>
+                    <td>{help.email}</td>
+                    <td>{help.type}</td>
+                    <td>{help.description.slice(0,10)}[...]</td>
+                    {/* <td>{help.isUser.toString()}</td> */}
+                    <td>{help.status}</td>
+                    {/* <td>
+                        Creado: {help.createdAt} 
+                        <hr />
+                        Actualizado: {help.updatedAt}
+                    </td>
+                    <td>{help.comments}</td> */}
+                    <td>{help.userId}</td>
+                    <td>
+                      <StyledButtonEditAdminPet
+                        onClick={() => openUpdateModal(help)}
+                      >
+                        <i className="fas fa-edit"></i>
+                      </StyledButtonEditAdminPet>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </StyledDashboardPetAdmin>
+    </>
+  );
+};
 
-            <StyledDivFlexAdmin>
-                
-                {/* Ubicación local city ↓ */}
-                <StyledSelectForDashboardPetAdmin name="City" onChange={e => handleSubmitPrincipalLocation(e)}>
-                    <option disabled selected>
-                            Ciudad
-                    </option>
-                    <option value={''}>Todos</option>
-                    {onlycitieswithshelter.length ? onlycitieswithshelter.map(city => (
-                        <option key={city.id} value={city.id}>{city.city}</option>
-                    )):<p>Cargando...</p>}   
-                </StyledSelectForDashboardPetAdmin>
-                {/* Ubicación local city ↑ */}
-                
-                {/*  */}
-                <StyledSelectForDashboardPetAdmin>
-                    <option disabled selected>
-                            Refugio
-                    </option>
-                    <option>Todas</option>
-                    <option>refugio 1</option>
-                    <option>refugio 2</option>
-                </StyledSelectForDashboardPetAdmin>
-                {/*  */}
-                
-                {/*  */}
-                <StyledSelectForDashboardPetAdmin>
-                    <option disabled selected>
-                            Especie
-                    </option>
-                    <option>Todas</option>
-                    <option>Perro</option>
-                    <option>Gato</option>
-                    <option>Pajaro</option>
-                    <option>Cerdo</option>
-                </StyledSelectForDashboardPetAdmin>
-                {/*  */}
-
-                {/* Filtro por el estado de la mascota ↓ */}
-                <StyledSelectForDashboardPetAdmin>
-                    <option disabled selected>
-                            Estatus mascota
-                    </option>
-                    <option>Todos</option>
-                    {petstatus? petstatus.map(status => (
-                        <option key={status.id} value={status.id} >{status.status}</option>
-                    )):<p>Cargando...</p>}
-                </StyledSelectForDashboardPetAdmin>
-                {/* Filtro por el estado de la mascota ↑ */}
-
-                {/*  */}
-                <StyledSelectForDashboardPetAdmin>
-                    <option disabled selected>
-                            Género
-                    </option>
-                    <option>Macho</option>
-                    <option>Hembra</option>
-                </StyledSelectForDashboardPetAdmin>
-                {/*  */}
-
-                {/*  */}
-                <StyledSelectForDashboardPetAdmin>
-                    <option disabled selected>
-                            Hide
-                    </option>
-                    <option>True</option>
-                    <option>False</option>
-                </StyledSelectForDashboardPetAdmin>
-                {/*  */}
-            </StyledDivFlexAdmin>
-            <div>
-                <table>
-                    <thead>
-                        <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
-                            Id
-                            </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
-                        </StyledSelectForTable>
-                        </th>
-                        <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
-                            Nombre
-                            </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
-                        </StyledSelectForTable></th>
-                        <th>
-                            Especie    
-                        </th>
-                        <th>
-                            Género 
-                        </th>
-                        <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
-                            Peso
-                            </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
-                        </StyledSelectForTable>    
-                        </th>
-                        <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
-                            Edad
-                            </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
-                        </StyledSelectForTable></th>
-                        <th>
-                            Esterilizado
-                        </th>
-                        <th>
-                            Estatus
-                        </th>
-                        <th>
-                            Hide
-                        </th>
-                        <th>
-                            Refugio
-                        </th>
-                        <th>Acciones</th>
-                    </thead>
-                        {typeof(pets) !== 'string' && pets.length? pets.map(pet => (
-                           <tbody key={pet.id}>
-                                <td>{pet.id}</td>
-                                <td>{pet.name}</td>
-                                <td>{pet.species.specie}</td>
-                                <td>{pet.genre.genre}</td>
-                                <td>{pet.weight}</td>
-                                <td>{pet.age.age}</td>
-                                <td>{pet.sterilization.toString()}</td>
-                                <td>{pet.petStatus.status}</td>
-                                <td>{pet.hideFromDash.toString()}</td>
-                                <td>{pet.shelter.name}</td>
-                                <td>
-                                <div>
-                                    <StyledButtonDeleteAdminPet>x</StyledButtonDeleteAdminPet>
-                                    <StyledButtonEditAdminPet>Edit</StyledButtonEditAdminPet>
-                                </div>
-                                </td>
-                           </tbody> 
-                        )):<p>Cargando...</p>}
-                </table>
-            </div>
-        </StyledDashboardPetAdmin>
-    )
-}
-
-export default DashboardAdminHelp
+export default DashboardAdminHelp;
