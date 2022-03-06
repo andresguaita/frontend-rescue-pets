@@ -30,7 +30,7 @@ import {
 
 const DashboardAdminHelp = () => {
   const dispatch = useDispatch();
-
+  const { id } = useSelector((state) => state);
   const [help, setHelp] = useState([]);
   const [form, setForm] = useState(
     {
@@ -43,7 +43,7 @@ const DashboardAdminHelp = () => {
         comments: null,
         createdAt: "",
         updatedAt: "",
-        userId: null
+        userId: id
     }
   );
   const [modal, setModal] = useState(false);
@@ -67,7 +67,7 @@ const DashboardAdminHelp = () => {
   const handleChange = (e) => {
     setForm({
       ...form,
-      email: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -105,6 +105,7 @@ const DashboardAdminHelp = () => {
   const openUpdateModal = (data) => {
     setModal(true);
     setForm({
+        ...form,
         id: data.id,
         email: data.email,
         type: data.type,
@@ -114,7 +115,6 @@ const DashboardAdminHelp = () => {
         comments: data.comments,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,
-        userId: data.userId
     });
   };
 
@@ -134,7 +134,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="email"
               type="text"
-              onChange={handleChange}
               value={form.id}
               disabled
             />
@@ -146,7 +145,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="email"
               type="text"
-              onChange={handleChange}
               value={form.email}
               disabled
             />
@@ -158,7 +156,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="type"
               type="text"
-              onChange={handleChange}
               value={form.type}
               disabled
             />
@@ -170,7 +167,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="description"
               type="text"
-              onChange={handleChange}
               value={form.description}
               disabled
             />
@@ -178,34 +174,61 @@ const DashboardAdminHelp = () => {
 
           <FormGroup>
             <label>isUser:</label>
-            <textarea
+            <input
               className="form-control"
               name="isUser"
               type="text"
-              onChange={handleChange}
               value={form.isUser}
               disabled
             />
           </FormGroup>
 
           <FormGroup>
-            <label>isUser:</label>
-            <textarea
-              className="form-control"
-              name="isUser"
-              type="text"
-              onChange={handleChange}
-              value={form.isUser}
-              disabled
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Label>Status</Label>
+            <Label>Status:</Label>
             <Input type="select" name="status" onChange={handleSelectStatus}>
               <option value="PENDIENTE" selected={form.status === "PENDIENTE" ? true : false}>PENDIENTE</option>
               <option value="SOLUCIONADO" selected={form.status === "SOLUCIONADO" ? true : false}>SOLUCIONADO</option>
             </Input>
+          </FormGroup>
+
+          <FormGroup>
+            <Label>Fechas:</Label>
+            <input
+              className="form-control"
+              name="createdAt"
+              type="text"
+              value={`Creado : ${form.createdAt}`}
+              disabled
+            />
+            <input
+              className="form-control"
+              name="updatedAt"
+              type="text"
+              value={`actualizado : ${form.updatedAt}`}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Comments:</label>
+            <textarea
+              className="form-control"
+              name="comments"
+              type="text"
+              value={form.comments}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Resuelto por:</label>
+            <input
+              className="form-control"
+              name="userId"
+              type="text"
+              value={form.userId}
+              disabled
+            />
           </FormGroup>
         </ModalBody>
 
