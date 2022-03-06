@@ -10,7 +10,8 @@ import CardsHeader from './CardsHeaderChe';
 import Cards from './CardsStatisChe';
 import Graphics from '../components/GraphicStatisChelter';
 // import TableMaterial from '../components/TableMaterial';
-import { getIdFromShelterAndCity } from '../Redux/Actions'
+import { getIdFromShelterAndCity, getAllPets } from '../Redux/Actions'
+
 
 const useStyles= makeStyles(()=>({
 root:{
@@ -73,19 +74,36 @@ for (let i=0; i<countries.length; i++){
     }
 }
 
-const petsAll = useSelector(state => state.petsfilter);
-console.log("petsAll",petsAll)
+const dispatch = useDispatch()
+
+useEffect(()=>{
+    dispatch(getAllPets())
+},[])
+
+const DetailPets=useSelector(state => state.allPets)
+
+const DetailPetsFilter = DetailPets.filter(el => el.shelterId === shelterId)
+
+// const petsAll = useSelector(state => state.petsfilter);
+// console.log("petsAll",petsAll)
+
 var cont_pets=0;
-for(let i=0; i<petsAll.length; i++){
-    if(shelterId === petsAll[i].shelter.id){
+for(let i=0; i<DetailPetsFilter.length; i++){
+    if(shelterId === DetailPetsFilter[i].shelterId){
         cont_pets++;
     }
 }
-console.log("contador pets", cont_pets)
-const dispatch = useDispatch()
 
+
+const enAdopcion=DetailPetsFilter.filter(el => el.petStatus.id === 1)
+// console.log("En Adopocion",enAdopcion)
+const adoptados=DetailPetsFilter.filter(el => el.petStatus.id === 2)
+// console.log("Adoptados",adoptados)
+const enProceso=DetailPetsFilter.filter(el => el.petStatus.id === 3)
+// console.log("En proceso",enProceso)
+
+const PorcentajeAdop=(adoptados.length * 100)/cont_pets
 useEffect(() => {
-
     dispatch(getIdFromShelterAndCity(idUser))
 }, [])
 
@@ -113,19 +131,19 @@ useEffect(() => {
 
                 <Grid container spacing={1} className={classes.container} xs={12} sm={12} md={6} lg={6} xl={6}>
                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    <Cards titulo="ADOPTADOS" texto="692"/>
+                    <Cards titulo="ADOPTADOS" texto={adoptados.length}/>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    <Cards titulo="EN ADOPCIÓN" texto="111,092"/>
+                    <Cards titulo="EN ADOPCIÓN" texto={enAdopcion.length}/>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    <Cards titulo="EN PROCESO DE ADOPCIÓN" texto="2,504 horas"/>
+                    <Cards titulo="EN PROCESO DE ADOPCIÓN" texto={enProceso.length}/>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    <Cards titulo="PORCENTAJE ADOPCIONES" texto="14.2%"/>
+                    <Cards titulo="PORCENTAJE ADOPCIONES" texto={PorcentajeAdop +" %"}/>
                     </Grid>
 
                     </Grid>
