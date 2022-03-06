@@ -14,10 +14,11 @@ export default function NavbarDashboard() {
 
     const handleLogout= () =>{
         dispatch(startLogout())
+       
     }
 
     return (
-        <Fragment>
+        <div style={{backgroundColor:'#6F8AB7'}}>
             <header>
               
                     <StyleNavBar>
@@ -41,6 +42,6 @@ export default function NavbarDashboard() {
                     </StyleNavBar>
                 
             </header>
-        </Fragment>
+        </div>
     );
 }

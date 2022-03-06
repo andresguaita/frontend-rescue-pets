@@ -88,3 +88,10 @@ background-color: ${allColors.colors[8]};
 text-align: center;
  
 `;
+
+export const StyledInfo2 = styled.div`
+color: white;
+background-color: ${allColors.colors[8]};
+text-align: center;
+ 
+`;

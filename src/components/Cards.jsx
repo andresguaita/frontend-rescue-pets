@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {StyledCard, StyledCardContainer, ImgCard} from '../Styles/StyledCards.js';
 import {Link} from "react-router-dom";
 
-//import Img from "../Icos/homeim1.svg"
+import img1 from "../Icos/ref.png"
 
 export default function Cards({pets}) {
     return (<Fragment >
@@ -10,16 +10,19 @@ export default function Cards({pets}) {
        
         <StyledCardContainer key={Math.random(5)}> {
             typeof(pets) !== 'string'? pets.map((p) => (<Fragment key={p.id} >
- <Link to={`/details/${p.id}`}>
+ 
                 <StyledCard >
-                    <h1>{p.name}</h1>
+                <Link to={`/details/${p.id}`}>   <h1>{p.name}</h1></Link>
+                <Link to={`/shelters/${[p.shelter][0].id}`}> <h2 className="ref">  {[p.shelter][0].name}</h2>  </Link>
+                <Link to={`/shelters/${[p.shelter][0].id}`}>  <p className="hashtag"> #{[p.temperament][0].temperament} </p> </Link>
+                    {/* <p>{p.description}</p> */
                     
-                    {/* <p>{p.description}</p> */}
-                    <ImgCard src={p.image}/>
+                    }
+                   <Link to={`/details/${p.id}`}>   <ImgCard src={p.image}/></Link>
 
                     <br/>
                 </StyledCard>
-                </Link>
+                
                 
             </Fragment>)) : typeof(pets) === 'string'? (<h1>             {pets}</h1>): (<h1>             Cargando datos</h1>)
         } </StyledCardContainer>

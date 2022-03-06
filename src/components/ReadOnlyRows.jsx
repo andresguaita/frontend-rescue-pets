@@ -1,5 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Del from "../Icos/del.png";
+import Edi from "../Icos/edit.png";
 
+
+import {
+    Container, Center, CenterChild ,Table,Button,Button3
+  } from "../Styles/StyledPetsInDashboard"
 
 const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
     
@@ -9,8 +15,8 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             {data.sterilization? <td>True</td> : <td>False</td> }
             <td>{data.weight}</td>
             <td>{data.description}</td>
-            <td>{data.image}</td>
-            <td>{data.speciesId}</td>
+            <td><img src={data.image} className="icos20"></img> </td>
+            <td>{data.species.specie}</td>
             {data.temperament.temperament? 
                 <td>{data.temperament.temperament}</td> :
                 <td>{data.temperament}</td> 
@@ -22,10 +28,10 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             {data.petStatus.status ? <td>{data.petStatus.status}</td> :
             <td>{data.petStatus}</td>
             }
-            <td>{data.genreId}</td>
+            <td>{data.genre.genre}</td>
             <td>
-                <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>
-                <button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Eliminar</button>
+                <Button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</Button>
+                <Button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Ocultar</Button>
             </td>
         </tr>
     )

@@ -48,10 +48,46 @@ import {
   GET_PROFILE,
   GET_FOLLOW_UPS_STATUSES,
   GET_COUNT_SHELTER,
+  GET_COUNT_ADOPTED1,
   GET_COUNT_ADOPTED2,
-  GET_COUNT_ADOPTED3
-
+  GET_ONLY_CITIES_WITH_SHELTERS,
+  REMOVE_FROM_FAVORITES,
+  ADD_TO_FAVORITES,
+  GET_ALL_SHELTERS,
+  GET_PETS_FILTER_FOR_ADMIN,
+  GET_ONLY_STATES_WITH_SHELTERS,
+  authLoginAdmin,
+  GET_STATUS_FOR_ADMIN,
+  GET_SPECIES_FOR_ADMIN,
+  GET_PET_GENRE_FOR_ADMIN,
+  GET_PET_HIDE_FOR_ADMIN,
+  GET_SHELTER_OF_PET_FOR_ADMIN,
+  RESET_INDIVIDUAL_FORM,
+  GET_ALL_FOLLOW_UP_TRANSITS,
+  GET_INDIVIDUAL_PET_FOR_ADMIN,
+  CURRENT_CITY,
+  GET_TECH_HELP,
+  GET_PETS_ALL
 } from "../Actions/types";
+
+
+const checkLocalStorage = (term) => {
+ 
+  return Object.assign(
+    {},
+    
+    ...Object.entries(localStorage).filter(([key,value])=> key >= 5 )
+   . map(([key, value]) => (
+      {
+      [key]: (value)
+
+    }))
+  );
+};
+
+
+
+
 
 const initialState = {
   countries: [],
@@ -68,9 +104,6 @@ const initialState = {
   shelter: [],
   Shelters: [],
   forms: [],
-  status: [],
-  shelter: [],
-  Shelters: [],
   petOne: [],
   ShelterAndCityId: {},
   shelterDetail: {},
@@ -90,16 +123,28 @@ const initialState = {
   formstatus : [],
   followUps : [],
   checkForm : [],
-
+  onlyCitiesWithShelter : [],
   modaldashboard:"icos",
- 
+  petsfilterforadmin: [],
   profileForSend : [],
   followUpStatuses: [],
   countShelters:{},
+  countAdopted1:{},
   countAdopted2:{},
-  countAdopted3:{}
-
-
+  countAdopted3:{},
+  allShelters: {},
+  onlyStatesWithShelter : [],
+  statusForAdmin: [],
+  speciesForAdmin: [],
+  genresForAdmin: [],
+  hideForAdmin: [],
+  shelterOfPetForAdmin: [],
+  followUpTransits: [],
+  individualPetForAdmin : [],
+  currentcity: [],
+  favorites: checkLocalStorage(),
+  allTechHelp:[],
+  allPets:[]
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -109,7 +154,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
         ...state,
         countries: payload,
       };
-
+    case GET_TECH_HELP:
+      return {
+        ...state,
+        allTechHelp: payload
+      };
     case GET_STATES:
       return {
         ...state,
@@ -156,7 +205,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
     case GET_PETS_FILTER:
       return {
         ...state,
-        petsfilter: payload,
+        petsfilter: payload.filter(e => e.petStatusId === 1 && e.hideFromDash === false),
       };
 
     case authLogin:
@@ -165,6 +214,14 @@ export default function rooReducer(state = initialState, { type, payload }) {
         checking: false,
         ...payload,
       };
+    
+    case authLoginAdmin:{
+      return{
+        ...state,
+        checking:false,
+        ...payload
+      }
+    }
 
     case authCheckingFinish:
       return {
@@ -306,6 +363,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
         checking : false,
         id: null,
         email: null,
+        rol: null,
         formtypes: [],
        petsForDashboard: []
        ,ShelterAndCityId : [],
@@ -454,19 +512,163 @@ export default function rooReducer(state = initialState, { type, payload }) {
               countShelters:payload
             }  
         
+          case GET_COUNT_ADOPTED1:
+            return{
+              ...state,
+              countAdopted1:payload
+            } 
+
           case GET_COUNT_ADOPTED2:
             return{
               ...state,
               countAdopted2:payload
-            } 
-
-          case GET_COUNT_ADOPTED3:
-            return{
-              ...state,
-              countAdopted3:payload
             }   
+            case ADD_TO_FAVORITES:
+              return {
+                ...state,
+                favorites: { ...state.favorites, [payload.id]: payload },
+              };
+            case REMOVE_FROM_FAVORITES:
+              return {
+                ...state,
+                favorites: Object.keys(state.favorites)
+                  .filter((item) => item !== payload.toString())
+                  .reduce(
+                    (object, item) => ({ ...object, [item]: state.favorites[item] }),
+                    {}
+                  ),
+              };
+            
+            case GET_ONLY_CITIES_WITH_SHELTERS:
+              let temporal = state.cities.filter(c => state.Shelters.find(s => s.cityId === c.id))
+              return{
+                ...state,
+                onlyCitiesWithShelter : temporal
+              }
+            
+            case GET_PETS_FILTER_FOR_ADMIN:
+              return{
+                ...state,
+                petsfilterforadmin : payload
+              }
+            
+            case GET_ONLY_STATES_WITH_SHELTERS:
+              let temporal2 = state.states.filter(s => state.Shelters.find(sh => Number(sh.city.stateId) === Number(s.id)))
+              
+              return{
+                ...state,
+                onlyStatesWithShelter : temporal2
+              }
+            
+            case GET_STATUS_FOR_ADMIN:
+              let filteredStatusForAdmin = [];
+        
+              state.petsfilterforadmin.map((el) => {
+                if (!filteredStatusForAdmin.length) return filteredStatusForAdmin.push(el.petStatus);
+                let ele = el.petStatus.id;
+                let obj = filteredStatusForAdmin.find((sta) => sta.id === ele);
+                if (!obj) return filteredStatusForAdmin.push(el.petStatus);
+              });
+              return {
+                ...state,
+                statusForAdmin: filteredStatusForAdmin,
+              };
+            
+            case GET_SPECIES_FOR_ADMIN:
+              let filterSpeciesForAdmin = [];
+
+              state.petsfilterforadmin.map((e) => {
+                if (!filterSpeciesForAdmin.length) return filterSpeciesForAdmin.push(e.species);
+                let ele = e.species.id;
+                let obj = filterSpeciesForAdmin.find((s) => s.id === ele);
+                if (!obj) return filterSpeciesForAdmin.push(e.species);
+              });
+              return {
+                ...state,
+                speciesForAdmin: filterSpeciesForAdmin,
+              };
 
 
+          case GET_ALL_SHELTERS:
+
+          return {
+            ...state,
+            allShelters: payload
+          }
+
+            case GET_PET_GENRE_FOR_ADMIN:
+              let filterGenresForAdmin = []
+              
+              state.petsfilterforadmin.map((e) => {
+                if(!filterGenresForAdmin.length) return filterGenresForAdmin.push(e.genre)
+                let ele = e.genre.id
+                let obj = filterGenresForAdmin.find((g) => g.id === ele)
+                if(!obj) return filterGenresForAdmin.push(e.genre)
+              })
+              return {
+                ...state,
+                genresForAdmin: filterGenresForAdmin,
+              }
+            
+            case GET_PET_HIDE_FOR_ADMIN:
+              let filterHideForAdmin = []
+              
+              state.petsfilterforadmin.map((e) => {
+                if(!filterHideForAdmin.length) return filterHideForAdmin.push(e.hideFromDash)
+                let ele = e.hideFromDash
+                let obj = filterHideForAdmin.find((h) => h === ele)
+                if(!obj) return filterHideForAdmin.push(e.hideFromDash)
+              })
+              let plusRes = [...new Set(filterHideForAdmin)]
+              return {
+                ...state,
+                hideForAdmin : plusRes,
+              }
+
+            case GET_SHELTER_OF_PET_FOR_ADMIN:
+              let filterShelterPetForAdmin = []
+              
+              state.petsfilterforadmin.map((e) => {
+                if(!filterShelterPetForAdmin.length) return filterShelterPetForAdmin.push(e.shelter)
+                let ele = e.shelterId
+                let obj = filterShelterPetForAdmin.find(sh => sh.id === ele)
+                if(!obj) return filterShelterPetForAdmin.push(e.shelter)
+              })
+              return {
+                ...state,
+                shelterOfPetForAdmin: filterShelterPetForAdmin,
+              }
+            
+              
+            case RESET_INDIVIDUAL_FORM:
+              return {
+                ...state,
+                individualform: []
+              }  
+
+              case GET_ALL_FOLLOW_UP_TRANSITS:
+                return {
+                  ...state,
+                  followUpTransits : payload
+                }
+            
+            case GET_INDIVIDUAL_PET_FOR_ADMIN:
+              return {
+                ...state,
+                individualPetForAdmin: payload
+              }
+            
+            case CURRENT_CITY:
+              return {
+                ...state,
+                currentcity: payload
+              }
+
+              case GET_PETS_ALL:
+              return {
+                ...state,
+                allPets: payload
+              } 
         default:
           return state;
       }
