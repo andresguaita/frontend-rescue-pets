@@ -66,7 +66,8 @@ import {
   GET_ALL_FOLLOW_UP_TRANSITS,
   GET_INDIVIDUAL_PET_FOR_ADMIN,
   CURRENT_CITY,
-  GET_TECH_HELP
+  GET_TECH_HELP,
+  GET_PETS_ALL
 } from "../Actions/types";
 
 
@@ -662,6 +663,12 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 currentcity: payload
               }  
+
+              case GET_PETS_ALL:
+              return {
+                ...state,
+                allPets: payload
+              } 
         default:
           return state;
       }
