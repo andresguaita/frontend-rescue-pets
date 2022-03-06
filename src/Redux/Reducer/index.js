@@ -143,7 +143,8 @@ const initialState = {
   individualPetForAdmin : [],
   currentcity: [],
   favorites: checkLocalStorage(),
-  allTechHelp:[]
+  allTechHelp:[],
+  allPets:[]
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
