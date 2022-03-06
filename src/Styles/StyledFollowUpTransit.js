@@ -31,3 +31,54 @@ font-size: 9px;
  }
 
 `
+
+export const Table = styled.table`
+
+border-radius: 3px ;
+border-spacing: 0;
+border-collapse: collapse;
+overflow-x:auto;
+border-spacing:0px; 
+border-collapse: collapse;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+
+th,
+td {
+border: 1px solid  white;
+text-align: center;
+padding: 8px;
+padding-left: 4px;
+padding-right: 4px;
+font-size: 10px;
+
+overflow-x:auto;
+width:1%;
+}
+
+th {
+background-color: #63ac44;
+color: #ffffff;
+
+
+}
+
+td {
+background-color: #ddf4ff;
+}
+
+form {
+display: flex;
+gap: 5px;
+}
+
+form td:last-child {
+display: flex;
+justify-content: space-evenly;
+}
+
+form * {
+font-size: 28px;
+}
+`
