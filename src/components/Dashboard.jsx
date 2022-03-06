@@ -15,13 +15,7 @@ export const Dashboard = () => {
 
     const idUser = useSelector(state => state.id)
 
-    console.log(idUser , "id user")
-
-const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
-  console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
-  
-  const shelterId = ShelterAndCityINfo.shelterId
-  console.log("shelterId------------>",shelterId)
+    console.log(idUser)
 
     const dispatch = useDispatch()
 
@@ -39,17 +33,16 @@ const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
             <Container>
                 <Left>
                     <img src={LogoRefugio} className="icos20" />
-                    <Link to='/dashboard/pets/FollowUpTransit'> <LeftMini>Seguimiento a Tránsitos</LeftMini> </Link>
+                    {/* <Link to='/dashboard/pets'> <LeftMini>   Take me to see Pets in Dashboard</LeftMini> </Link> */}
                     {/* <Link to='/dashboard/forms'><LeftMini> Go to Answers Forms</LeftMini> </Link>
                     <Link to='/dashboard/createForm'><LeftMini>  Go to create Forms</LeftMini> </Link> */}
-                     <Link to="/dashboard/DashStatisChelter" ><LeftMini>Estadísticas</LeftMini></Link>
                 </Left>
 
                 {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
                 <Right>
 
 
-                    <DashboardIcos  refugio={shelterId}></DashboardIcos>
+                    <DashboardIcos></DashboardIcos>
                 </Right>
             </Container>
 

@@ -69,61 +69,7 @@ bottom: 12px;
     align-items: center;
 text-align: center;
 margin-left: 20PX;
-border-radius: 12px;
 }
- .hashtag{
-     
-    color: white !important;
-    background-color: #7fbb65 ;
-    display: block;
-    padding:5px;font-size:20px;
-    display: inline-block;
-    border-radius: 5px;
-    text-align: center;
- }
-
- .ref{
-   
-    text-align: center;
-    padding:2px;
-    color: #6F8AB7;
-  
-    display: block;
-    padding:3px;
-    font-size:13px;
-
-    border-radius: 5px;
-   
- }
-
- .hashtag p {
-   
-   
-    color: rgb(9, 172, 50) !important;
- }
-
- .ref h2 {
-   
- 
-   font-size: 15px;
-    
- }
-
- 
-
-
- .ref:hover{
-     color:#ffffff
-     
- }
-
-
- .hashtag:hover {
-   
-    background-color:rgb(99, 189, 224);
-    color:#08751a;
-    
- }
 
 .icos50 {
     width: 50%;
@@ -133,17 +79,6 @@ margin-left: 20PX;
 border-radius: 12px;
 }
 
-.icos80 {
-    width: 100%;
-    align-items: center;
-text-align: center;
-border-radius: 12px;
-}
-
-.icosmin{
-    height: 20%;
-   
-}
 .icos40 {
     width: 90%;
     align-items: center;

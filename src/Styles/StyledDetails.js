@@ -12,7 +12,7 @@ export const StyledDetails = styled.div`
   background-image: url(${Img});
   background-repeat: no-repeat;
   background-size: cover;
-  margin-top: 10px;
+  margin-top: 80px;
   padding :40px;
   
 `;
@@ -74,12 +74,12 @@ font-size : 15px;
 
 export const Cuadro = styled.div`
  width: 100%;
- height:475px;
+ height:400px;
  overflow: hidden;
  border-radius: 19px;
 
 `
 
 export const Imgag = styled.img`
-  width: 120%;
+  width: 130%;
 `

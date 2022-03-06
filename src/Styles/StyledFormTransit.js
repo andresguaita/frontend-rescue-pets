@@ -9,7 +9,7 @@ export const DivContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-top: 5px;
-  padding :15px;
+  padding :13px;
  
  
   h1 {
@@ -126,13 +126,12 @@ export const Left = styled.div`
   border-radius: 9px;
  margin:0;
  background-color: ${allColors.colors[8]};
-text-align: center;
+
   border-radius: 12px;
  border-radius: 12px;
- padding: 20px;
  color: white;
   h1 {
-    color: white;
+    color: ${allColors.colors[2]};
    
   }
  
