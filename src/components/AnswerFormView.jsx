@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm, updatePetStatus} from "../Redux/Actions/index"
+import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm, updatePetStatus, addFollowUpTransit} from "../Redux/Actions/index"
 import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
 
@@ -23,7 +23,6 @@ export const AnswerFormView = () => {
         dispatch(checkForm(shelterid))
         dispatch(getIndividualForm(shelterid,formtypeid,adoYreqid))
         // dispatch(getProfile())
-        console.log(detailform[0])
     },[])
 
     useEffect(()=>{
@@ -36,15 +35,25 @@ export const AnswerFormView = () => {
 
     const handleAllow = () => {
         alert('Petición aceptada')
-        dispatch(addFollowUp({
-            followUpStatusId:1,
-            profileId:Number(detailform[0]),
-            shelterId:shelterid,
-            petId:Number(formtypeid) === 2 ? Number(petId) : null,
-            adoptionId:Number(formtypeid) === 2 ? Number(adoYreqid) : null,
-            requestId:Number(formtypeid) === 1 ? Number(adoYreqid) : null,
-            userId : profile.userId
-        }))
+        if(Number(formtypeid) === 2){
+            dispatch(addFollowUp({
+                followUpStatusId:1,
+                profileId:Number(detailform[0]),
+                shelterId:shelterid,
+                petId:Number(formtypeid) === 2 ? Number(petId) : null,
+                adoptionId:Number(formtypeid) === 2 ? Number(adoYreqid) : null,
+                requestId:Number(formtypeid) === 1 ? Number(adoYreqid) : null,
+                userId : profile.userId
+            }))
+        }
+        if(Number(formtypeid) === 1){
+            dispatch(addFollowUpTransit({
+                profileId:Number(detailform[0]),
+                shelterId:shelterid,
+                requestId:Number(formtypeid) === 1 ? Number(adoYreqid) : null,
+                userId : profile.userId
+            }))
+        }    
         dispatch(setFormStatus(true,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))
         if(petId){dispatch(updatePetStatus(petId, {petStatusId: 2}))}      
@@ -52,14 +61,6 @@ export const AnswerFormView = () => {
 
     const handleDeny = () => {
         alert('Petición denegada')
-        let temp = 'inicio'
-        if(formtypeid === 2){
-            temp = checkf.filter(e => Number(e.adoptionId) === Number(adoYreqid))
-        }
-        if(formtypeid == 3){
-            temp = checkf.filter(e => Number(e.questionId) === Number(adoYreqid))
-        }
-        if(temp.length){dispatch(deleteFollowUp(temp[0].id))}
         dispatch(setFormStatus(false,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
@@ -68,14 +69,22 @@ export const AnswerFormView = () => {
     
     <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
     
+    {profile.id? <div>
+        <h2>{profile ? profile.name+' '+profile.lastName : 'Cargando...'}</h2><br></br>
+        <h3>Celular: {profile ? profile.phoneNumber: 'Cargando...'}</h3>
+        <p>Email: {profile ? profile.user.email: 'Cargando...'}</p>
+    </div> : <p>Cargando...</p>}
+       
+        
+    <hr></hr>
     {detailform.length ? detailform[1].map(e => (
         <div key={e.answer}>
             <h2>{e.question}</h2>
             <h3>: {e.answer}</h3>
         </div>
     )): <h1>Loading..</h1>}
-    <StyleButtonAccepted onClick={handleAllow}> ✔</StyleButtonAccepted>
-    <StyleButtonRejected onClick={handleDeny}> ✘</StyleButtonRejected>
+    <StyleButtonAccepted onClick={handleAllow}><i class="fas fa-check"></i></StyleButtonAccepted>
+    <StyleButtonRejected onClick={handleDeny}><i class="fas fa-trash"></i></StyleButtonRejected>
     </StyledAnswersView>
     )
 }

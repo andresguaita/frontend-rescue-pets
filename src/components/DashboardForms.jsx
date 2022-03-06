@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {checkForm, deleteAnswerForm, getForms, getFormtypes, getPetsForDashboard} from '../Redux/Actions/index'
-//import './DashboardForms.css'
+import {checkForm, deleteAnswerForm, getForms, getFormtypes, getPetsForDashboard, resetIndivualForm} from '../Redux/Actions/index'
 import { Link, useNavigate } from 'react-router-dom'
 import {StyleButton, StyleButtonBack, StyleButtonRejected, StyleButtonView} from '../Styles/StyledButtons.js';
 import { StyledDashboardForms, Left } from '../Styles/StyledDashboardForms'
 import { APIGATEWAY_URL } from '../utils/constant'
 import Img from "../Icos/homeim1.svg"
-
+import trash from "../Icos/trash-solid.svg"
 
 export const DashboardForms= () => {
     const dispatch = useDispatch()
@@ -21,12 +20,14 @@ export const DashboardForms= () => {
     const routeInfo = useSelector(state => state.ShelterAndCityId)
     const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
     const check = useSelector((state) => state.checkForm)
-    let alreadyData = typeof(forms) !== 'string' && forms.length? forms[0].form.formtypeId : null
+    // let alreadyData = typeof(forms) !== 'string' && forms.length? forms[0].form.formtypeId : null
     const [typeform, settypeform] = useState()
 
+    
     useEffect(() => {
         dispatch(getFormtypes(routeInfo.shelterId))
         dispatch(checkForm(routeInfo.shelterId))
+        dispatch(resetIndivualForm())
         if(routeInfo)dispatch(getPetsForDashboard(route))
     }, [dispatch])
 
@@ -40,7 +41,6 @@ export const DashboardForms= () => {
         if(Number(e.target.value) === 1){
             settypeform('Tránsito')
         }
-        // settypeform(e.target[2].attributes.name.nodeValue)
         dispatch(getForms(iduser,e.target.value))
     }
 
@@ -105,8 +105,8 @@ export const DashboardForms= () => {
                                     }
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
-                                <td>{element.status == true && check.filter(e => e.adoptionId === element.id).length? 'Aceptado':element.status == false? 'Rechazado': 'Por revisar'}</td>
-                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
+                                <td>{element.status == true ? 'Aceptado':element.status == false? 'Rechazado': 'Por revisar'}</td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}><i class="fas fa-trash"></i></StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                         </tbody>
@@ -126,8 +126,8 @@ export const DashboardForms= () => {
                             <tr key={element.id}>
                                 <td>{element.id}</td>
                                 <td><Link to={`view/${element.id}/${formtypes[1].id}/${1}/${forms[0].formId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
-                                <td>{element.status == true && check.filter(e => e.requestId === element.id).length? 'Aceptado': element.status == false? 'Rechazado': 'Por revisar'}</td>
-                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
+                                <td>{element.status == true ? 'Aceptado':element.status == false? 'Rechazado': 'Por revisar'}</td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}><i class="fas fa-trash"></i></StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                     </tbody>

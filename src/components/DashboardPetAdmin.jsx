@@ -2,14 +2,16 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getFilterShelters, getGenres, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments} from '../Redux/Actions/index'
+import {getcities, getCountries, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
-    StyledInputSearch, StyledInputButton,
-    StyledInputCheck } from "../Styles/StyledDashboardPetAdmin"
+    StyledInputSearch,
+    StyledInputCheck, StyledButtonSearch } from "../Styles/StyledDashboardPetAdmin"
 import {StyleButtonBack} from "../Styles/StyledButtons"
 import { APIGATEWAY_URL } from '../utils/constant';
+import search from "../Icos/search-solid.svg"
+import { DashboardPetEditAdmin } from './DashboardPetEditAdmin'
 
 
 export const DashboardPetAdmin = () => {
@@ -24,6 +26,7 @@ export const DashboardPetAdmin = () => {
 
 
     /// estados para filtrar ↓
+    const currentCity = useSelector((state) => state.currentcity)
     const onlycitieswithshelter = useSelector((state) => state.onlyCitiesWithShelter)
     const onlystateswithshelter = useSelector((state) => state.onlyStatesWithShelter)
     const pets = useSelector((state) => state.petsfilterforadmin)
@@ -35,35 +38,43 @@ export const DashboardPetAdmin = () => {
     /// estados para filtrar ↑
     
     /// estados locales para modificar petición ↓
-    const [link, setLink] = useState()
+    const [currentcity, setCurrentcity] = useState()
+    const [link, setLink] = useState(`${APIGATEWAY_URL}/pets/${currentCity?currentCity:''}`)
     const [input, setInput] = useState({})
     /// estados locales para modificar petición ↑
     
+    /// estado local para modal ↓
+    const[active, setActive] = useState(false)
+    const[individualpet,setindividualpet] = useState([])
+    /// estado local para modal ↑
+
     /// obtener estados princiales ↓
     useEffect(() => {
         dispatch(getCountries())
       }, [])
-      useEffect(async() => {
-          dispatch(getCountries())
-          dispatch(getShelters())
-          if(cities.length){dispatch(getOnlyCitiesWithShelter())}
-          if(link){ await dispatch(getPetsFilterForAdmin(link))}
-          if(pets){
-              await dispatch(getStatusForAdmin())
-              await dispatch(getSpeciesForAdmin())
-              await dispatch(getGenresForAdmin())
-              await dispatch(getHideForAdmin())
-              await dispatch(getShelterOfPetForAdmin())  
-            }
-      }, [dispatch,cities,link])
 
-      useEffect(()=> {
-        dispatch(getOnlyStatesWithShelter())
-        if(pets)dispatch(getStatusForAdmin())
-      },[states])
-      /// obtener estados principales ↑
+    useEffect(async() => {
+        dispatch(getCountries())
+        dispatch(getShelters())
+        if(cities.length){dispatch(getOnlyCitiesWithShelter())}
+        if(link){ await dispatch(getPetsFilterForAdmin(link))}
+        if(pets){
+            await dispatch(getStatusForAdmin())
+            await dispatch(getSpeciesForAdmin())
+            await dispatch(getGenresForAdmin())
+            await dispatch(getHideForAdmin())
+            await dispatch(getShelterOfPetForAdmin())  
+        }
+    }, [dispatch,cities,link])
 
-    /// setear el estado input, para hacer la petición com las querys y obtener las mascotas ↓
+    useEffect(()=> {
+    dispatch(getOnlyStatesWithShelter())
+    if(pets)dispatch(getStatusForAdmin())
+    },[states])
+    /// obtener estados principales ↑
+
+
+    /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↓
     useEffect(()=>{
         setLink(link)
     },[onlycitieswithshelter])
@@ -75,7 +86,7 @@ export const DashboardPetAdmin = () => {
         
         })  
         dispatch(getPetsFilterForAdmin(query))
-    },[input])
+    },[input,active])
 
     const handleForGetPets = (e) => {
         let data = e.target.value === 'true' ? true : e.target.value === 'false' ? false : e.target.value
@@ -92,7 +103,7 @@ export const DashboardPetAdmin = () => {
                 }})
         }
     }
-    /// setear el estado input, para hacer la petición com las querys y obtener las mascotas ↑
+    /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↑
 
 
     /// manejar cambios en la ubicación ↓
@@ -104,10 +115,33 @@ export const DashboardPetAdmin = () => {
             dispatch(getcities(e.target.value))
         }
         if(e.target.name === 'City'){
+            setCurrentcity(Number(e.target.value))
+            dispatch(setCurrentCity(Number(e.target.value)))
             dispatch(setLink(`${APIGATEWAY_URL}/pets/${Number(e.target.value)}`))
         }
     }
     /// manejar cambios en la ubicación ↑
+
+
+    /// despacho de action para setear los datos a modificar ↓
+    const handleGetIndividualPet = (pet) => {
+        setindividualpet([pet])
+        if(active){
+            setActive(false)
+        }else{
+            setActive(true)
+        }
+
+    }
+    /// despacho de action para setear los datos a modificar ↑
+
+
+    /// despacho de action para borrar mascota ↓
+    const handleDeletePet = (petId) => {
+
+    }
+    /// despacho de action para borrar mascota ↑
+
 
     const Back = () => {
         navigate('/dashboard')
@@ -126,8 +160,7 @@ export const DashboardPetAdmin = () => {
                             <StyledInputSearch type="text" placeholder="Ingrese dato a buscar"/>
                         </div>
                         <div>
-                            
-                            <StyledInputButton type="button" value="buscar"/>
+                            <StyledButtonSearch>Buscar <img src={search}/></StyledButtonSearch>
                         </div>
                         <div>
                             <br></br>
@@ -150,7 +183,7 @@ export const DashboardPetAdmin = () => {
             
             <StyledDivFlexAdmin>
                 <div>
-                    <h2>Ubicación obligatoria</h2>
+                    <h2>Ubicación:</h2>
                 </div>
                     {/* Ubicación obligatoria ↓*/}
 
@@ -253,6 +286,8 @@ export const DashboardPetAdmin = () => {
                 {/* filtro para la prop oculata de las mascotas ↑ */}
             </StyledDivFlexAdmin>
             <div>
+            {individualpet.length && active ? <DashboardPetEditAdmin id={individualpet[0].id} hideFromDash={individualpet[0].hideFromDash}
+                                            name={individualpet[0].name} setActive={setActive}/>: null}
                 <table>
                     <thead>
                         <th>
@@ -315,7 +350,7 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.name}</td>
                                 <td>{pet.species.specie}</td>
                                 <td>{pet.genre.genre}</td>
-                                <td>{pet.weight}</td>
+                                <td>{pet.weight} kg</td>
                                 <td>{pet.age.age}</td>
                                 <td>{pet.sterilization.toString()}</td>
                                 <td>{pet.petStatus.status}</td>
@@ -323,12 +358,13 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.shelter.name}</td>
                                 <td>
                                 <div>
-                                    <StyledButtonDeleteAdminPet>x</StyledButtonDeleteAdminPet>
-                                    <StyledButtonEditAdminPet>Edit</StyledButtonEditAdminPet>
+                                    <StyledButtonDeleteAdminPet onClick={() => handleDeletePet(pet.id)}><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
+                                    <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(pet)}><i className="fas fa-edit"></i></StyledButtonEditAdminPet> 
                                 </div>
                                 </td>
                            </tbody> 
                         )):<p>Cargando...</p>}
+                        
                 </table>
             </div>
         </StyledDashboardPetAdmin>

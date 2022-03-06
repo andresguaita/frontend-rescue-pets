@@ -104,7 +104,7 @@ const Filters = ({idcity, cambiarEstado}) => {
 
           {/* <label>Por Refugio:</label> */}
           <SelectStyle name='shelterId' onChange={(e)=>handleSelect(e)}>
-                    <option  hidden >Refugios</option>
+                    <option  value={"Refugios"} >Refugios</option>
                     {shelter.map(e => (
                        <option key={e.id} value={e.id} >{e.name}</option> 
                     ))}
@@ -125,7 +125,7 @@ const Filters = ({idcity, cambiarEstado}) => {
                </SelectStyle>
           {/* <label>Temperamento:</label> */}
           <SelectStyle name='temperamentId' onChange={(e)=>handleSelect(e)}>
-                    <option hidden >Temperamento</option>
+                    <option value={"Temperament"} >Temperamento</option>
                     {temperaments && temperaments?.map(element => (
                          <option key={element.id} value={element.id} >{element.temperament}</option> 
                     )) 
@@ -133,7 +133,7 @@ const Filters = ({idcity, cambiarEstado}) => {
                </SelectStyle>
           {/* <label>Status:</label> */}
           <SelectStyle name='genreId' onChange={(e)=>handleSelect(e)}>
-                    <option hidden >Género</option>
+                    <option value={"Género"} >Género</option>
                     {genres?.map(element => (
                          <option key={element.id} value={element.id} >{element.genre}</option>
                     ))}

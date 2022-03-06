@@ -34,7 +34,7 @@ export function CreatePets() {
     dispatch(getShelters());
   }, [dispatch]);
 
-  const Shelters = useSelector((state) => state.ShelterAndCityId.shelterId); //Refugio
+  const Shelters = useSelector((state) => state.ShelterAndCityId.shelterId); 
 
   useEffect(() => {
     dispatch(gettTemperaments());
@@ -52,7 +52,7 @@ export function CreatePets() {
     dispatch(getAllPetStatus());
   }, [dispatch]);
 
-  const Status = useSelector((state) => state.petStatus[0].id); //Estado
+  const Status = useSelector((state) => state.petStatus[0].id); 
 
   useEffect(() => {
     dispatch(getGenres());
@@ -77,16 +77,19 @@ export function CreatePets() {
   console.log('state: ', state);
 
   const uploadImage = async (e) => {
-    const formData = new FormData()
-    formData.append("file", e.target.files[0])
-    formData.append("upload_preset", "rescuePetsUpload")
-
-    let link = await dispatch(uploadImageCloud(formData))
-    setState({
-      ...state,
-      image:link
-    })
+    if(state.image.length < 5) {
+      const formData = new FormData()
+      formData.append("file", e.target.files[0])
+      formData.append("upload_preset", "rescuePetsUpload")
   
+      let link = await dispatch(uploadImageCloud(formData))
+      setState({
+        ...state,
+        image: link
+      })
+    } else {
+      alert('No se pueden cargar mas de 5 Imagenes.');
+    }
   }
 
   const handleChanges = (e) => {
@@ -110,13 +113,6 @@ export function CreatePets() {
     });
   };
 
-  const handleSelectShelter = (e) => {
-    setState({
-      ...state,
-      shelterId: e.target.value,
-    });
-  };
-
   const handleSelectTemperament = (e) => {
     setState({
       ...state,
@@ -131,24 +127,10 @@ export function CreatePets() {
     });
   };
 
-  const handleSelectState = (e) => {
-    setState({
-      ...state,
-      petStatusId: e.target.value,
-    });
-  };
-
   const handleSelectGenres = (e) => {
     setState({
       ...state,
       genreId: e.target.value,
-    });
-  };
-
-  const handleSelectImg = (e) => {
-    setState({
-      ...state,
-      image: e.target.value,
     });
   };
 

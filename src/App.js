@@ -30,7 +30,7 @@ import { AdminRoutes } from "./AdminRoutes";
 import { DashboardRoutesAdmin } from "./DashboardRoutesAdmin";
 import { DashboardAdmin } from "./components/DashboardAdmin";
 import TechSupport from './components/TechSupport.jsx'
-
+import DashStatisChelter from './components/DashStatisChelter'
 
 
 
@@ -64,6 +64,8 @@ function App() {
          <Route path="/dashboard/CreatePets" element={
          <CreatePets/>}/>
        
+       <Route path="/dashboard/DashStatisChelter" element={
+         <DashStatisChelter/>}/>
 
 
         <Route path="/login" element={

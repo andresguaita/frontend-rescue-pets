@@ -2,10 +2,26 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyledDashboardPetAdmin = styled.div`
+    margin-bottom: 250px;
+    margin-top: 50px;
+    a{
+      text-decoration: none;
+      color: white;
+    }
 
-    margin-left: 50px;
-    margin-right: 50px;
-
+    .contentImages{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+    .imagesEdit{
+      margin: 10px;
+      width: 200px;
+      height: 200px;
+      background: #f3f3f3;
+      border-radius: 15px;
+    }
 
     table {
         margin-bottom: 50px;
@@ -21,6 +37,8 @@ export const StyledDashboardPetAdmin = styled.div`
         text-align: center;
         padding: 8px;
         font-size: 18px;
+        color: rgb(80,80,80);
+        font-weight: bold;
       }
       
       th {
@@ -31,8 +49,22 @@ export const StyledDashboardPetAdmin = styled.div`
       td {
         background-color: rgba(204, 194, 234, 0.6);
         height: 50px;
+        
       }
   `;
+
+  export const StyledDashboardPetModal = styled.div`
+      position: fixed;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      left:0px;
+      right:0px;
+      top:0px;
+      padding-top:20%;
+      width:100%;
+      height:100%;
+  `  
 
 export const StyledSelectForDashboardPetAdmin = styled.select`
     font-size: 20px;
@@ -42,6 +74,24 @@ export const StyledSelectForDashboardPetAdmin = styled.select`
       color: rgba(255,255,255,0.8);
     }
 `  
+
+export const StyledSelectForDashboardPetEditAdmin = styled.select`
+    font-size: 20px;
+    border-radius: 10px;
+    width: 200px;
+    margin-bottom: 30px;
+    &:hover{
+      background-color : ${allColors.colors[2]};
+      color: rgba(255,255,255,0.8);
+    }
+` 
+
+export const StyledInputForDashboardPetEditAdmin = styled.input`
+    border-radius: 10px;
+    font-size: 20px;
+    width: 200px;
+    margin-bottom: 30px;
+`
 
 export const StyledDivFlexAdmin = styled.div`
     margin-top: 50px;
@@ -85,8 +135,54 @@ export const StyledDivFlexAdmin = styled.div`
     }
 `  
 
+export const StyledDivFlexColumnAdmin = styled.div`
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f3f3f3;
+    width: 350px;
+    margin: 10px;
+    border-radius: 20px;
+
+    input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      height: 25px;
+      width: 25px;
+      border-radius: 5px;
+      background: #f3f3f3;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"]:after{
+      content: "✔";
+      font-size:20px;
+      height: 25px;
+      width: 25px;
+      background: ${allColors.colors[8]};
+      color: #f3f3f3;
+      border-radius: 5px;
+      text-align: center;
+      display: none;
+      align-items: center;
+      position:absolute;
+    }
+    
+    input[type="checkbox"]:checked:after{
+      display: grid;
+      outline: none;
+    }
+
+    label{
+      font-size: 18px;
+      margin-left: 5px;
+    }
+`
+
 export const StyledSelectForTable = styled.select`
     font-size: 18px;
+    font-weight: bold;
     border-radius: 10px;
     background-color : ${allColors.colors[1]};
     color: rgba(255,255,255,0.8);
@@ -99,7 +195,7 @@ export const StyledSelectForTable = styled.select`
 export const StyledButtonDeleteAdminPet = styled.button`
     margin: 5px;
     padding: 5px;
-    width: 35px;
+    width: 40px;
     font-size: 20px;
     border-radius: 8px;
     border-style: none;
@@ -153,4 +249,30 @@ export const StyledInputButton = styled.input`
 
 export const StyledInputCheck = styled.input`
     
+`
+
+export const StyledButtonSearch = styled.button`
+    position: relative;
+    width: 80px;
+    margin: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+    background: ${allColors.colors[8]};
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    &:hover {
+    background-color: ${allColors.colors[2]};
+    }
+    img{
+      margin-top: 8px;
+      margin-left: 4px;
+      width: 17px;
+      height: 17px;
+    }
 `

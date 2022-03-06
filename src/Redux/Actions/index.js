@@ -75,9 +75,17 @@ import {
     GET_PET_GENRE_FOR_ADMIN,
     GET_PET_HIDE_FOR_ADMIN,
     GET_SHELTER_OF_PET_FOR_ADMIN,
+    ADD_FOLLOW_UP_TRANSIT,
+    RESET_INDIVIDUAL_FORM,
+    GET_ALL_FOLLOW_UP_TRANSITS,
+    GET_INDIVIDUAL_PET_FOR_ADMIN,
+    CURRENT_CITY,
+    EDIT_PET_FROM_ADMIN,
+    GET_TECH_HELP,
+    GET_PETS_ALL,
     ADD_FOLLOW_UP_TRANSIT
 } from './types.js'
-import { async } from '@firebase/util';
+
 import { APIGATEWAY_URL } from '../../utils/constant';
 
 
@@ -731,10 +739,16 @@ export const addFollowUpTransit = (data) => {
     return async function (dispatch) {
         const followUpTransit = await axios.post(`${APIGATEWAY_URL}/addFollowUpTransit`);
         return dispatch({ type: ADD_FOLLOW_UP_TRANSIT, payload: data });
+
     };
 }
 
-
+export const getFollowUpTransits = (shelterId) => {
+    return async function (dispatch) {
+        const allFollowUpTransits= await axios.get(`${APIGATEWAY_URL}/followUpTransit/${shelterId}`);
+        return dispatch({ type: GET_ALL_FOLLOW_UP_TRANSITS, payload: allFollowUpTransits.data });
+    };
+}
 
 
 
@@ -1017,4 +1031,67 @@ export const getHideForAdmin = () => {
 export const getShelterOfPetForAdmin = () => {
     return { type: GET_SHELTER_OF_PET_FOR_ADMIN, payload: null }
 
+}
+
+export const resetIndivualForm = () => {
+    return {type: RESET_INDIVIDUAL_FORM, payload: null}
+}
+
+export const getIndividualPetForAdmin = (cityId,id) => {
+    return async function(dispatch){
+        try {
+            let json = await axios(`${APIGATEWAY_URL}/pets/${cityId}?id=${id}`)
+            return dispatch({type:GET_INDIVIDUAL_PET_FOR_ADMIN, payload:json.data})
+        } catch (error) {
+            return error
+        }
+    }
+}
+
+export const setCurrentCity = (city) => {
+    return {type:CURRENT_CITY, payload:city}
+}
+
+
+export const editPetFromAdmin = (info) => {
+    return async function(dispatch){
+        try {
+            let json = await axios.put(`${APIGATEWAY_URL}/pets/editPetFromAdmin`,info)
+            return dispatch({type:EDIT_PET_FROM_ADMIN, payload:json.data})
+        } catch (error) {
+            return error
+        }
+    }
+}
+
+export const getTechHelp = () => {
+    return async function (dispatch) {
+      
+        let json = await axios(`${APIGATEWAY_URL}/techSuport`);
+        return dispatch({ type: GET_TECH_HELP, payload: json.data });
+    };
+};
+
+export const getAllPets = () => {
+    return async function (dispatch) {
+        try {
+            const Details = await axios(`${APIGATEWAY_URL}/petDetail/`);
+            dispatch({ type: GET_PETS_ALL, payload: Details.data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const editHelpByAdmin = (payload, idSuport) =>{
+
+    return async (dispatch) => {
+        const Put = await axios.put(`${APIGATEWAY_URL}/techSuport/${idSuport}`, payload);
+        if (Put) {
+            alert(Put.data.msg)
+            dispatch(getTechHelp())
+        } else {
+            alert(Put.data.msg);
+        }
+    };
 }

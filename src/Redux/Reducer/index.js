@@ -61,8 +61,13 @@ import {
   GET_SPECIES_FOR_ADMIN,
   GET_PET_GENRE_FOR_ADMIN,
   GET_PET_HIDE_FOR_ADMIN,
-  GET_SHELTER_OF_PET_FOR_ADMIN
-
+  GET_SHELTER_OF_PET_FOR_ADMIN,
+  RESET_INDIVIDUAL_FORM,
+  GET_ALL_FOLLOW_UP_TRANSITS,
+  GET_INDIVIDUAL_PET_FOR_ADMIN,
+  CURRENT_CITY,
+  GET_TECH_HELP,
+  GET_PETS_ALL
 } from "../Actions/types";
 
 
@@ -134,7 +139,12 @@ const initialState = {
   genresForAdmin: [],
   hideForAdmin: [],
   shelterOfPetForAdmin: [],
-  favorites: checkLocalStorage()
+  followUpTransits: [],
+  individualPetForAdmin : [],
+  currentcity: [],
+  favorites: checkLocalStorage(),
+  allTechHelp:[],
+  allPets:[]
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -144,7 +154,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
         ...state,
         countries: payload,
       };
-
+    case GET_TECH_HELP:
+      return {
+        ...state,
+        allTechHelp: payload
+      };
     case GET_STATES:
       return {
         ...state,
@@ -624,7 +638,37 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 shelterOfPetForAdmin: filterShelterPetForAdmin,
               }
+            
+              
+            case RESET_INDIVIDUAL_FORM:
+              return {
+                ...state,
+                individualform: []
+              }  
 
+              case GET_ALL_FOLLOW_UP_TRANSITS:
+                return {
+                  ...state,
+                  followUpTransits : payload
+                }
+            
+            case GET_INDIVIDUAL_PET_FOR_ADMIN:
+              return {
+                ...state,
+                individualPetForAdmin: payload
+              }
+            
+            case CURRENT_CITY:
+              return {
+                ...state,
+                currentcity: payload
+              }
+
+              case GET_PETS_ALL:
+              return {
+                ...state,
+                allPets: payload
+              } 
         default:
           return state;
       }
