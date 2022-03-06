@@ -10,19 +10,9 @@ import {
   StyledInputSearch, StyledInputButton,
   StyledInputCheck
 } from "../Styles/StyledDashboardPetAdmin"
-import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Table,
-  Button,
-  Container,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  ModalFooter,
-  Label,
-  Input,
-} from "reactstrap";
+import { ModalDashboard } from './ModalDashboard'
+
+import styled from 'styled-components'
 
 
 
@@ -106,66 +96,24 @@ export const DashboardShelterAdmin = () => {
 
   return (
     <>
-      <Modal isOpen={modal}>
-        <ModalHeader>
-          <div><h3>Editar Registro</h3></div>
-        </ModalHeader>
+      <ModalDashboard modal={modal} setModal={setModal}>
+        <InputDashboardAdmin name='id' value={form.id} type='text' placeholder='id' onChange={handleChange} disabled />
+        <br />
+        <InputDashboardAdmin name='email' value={form.email} type='text' placeholder='email' onChange={handleChange} />
+        <br />
+        <SelectDashboardAdmin name='status' onChange={handleSelectStatus}>
+          <option selected="selected">Estatus del Refugio</option>
+          <option value={true}>Activar</option>
+          <option value={false}>Desactivar</option>
 
-        <ModalBody>
-          <FormGroup>
+        </SelectDashboardAdmin>
+        <br />
+        <ButtonContain>
+          <ButtonDanger onClick={closeUpdateModal}>Cancelar</ButtonDanger>
+          <ButtonPrimary onClick={handleSubmit}>Guardar Cambios</ButtonPrimary>
+        </ButtonContain>
 
-            <label>
-              Id:
-            </label>
-            <input
-              className="form-control"
-              name="email"
-              type="text"
-              onChange={handleChange}
-              value={form.id}
-              disabled
-            />
-          </FormGroup>
-
-          <FormGroup>
-
-            <label>
-              Email:
-            </label>
-            <input
-              className="form-control"
-              name="email"
-              type="text"
-              onChange={handleChange}
-              value={form.email}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Label >Status</Label>
-            <Input type="select" name="status" onChange={handleSelectStatus}>
-              <option value={false} >Desactivado</option>
-              <option value={true} selected>Activado</option>
-            </Input>
-          </FormGroup>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button
-            color="primary"
-            onClick={handleSubmit}
-          >
-            Guardar Cambios
-          </Button>
-          <Button
-            color="danger"
-            onClick={closeUpdateModal}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
-
+      </ModalDashboard>
       <StyledDashboardPetAdmin>
         <h1>DashboardShelterAdmin</h1>
 
@@ -233,3 +181,58 @@ export const DashboardShelterAdmin = () => {
     </>
   )
 }
+
+const InputDashboardAdmin = styled.input`
+
+box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 2rem;
+
+`;
+
+const SelectDashboardAdmin = styled.select`
+
+box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 2rem;
+
+`;
+
+const ButtonPrimary = styled.button`
+ width: 120px;
+ height: 45px;
+ background: #1E88E5;
+ border-radius: 5px;
+ border: none;
+ color: white;
+ cursor: pointer;
+`;
+
+const ButtonDanger = styled.button`
+ width: 120px;
+ height: 45px;
+ background: #D32F2F;
+ border-radius: 5px;
+ border: none;
+ color: white;
+ cursor: pointer;
+`;
+
+const ButtonContain = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  
+`;
