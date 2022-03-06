@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getFilterShelters, getGenres, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments} from '../Redux/Actions/index'
+import {getcities, getCountries, getIndividualPetForAdmin , getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
@@ -10,8 +10,6 @@ import { StyledDashboardPetAdmin, StyledDivFlexAdmin,
     StyledInputCheck, StyledButtonSearch } from "../Styles/StyledDashboardPetAdmin"
 import {StyleButtonBack} from "../Styles/StyledButtons"
 import { APIGATEWAY_URL } from '../utils/constant';
-import trash from "../Icos/trash-solid.svg"
-import edit from "../Icos/marker-solid.svg"
 import search from "../Icos/search-solid.svg"
 
 
@@ -27,6 +25,7 @@ export const DashboardPetAdmin = () => {
 
 
     /// estados para filtrar ↓
+    const currentCity = useSelector((state) => state.currentcity)
     const onlycitieswithshelter = useSelector((state) => state.onlyCitiesWithShelter)
     const onlystateswithshelter = useSelector((state) => state.onlyStatesWithShelter)
     const pets = useSelector((state) => state.petsfilterforadmin)
@@ -38,7 +37,8 @@ export const DashboardPetAdmin = () => {
     /// estados para filtrar ↑
     
     /// estados locales para modificar petición ↓
-    const [link, setLink] = useState()
+    const [currentcity, setCurrentcity] = useState()
+    const [link, setLink] = useState(`${APIGATEWAY_URL}/pets/${currentCity?currentCity:''}`)
     const [input, setInput] = useState({})
     /// estados locales para modificar petición ↑
     
@@ -46,25 +46,27 @@ export const DashboardPetAdmin = () => {
     useEffect(() => {
         dispatch(getCountries())
       }, [])
-      useEffect(async() => {
-          dispatch(getCountries())
-          dispatch(getShelters())
-          if(cities.length){dispatch(getOnlyCitiesWithShelter())}
-          if(link){ await dispatch(getPetsFilterForAdmin(link))}
-          if(pets){
-              await dispatch(getStatusForAdmin())
-              await dispatch(getSpeciesForAdmin())
-              await dispatch(getGenresForAdmin())
-              await dispatch(getHideForAdmin())
-              await dispatch(getShelterOfPetForAdmin())  
-            }
-      }, [dispatch,cities,link])
 
-      useEffect(()=> {
-        dispatch(getOnlyStatesWithShelter())
-        if(pets)dispatch(getStatusForAdmin())
-      },[states])
-      /// obtener estados principales ↑
+    useEffect(async() => {
+        dispatch(getCountries())
+        dispatch(getShelters())
+        if(cities.length){dispatch(getOnlyCitiesWithShelter())}
+        if(link){ await dispatch(getPetsFilterForAdmin(link))}
+        if(pets){
+            await dispatch(getStatusForAdmin())
+            await dispatch(getSpeciesForAdmin())
+            await dispatch(getGenresForAdmin())
+            await dispatch(getHideForAdmin())
+            await dispatch(getShelterOfPetForAdmin())  
+        }
+    }, [dispatch,cities,link])
+
+    useEffect(()=> {
+    dispatch(getOnlyStatesWithShelter())
+    if(pets)dispatch(getStatusForAdmin())
+    },[states])
+    /// obtener estados principales ↑
+
 
     /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↓
     useEffect(()=>{
@@ -107,10 +109,19 @@ export const DashboardPetAdmin = () => {
             dispatch(getcities(e.target.value))
         }
         if(e.target.name === 'City'){
+            setCurrentcity(Number(e.target.value))
+            dispatch(setCurrentCity(Number(e.target.value)))
             dispatch(setLink(`${APIGATEWAY_URL}/pets/${Number(e.target.value)}`))
         }
     }
     /// manejar cambios en la ubicación ↑
+
+
+    /// despacho de action para setear los datos a modificar ↓
+    const handleGetIndividualPet = (cityId,petId) => {
+        dispatch(getIndividualPetForAdmin(Number(cityId),Number(petId)))
+    }
+    /// despacho de action para setear los datos a modificar ↑
 
     const Back = () => {
         navigate('/dashboard')
@@ -325,8 +336,9 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.shelter.name}</td>
                                 <td>
                                 <div>
-                                    <StyledButtonDeleteAdminPet><img src={trash}/></StyledButtonDeleteAdminPet>
-                                    <StyledButtonEditAdminPet><img src={edit}/></StyledButtonEditAdminPet>
+                                    <StyledButtonDeleteAdminPet><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
+                                    <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(currentcity,pet.id)}><Link to={`Edit/${[[currentcity],[pet.id]]}`}><i className="fas fa-edit"></i></Link></StyledButtonEditAdminPet>
+                                    
                                 </div>
                                 </td>
                            </tbody> 

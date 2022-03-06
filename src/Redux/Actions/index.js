@@ -77,7 +77,9 @@ import {
     GET_SHELTER_OF_PET_FOR_ADMIN,
     ADD_FOLLOW_UP_TRANSIT,
     RESET_INDIVIDUAL_FORM,
-    GET_ALL_FOLLOW_UP_TRANSITS
+    GET_ALL_FOLLOW_UP_TRANSITS,
+    GET_INDIVIDUAL_PET_FOR_ADMIN,
+    CURRENT_CITY
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -999,4 +1001,19 @@ export const getShelterOfPetForAdmin = () => {
 
 export const resetIndivualForm = () => {
     return {type: RESET_INDIVIDUAL_FORM, payload: null}
+}
+
+export const getIndividualPetForAdmin = (cityId,id) => {
+    return async function(dispatch){
+        try {
+            let json = await axios(`${APIGATEWAY_URL}/pets/${cityId}?id=${id}`)
+            return dispatch({type:GET_INDIVIDUAL_PET_FOR_ADMIN, payload:json.data})
+        } catch (error) {
+            return error
+        }
+    }
+}
+
+export const setCurrentCity = (city) => {
+    return {type:CURRENT_CITY, payload:city}
 }

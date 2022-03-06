@@ -2,9 +2,26 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyledDashboardPetAdmin = styled.div`
+    margin-bottom: 250px;
+    margin-top: 50px;
+    a{
+      text-decoration: none;
+      color: white;
+    }
 
-    
-
+    .contentImages{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+    .imagesEdit{
+      margin: 10px;
+      width: 200px;
+      height: 200px;
+      background: #f3f3f3;
+      border-radius: 15px;
+    }
 
     table {
         margin-bottom: 50px;
@@ -42,6 +59,24 @@ export const StyledSelectForDashboardPetAdmin = styled.select`
       color: rgba(255,255,255,0.8);
     }
 `  
+
+export const StyledSelectForDashboardPetEditAdmin = styled.select`
+    font-size: 20px;
+    border-radius: 10px;
+    width: 200px;
+    margin-bottom: 30px;
+    &:hover{
+      background-color : ${allColors.colors[2]};
+      color: rgba(255,255,255,0.8);
+    }
+` 
+
+export const StyledInputForDashboardPetEditAdmin = styled.input`
+    border-radius: 10px;
+    font-size: 20px;
+    width: 200px;
+    margin-bottom: 30px;
+`
 
 export const StyledDivFlexAdmin = styled.div`
     margin-top: 50px;
@@ -84,6 +119,51 @@ export const StyledDivFlexAdmin = styled.div`
       margin-left: 5px;
     }
 `  
+
+export const StyledDivFlexColumnAdmin = styled.div`
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f3f3f3;
+    width: 350px;
+    margin 10px;
+    border-radius: 20px;
+
+    input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      height: 25px;
+      width: 25px;
+      border-radius: 5px;
+      background: #f3f3f3;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"]:after{
+      content: "✔";
+      font-size:20px;
+      height: 25px;
+      width: 25px;
+      background: ${allColors.colors[8]};
+      color: #f3f3f3;
+      border-radius: 5px;
+      text-align: center;
+      display: none;
+      align-items: center;
+      position:absolute;
+    }
+    
+    input[type="checkbox"]:checked:after{
+      display: grid;
+      outline: none;
+    }
+
+    label{
+      font-size: 18px;
+      margin-left: 5px;
+    }
+`
 
 export const StyledSelectForTable = styled.select`
     font-size: 18px;
