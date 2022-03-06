@@ -48,6 +48,7 @@ export const StyledDashboardPetAdmin = styled.div`
       td {
         background-color: rgba(204, 194, 234, 0.6);
         height: 50px;
+        
       }
   `;
 
@@ -127,7 +128,7 @@ export const StyledDivFlexColumnAdmin = styled.div`
     align-items: center;
     background: #f3f3f3;
     width: 350px;
-    margin 10px;
+    margin: 10px;
     border-radius: 20px;
 
     input[type="checkbox"]{

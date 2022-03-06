@@ -79,7 +79,8 @@ import {
     RESET_INDIVIDUAL_FORM,
     GET_ALL_FOLLOW_UP_TRANSITS,
     GET_INDIVIDUAL_PET_FOR_ADMIN,
-    CURRENT_CITY
+    CURRENT_CITY,
+    GET_TECH_HELP
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -1017,3 +1018,12 @@ export const getIndividualPetForAdmin = (cityId,id) => {
 export const setCurrentCity = (city) => {
     return {type:CURRENT_CITY, payload:city}
 }
+
+
+export const getTechHelp = () => {
+    return async function (dispatch) {
+      
+        let json = await axios(`${APIGATEWAY_URL}/techSuport`);
+        return dispatch({ type: GET_TECH_HELP, payload: json.data });
+    };
+};
