@@ -52,7 +52,7 @@ export function CreatePets() {
     dispatch(getAllPetStatus());
   }, [dispatch]);
 
-  const Status = useSelector((state) => state.petStatus[0].id); 
+  const Status = useSelector((state) => state.petStatus); 
 
   useEffect(() => {
     dispatch(getGenres());
@@ -67,10 +67,10 @@ export function CreatePets() {
     description: "",
     image: "",
     speciesId: "",
-    shelterId: Shelters,
+    shelterId: Shelters? Shelters : '',
     temperamentId: "",
     ageId: "",
-    petStatusId:  Status,
+    petStatusId: Status? Status[0].id : '' ,
     genreId: "",
   });
 
@@ -85,7 +85,7 @@ export function CreatePets() {
       let link = await dispatch(uploadImageCloud(formData))
       setState({
         ...state,
-        image: link
+        image: [...state.image, link]
       })
     } else {
       alert('No se pueden cargar mas de 5 Imagenes.');
