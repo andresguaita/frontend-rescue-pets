@@ -663,8 +663,6 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 currentcity: payload
               }
-                
-              }  
 
               case GET_PETS_ALL:
               return {
