@@ -37,6 +37,7 @@ export const StyledDashboardPetAdmin = styled.div`
         text-align: center;
         padding: 8px;
         font-size: 18px;
+        color: rgb(80,80,80);
         font-weight: bold;
       }
       
@@ -50,6 +51,19 @@ export const StyledDashboardPetAdmin = styled.div`
         height: 50px;
       }
   `;
+
+  export const StyledDashboardPetModal = styled.div`
+      position: fixed;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      left:0px;
+      right:0px;
+      top:0px;
+      padding-top:20%;
+      width:100%;
+      height:100%;
+  `  
 
 export const StyledSelectForDashboardPetAdmin = styled.select`
     font-size: 20px;

@@ -79,7 +79,8 @@ import {
     RESET_INDIVIDUAL_FORM,
     GET_ALL_FOLLOW_UP_TRANSITS,
     GET_INDIVIDUAL_PET_FOR_ADMIN,
-    CURRENT_CITY
+    CURRENT_CITY,
+    EDIT_PET_FROM_ADMIN
     } from './types.js'
 import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -1016,4 +1017,16 @@ export const getIndividualPetForAdmin = (cityId,id) => {
 
 export const setCurrentCity = (city) => {
     return {type:CURRENT_CITY, payload:city}
+}
+
+
+export const editPetFromAdmin = (info) => {
+    return async function(dispatch){
+        try {
+            let json = await axios.put(`${APIGATEWAY_URL}/pets/editPetFromAdmin`,info)
+            return dispatch({type:EDIT_PET_FROM_ADMIN, payload:json.data})
+        } catch (error) {
+            return error
+        }
+    }
 }

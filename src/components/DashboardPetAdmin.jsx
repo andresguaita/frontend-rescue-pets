@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getIndividualPetForAdmin , getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
+import {getcities, getCountries, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
@@ -11,6 +11,7 @@ import { StyledDashboardPetAdmin, StyledDivFlexAdmin,
 import {StyleButtonBack} from "../Styles/StyledButtons"
 import { APIGATEWAY_URL } from '../utils/constant';
 import search from "../Icos/search-solid.svg"
+import { DashboardPetEditAdmin } from './DashboardPetEditAdmin'
 
 
 export const DashboardPetAdmin = () => {
@@ -42,6 +43,11 @@ export const DashboardPetAdmin = () => {
     const [input, setInput] = useState({})
     /// estados locales para modificar petición ↑
     
+    /// estado local para modal ↓
+    const[active, setActive] = useState(false)
+    const[individualpet,setindividualpet] = useState([])
+    /// estado local para modal ↑
+
     /// obtener estados princiales ↓
     useEffect(() => {
         dispatch(getCountries())
@@ -80,7 +86,7 @@ export const DashboardPetAdmin = () => {
         
         })  
         dispatch(getPetsFilterForAdmin(query))
-    },[input])
+    },[input,active])
 
     const handleForGetPets = (e) => {
         let data = e.target.value === 'true' ? true : e.target.value === 'false' ? false : e.target.value
@@ -118,10 +124,24 @@ export const DashboardPetAdmin = () => {
 
 
     /// despacho de action para setear los datos a modificar ↓
-    const handleGetIndividualPet = (cityId,petId) => {
-        dispatch(getIndividualPetForAdmin(Number(cityId),Number(petId)))
+    const handleGetIndividualPet = (pet) => {
+        setindividualpet([pet])
+        if(active){
+            setActive(false)
+        }else{
+            setActive(true)
+        }
+
     }
     /// despacho de action para setear los datos a modificar ↑
+
+
+    /// despacho de action para borrar mascota ↓
+    const handleDeletePet = (petId) => {
+
+    }
+    /// despacho de action para borrar mascota ↑
+
 
     const Back = () => {
         navigate('/dashboard')
@@ -266,6 +286,8 @@ export const DashboardPetAdmin = () => {
                 {/* filtro para la prop oculata de las mascotas ↑ */}
             </StyledDivFlexAdmin>
             <div>
+            {individualpet.length && active ? <DashboardPetEditAdmin id={individualpet[0].id} hideFromDash={individualpet[0].hideFromDash}
+                                            name={individualpet[0].name} setActive={setActive}/>: null}
                 <table>
                     <thead>
                         <th>
@@ -336,13 +358,13 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.shelter.name}</td>
                                 <td>
                                 <div>
-                                    <StyledButtonDeleteAdminPet><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
-                                    <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(currentcity,pet.id)}><Link to={`Edit/${[[currentcity],[pet.id]]}`}><i className="fas fa-edit"></i></Link></StyledButtonEditAdminPet>
-                                    
+                                    <StyledButtonDeleteAdminPet onClick={() => handleDeletePet(pet.id)}><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
+                                    <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(pet)}><i className="fas fa-edit"></i></StyledButtonEditAdminPet> 
                                 </div>
                                 </td>
                            </tbody> 
                         )):<p>Cargando...</p>}
+                        
                 </table>
             </div>
         </StyledDashboardPetAdmin>
