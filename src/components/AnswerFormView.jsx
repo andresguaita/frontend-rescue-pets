@@ -47,7 +47,6 @@ export const AnswerFormView = () => {
             }))
         }
         if(Number(formtypeid) === 1){
-            alert(formtypeid)
             dispatch(addFollowUpTransit({
                 profileId:Number(detailform[0]),
                 shelterId:shelterid,
