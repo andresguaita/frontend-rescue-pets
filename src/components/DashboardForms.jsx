@@ -7,7 +7,7 @@ import {StyleButton, StyleButtonBack, StyleButtonRejected, StyleButtonView} from
 import { StyledDashboardForms, Left } from '../Styles/StyledDashboardForms'
 import { APIGATEWAY_URL } from '../utils/constant'
 import Img from "../Icos/homeim1.svg"
-
+import trash from "../Icos/trash-solid.svg"
 
 export const DashboardForms= () => {
     const dispatch = useDispatch()
@@ -106,7 +106,7 @@ export const DashboardForms= () => {
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
                                 <td>{element.status == true ? 'Aceptado':element.status == false? 'Rechazado': 'Por revisar'}</td>
-                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}>✘</StyleButtonRejected></td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteAdoption(element.id)}><img src={trash}/></StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                         </tbody>
@@ -127,7 +127,7 @@ export const DashboardForms= () => {
                                 <td>{element.id}</td>
                                 <td><Link to={`view/${element.id}/${formtypes[1].id}/${1}/${forms[0].formId}`}><StyleButtonView>Ver Formulario</StyleButtonView></Link></td>
                                 <td>{element.status == true ? 'Aceptado':element.status == false? 'Rechazado': 'Por revisar'}</td>
-                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}>✘</StyleButtonRejected></td>
+                                <td><StyleButtonRejected onClick={() => handleDeleteRequest(element.id)}><img src={trash}/></StyleButtonRejected></td>
                             </tr>
                         )):typeof(forms) === 'string' ? (<td>{forms}</td>): (<h1>Cargando...</h1>)}
                     </tbody>
