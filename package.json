@@ -20,15 +20,14 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "reactstrap": "^9.0.1",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
     "sweetalert2": "^11.4.2",
-    "web-vitals": "^2.1.4",
-    "bootstrap": "^4.4.1",
-    "reactstrap": "^8.4.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
