@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'
+import { validateFormRegister } from "../helpers/validation";
 
 
 import {
@@ -40,9 +41,12 @@ const FormShelter = () => {
     cityId: "",
     address: "",
     password: "",
+    password2:"",
     role: "1",
     img: "http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png",
   });
+
+  const [errors, setErrors] = useState({})
 
   const uploadImage = async (e) => {
     const formData = new FormData()
@@ -53,7 +57,7 @@ const FormShelter = () => {
     setInput({
       ...input,
       img:link
-    })
+    }) 
   
   }
 
@@ -62,6 +66,12 @@ const FormShelter = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateFormRegister({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
   const handleSelectCountry = (e) => {
@@ -85,6 +95,12 @@ const FormShelter = () => {
       ...input,
       cityId: e.target.value,
     });
+    setErrors(
+      validateFormRegister({
+        ...input,
+        cityId: e.target.value,
+      })
+    );
   };
 
   const handleSubmit = (e) => {
@@ -115,6 +131,7 @@ const FormShelter = () => {
       role: "1",
       img: "",
     });
+    alert('registro exitoso')
     history("/reviewemail");
   };
 
@@ -136,6 +153,9 @@ const FormShelter = () => {
               placeholder="Nombre"
             />
           </div>
+          {
+              errors.name && <p>{errors.name}</p>
+            }
 
           <div className="campo">
             <label>Mail: </label>
@@ -148,6 +168,9 @@ const FormShelter = () => {
               placeholder="Mail"
             />
           </div>
+          {
+              errors.email && <p>{errors.email}</p>
+            }
 
           <div className="campo">
             <label>Teléfono: </label>
@@ -161,6 +184,9 @@ const FormShelter = () => {
               required
             />
           </div>
+          {
+              errors.phoneNumber && <p>{errors.phoneNumber}</p>
+            }
 
           <div className="campo">
             <label>Su Misión: </label>
@@ -233,6 +259,10 @@ const FormShelter = () => {
               ))}
             </select>
           </div>
+          {
+              errors.cityId && <p>{errors.cityId}</p>
+            }
+
           <div className="campo">
             <label>Dirección: </label>
             <input
@@ -262,8 +292,39 @@ const FormShelter = () => {
               required
             />
           </div>
+
+          <div className="campo">
+            <label>Confirmar contraseña: </label>
+
+            <input
+              className="inputForm"
+              onChange={handleChange}
+              type="password"
+              name="password2"
+              value={input.password2}
+              placeholder="Contraseña"
+              required
+            />
+          </div>
+
+          {
+              errors.password && <p>{errors.password}</p>
+            }
         </fieldset>
-        <StyleButton className="btn" type="submit" value="Registrarme">
+        <StyleButton 
+        className="btn" 
+        type="submit" 
+        value="Registrarme"
+        disabled={
+          !input.email ||
+          errors.name ||
+          errors.phoneNumber ||
+          errors.email ||
+          errors.password
+            ? true
+            : false
+        }
+        >
           Registrarme
         </StyleButton>
       </form>

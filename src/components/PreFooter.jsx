@@ -1,47 +1,82 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Fragment} from 'react';
 import {StyledPreFooter, StyledCard} from "../Styles/StyledPreFooter.js";
 import {StyleButton, StyleButtonMini} from '../Styles/StyledButtons.js';
 import {Link} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { getCountShelter, getCountAdopted1, getCountAdopted2 } from '../Redux/Actions';
+
+
 export default function PreFooter() {
+    const dispatch = useDispatch();
+
+var auxDatos=[];
+
+const countShelters = useSelector(state => state.countShelters)
+const countAdopted1 = useSelector(state => state.countAdopted1)
+const countAdopted2 = useSelector(state => state.countAdopted2)
+
+const shelter=countShelters.count
+const adopted1=countAdopted1.count
+const adopted2=countAdopted2.count
+
+if (shelter){
+  auxDatos.push(shelter)
+}
+if (adopted1){
+  auxDatos.push(adopted1)
+}
+if (adopted2){
+  auxDatos.push(adopted2)
+}
+
+const estado=auxDatos
+
+useEffect(() => {
+  dispatch(getCountShelter());
+  dispatch(getCountAdopted1());
+  dispatch(getCountAdopted2());
+},[])
     return (
         <Fragment>
             {/* <div className='ok'>  Fondo anterior*/}
             
                 <StyledPreFooter>
                     <StyledCard>
-                        <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit</h1>
+                        <h1>App RescuePets</h1>
                         <br/>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus autem dolor inventore</p>
+                        <p>En esta plataforma se encuentran: </p>
                         <br/>
                         <img src="" className="img"/>
                         <Link to="/">
-                            <StyleButtonMini>Opción 1</StyleButtonMini>
+                            <StyleButtonMini>{estado[0]}</StyleButtonMini>
                         </Link>
-
+                        <p>Refugios registrados. ¡Una esperanza más para ellos!.</p>
                     </StyledCard>
 
                     <StyledCard>
-                        <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit</h1>
+                        <h1>App RescuePets</h1>
                         <br/>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus autem dolor inventore</p>
+                        <p>Gracias a esta plataforma:</p>
                         <br/>
                         <img src="" className="img"/>
                         <Link to="/">
-                            <StyleButtonMini>Opción 1</StyleButtonMini>
+                            <StyleButtonMini>{estado[1]}</StyleButtonMini>
                         </Link>
-
+                        <p>Mascotas fueron adoptados.</p>
+                        <center>Frente al abando de animales, la adopción de mascotas es la mejor forma de darles una segunda oportunidad y una familia.</center>
                     </StyledCard>
 
                     <StyledCard>
-                        <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit</h1>
+                        <h1>App RescuePets</h1>
                         <br/>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus autem dolor inventore</p>
+                        <p>En esta plataforma:</p>
                         <br/>
                         <img src="" className="img"/>
                         <Link to="/">
-                            <StyleButtonMini>Opción 1</StyleButtonMini>
+                            <StyleButtonMini>{estado[2]}</StyleButtonMini>
                         </Link>
+                        <p>Adorables mascotas ¡ESPERAN POR TI!.</p>
 
                     </StyledCard>
 

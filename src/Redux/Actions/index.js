@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { getAuth, signInWithPopup, signOut } from 'firebase/auth'
 import { googleAuthProvider } from '../../firebase/firebase-Config'
 import { fetchConToken, fetchSinToken } from '../../helpers/fetch.js';
-import {cloudynary} from '../../helpers/cloudinary.js'
+import { cloudynary } from '../../helpers/cloudinary.js'
 import store from '../Store/index';
 import {
     GET_COUNTRIES,
@@ -54,17 +54,37 @@ import {
     GET_FORM_BY_SHELTER,
     GET_FOLLOW_UPS_FROM_SHELTER,
     CHECK_FORM,
-   
+    GET_STATUS_FOR_ADMIN,
     MODAL_DASHBOARD,
-
+    GET_ONLY_STATES_WITH_SHELTERS,
     GET_PROFILE,
     GET_FOLLOW_UPS_STATUSES,
     GET_COUNT_SHELTER,
+    GET_COUNT_ADOPTED1,
     GET_COUNT_ADOPTED2,
-    GET_COUNT_ADOPTED3
+    GET_PETS_FILTER_FOR_ADMIN,
+    REMOVE_FROM_FAVORITES,
+    ADD_TO_FAVORITES,
+    GET_ONLY_CITIES_WITH_SHELTERS,
+    EDIT_HIDE_PETS_IN_DASHBOARD,
+    authLoginAdmin,
+    EDIT_PET_STAUTS_ID,
+    GET_ALL_SHELTERS,
+    HIDE_FOLLOW_UP_IN_DASHBOARD,
+    GET_SPECIES_FOR_ADMIN,
+    GET_PET_GENRE_FOR_ADMIN,
+    GET_PET_HIDE_FOR_ADMIN,
+    GET_SHELTER_OF_PET_FOR_ADMIN,
+    RESET_INDIVIDUAL_FORM,
+    GET_ALL_FOLLOW_UP_TRANSITS,
+    GET_INDIVIDUAL_PET_FOR_ADMIN,
+    CURRENT_CITY,
+    EDIT_PET_FROM_ADMIN,
+    GET_TECH_HELP,
+    GET_PETS_ALL,
+    ADD_FOLLOW_UP_TRANSIT
+} from './types.js'
 
-    } from './types.js'
-import { async } from '@firebase/util';
 import { APIGATEWAY_URL } from '../../utils/constant';
 
 
@@ -94,7 +114,7 @@ export const getPets = () => {
 
 export const getCountries = () => {
     return async function (dispatch) {
-      
+
         let json = await axios(`${APIGATEWAY_URL}/country`);
         return dispatch({ type: GET_COUNTRIES, payload: json.data });
     };
@@ -205,6 +225,28 @@ export const startLogin = (email, password) => {
     };
 };
 
+export const startLoginAdmin = (email, password) => {
+    return async (dispatch) => {
+        const resp = await fetchSinToken("loginadmin", {
+            email,
+            password
+        }, "POST");
+        const body = await resp.json();
+        if (body.ok) {
+            localStorage.setItem("token", body.token);
+            localStorage.setItem("token-init-date", new Date().getTime());
+            dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
+        } else {
+            alert(body.msg);
+        }
+    };
+};
+
+export const loginAdmin = (user) => ({
+    type: authLoginAdmin,
+    payload: user
+})
+
 export const startRegister = (name, phoneNumber, description, address, email, password, cityId, role, img) => {
     return async (dispatch) => {
         const resp = await fetchSinToken("createShelter", {
@@ -223,7 +265,7 @@ export const startRegister = (name, phoneNumber, description, address, email, pa
             Swal.fire('Genial', 'Registro realizado correctamente', 'success')
         }
 
-        else{
+        else {
             Swal.fire('Error', 'Algo salio mal, por favor intentelo nuevamente', 'error')
 
             Swal.fire('Genial', 'Informacion actualizada', 'success')
@@ -359,15 +401,21 @@ export const startChecking = () => {
     return async (dispatch) => {
         const resp = await fetchConToken('renew')
         const body = await resp.json()
-        
+
         if (body.ok) {
-            console.log('Entro aqui')
+
             localStorage.setItem('token', body.token)
             localStorage.setItem('token-init-date', new Date().getTime())
-            dispatch(login({ id: body.id, email: body.email }))
+            if (body.role == 3 || body.rol == 2) {
+                dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
+            }
+
+            else {
+                dispatch(login({ id: body.id, email: body.email }));
+            }
         }
         else {
-            
+
             dispatch(checkingFinish())
         }
     }
@@ -380,8 +428,33 @@ export const startGoogleLogin = () => {
         const auth = getAuth()
         signInWithPopup(auth, googleAuthProvider)
             .then(({ user }) => {
-                dispatch(login())
+                dispatch(checkUser(user.email))
             })
+    }
+}
+
+const checkUser = (email) => {
+    return async (dispatch) => {
+
+        try {
+            const resp = await fetchSinToken("loginGoogle", {
+                email,
+            }, "POST");
+            const body = await resp.json()
+
+            if (body.ok) {
+                localStorage.setItem("token", body.token);
+                localStorage.setItem("token-init-date", new Date().getTime());
+                dispatch(login({ id: body.id, email: body.email }));
+            } else {
+
+                Swal.fire('Error', body.msg, 'error')
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }
 
@@ -391,7 +464,7 @@ export const login = (user) => ({
 })
 
 export function postPets(payload) {
-    console.log("console desde accion  ",payload)
+    console.log("console desde accion  ", payload)
     return async function () {
         const post = await axios.post(`${APIGATEWAY_URL}/pets`, payload);
         return post;
@@ -551,16 +624,16 @@ export const postCreateForm = (form) => {
 }
 
 
-export const getFormByShelter = (shelterid,formtypeid) => {
-    return async function(dispatch){
+export const getFormByShelter = (shelterid, formtypeid) => {
+    return async function (dispatch) {
         let json = await axios(`${APIGATEWAY_URL}/getFormByShelter/${shelterid}?formtypeid=${formtypeid}`)
-        return dispatch({type:GET_FORM_BY_SHELTER, payload:json.data})
+        return dispatch({ type: GET_FORM_BY_SHELTER, payload: json.data })
     }
 }
 
-export const editForm = (formid,formtypeid,questions) => {
-    return async function(dispatch){
-        let json = await axios.put(`${APIGATEWAY_URL}/editForm/${formid}?formtypeid=${formtypeid}`,questions)
+export const editForm = (formid, formtypeid, questions) => {
+    return async function (dispatch) {
+        let json = await axios.put(`${APIGATEWAY_URL}/editForm/${formid}?formtypeid=${formtypeid}`, questions)
         return json
     }
 }
@@ -590,7 +663,7 @@ export const uploadImageCloud = (formData) => {
         const body = await resp.data.secure_url
         return body
     };
-    
+
 }
 
 
@@ -605,38 +678,76 @@ export const addFollowUp = (payload) => {
 
 export const getFollowUpsFromShelter = (shelterId) => {
     return async function (dispatch) {
-        const followUps= await axios.get(`${APIGATEWAY_URL}/getFollowUps/${shelterId}`);
-        return dispatch({ type: GET_FOLLOW_UPS_FROM_SHELTER, payload:followUps.data });
+        const followUps = await axios.get(`${APIGATEWAY_URL}/getFollowUps/${shelterId}`);
+        return dispatch({ type: GET_FOLLOW_UPS_FROM_SHELTER, payload: followUps.data });
     };
 }
 
 export const sendEmailAccepted = (payload) => {
-    return async function(dispatch){
-        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailAccepted`,payload)
+    return async function (dispatch) {
+        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailAccepted`, payload)
         return json
     }
 }
 
 export const sendEmailRejected = (payload) => {
-    return async function(dispatch){
-        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailRejected`,payload)
+    return async function (dispatch) {
+        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailRejected`, payload)
         return json
     }
 }
 
 export const checkForm = (shelterid) => {
-    return async function(dispatch){
+    return async function (dispatch) {
         let json = await axios(`${APIGATEWAY_URL}/checkForm/${shelterid}`)
-        return dispatch({type:CHECK_FORM, payload:json.data})
+        return dispatch({ type: CHECK_FORM, payload: json.data })
     }
 
 }
 
+export const sendEmailForms = (payload) => {
+    return async function () {
+        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailForms`, payload)
+        return json
+    }
+}
 
 
+export const sendEmailFormstoShelter = (payload) => {
+    return async function () {
+        let json = await axios.post(`${APIGATEWAY_URL}/nodemailer/sendEmailFormstoShelter`, payload)
+        return json
+    }
+}
+
+export const postHelpSupport = (payload) => {
+    return async function () {
+        await axios.post(`${APIGATEWAY_URL}/techSuport`, payload);
+        Swal.fire(
+            "Genial!",
+            "Registro realizado correctamente. Pronto nos comunicaremos contigo",
+            "sucess"
+        );
+
+    }
+
+};
 
 
+export const addFollowUpTransit = (data) => {
+    return async function (dispatch) {
+        const followUpTransit = await axios.post(`${APIGATEWAY_URL}/addFollowUpTransit`);
+        return dispatch({ type: ADD_FOLLOW_UP_TRANSIT, payload: data });
 
+    };
+}
+
+export const getFollowUpTransits = (shelterId) => {
+    return async function (dispatch) {
+        const allFollowUpTransits= await axios.get(`${APIGATEWAY_URL}/followUpTransit/${shelterId}`);
+        return dispatch({ type: GET_ALL_FOLLOW_UP_TRANSITS, payload: allFollowUpTransits.data });
+    };
+}
 
 
 
@@ -653,27 +764,27 @@ export const checkForm = (shelterid) => {
 
 
 export const ModalDashboardOpen = (modal) => {
-    return {type: MODAL_DASHBOARD, payload: modal};
+    return { type: MODAL_DASHBOARD, payload: modal };
 };
 
 export const getProfile = (profileId) => {
-    return async function(dispatch){
+    return async function (dispatch) {
         let json = await axios(`${APIGATEWAY_URL}/profiles/${profileId}`)
-        return dispatch({type:GET_PROFILE, payload: json.data})
+        return dispatch({ type: GET_PROFILE, payload: json.data })
     }
 }
 
-export const StartRestorePassword =  (email) => {
+export const StartRestorePassword = (email) => {
     return async (dispatch) => {
 
         try {
             const resp = await fetchSinToken(`forgotpassword/?email=${email}`);
-            const body= await resp.json()
-            
+            const body = await resp.json()
+
             if (body.ok) {
                 Swal.fire('Restaurar Contraseña', 'Revise su email, le hemos enviado un enlace para restablecer su contraseña', 'info')
             } else {
-               
+
                 Swal.fire('Error', body.msg, 'error')
             }
 
@@ -685,7 +796,7 @@ export const StartRestorePassword =  (email) => {
 
 };
 
-export const resetPassword = (token, password) =>{
+export const resetPassword = (token, password) => {
     return async (dispatch) => {
         const resp = await fetchSinToken("resetpassword", {
             token,
@@ -702,7 +813,7 @@ export const resetPassword = (token, password) =>{
 
 export const getFollowUpStatuses = () => {
     return async function (dispatch) {
-        const followUpStatuses= await axios.get(`${APIGATEWAY_URL}/followUpStatuses`);
+        const followUpStatuses = await axios.get(`${APIGATEWAY_URL}/followUpStatuses`);
         return dispatch({ type: GET_FOLLOW_UPS_STATUSES, payload: followUpStatuses.data });
     };
 }
@@ -733,7 +844,7 @@ export const editFollowUp = (followUpId, payload) => {
 
 export const getCountShelter = () => {
     return async function (dispatch) {
-        let json = await axios(`http://localhost:3001/countshelter`)
+        let json = await axios(`${APIGATEWAY_URL}/countshelter`)
         return dispatch({
             type: GET_COUNT_SHELTER,
             payload: json.data
@@ -741,9 +852,19 @@ export const getCountShelter = () => {
     }
 }
 
+export const getCountAdopted1 = () => {
+    return async function (dispatch) {
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted1`)
+        return dispatch({
+            type: GET_COUNT_ADOPTED1,
+            payload: json.data
+        })
+    }
+}
+
 export const getCountAdopted2 = () => {
     return async function (dispatch) {
-        let json = await axios(`http://localhost:3001/petAdopted2`)
+        let json = await axios(`${APIGATEWAY_URL}/petAdopted2`)
         return dispatch({
             type: GET_COUNT_ADOPTED2,
             payload: json.data
@@ -751,12 +872,225 @@ export const getCountAdopted2 = () => {
     }
 }
 
-export const getCountAdopted3 = () => {
+
+export function addToFavorites(pet) {
+    const jsonPet = JSON.stringify(pet);
+    localStorage.setItem(pet.id, jsonPet);
+
+    return { type: ADD_TO_FAVORITES, payload: pet };
+}
+
+export function removeFromFavorites(pet) {
+    localStorage.removeItem(pet.id);
+
+    return {
+        type: REMOVE_FROM_FAVORITES,
+        payload: pet.id,
+    };
+}
+
+
+
+export const setFormStatus = (status, formid, id) => {
     return async function (dispatch) {
-        let json = await axios(`http://localhost:3001/petAdopted3`)
+        let json = await axios.put(`${APIGATEWAY_URL}/setFormStatus/${id}/${formid}/${status}`)
+    }
+}
+
+
+export const hidePetInDashbaord = (petId, payload) => {
+    return async function (dispatch) {
+        const hidePetInDashbaord = await axios.put(`${APIGATEWAY_URL}/pets/hide/${petId}`, payload);
+        return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload: hidePetInDashbaord });
+        // console.log(editPet)
+        // return editPet
+
+    };
+}
+
+export const createAdmin = (email, password, roleId, userRole) => {
+    return async (dispatch) => {
+        const resp = await fetchSinToken("createAdmin", {
+            email,
+            password,
+            roleId,
+            userRole
+        }, "POST");
+        const body = await resp.json();
+
+        if (body.ok) {
+            alert(body.msg);
+        } else {
+            alert(body.msg);
+        }
+    }
+}
+
+
+export const updatePetStatus = (petId, payload) => {
+    return async function (dispatch) {
+        const updatePetStatus = await axios.put(`${APIGATEWAY_URL}/pets/updateStatus/${petId}`, payload);
+        return dispatch({ type: EDIT_PET_STAUTS_ID, payload: updatePetStatus });
+
+    };
+}
+
+
+
+
+
+export const getAllShelters = () => {
+
+    return async (dispatch) => {
+        const resp = await fetchSinToken("getAllShelter");
+        const body = await resp.json();
+        if (body.ok) {
+            dispatch(allShelters(body.shelters))
+        } else {
+            alert(body.msg);
+        }
+    };
+}
+
+const allShelters = (shelters) => ({ type: GET_ALL_SHELTERS, payload: shelters })
+
+export const editShelterByAdmin = (id, email, status) => {
+
+    return async (dispatch) => {
+        const resp = await fetchSinToken("editShelter", {
+            id,
+            email,
+            status
+        }, "PUT");
+        const body = await resp.json();
+        if (body.ok) {
+            alert(body.msg)
+            dispatch(getAllShelters())
+        } else {
+            alert(body.msg);
+        }
+    };
+}
+
+export const hideFollowUpfromDash = (followUpId, payload) => {
+    return async function (dispatch) {
+        const hideFollowUp = await axios.put(`${APIGATEWAY_URL}/hideFollowUp/${followUpId}`, payload);
+        return dispatch({ type: EDIT_HIDE_PETS_IN_DASHBOARD, payload: hideFollowUp });
+    };
+}
+
+
+export const getOnlyCitiesWithShelter = () => {
+    return async function (dispatch) {
         return dispatch({
-            type: GET_COUNT_ADOPTED3,
-            payload: json.data
+            type: GET_ONLY_CITIES_WITH_SHELTERS,
+            payload: null
         })
     }
+}
+
+export const getOnlyStatesWithShelter = () => {
+    return async function (dispatch) {
+        return dispatch({
+            type: GET_ONLY_STATES_WITH_SHELTERS,
+            payload: null
+        })
+    }
+}
+
+export const getPetsFilterForAdmin = (link) => {
+    return async function (dispatch) {
+        try {
+            let json = await axios(link);
+            return dispatch({ type: GET_PETS_FILTER_FOR_ADMIN, payload: json.data });
+        } catch (error) {
+            return error;
+        }
+    };
+}
+
+
+export const getStatusForAdmin = () => {
+    return { type: GET_STATUS_FOR_ADMIN, payload: null }
+};
+
+
+export const getSpeciesForAdmin = () => {
+    return { type: GET_SPECIES_FOR_ADMIN, payload: null }
+}
+
+export const getGenresForAdmin = () => {
+    return { type: GET_PET_GENRE_FOR_ADMIN, payload: null }
+}
+
+export const getHideForAdmin = () => {
+    return { type: GET_PET_HIDE_FOR_ADMIN, payload: null }
+}
+
+export const getShelterOfPetForAdmin = () => {
+    return { type: GET_SHELTER_OF_PET_FOR_ADMIN, payload: null }
+
+}
+
+export const resetIndivualForm = () => {
+    return {type: RESET_INDIVIDUAL_FORM, payload: null}
+}
+
+export const getIndividualPetForAdmin = (cityId,id) => {
+    return async function(dispatch){
+        try {
+            let json = await axios(`${APIGATEWAY_URL}/pets/${cityId}?id=${id}`)
+            return dispatch({type:GET_INDIVIDUAL_PET_FOR_ADMIN, payload:json.data})
+        } catch (error) {
+            return error
+        }
+    }
+}
+
+export const setCurrentCity = (city) => {
+    return {type:CURRENT_CITY, payload:city}
+}
+
+
+export const editPetFromAdmin = (info) => {
+    return async function(dispatch){
+        try {
+            let json = await axios.put(`${APIGATEWAY_URL}/pets/editPetFromAdmin`,info)
+            return dispatch({type:EDIT_PET_FROM_ADMIN, payload:json.data})
+        } catch (error) {
+            return error
+        }
+    }
+}
+
+export const getTechHelp = () => {
+    return async function (dispatch) {
+      
+        let json = await axios(`${APIGATEWAY_URL}/techSuport`);
+        return dispatch({ type: GET_TECH_HELP, payload: json.data });
+    };
+};
+
+export const getAllPets = () => {
+    return async function (dispatch) {
+        try {
+            const Details = await axios(`${APIGATEWAY_URL}/petDetail/`);
+            dispatch({ type: GET_PETS_ALL, payload: Details.data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const editHelpByAdmin = (payload, idSuport) =>{
+
+    return async (dispatch) => {
+        const Put = await axios.put(`${APIGATEWAY_URL}/techSuport/${idSuport}`, payload);
+        if (Put) {
+            alert(Put.data.msg)
+            dispatch(getTechHelp())
+        } else {
+            alert(Put.data.msg);
+        }
+    };
 }

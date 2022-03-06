@@ -1,4 +1,5 @@
 import React from 'react'
+import { LongInput } from '../Styles/StyledPetsInDashboard'
 
 const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleCancelClick, allFollowUpStatuses}) => {
     
@@ -7,7 +8,7 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
     <tr>
         <td>
             <select name='followUpStatusId' onChange={handleEditFormChange}>
-                <option hidden name='default' >Status</option>
+                <option hidden value={editFormData.followUpStatusId} name='default' >{editFormData.followUpStatus.followUpStatus}</option>
                     {allFollowUpStatuses?.map(el => 
                         <option key={el.id} value={el.id}>{el.followUpStatus}</option>   
                     )
@@ -20,22 +21,22 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
         <td>{data.profile.address}</td>
         <td>{data.profile.phoneNumber}</td>
         <td>
-            <input
+            <LongInput
             type="date"
             // required="required"
-            placeholder='Capture fecha...'
+            // placeholder='Capture fecha...'
             name='followUpDate1'
-            value={editFormData.followUpDate1}
+            value={editFormData.followUpDate1? editFormData.followUpDate1.slice(0,10) : null }
             onChange={handleEditFormChange}
-            ></input>
+            ></LongInput>
         </td>
         <td>
             <input
             type="date"
             // required="required"
-            placeholder='Capture fecha...'
+            // placeholder='Capture fecha...'
             name='followUpDate2'
-            value={editFormData.followUpDate2}
+            value={editFormData.followUpDate2? editFormData.followUpDate2.slice(0,10) : null}
             onChange={handleEditFormChange}
             ></input>
         </td>
@@ -43,9 +44,9 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
             <input
             type="date"
             // required="required"
-            placeholder='Capture fecha...'
+            // placeholder='Capture fecha...'
             name='followUpDate3'
-            value={editFormData.followUpDate3}
+            value={editFormData.followUpDate3? editFormData.followUpDate3.slice(0,10) : null}
             onChange={handleEditFormChange}
             ></input>
         </td>
@@ -56,5 +57,7 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
     </tr>
   )
 }
+
+
 
 export default EditableRowsFollowUp

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ShelterData from "./ShelterData";
 
 // estilos
-import { DivContenedor2, Left, Right ,StyledCard } from "../Styles/StyledShelterDetails";
+import { DivContenedor2, Left, Right ,StyledCardMini} from "../Styles/StyledShelterDetails";
 import {
   
   StyledCardContainer,
@@ -15,7 +15,7 @@ import "../Styles/Styles.css";
 
 const ShelterInfo = ({ Data, pets, input, setInput }) => {
   const [currentPage, setcurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(2);
+  const [itemsPerPage, setitemsPerPage] = useState(10);
 
   const [pageNumberLimit, setpageNumberLimit] = useState(2);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(2);
@@ -103,14 +103,15 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
               currentItems?.map((p) => (
                 <Fragment key={p.id}>
                   <Link to={`/details/${p.id}`}>
-                    <StyledCard>
+                    <StyledCardMini>
+                      {console.log([p])}
                       <h1>{p.name}</h1>
-
+                      <p>{[p.temperament][0].temperament}</p>
                       {/* <p>{p.description}</p> */}
                       <ImgCard src={p.image} />
 
                       <br />
-                    </StyledCard>
+                    </StyledCardMini>
                   </Link>
                 </Fragment>
               ))

@@ -5,13 +5,13 @@ import { GoogleAuthProvider } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDqoFioFsmR49szhDV0dIfYOHQYnYMxPYw',
-  authDomain: 'journal-app-9abb5.firebaseapp.com',
-  projectId: 'journal-app-9abb5',
-  storageBucket: 'journal-app-9abb5.appspot.com',
-  messagingSenderId: '656960574345',
-  appId: '1:656960574345:web:548854cdf8175bddb60758'
-}
+  apiKey: "AIzaSyCSkCQT7YP0nl6GHUXjBt2kqdMcLPjRI20",
+  authDomain: "rescue-pet.firebaseapp.com",
+  projectId: "rescue-pet",
+  storageBucket: "rescue-pet.appspot.com",
+  messagingSenderId: "743621625503",
+  appId: "1:743621625503:web:3984b7ac839dbc23c644aa"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
