@@ -1039,3 +1039,16 @@ export const getAllPets = () => {
         }
     };
 };
+
+export const editHelpByAdmin = (payload, idSuport) =>{
+
+    return async (dispatch) => {
+        const Put = await axios.put(`${APIGATEWAY_URL}/techSuport/${idSuport}`, payload);
+        if (Put) {
+            alert(Put.data.msg)
+            dispatch(getTechHelp())
+        } else {
+            alert(Put.data.msg);
+        }
+    };
+}
