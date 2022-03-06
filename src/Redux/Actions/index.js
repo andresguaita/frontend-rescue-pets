@@ -919,9 +919,9 @@ export const createAdmin = (email, password, roleId, userRole) => {
         const body = await resp.json();
 
         if (body.ok) {
-            alert(body.msg);
+            Swal.fire('Exito', body.msg, 'success')
         } else {
-            alert(body.msg);
+            Swal.fire('Error', body.msg, 'error')
         }
     }
 }
@@ -947,7 +947,7 @@ export const getAllShelters = () => {
         if (body.ok) {
             dispatch(allShelters(body.shelters))
         } else {
-            alert(body.msg);
+            Swal.fire('Error', body.msg, 'error')
         }
     };
 }
@@ -964,10 +964,10 @@ export const editShelterByAdmin = (id, email, status) => {
         }, "PUT");
         const body = await resp.json();
         if (body.ok) {
-            alert(body.msg)
+            Swal.fire('Correcto!', body.msg, 'sucess')
             dispatch(getAllShelters())
         } else {
-            alert(body.msg);
+            Swal.fire('Error', body.msg, 'error')
         }
     };
 }
@@ -1087,10 +1087,10 @@ export const editHelpByAdmin = (payload, idSuport) =>{
     return async (dispatch) => {
         const Put = await axios.put(`${APIGATEWAY_URL}/techSuport/${idSuport}`, payload);
         if (Put) {
-            alert(Put.data.msg)
+            Swal.fire('Genial!', Put.data.msg, 'sucess')
             dispatch(getTechHelp())
         } else {
-            alert(Put.data.msg);
+            Swal.fire('Error', Put.data.msg, 'error')
         }
     };
 }
