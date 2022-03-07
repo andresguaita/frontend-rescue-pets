@@ -120,7 +120,7 @@ useEffect(() => {
                 
                 <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                    {/* <CardsHeader  titulo="SHELTER" texto="rescuePets" color="rgba(248,80,50,1)" font="white"/> */}
-                   <CardsHeader  titulo="SHELTER" texto={name_shelter} color="rgba(248,80,50,1)" font="white"/>
+                   <CardsHeader  titulo="REFUGIO" texto={name_shelter} color="rgba(248,80,50,1)" font="white"/>
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                 <CardsHeader titulo="PAÍS" texto={name_country} color="rgba(248,80,50,1)" font="white"/>
