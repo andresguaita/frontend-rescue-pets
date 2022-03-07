@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -41,7 +41,7 @@ const FollowUpTransit = () => {
 
     useEffect(() => {
         if(typeof(petsFromShelter) !== "string"){
-            const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2)
+            const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2 && el.inTransit !== true)
             const petsIdAndName = filteredPets.map(el => {
                 return {
                     id: el.id,
@@ -94,9 +94,9 @@ const FollowUpTransit = () => {
             data: editedFormData
         }
         await dispatch(editFollowUpTransit(editableTransitId, payload))
+        const status = true
+        await dispatch(editPetInTransitStatus(status, payload))
         await dispatch(getFollowUpTransits(shelterId))
-        // await dispatch(editFollowUp(editFollowUpId, editFormData))
-        // await dispatch(getFollowUpsFromShelter(shelterId))
         setEditableTransitId(null);
         console.log("segundo editableTransitId",editableTransitId)
     }
