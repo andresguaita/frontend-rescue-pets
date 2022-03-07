@@ -12,7 +12,7 @@ export const Container = styled.div`
   background-image: url(${Img});
   background-repeat: no-repeat;
   background-size: cover;
-  margin-top: 80px;
+  /* margin-top: 80px; */
   padding: 40px;
 `;
 
