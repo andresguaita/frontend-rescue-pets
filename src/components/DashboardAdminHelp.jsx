@@ -1,18 +1,14 @@
-import React, { useEffect } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { editShelterByAdmin, getTechHelp } from "../Redux/Actions";
+import { editHelpByAdmin, getTechHelp } from "../Redux/Actions";
 import {
   StyledDashboardPetAdmin,
   StyledDivFlexAdmin,
-  StyledSelectForTable,
-  StyledSelectForDashboardPetAdmin,
-  StyledButtonDeleteAdminPet,
   StyledButtonEditAdminPet,
   StyledInputSearch,
   StyledInputButton,
-  StyledInputCheck,
 } from "../Styles/StyledDashboardPetAdmin";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -27,25 +23,24 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import PaginationAdmin from "./AdminPagination.jsx";
 
 const DashboardAdminHelp = () => {
   const dispatch = useDispatch();
-
+  const { id } = useSelector((state) => state);
   const [help, setHelp] = useState([]);
-  const [form, setForm] = useState(
-    {
-        id: "",
-        email: "",
-        type: "",
-        description: "",
-        isUser: null,
-        status: null,
-        comments: null,
-        createdAt: "",
-        updatedAt: "",
-        userId: null
-    }
-  );
+  const [form, setForm] = useState({
+    id: "",
+    email: "",
+    type: "",
+    description: "",
+    isUser: null,
+    status: null,
+    comments: null,
+    createdAt: "",
+    updatedAt: "",
+    userId: id,
+  });
   const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -67,7 +62,7 @@ const DashboardAdminHelp = () => {
   const handleChange = (e) => {
     setForm({
       ...form,
-      email: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -79,9 +74,17 @@ const DashboardAdminHelp = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(editShelterByAdmin(form.id, form.email, form.status));
+    let payload = {
+      status: form.status,
+      comments: form.comments,
+      userId: form.userId,
+    };
+    let idSuport = form.id;
+
+    dispatch(editHelpByAdmin(payload, idSuport));
     setModal(false);
   };
+
   const filter = (searchTerm) => {
     let result = allTechHelp.filter((el) => {
       if (
@@ -105,16 +108,16 @@ const DashboardAdminHelp = () => {
   const openUpdateModal = (data) => {
     setModal(true);
     setForm({
-        id: data.id,
-        email: data.email,
-        type: data.type,
-        description: data.description,
-        isUser: data.isUser,
-        status: data.status,
-        comments: data.comments,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
-        userId: data.userId
+      ...form,
+      id: data.id,
+      email: data.email,
+      type: data.type,
+      description: data.description,
+      isUser: data.isUser,
+      status: data.status,
+      comments: data.comments,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
     });
   };
 
@@ -134,7 +137,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="email"
               type="text"
-              onChange={handleChange}
               value={form.id}
               disabled
             />
@@ -146,7 +148,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="email"
               type="text"
-              onChange={handleChange}
               value={form.email}
               disabled
             />
@@ -158,7 +159,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="type"
               type="text"
-              onChange={handleChange}
               value={form.type}
               disabled
             />
@@ -170,7 +170,6 @@ const DashboardAdminHelp = () => {
               className="form-control"
               name="description"
               type="text"
-              onChange={handleChange}
               value={form.description}
               disabled
             />
@@ -178,34 +177,71 @@ const DashboardAdminHelp = () => {
 
           <FormGroup>
             <label>isUser:</label>
-            <textarea
+            <input
               className="form-control"
               name="isUser"
               type="text"
-              onChange={handleChange}
               value={form.isUser}
               disabled
             />
           </FormGroup>
 
           <FormGroup>
-            <label>isUser:</label>
-            <textarea
-              className="form-control"
-              name="isUser"
-              type="text"
-              onChange={handleChange}
-              value={form.isUser}
-              disabled
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Label>Status</Label>
+            <Label>Status:</Label>
             <Input type="select" name="status" onChange={handleSelectStatus}>
-              <option value="PENDIENTE" selected={form.status === "PENDIENTE" ? true : false}>PENDIENTE</option>
-              <option value="SOLUCIONADO" selected={form.status === "SOLUCIONADO" ? true : false}>SOLUCIONADO</option>
+              <option
+                value="PENDIENTE"
+                selected={form.status === "PENDIENTE" ? true : false}
+              >
+                PENDIENTE
+              </option>
+              <option
+                value="SOLUCIONADO"
+                selected={form.status === "SOLUCIONADO" ? true : false}
+              >
+                SOLUCIONADO
+              </option>
             </Input>
+          </FormGroup>
+
+          <FormGroup>
+            <Label>Fechas:</Label>
+            <input
+              className="form-control"
+              name="createdAt"
+              type="text"
+              value={`Creado : ${form.createdAt}`}
+              disabled
+            />
+            <input
+              className="form-control"
+              name="updatedAt"
+              type="text"
+              value={`actualizado : ${form.updatedAt}`}
+              disabled
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Comments:</label>
+            <textarea
+              className="form-control"
+              name="comments"
+              type="text"
+              value={form.comments}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Resuelto por:</label>
+            <input
+              className="form-control"
+              name="userId"
+              type="text"
+              value={form.userId}
+              disabled
+            />
           </FormGroup>
         </ModalBody>
 
@@ -242,6 +278,18 @@ const DashboardAdminHelp = () => {
         </StyledDivFlexAdmin>
 
         <div>
+          <Input type="select">
+            <option selected disabled>--Mostrar--</option>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </Input>
+          <PaginationAdmin />
+        </div>
+
+        <div>
           <table>
             <thead>
               <th>ID</th>
@@ -262,7 +310,7 @@ const DashboardAdminHelp = () => {
                     <td>{help.id}</td>
                     <td>{help.email}</td>
                     <td>{help.type}</td>
-                    <td>{help.description.slice(0,10)}[...]</td>
+                    <td>{help.description.slice(0, 10)}[...]</td>
                     {/* <td>{help.isUser.toString()}</td> */}
                     <td>{help.status}</td>
                     {/* <td>

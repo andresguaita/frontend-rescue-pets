@@ -4,6 +4,7 @@ import allColors from "../variables/Colors";
 export const StyledDashboardPetAdmin = styled.div`
     margin-bottom: 250px;
     margin-top: 50px;
+    margin-left:50px;
     a{
       text-decoration: none;
       color: white;
@@ -37,6 +38,7 @@ export const StyledDashboardPetAdmin = styled.div`
         text-align: center;
         padding: 8px;
         font-size: 18px;
+        color: rgb(80,80,80);
         font-weight: bold;
       }
       
@@ -51,6 +53,19 @@ export const StyledDashboardPetAdmin = styled.div`
         
       }
   `;
+
+  export const StyledDashboardPetModal = styled.div`
+      position: fixed;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      left:0px;
+      right:0px;
+      top:0px;
+      padding-top:20%;
+      width:100%;
+      height:100%;
+  `  
 
 export const StyledSelectForDashboardPetAdmin = styled.select`
     font-size: 20px;
@@ -122,15 +137,13 @@ export const StyledDivFlexAdmin = styled.div`
 `  
 
 export const StyledDivFlexColumnAdmin = styled.div`
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #f3f3f3;
     width: 350px;
     margin: 10px;
     border-radius: 20px;
-
+    text-align: center;
     input[type="checkbox"]{
       appearance: none;
       -webkit-appearance: none;
@@ -261,4 +274,14 @@ export const StyledButtonSearch = styled.button`
       width: 17px;
       height: 17px;
     }
+`
+
+export const AlertPopUp = styled.button`
+    background: rgb(240,36,89);
+    color: white;
+    border-radius: 20px;
+    font-size: 80px;
+    border-style: none;
+    height: 150px;
+    width: 150px;
 `

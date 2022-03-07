@@ -18,6 +18,7 @@ import { DashboardPetEditAdmin } from './components/DashboardPetEditAdmin';
 
 
 
+
 export const DashboardRoutesAdmin = () => {
     return (
         <div>
@@ -30,7 +31,6 @@ export const DashboardRoutesAdmin = () => {
                 <Route path="dashboard/DashboardPetAdmin" element={<DashboardPetAdmin/>} /> 
                 <Route path="dashboard/DashboardShelterAdmin" element={<DashboardShelterAdmin/>} /> 
                 <Route path="dashboard/help" element={<DashboardAdminHelp/>} /> 
-                <Route path="dashboard/DashboardPetAdmin/Edit/:info" element={<DashboardPetEditAdmin/>}/>
             </Routes>
         </div>
         </div>

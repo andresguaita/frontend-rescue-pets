@@ -2,16 +2,18 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {getcities, getCountries, getIndividualPetForAdmin , getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
+import {deletePet, editPetFromAdmin, getcities, getCountries, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
-    StyledInputSearch,
-    StyledInputCheck, StyledButtonSearch } from "../Styles/StyledDashboardPetAdmin"
+    StyledInputSearch, StyledDivFlexColumnAdmin,
+    StyledInputCheck, StyledButtonSearch,AlertPopUp,
+    StyledSelectForDashboardPetEditAdmin } from "../Styles/StyledDashboardPetAdmin"
 import {StyleButtonBack} from "../Styles/StyledButtons"
 import { APIGATEWAY_URL } from '../utils/constant';
 import search from "../Icos/search-solid.svg"
-
+import { DashboardPetEditAdmin } from './DashboardPetEditAdmin'
+import {ModalDashboard} from './ModalDashboard'
 
 export const DashboardPetAdmin = () => {
     const navigate = useNavigate()
@@ -42,6 +44,13 @@ export const DashboardPetAdmin = () => {
     const [input, setInput] = useState({})
     /// estados locales para modificar petición ↑
     
+    /// estado local para modal ↓
+    const[modal, setmodal] = useState(false)
+    const[individualpet,setindividualpet] = useState({})
+    const[removePet, setremovePet] = useState()
+    const[activealert, setactivealert] = useState(false)
+    /// estado local para modal ↑
+
     /// obtener estados princiales ↓
     useEffect(() => {
         dispatch(getCountries())
@@ -80,7 +89,7 @@ export const DashboardPetAdmin = () => {
         
         })  
         dispatch(getPetsFilterForAdmin(query))
-    },[input])
+    },[input,modal,activealert])
 
     const handleForGetPets = (e) => {
         let data = e.target.value === 'true' ? true : e.target.value === 'false' ? false : e.target.value
@@ -118,10 +127,51 @@ export const DashboardPetAdmin = () => {
 
 
     /// despacho de action para setear los datos a modificar ↓
-    const handleGetIndividualPet = (cityId,petId) => {
-        dispatch(getIndividualPetForAdmin(Number(cityId),Number(petId)))
+    const handleGetIndividualPet = (pet) => {
+        setindividualpet({
+            id:pet.id,
+            name:pet.name,
+            hideFromDash:pet.hideFromDash
+        })
+        if(modal){
+            setmodal(false)
+        }else{
+            setmodal(true)
+        }
+
     }
     /// despacho de action para setear los datos a modificar ↑
+
+
+    /// obtiene el valor del select para setarlo en el estado local ↓
+    const handleSelect = (e) => {
+        setindividualpet({
+            ...individualpet,
+            [e.target.name] : e.target.value == 'true'? true : false
+        })
+    }
+    /// obtiene el valor del select para setearlo en el estado local ↑
+
+
+    /// despacha la action para editar el hide de la mascota ↓
+    const handleSubmit = () => {
+        dispatch(editPetFromAdmin(individualpet))
+        alert('Hide editado con éxito')
+    }
+    /// despacha la action para editar el hide de la mascota ↑
+
+    /// despacho de action para borrar mascota ↓
+    const handleDeletePet = (petId) => {
+        if(!activealert){setactivealert(true)}
+        setremovePet(Number(petId))     
+    }
+    /// despacho de action para borrar mascota ↑
+
+    const handleAccept = () => {
+        dispatch(deletePet(removePet))
+        alert('Se eliminó la mascota') 
+        setactivealert(false)
+    }
 
     const Back = () => {
         navigate('/dashboard')
@@ -131,36 +181,6 @@ export const DashboardPetAdmin = () => {
         <StyledDashboardPetAdmin>
             <StyleButtonBack onClick={Back}>{'<'}</StyleButtonBack>
             <h1>DashboardPetAdmin</h1>
-            <StyledDivFlexAdmin>
-
-                <form>
-                    <StyledDivFlexAdmin>
-                        <div>
-                            <h3>BUSQUEDA</h3>
-                            <StyledInputSearch type="text" placeholder="Ingrese dato a buscar"/>
-                        </div>
-                        <div>
-                            <StyledButtonSearch>Buscar <img src={search}/></StyledButtonSearch>
-                        </div>
-                        <div>
-                            <br></br>
-                            <label>Ciudad</label>
-                            <StyledInputCheck type="checkbox"/>
-
-                            <label>Refugio</label>
-                            <StyledInputCheck type="checkbox"/>
-
-                            <label>Especie</label>
-                            <StyledInputCheck type="checkbox"/>
-
-                            <label>Nombre</label>
-                            <StyledInputCheck type="checkbox"/>
-                        </div>
-                    </StyledDivFlexAdmin>    
-                </form>
-
-            </StyledDivFlexAdmin>
-            
             <StyledDivFlexAdmin>
                 <div>
                     <h2>Ubicación:</h2>
@@ -266,6 +286,49 @@ export const DashboardPetAdmin = () => {
                 {/* filtro para la prop oculata de las mascotas ↑ */}
             </StyledDivFlexAdmin>
             <div>
+
+
+            {/* Modal de alerta antes de eliminar ↓ */}
+            <ModalDashboard modal={activealert} setModal={setactivealert}>
+                    <StyledDivFlexAdmin> 
+                        <StyledDivFlexColumnAdmin>
+                            <AlertPopUp><i class="fas fa-exclamation-triangle"></i></AlertPopUp> 
+                                <h1>¡Está seguro de eliminar la mascota!</h1>
+                            <StyledDivFlexAdmin>
+                                <StyledButtonEditAdminPet onClick={handleAccept}><i class="fas fa-check"></i></StyledButtonEditAdminPet>
+                            </StyledDivFlexAdmin>
+                        </StyledDivFlexColumnAdmin>
+                    </StyledDivFlexAdmin>                
+            </ModalDashboard>
+            {/* Modal de alerta antes de eliminar ↑ */}
+
+            
+            {/* Modal para editar el hide de la mascota ↓ */}
+            <ModalDashboard modal={modal} setModal={setmodal}>
+                    <StyledDivFlexAdmin> 
+                        <StyledDivFlexColumnAdmin> 
+                            <br></br>
+                            <h1>Visibilidad de {individualpet.id && individualpet.name }</h1>
+                            {/* setear el hide de la mascota ↓ */}
+                            <br></br>
+                            <h2>Hide</h2>
+                            <StyledSelectForDashboardPetEditAdmin name='hideFromDash' value={individualpet.id && individualpet.hideFromDash} onChange={e => handleSelect(e)}>
+                                <option key="h1" value={true}>True</option>
+                                <option key="h2" value={false}>False</option>
+                            </StyledSelectForDashboardPetEditAdmin>
+                            {/* setear el hide de la mascota ↑ */}
+                            <StyledDivFlexAdmin> 
+                                <br></br>
+                                <StyledButtonDeleteAdminPet onClick={handleGetIndividualPet}><i class="fas fa-reply"></i></StyledButtonDeleteAdminPet>
+                                <br></br>
+                                <StyledButtonEditAdminPet onClick={handleSubmit} ><i className="fas fa-edit"></i></StyledButtonEditAdminPet> 
+                            </StyledDivFlexAdmin>
+                        </StyledDivFlexColumnAdmin>
+
+                    </StyledDivFlexAdmin>
+            </ModalDashboard>
+            {/* Modal para editar el hide de la mascota ↑ */}
+
                 <table>
                     <thead>
                         <th>
@@ -336,13 +399,13 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.shelter.name}</td>
                                 <td>
                                 <div>
-                                    <StyledButtonDeleteAdminPet><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
-                                    <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(currentcity,pet.id)}><Link to={`Edit/${[[currentcity],[pet.id]]}`}><i className="fas fa-edit"></i></Link></StyledButtonEditAdminPet>
-                                    
+                                    <StyledButtonDeleteAdminPet onClick={() => handleDeletePet(pet.id)}><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
+                                    <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(pet)}><i className="fas fa-edit"></i></StyledButtonEditAdminPet> 
                                 </div>
                                 </td>
                            </tbody> 
                         )):<p>Cargando...</p>}
+                        
                 </table>
             </div>
         </StyledDashboardPetAdmin>

@@ -659,11 +659,10 @@ export default function rooReducer(state = initialState, { type, payload }) {
               }
             
             case CURRENT_CITY:
-              console.log(payload)
               return {
                 ...state,
                 currentcity: payload
-              }  
+              }
 
               case GET_PETS_ALL:
               return {
