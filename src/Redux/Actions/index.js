@@ -82,7 +82,8 @@ import {
     EDIT_PET_FROM_ADMIN,
     GET_TECH_HELP,
     GET_PETS_ALL,
-    ADD_FOLLOW_UP_TRANSIT
+    ADD_FOLLOW_UP_TRANSIT,
+    GET_DATA_SEARCH
 } from './types.js'
 
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -1093,4 +1094,9 @@ export const editHelpByAdmin = (payload, idSuport) =>{
             Swal.fire('Error', Put.data.msg, 'error')
         }
     };
+}
+
+
+export const getDataSearch = (info) => {
+    return {type: GET_DATA_SEARCH, payload: info}
 }

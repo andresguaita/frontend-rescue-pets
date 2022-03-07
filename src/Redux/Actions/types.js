@@ -80,4 +80,4 @@ export const CURRENT_CITY = 'CURRENT_CITY'
 export const EDIT_PET_FROM_ADMIN = 'EDIT_PET_FROM_ADMIN'
 export const GET_TECH_HELP = 'GET_TECH_HELP'
 export const GET_PETS_ALL = 'GET_PETS_ALL'
-
+export const GET_DATA_SEARCH = 'GET_DATA_SEARCH'

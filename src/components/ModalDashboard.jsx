@@ -27,10 +27,12 @@ const Overlay = styled.div`
  top: 0;
  left: 0;
  background: rgba(0,0,0,.5);
+ backdrop-filter: blur(3px);
  display: flex;
  padding: 40px;
  align-items: center;
  justify-content: center;
+ transition: all 1s;
 `;
 
 const ModalContain = styled.div`
