@@ -83,7 +83,10 @@ import {
     GET_TECH_HELP,
     GET_PETS_ALL,
     ADD_FOLLOW_UP_TRANSIT,
-    GET_DATA_SEARCH
+    GET_DATA_SEARCH,
+    ORDER_BY_ID,
+    ORDER_BY_WEIGHT,
+    ORDER_BY_NAME,
 } from './types.js'
 
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -1099,4 +1102,16 @@ export const editHelpByAdmin = (payload, idSuport) =>{
 
 export const getDataSearch = (info) => {
     return {type: GET_DATA_SEARCH, payload: info}
+}
+
+export const orderById = (order) => {
+    return {type:ORDER_BY_ID, payload: order}
+}
+
+export const orderByWeight = (order) => {
+    return {type:ORDER_BY_WEIGHT, payload: order}
+}
+
+export const orderByName = (order) => {
+    return {type:ORDER_BY_NAME, payload: order}
 }
