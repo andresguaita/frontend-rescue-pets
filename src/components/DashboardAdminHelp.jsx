@@ -286,9 +286,6 @@ const DashboardAdminHelp = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
-                <StyledInputButton type="button" value="buscar" />
-              </div>
             </StyledDivFlexAdmin>
           </form>
         </StyledDivFlexAdmin>

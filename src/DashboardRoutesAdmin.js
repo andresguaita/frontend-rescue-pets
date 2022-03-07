@@ -23,7 +23,7 @@ export const DashboardRoutesAdmin = () => {
     return (
         <div>
    
-        <div className='container'>
+        <div>
         <NavbarDashboardAdmin/>
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
