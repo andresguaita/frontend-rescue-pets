@@ -37,12 +37,11 @@ export const Table = styled.table`
 border-radius: 3px ;
 border-spacing: 0;
 border-collapse: collapse;
-overflow-x:auto;
 border-spacing:0px; 
 border-collapse: collapse;
     width: 100%;
     border-radius: 15px;
-    overflow: hidden;
+    overflow: visible;
 
 th,
 td {
@@ -52,20 +51,21 @@ padding: 8px;
 padding-left: 4px;
 padding-right: 4px;
 font-size: 10px;
-
-overflow-x:auto;
-width:1%;
+height: 0;
+overflow:visible;
+width:400px;
 }
 
 th {
 background-color: #63ac44;
 color: #ffffff;
-
+overflow: visible;
 
 }
 
 td {
 background-color: #ddf4ff;
+overflow: visible;
 }
 
 form {
