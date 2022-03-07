@@ -87,6 +87,8 @@ import {
     ORDER_BY_ID,
     ORDER_BY_WEIGHT,
     ORDER_BY_NAME,
+    EDIT_FOLLOW_UP_TRANSIT
+
 } from './types.js'
 
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -753,8 +755,16 @@ export const getFollowUpTransits = (shelterId) => {
     };
 }
 
+export const editFollowUpTransit = (editableTransitId, payload) => {
+    // console.log("editableTransitId de accion", editableTransitId)
+    // console.log("payload", payload)
+    return async function (dispatch) {
+        const editTransit = await axios.put(`${APIGATEWAY_URL}/followUpTransit/${editableTransitId}`, payload);
+        // console.log("respuesta editTransit", editTransit)
+        return dispatch({ type: EDIT_FOLLOW_UP_TRANSIT, payload: editTransit });
 
-
+    };
+}
 
 
 
