@@ -18,7 +18,7 @@ export default function NavbarDashboard() {
     }
 
     return (
-        <div style={{backgroundColor:'#6F8AB7'}}>
+        <div>
             <header>
               
                     <StyleNavBar>
