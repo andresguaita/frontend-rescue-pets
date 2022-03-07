@@ -48,11 +48,11 @@ export function CreatePets() {
 
   const AllAges = useSelector((state) => state.allAges);
 
-  useEffect(() => {
-    dispatch(getAllPetStatus());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllPetStatus());
+  // }, [dispatch]);
 
-  const Status = useSelector((state) => state.petStatus[0]?.id); 
+  // const Status = useSelector((state) => state.petStatus[0]?.id); 
 
   useEffect(() => {
     dispatch(getGenres());
@@ -70,7 +70,7 @@ export function CreatePets() {
     shelterId: Shelters,
     temperamentId: "",
     ageId: "",
-    petStatusId:  Status,
+    petStatusId:  1,
     genreId: "",
   });
 
