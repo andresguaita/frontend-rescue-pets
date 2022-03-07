@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -52,7 +52,7 @@ const FollowUpTransit = () => {
             setPetData(petsIdAndName)
             setData(allFollowUpTransits)
         }
-    }, [petsFromShelter])
+    }, [petsFromShelter, allFollowUpTransits])
     
     // console.log("data-------------------->", data)
 
@@ -86,10 +86,19 @@ const FollowUpTransit = () => {
     }
 
     const handleEditedFormSubmit =  async (event) => {
+        console.log("hola")
         event.preventDefault();
+        console.log("primer editableTransitId",editableTransitId)
+        console.log("editedFormData",editedFormData)
+        const payload = {
+            data: editedFormData
+        }
+        await dispatch(editFollowUpTransit(editableTransitId, payload))
+        await dispatch(getFollowUpTransits(shelterId))
         // await dispatch(editFollowUp(editFollowUpId, editFormData))
         // await dispatch(getFollowUpsFromShelter(shelterId))
         setEditableTransitId(null);
+        console.log("segundo editableTransitId",editableTransitId)
     }
 
     const handleCancelClick = (event) => {
