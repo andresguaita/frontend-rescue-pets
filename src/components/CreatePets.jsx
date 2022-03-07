@@ -85,7 +85,7 @@ export function CreatePets() {
       let link = await dispatch(uploadImageCloud(formData))
       setState({
         ...state,
-        image: link
+        image: [...state.image, link]
       })
     } else {
       alert('No se pueden cargar mas de 5 Imagenes.');
