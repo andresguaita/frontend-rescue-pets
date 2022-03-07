@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import {AppBar, Toolbar, IconButton, Typography} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import {StyleButtonBack} from '../Styles/StyledButtons.js';
 
 const useStyles= makeStyles(()=>({
     root:{
-        backgroundColor:'#63ac44',
         flexGrow: 1
     },
     menuButton:{
@@ -23,18 +24,13 @@ function Navbar() {
     const classes= useStyles();
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" style={{ background: '#6F8AB7' }}>
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                       rescuePets
-                    </Typography>
-
-                    {/* <IconButton color="inherit">
-                            <img src={require('../assets/img/branding.jpg')} width="40px" height="40px" className={classes.imagen}/>
-                            </IconButton> */}
+                   
+                    <Link to= '/dashboard'>
+                      <StyleButtonBack >{'Regresar'}</StyleButtonBack>
+                    </Link>
+                   
                 </Toolbar>
 
             </AppBar>
