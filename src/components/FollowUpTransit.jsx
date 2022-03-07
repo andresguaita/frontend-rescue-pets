@@ -40,7 +40,7 @@ const FollowUpTransit = () => {
     const [data, setData] = useState('')
 
     useEffect(() => {
-        if(petsFromShelter) {
+        if(typeof(petsFromShelter) !== "string"){
             const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2)
             const petsIdAndName = filteredPets.map(el => {
                 return {
