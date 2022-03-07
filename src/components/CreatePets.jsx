@@ -52,7 +52,7 @@ export function CreatePets() {
     dispatch(getAllPetStatus());
   }, [dispatch]);
 
-  const Status = useSelector((state) => state.petStatus[0].id); 
+  const Status = useSelector((state) => state.petStatus[0]?.id); 
 
   useEffect(() => {
     dispatch(getGenres());
@@ -74,7 +74,7 @@ export function CreatePets() {
     genreId: "",
   });
 
-  console.log('state: ', state);
+  // console.log('state: ', state);
 
   const uploadImage = async (e) => {
     if(state.image.length < 5) {
