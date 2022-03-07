@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {deletePet, editPetFromAdmin, getcities, getCountries, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
+import {deletePet, editPetFromAdmin, getcities, getCountries, getDataSearch, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
@@ -27,6 +27,7 @@ export const DashboardPetAdmin = () => {
 
 
     /// estados para filtrar ↓
+    const petsearch = useSelector((state) => state.petSearchForAdmin)
     const currentCity = useSelector((state) => state.currentcity)
     const onlycitieswithshelter = useSelector((state) => state.onlyCitiesWithShelter)
     const onlystateswithshelter = useSelector((state) => state.onlyStatesWithShelter)
@@ -38,10 +39,16 @@ export const DashboardPetAdmin = () => {
     const petshelters = useSelector((state) => state.shelterOfPetForAdmin)
     /// estados para filtrar ↑
     
+
+    const currentpets =  petsearch
+
+
+
     /// estados locales para modificar petición ↓
     const [currentcity, setCurrentcity] = useState()
     const [link, setLink] = useState(`${APIGATEWAY_URL}/pets/${currentCity?currentCity:''}`)
     const [input, setInput] = useState({})
+    const [search, setsearch] = useState()
     /// estados locales para modificar petición ↑
     
     /// estado local para modal ↓
@@ -77,18 +84,30 @@ export const DashboardPetAdmin = () => {
     /// obtener estados principales ↑
 
 
+    /// despacho de action para busqueda ↓
+    const handleChangeSearch = (e) => {
+        setsearch(e.target.value)
+    }
+
+    useEffect(() => {
+        dispatch(getDataSearch(search))
+    },[search,input,link])
+    /// despacho de action para busqueda ↑
+
+
     /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↓
     useEffect(()=>{
         setLink(link)
     },[onlycitieswithshelter])
 
-    useEffect(()=>{
+    useEffect(async ()=>{
         let query = `${link}?`
         Object.entries(input).forEach(([key,value])=> {
              query = `${query}${[key]}=${[value]}&`
         
         })  
-        dispatch(getPetsFilterForAdmin(query))
+        await dispatch(getPetsFilterForAdmin(query))
+        if(search) await dispatch(getDataSearch(search))
     },[input,modal,activealert])
 
     const handleForGetPets = (e) => {
@@ -100,10 +119,10 @@ export const DashboardPetAdmin = () => {
             setInput((input) => {return{...input}})
             console.log(temp)
         }else{
-                setInput( (input) => { return {
-                    ...input,
-                    [e.target.name]: e.target.value
-                }})
+            setInput( (input) => { return {
+                ...input,
+                [e.target.name]: e.target.value
+            }})
         }
     }
     /// setear el estado input, para hacer la petición con las querys y obtener las mascotas ↑
@@ -167,6 +186,7 @@ export const DashboardPetAdmin = () => {
     }
     /// despacho de action para borrar mascota ↑
 
+
     const handleAccept = () => {
         dispatch(deletePet(removePet))
         alert('Se eliminó la mascota') 
@@ -182,6 +202,13 @@ export const DashboardPetAdmin = () => {
             <StyleButtonBack onClick={Back}>{'<'}</StyleButtonBack>
             <h1>DashboardPetAdmin</h1>
             <StyledDivFlexAdmin>
+
+            {/* input de busqueda ↓ */}
+            </StyledDivFlexAdmin>
+                <StyledInputSearch name='search' placeholder=' Buscar' value={search} onChange={(e) => handleChangeSearch(e)}/>
+            <StyledDivFlexAdmin>
+            {/* input de busqueda ↑ */}
+
                 <div>
                     <h2>Ubicación:</h2>
                 </div>
@@ -385,7 +412,7 @@ export const DashboardPetAdmin = () => {
                         </th>
                         <th>Acciones</th>
                     </thead>
-                        {typeof(pets) !== 'string' && pets.length? pets.map(pet => (
+                        {typeof(currentpets) !== 'string' && currentpets.length? currentpets.map(pet => (
                            <tbody key={pet.id}>
                                 <td>{pet.id}</td>
                                 <td>{pet.name}</td>

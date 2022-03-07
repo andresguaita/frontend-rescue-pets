@@ -67,7 +67,8 @@ import {
   GET_INDIVIDUAL_PET_FOR_ADMIN,
   CURRENT_CITY,
   GET_TECH_HELP,
-  GET_PETS_ALL
+  GET_PETS_ALL,
+  GET_DATA_SEARCH
 } from "../Actions/types";
 
 
@@ -144,7 +145,8 @@ const initialState = {
   currentcity: [],
   favorites: checkLocalStorage(),
   allTechHelp:[],
-  allPets:[]
+  allPets:[],
+  petSearchForAdmin: []
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -549,7 +551,8 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_PETS_FILTER_FOR_ADMIN:
               return{
                 ...state,
-                petsfilterforadmin : payload
+                petsfilterforadmin : payload,
+                petSearchForAdmin: payload,
               }
             
             case GET_ONLY_STATES_WITH_SHELTERS:
@@ -668,7 +671,13 @@ export default function rooReducer(state = initialState, { type, payload }) {
               return {
                 ...state,
                 allPets: payload
-              } 
+              }
+             
+            case GET_DATA_SEARCH:
+              return{
+                ...state,
+                petSearchForAdmin : state.petsfilterforadmin.filter(pet => pet.shelter.name.includes(payload))
+              }  
         default:
           return state;
       }
