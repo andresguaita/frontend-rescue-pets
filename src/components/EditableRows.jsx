@@ -1,8 +1,8 @@
 import React from 'react'
 import {
     Container, Center, CenterChild ,Table,Button,Button3
-  } from "../Styles/StyledPetsInDashboard"
-  
+} from "../Styles/StyledPetsInDashboard"
+import { Link } from 'react-router-dom'
 
 const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, allSpecies, allTemperaments, allPetStatus, allAges, allGenres}) => {
     
@@ -50,7 +50,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
             onChange={handleEditFormChange}
             ></input>
         </td>
-        <td>
+        {/* <td>
             <input
             type="text"
             required="required"
@@ -59,7 +59,8 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
             value={editFormData.image}
             onChange={handleEditFormChange}
             ></input>
-        </td>
+        </td> */}
+        <td><Link to=''>Editar imágenes de mascota</Link></td>
         <td>
             <select name='speciesId' onChange={handleEditFormChange}>
                 <option hidden value="editFormData.speciesId" name='default' >{editFormData.species2.specie}</option>
