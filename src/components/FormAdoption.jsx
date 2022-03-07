@@ -18,6 +18,7 @@ import { Centro, DivContainer, Left, Right } from "../Styles/StyledFormTransit";
 
 const FormAdoption = ({ petId, Datos }) => {
 
+  console.log("DATOS--------", Datos)
   
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -121,7 +122,8 @@ const FormAdoption = ({ petId, Datos }) => {
     let info = {
       userMail: profileData.email, 
       petName: Datos[0].name,
-      type:2
+      type:2,
+      shelterMail:Datos[0].shelter.user.email
     }
     dispatch(sendEmailFormstoShelter(info))
     
