@@ -48,7 +48,7 @@ export const DashboardPetEditAdmin = ({id,hideFromDash,name,setActive}) => {
                         <br></br>
                     <StyledButtonEditAdminPet onClick={handleSubmit} ><i className="fas fa-edit"></i></StyledButtonEditAdminPet>  
                         <br></br>
-                        <h1>Visivilidad de {name}</h1>
+                        <h1>Visibilidad de {name}</h1>
                         {/* setear el hide de la mascota ↓ */}
                         <br></br>
                         <h2>Hide</h2>
