@@ -722,7 +722,7 @@ export const sendEmailFormstoShelter = (payload) => {
 
 export const postHelpSupport = (payload) => {
     return async function () {
-        await axios.post(`${APIGATEWAY_URL}/techSuport`, payload);
+        await axios.post(`${APIGATEWAY_URL}/postTechSuport`, payload);
         Swal.fire(
             "Genial!",
             "Registro realizado correctamente. Pronto nos comunicaremos contigo",
@@ -1066,7 +1066,7 @@ export const editPetFromAdmin = (info) => {
 export const getTechHelp = () => {
     return async function (dispatch) {
       
-        let json = await axios(`${APIGATEWAY_URL}/techSuport`);
+        let json = await axios(`${APIGATEWAY_URL}/getTechSuport`);
         return dispatch({ type: GET_TECH_HELP, payload: json.data });
     };
 };
@@ -1085,7 +1085,7 @@ export const getAllPets = () => {
 export const editHelpByAdmin = (payload, idSuport) =>{
 
     return async (dispatch) => {
-        const Put = await axios.put(`${APIGATEWAY_URL}/techSuport/${idSuport}`, payload);
+        const Put = await axios.put(`${APIGATEWAY_URL}/putTechSuport/${idSuport}`, payload);
         if (Put) {
             Swal.fire('Genial!', Put.data.msg, 'sucess')
             dispatch(getTechHelp())
