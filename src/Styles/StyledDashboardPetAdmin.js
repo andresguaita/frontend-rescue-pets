@@ -4,6 +4,7 @@ import allColors from "../variables/Colors";
 export const StyledDashboardPetAdmin = styled.div`
     margin-bottom: 250px;
     margin-top: 50px;
+    margin-left:50px;
     a{
       text-decoration: none;
       color: white;
@@ -136,15 +137,13 @@ export const StyledDivFlexAdmin = styled.div`
 `  
 
 export const StyledDivFlexColumnAdmin = styled.div`
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #f3f3f3;
     width: 350px;
     margin: 10px;
     border-radius: 20px;
-
+    text-align: center;
     input[type="checkbox"]{
       appearance: none;
       -webkit-appearance: none;
@@ -275,4 +274,14 @@ export const StyledButtonSearch = styled.button`
       width: 17px;
       height: 17px;
     }
+`
+
+export const AlertPopUp = styled.button`
+    background: rgb(240,36,89);
+    color: white;
+    border-radius: 20px;
+    font-size: 80px;
+    border-style: none;
+    height: 150px;
+    width: 150px;
 `
