@@ -50,6 +50,25 @@ const DashboardAdminHelp = () => {
 
   const { allTechHelp } = useSelector((state) => state);
 
+  //paginado
+
+  const [currentPage, setCurrentPAge] = useState(1);
+  const [rowsXpage, setRowsXpage] = useState(5);
+  
+  let indexLastRow = currentPage * rowsXpage; //5
+  let indexFirstRow = indexLastRow - rowsXpage; //0
+  let currentRows = help.slice(indexFirstRow, indexLastRow);
+
+  const paginado = (event, pageNumber) => {
+    setCurrentPAge(pageNumber);
+  };
+
+  const handleSelectNumber = (e) => {
+    setRowsXpage(e.target.value)
+  }
+
+  //paginado
+
   useEffect(() => {
     setHelp(allTechHelp);
   }, [allTechHelp]);
@@ -88,11 +107,11 @@ const DashboardAdminHelp = () => {
   const filter = (searchTerm) => {
     let result = allTechHelp.filter((el) => {
       if (
-        el.shelter.name
+        el.email
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        el.email.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        el.status.toString().toLowerCase().includes(searchTerm.toLowerCase())
       ) {
         return el;
       }
@@ -262,7 +281,7 @@ const DashboardAdminHelp = () => {
           <form>
             <StyledDivFlexAdmin>
               <div>
-                <h3>BUSQUEDA</h3>
+                <h3>BUSQUEDA por Email o Status</h3>
                 <StyledInputSearch
                   type="text"
                   placeholder="Buscar por..."
@@ -277,16 +296,22 @@ const DashboardAdminHelp = () => {
           </form>
         </StyledDivFlexAdmin>
 
-        <div>
-          <Input type="select">
+        <div className="paginado">
+          <select type="select" onChange={handleSelectNumber}>
             <option selected disabled>--Mostrar--</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
             <option value={50}>50</option>
             <option value={100}>100</option>
-          </Input>
-          <PaginationAdmin />
+          </select>
+          <PaginationAdmin  
+          rowsXpage={rowsXpage}
+          helpLength = {help.length}
+          paginado = {paginado}
+          currentPage={currentPage}
+        setCurrentPAge={setCurrentPAge}
+          />
         </div>
 
         <div>
@@ -304,8 +329,8 @@ const DashboardAdminHelp = () => {
               <th>Acciones</th>
             </thead>
             <tbody>
-              {help &&
-                help?.map((help) => (
+              {currentRows &&
+                currentRows?.map((help) => (
                   <tr key={help.id}>
                     <td>{help.id}</td>
                     <td>{help.email}</td>

@@ -52,6 +52,18 @@ export const StyledDashboardPetAdmin = styled.div`
         height: 50px;
         
       }
+      .paginado{
+        display: flex ;
+        align-items: baseline;
+        justify-content: space-evenly ;
+        margin-bottom: 2rem ;
+        
+        select{
+          width: 100px ;
+          height: 20px ;
+          text-align: center ;
+        }
+      }
   `;
 
   export const StyledDashboardPetModal = styled.div`

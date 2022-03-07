@@ -17,7 +17,7 @@ export default function NavbarDashboardAdmin() {
     }
 
     return (
-        <Fragment>
+        <div>
             <header>
               
                     <StyleNavBar>
@@ -33,6 +33,6 @@ export default function NavbarDashboardAdmin() {
                     </StyleNavBar>
                 
             </header>
-        </Fragment>
+        </div>
     );
 }
