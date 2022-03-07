@@ -64,7 +64,7 @@ useEffect(() => {
                             <StyleButtonMini>{estado[1]}</StyleButtonMini>
                         </Link>
                         <p>Mascotas fueron adoptados.</p>
-                        <center>Frente al abando de animales, la adopción de mascotas es la mejor forma de darles una segunda oportunidad y una familia.</center>
+                        <center>Frente al abandono de animales, la adopción de mascotas es la mejor forma de darles una segunda oportunidad y una familia.</center>
                     </StyledCard>
 
                     <StyledCard>
