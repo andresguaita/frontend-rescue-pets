@@ -7,10 +7,11 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
     console.log("result-------------->", result)
 
     const handleDeletePetFromList = (el) => {
-      // seteditedFormData(
-      //   [editedFormData.filter(param => param !== el)]
-          
-      // )
+      console.log("handleDeletePetFromList element ---->", el)
+      seteditedFormData(
+        editedFormData.filter(param => param !== el)
+      )
+      console.log("editFormData del handleDelete ---->", editedFormData)
   }
     
   return (
@@ -40,7 +41,7 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
           {editedFormData?.map(el=> 
           <div key={el.id}>
           <div>{el.name}</div>
-          <button type='button' onClick={handleDeletePetFromList(el)}>X</button>
+          <button type='button' onClick={() => handleDeletePetFromList(el)}>X</button>
 
           </div>
 
