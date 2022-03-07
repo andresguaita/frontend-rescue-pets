@@ -3,7 +3,7 @@ import allColors from "../variables/Colors";
 
 export const StyledDashboardForms = styled.div`
 
-  margin-bottom: 252px;
+  margin-bottom: 358px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -118,11 +118,10 @@ h1 {
 
 export const Left = styled.div`
 background-color: white;
-position: fixed;
-z-index: -1;
+z-index:2;
 width: 48%;
 left: 30%;
-top: 80px;
+top: 280px;
 
 img{
   width: 100%;

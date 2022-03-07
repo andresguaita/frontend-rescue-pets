@@ -91,7 +91,6 @@ export const DashboardCreateForm = () => {
 
     return (
         <StyledDashboardForms>
-            <Left><img src={Img}/></Left>
             
             <StyleButtonBack onClick={handleClick}>{'Regresar'}</StyleButtonBack>
             <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>

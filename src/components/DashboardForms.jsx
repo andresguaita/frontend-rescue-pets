@@ -69,7 +69,7 @@ export const DashboardForms= () => {
    
     return (
             <StyledDashboardForms>
-                <Left><img src={Img}/></Left>
+               
                     <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
                     <h1>Tabla de formularios de {typeform}</h1>
                     
