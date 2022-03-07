@@ -131,6 +131,7 @@ const FollowUpTransit = () => {
                                 data={data}
                                 petData={petData}
                                 editedFormData={editedFormData}
+                                seteditedFormData={seteditedFormData}
                                 handleEditedFormChange={handleEditedFormChange}
                                 handleCancelClick={handleCancelClick}
                                 />

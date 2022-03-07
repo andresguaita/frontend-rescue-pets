@@ -9,8 +9,12 @@ const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick}) => {
             <td>{data.user.email}</td>
             <td>{data.profile.address}</td>
             <td>{data.profile.phoneNumber}</td>
-            {data.profile.petsAssigned ? 
-            <td>{data.profile.petsAssigned}</td> : <td>Sin mascotas asignadas</td>
+            {data.petsAssigned ? data.petsAssigned.map(el => 
+                <div>
+                    <td>{el.name}</td>
+                </div>
+            )
+            : <td>Sin mascotas asignadas</td>
         }
             <td>
                 <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>

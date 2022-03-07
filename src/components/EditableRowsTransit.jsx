@@ -1,10 +1,17 @@
 import React from 'react'
 
-const EditableRowsTransit = ({data, petData, editedFormData, handleEditedFormChange, handleCancelClick}) => {
+const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, handleEditedFormChange, handleCancelClick}) => {
     console.log("petData----------------------->",petData)
     console.log("editedFormData-------------->", editedFormData)
     let result = petData.filter(o1 => !editedFormData.some(o2 => o1.id === o2.id));
     console.log("result-------------->", result)
+
+    const handleDeletePetFromList = (el) => {
+      // seteditedFormData(
+      //   [editedFormData.filter(param => param !== el)]
+          
+      // )
+  }
     
   return (
     <tr>
@@ -30,12 +37,14 @@ const EditableRowsTransit = ({data, petData, editedFormData, handleEditedFormCha
 
           }
 
-                          {/* {editedFormData.petsAssigned.map(el=> 
-                    <div key={el}>
-                      <div>{el}</div>
-                    </div>
-                  
-                  )} */}
+          {editedFormData?.map(el=> 
+          <div key={el.id}>
+          <div>{el.name}</div>
+          <button type='button' onClick={handleDeletePetFromList(el)}>X</button>
+
+          </div>
+
+          )}
 
           
         </td>
