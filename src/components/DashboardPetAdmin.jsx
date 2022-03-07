@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {deletePet, editPetFromAdmin, getcities, getCountries, getDataSearch, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, setCurrentCity} from '../Redux/Actions/index'
+import {deletePet, editPetFromAdmin, getcities, getCountries, getDataSearch, getGenresForAdmin, getHideForAdmin, getOnlyCitiesWithShelter, getOnlyStatesWithShelter, getPetsFilterForAdmin, getShelterOfPetForAdmin, getShelters, getSpecies, getSpeciesForAdmin, getStates, getStatusForAdmin, getTemperaments, orderById, orderByName, orderByWeight, setCurrentCity} from '../Redux/Actions/index'
 import { StyledDashboardPetAdmin, StyledDivFlexAdmin, 
     StyledSelectForTable, StyledSelectForDashboardPetAdmin, 
     StyledButtonDeleteAdminPet, StyledButtonEditAdminPet,
@@ -56,6 +56,9 @@ export const DashboardPetAdmin = () => {
     const[individualpet,setindividualpet] = useState({})
     const[removePet, setremovePet] = useState()
     const[activealert, setactivealert] = useState(false)
+    const[order,setorder] = useState()
+    const[orderweight, setorderweight]= useState()
+    const[ordername, setordername] = useState()
     /// estado local para modal ↑
 
     /// obtener estados princiales ↓
@@ -184,13 +187,33 @@ export const DashboardPetAdmin = () => {
         if(!activealert){setactivealert(true)}
         setremovePet(Number(petId))     
     }
-    /// despacho de action para borrar mascota ↑
-
 
     const handleAccept = () => {
         dispatch(deletePet(removePet))
         alert('Se eliminó la mascota') 
         setactivealert(false)
+    }
+    /// despacho de action para borrar mascota ↑
+
+
+    useEffect(() => {
+        if(order)dispatch(orderById(order))
+        if(orderweight)dispatch(orderByWeight(Number(orderweight)))
+        if(ordername)dispatch(orderByName(ordername))
+    },[order,orderweight,ordername])
+
+    const handleOrder = (e) => {
+        setorder(e.target.value)
+        dispatch(orderById(e.target.value))
+    }
+    const handleOrderWeight = (e) => {
+        setorderweight(e.target.value)
+        dispatch(orderByWeight(e.target.value))
+    }
+
+    const handleOrderName = (e) => {
+        setordername(e.target.value)
+        dispatch(orderByName(e.target.value))
     }
 
     const Back = () => {
@@ -359,21 +382,21 @@ export const DashboardPetAdmin = () => {
                 <table>
                     <thead>
                         <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
+                        <StyledSelectForTable onChange={(e) => handleOrder(e)}>
+                            <option disabled selected >
                             Id
                             </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
+                            <option value={'asc'}>↑ Asc</option>
+                            <option value={'des'}>↓ Des</option>
                         </StyledSelectForTable>
                         </th>
                         <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
+                        <StyledSelectForTable onChange={(e) => handleOrderName(e)}>
+                            <option disabled selected >
                             Nombre
                             </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
+                            <option value={'asc'}>↑ Asc</option>
+                            <option value={'des'}>↓ Des</option>
                         </StyledSelectForTable></th>
                         <th>
                             Especie    
@@ -382,22 +405,17 @@ export const DashboardPetAdmin = () => {
                             Género 
                         </th>
                         <th>
-                        <StyledSelectForTable>
+                        <StyledSelectForTable onChange={(e) => handleOrderWeight(e)}>
                             <option disabled selected>
                             Peso
                             </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
+                            <option value={'asc'} >↑ Asc</option>
+                            <option value={'des'} >↓ Des</option>
                         </StyledSelectForTable>    
                         </th>
                         <th>
-                        <StyledSelectForTable>
-                            <option disabled selected>
                             Edad
-                            </option>
-                            <option>↑ Asc</option>
-                            <option>↓ Des</option>
-                        </StyledSelectForTable></th>
+                        </th>
                         <th>
                             Esterilizado
                         </th>
