@@ -43,6 +43,7 @@ const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
                     {/* <Link to='/dashboard/forms'><LeftMini> Go to Answers Forms</LeftMini> </Link>
                     <Link to='/dashboard/createForm'><LeftMini>  Go to create Forms</LeftMini> </Link> */}
                      <Link to="/dashboard/DashStatisChelter" ><LeftMini>Estadísticas</LeftMini></Link>
+                     <Link to="/dashboard/help" ><LeftMini>Soporte Técnico</LeftMini></Link>
                 </Left>
 
                 {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
