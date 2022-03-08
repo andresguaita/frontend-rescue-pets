@@ -72,7 +72,8 @@ import {
   GET_DATA_SEARCH,
   ORDER_BY_ID,
   ORDER_BY_WEIGHT,
-  ORDER_BY_NAME
+  ORDER_BY_NAME,
+  GET_QUESTIONS
 
 } from "../Actions/types";
 
@@ -152,7 +153,8 @@ const initialState = {
   allTechHelp:[],
   allPets:[],
   allAdmins: {},
-  petSearchForAdmin: []
+  petSearchForAdmin: [],
+  allQuestions: []
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -682,6 +684,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 return{
                   ...state,
                   allAdmins: payload
+                }
+              case GET_QUESTIONS:
+                return {
+                  ...state,
+                  allQuestions: payload
                 }
           
              
