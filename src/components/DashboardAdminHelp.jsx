@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { editHelpByAdmin, getTechHelp } from "../Redux/Actions";
+import { editHelpByAdmin, getTechHelp, sendEmailHelp } from "../Redux/Actions";
 import {
   StyledDashboardPetAdmin,
   StyledDivFlexAdmin,
@@ -98,6 +98,13 @@ const DashboardAdminHelp = () => {
     let idSuport = form.id;
 
     dispatch(editHelpByAdmin(payload, idSuport));
+    let info = {
+      userMail: form.email, 
+      type: form.type, 
+      response: form.comments
+    }
+    
+    dispatch(sendEmailHelp(info))
     setModal(false);
   };
 
