@@ -34,6 +34,8 @@ function DashboardAdminQuestions() {
       question: ""
     });
     const [modal, setModal] = useState(false);
+    const [edit, setEdit] = useState(false);
+    const [newQuestion, setNewQuestion] = useState("");
     const [search, setSearch] = useState("");
   
     //paginado
@@ -73,6 +75,17 @@ function DashboardAdminQuestions() {
         [e.target.name]: e.target.value,
       });
     };
+
+    const handleChangeQuestion = (e) => {
+      setNewQuestion(e.target.value);
+    };
+
+    const handleSubmitQuestion = () => {
+      let question = {question: newQuestion}
+      dispatch(postQuestions(question))
+      setNewQuestion("")
+      setEdit(false)
+    }
   
   
     const handleSubmit = () => {
@@ -81,6 +94,10 @@ function DashboardAdminQuestions() {
       let payload = {question:form.question}
 
       dispatch(editQuestions(payload, idquestion));
+      setForm({
+        id: "",
+        question: ""
+      })
       setModal(false);
     };
   
@@ -154,6 +171,37 @@ function DashboardAdminQuestions() {
             </Button>
           </ModalFooter>
         </Modal>
+
+        <Modal isOpen={edit}>
+          <ModalHeader>
+            <div>
+              <h3>Crear nueva pregunta</h3>
+            </div>
+          </ModalHeader>
+  
+          <ModalBody>
+          <FormGroup>
+              <label>Nueva Pregunta:</label>
+              <textarea
+                className="form-control"
+                name="question"
+                type="text"
+                value={newQuestion}
+                onChange={handleChangeQuestion}
+              />
+            </FormGroup>
+  
+          </ModalBody>
+  
+          <ModalFooter>
+            <Button color="primary" onClick={handleSubmitQuestion}>
+              Guardar
+            </Button>
+            <Button color="danger" onClick={()=>setEdit(false)}>
+              Cancelar
+            </Button>
+          </ModalFooter>
+        </Modal>
   
         <StyledDashboardPetAdmin>
           <h1>Preguntas para Formularios</h1>
@@ -175,6 +223,10 @@ function DashboardAdminQuestions() {
           </StyledDivFlexAdmin>
   
           <div className="paginado">
+            <StyledInputButton 
+            type="button" value="Crear"
+            onClick={()=>setEdit(true)}/>
+      
             <select type="select" onChange={(e)=>setRowsxPage(e.target.value)}>
               <option selected disabled>--Mostrar--</option>
               <option value={5}>5</option>
