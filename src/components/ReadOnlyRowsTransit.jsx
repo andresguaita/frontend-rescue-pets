@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick}) => {
+const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick, handleRemovefromTransit}) => {
     
     return (
         <tr key={data.id}>
@@ -11,7 +11,9 @@ const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick}) => {
             <td>{data.profile.phoneNumber}</td>
             {data.petsAssigned ? data.petsAssigned.map(el => 
                 <div>
-                    <td>{el.name}</td>
+                    <td>{el.name}
+                    <button type='button' onClick={(event)=> handleRemovefromTransit(event, el.id, el, data.id)}>X</button></td>
+
                 </div>
             )
             : <td>Sin mascotas asignadas</td>

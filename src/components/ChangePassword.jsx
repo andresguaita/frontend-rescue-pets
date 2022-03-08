@@ -49,11 +49,12 @@ export const ChangePassword = () => {
   
 
   return (
-    <div style={{width: 400, height: 400, marginTop: 100, marginLeft: 100}}>
-      <h1>Configuracion</h1>
-      <form onSubmit={handleSubmit}>
+    <div>
+      <h1>Cambiar contraseña</h1>
+      <form onSubmit={handleSubmit} className="formulario">
       <span>Introduzca su contraseña actual</span>
       <input
+      className="inputForm"
       onChange={handleChange}
       value={input.oldPassword}
       name="oldPassword"
@@ -62,6 +63,7 @@ export const ChangePassword = () => {
       <hr/>
       <span>Escriba su nueva contraseña</span>
       <input
+      className="inputForm"
       onChange={handleChange}
       value={input.password1}
       name="password1"
@@ -70,11 +72,11 @@ export const ChangePassword = () => {
       <hr/>
       <span>Confirme su nueva contraseña</span>
       <input
+      className="inputForm"
       onChange={handleChange}
       value={input.password2}
       name="password2"
       type="text"></input>
-      <hr/>
       <Button type='submit'>Cambiar Contraseña</Button>
       </form>
       

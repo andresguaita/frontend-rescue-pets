@@ -83,11 +83,14 @@ import {
   GET_TECH_HELP,
   GET_PETS_ALL,
   ADD_FOLLOW_UP_TRANSIT,
+  GET_ALL_ADMIN,
   GET_DATA_SEARCH,
   ORDER_BY_ID,
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
   EDIT_FOLLOW_UP_TRANSIT,
+  EDIT_PET_IN_TRANSIT_STATUS,
+  EDIT_PETS_ASSIGNED,
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -812,6 +815,35 @@ export const editFollowUpTransit = (editableTransitId, payload) => {
   };
 };
 
+export const editPetInTransitStatus = (status, payload) => {
+  // console.log("editableTransitId de accion", editableTransitId)
+  // console.log("payload", payload)
+  return async function (dispatch) {
+    const editTransitStatus = await axios.put(
+      `${APIGATEWAY_URL}/pets/updateTransitStatus/${status}`,
+      payload
+    );
+    // console.log("respuesta editTransit", editTransit)
+    return dispatch({
+      type: EDIT_PET_IN_TRANSIT_STATUS,
+      payload: editTransitStatus,
+    });
+  };
+};
+
+export const editPetsAssigned = (id, payload) => {
+  // console.log("editableTransitId de accion", editableTransitId)
+  // console.log("payload", payload)
+  return async function (dispatch) {
+    const editAssignedPets = await axios.put(
+      `${APIGATEWAY_URL}/followUpTransit/petsAssigned/${id}`,
+      payload
+    );
+    // console.log("respuesta editTransit", editTransit)
+    return dispatch({ type: EDIT_PETS_ASSIGNED, payload: editAssignedPets });
+  };
+};
+
 export const ModalDashboardOpen = (modal) => {
   return { type: MODAL_DASHBOARD, payload: modal };
 };
@@ -995,6 +1027,7 @@ export const createAdmin = (email, password, roleId, userRole) => {
     const body = await resp.json();
 
     if (body.ok) {
+      dispatch(getAllAdmin());
       Swal.fire("Exito", body.msg, "success");
     } else {
       Swal.fire("Error", body.msg, "error");
@@ -1151,6 +1184,7 @@ export const editPetFromAdmin = (info) => {
 export const getTechHelp = () => {
   return async function (dispatch) {
     let json = await axios(`${APIGATEWAY_URL}/getTechSuport`);
+
     return dispatch({ type: GET_TECH_HELP, payload: json.data });
   };
 };
@@ -1177,6 +1211,35 @@ export const editHelpByAdmin = (payload, idSuport) => {
       dispatch(getTechHelp());
     } else {
       Swal.fire("Error", Put.data.msg, "error");
+    }
+  };
+};
+
+export const getAllAdmin = () => {
+  return async (dispatch) => {
+    try {
+      const resp = await fetchSinToken("allAdmin");
+      const body = await resp.json();
+
+      if (body.ok) {
+        dispatch({ type: GET_ALL_ADMIN, payload: body.allAdmin });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteAdmin = (id) => {
+  return async (dispatch) => {
+    const resp = await fetchConToken(`deleteAdmin/${id}`, {}, "DELETE");
+    const body = await resp.json();
+
+    if (body.ok) {
+      Swal.fire("Borrar", body.msg, "success");
+      dispatch(getAllAdmin());
+    } else {
+      Swal.fire("Error", body.msg, "error");
     }
   };
 };

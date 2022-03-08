@@ -337,7 +337,7 @@ const DashboardAdminHelp = () => {
                         Actualizado: {help.updatedAt}
                     </td>
                     <td>{help.comments}</td> */}
-                    <td>{help.userId}</td>
+                    <td>{help.user?.email}</td>
                     <td>
                       <StyledButtonEditAdminPet
                         onClick={() => openUpdateModal(help)}
