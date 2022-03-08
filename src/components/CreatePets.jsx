@@ -8,7 +8,7 @@ import {
   gettTemperaments,
   getAllSpecies,
   getAllAges,
-  getAllPetStatus,
+  /* getAllPetStatus, */
   getGenres,
   ModalDashboardOpen,
   uploadImageCloud,
@@ -60,6 +60,31 @@ export function CreatePets() {
 
   const Genres = useSelector((state) => state.allGenres);
 
+  function validate (state){
+    let errors = {};
+    if(!state.name){
+      errors.name = '*';
+    } else if(!state.sterilization){
+      errors.sterilization = '*'
+    } else if(!state.weight){
+      errors.weight = '*'
+    } else if(!state.description){
+      errors.description = '*'
+    } else if(!state.image){
+      errors.image = '*'
+    } else if(!state.speciesId){
+      errors.speciesId = '*'
+    } else if(!state.temperamentId){
+      errors.temperamentId = '*'
+    } else if(!state.ageId){
+      errors.ageId = '*'
+    } else if(!state.genreId){
+      errors.genreId = '*'
+    }
+    return errors;
+  };
+
+  const [errors, setErrors] = React.useState({});
   const [state, setState] = useState({
     name: "",
     sterilization: "",
@@ -74,6 +99,7 @@ export function CreatePets() {
     genreId: "",
   });
 
+  // console.log('errors: ', errors);
   // console.log('state: ', state);
 
   const uploadImage = async (e) => {
@@ -87,6 +113,10 @@ export function CreatePets() {
         ...state,
         image: [...state.image, link]
       })
+      setErrors(validate({
+        ...state,
+        image: e.target.value
+      }))
     } else {
       alert('No se pueden cargar mas de 5 Imagenes.');
     }
@@ -96,56 +126,86 @@ export function CreatePets() {
     setState({
       ...state,
       [e.target.name]: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      [e.target.name]: e.target.value
+    }))
   };
 
   const handleSelectBoolean = (e) => {
     setState({
       ...state,
       sterilization: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      sterilization: e.target.value
+    }))
   };
 
   const handleSelectSpecies = (e) => {
     setState({
       ...state,
       speciesId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      speciesId: e.target.value
+    }))
   };
 
   const handleSelectTemperament = (e) => {
     setState({
       ...state,
       temperamentId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      temperamentId: e.target.value
+    }))
   };
 
   const handleSelectAge = (e) => {
     setState({
       ...state,
       ageId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      ageId: e.target.value
+    }))
   };
 
   const handleSelectGenres = (e) => {
     setState({
       ...state,
       genreId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      genreId: e.target.value
+    }))
   };
 
   const routeInfo = useSelector(state => state.ShelterAndCityId)
   const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postPets(state));
-    dispatch(ModalDashboardOpen ("icos"))
-    setState({name:'',sterilization:'',weight: '',description: '',image:'',speciesId:'',shelterId:'',
-            temperamentId:'',ageId:'',petStatusId:'',genreId:''})
-
-    alert('¡La mascota fue creada con exito!');
-    dispatch(getPetsForDashboard(route))
+    if(!state.name || !state.sterilization || !state.weight || !state.description || !state.image ||
+      !state.speciesId || !state.temperamentId || !state.ageId || !state.genreId){
+        e.preventDefault();
+        alert('¡Debe completar todos los campos para crear una Mascota!');
+      } else {
+        e.preventDefault();
+        dispatch(postPets(state));
+        dispatch(ModalDashboardOpen ("icos"))
+        setState({name:'',sterilization:'',weight: '',description: '',image:'',speciesId:'',shelterId:'',
+                temperamentId:'',ageId:'',petStatusId:'',genreId:''})
+    
+        alert('¡La mascota fue creada con exito!');
+        dispatch(getPetsForDashboard(route));
+      }
   };
 
   function handleClickCencel(e) {
@@ -163,7 +223,7 @@ export function CreatePets() {
           name="name"
           value={state.name}
           onChange={handleChanges}
-        />
+        />{errors.name&&(<p>{errors.name}</p>)}
         <br /> <br />
         <select onChange={handleSelectBoolean}>
           <option disabled selected>
@@ -175,7 +235,7 @@ export function CreatePets() {
           <option name="false" value={false}>
             No
           </option>
-        </select>
+        </select>{errors.sterilization&&(<p>{errors.sterilization}</p>)}
         <br />
         <br />
         <input
@@ -184,7 +244,7 @@ export function CreatePets() {
           name="weight"
           value={state.weight}
           onChange={handleChanges}
-        />
+        />{errors.weight&&(<p>{errors.weight}</p>)}
         <br />
         <br />
         <input
@@ -193,7 +253,7 @@ export function CreatePets() {
           name="description"
           value={state.description}
           onChange={handleChanges}
-        />
+        />{errors.description&&(<p>{errors.description}</p>)}
         <br />
         <br />
         <select onChange={handleSelectSpecies}>
@@ -205,7 +265,7 @@ export function CreatePets() {
               {e.specie}
             </option>
           ))}
-        </select>
+        </select>{errors.speciesId&&(<p>{errors.speciesId}</p>)}
         <br />
         <br />
         {/* <select onChange={handleSelectShelter}>
@@ -229,7 +289,7 @@ export function CreatePets() {
               {e.temperament}
             </option>
           ))}
-        </select>
+        </select>{errors.temperamentId&&(<p>{errors.temperamentId}</p>)}
         <br />
         <br />
         <select onChange={handleSelectAge}>
@@ -241,7 +301,7 @@ export function CreatePets() {
               {e.age}
             </option>
           ))}
-        </select>
+        </select>{errors.ageId&&(<p>{errors.ageId}</p>)}
         <br />
         <br />
         {/* <select onChange={handleSelectState}>
@@ -265,7 +325,7 @@ export function CreatePets() {
               {e.genre}
             </option>
           ))}
-        </select>
+        </select>{errors.genreId&&(<p>{errors.genreId}</p>)}
         <>
           {" "}
           <br /> <br />
@@ -276,12 +336,8 @@ export function CreatePets() {
             name="file"
             placeholder="Inserte Imagen"
             onChange={(e)=>{uploadImage(e)}}
-          />
-          {loading ? (
-            <h3>Cargando Imagenes... </h3>
-          ) : (
-            <img src={image} style={{ width: "300px" }} />
-          )}
+          />{errors.image&&(<p>{errors.image}</p>)}
+          {`${state.image.length}/5`}
         </>
         <br /> <br />
         <StyleButton type="submit">¡Crear Mascota!</StyleButton>{" "}

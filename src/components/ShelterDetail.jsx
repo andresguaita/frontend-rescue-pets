@@ -18,7 +18,6 @@ const ShelterDetail = () => {
   const dispatch = useDispatch();
   let Data = useSelector((state) => state.shelterDetail);
   let cityId= Data.cityId
-  console.log("Esta es otra data-----",Data.user.email)
 
   const [input, setInput] = useState({})
  

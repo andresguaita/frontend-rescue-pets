@@ -6,6 +6,10 @@ import {Link} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCountShelter, getCountAdopted1, getCountAdopted2 } from '../Redux/Actions';
 
+import Im1 from "../Icos/health.png";
+
+import Im2 from "../Icos/espe.png";
+import Img3 from "../Icos/new.png";
 
 export default function PreFooter() {
     const dispatch = useDispatch();
@@ -43,40 +47,40 @@ useEffect(() => {
             
                 <StyledPreFooter>
                     <StyledCard>
-                        <h1>App RescuePets</h1>
+                        <h1>Mascotas Rescatadas</h1>
                         <br/>
                         <p>En esta plataforma se encuentran: </p>
                         <br/>
-                        <img src="" className="img"/>
+                        <img src={Im1} className="img"/><br></br>
                         <Link to="/">
                             <StyleButtonMini>{estado[0]}</StyleButtonMini>
                         </Link>
-                        <p>Refugios registrados. ¡Una esperanza más para ellos!.</p>
+                        <p>Refugios registrados. ¡Una esperanza más para ellos!.</p><br></br>
                     </StyledCard>
 
                     <StyledCard>
-                        <h1>App RescuePets</h1>
+                        <h1>Mascotas Adoptadas</h1>
                         <br/>
                         <p>Gracias a esta plataforma:</p>
                         <br/>
-                        <img src="" className="img"/>
+                        <img src={Im2} className="img"/><br></br>
                         <Link to="/">
                             <StyleButtonMini>{estado[1]}</StyleButtonMini>
                         </Link>
                         <p>Mascotas fueron adoptados.</p>
-                        <center>Frente al abandono de animales, la adopción de mascotas es la mejor forma de darles una segunda oportunidad y una familia.</center>
+                        <center>Frente al abandono de animales, la adopción de mascotas es la mejor forma de darles una segunda oportunidad y una familia.</center><br></br>
                     </StyledCard>
 
                     <StyledCard>
-                        <h1>App RescuePets</h1>
+                        <h1>Esperan Adopción</h1>
                         <br/>
                         <p>En esta plataforma:</p>
                         <br/>
-                        <img src="" className="img"/>
+                        <img src={Img3} className="img"/><br></br>
                         <Link to="/">
                             <StyleButtonMini>{estado[2]}</StyleButtonMini>
                         </Link>
-                        <p>Adorables mascotas ¡ESPERAN POR TI!.</p>
+                        <p>Adorables mascotas ¡ESPERAN POR TI!.</p><br></br>
 
                     </StyledCard>
 

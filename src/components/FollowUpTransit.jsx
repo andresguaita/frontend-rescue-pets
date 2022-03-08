@@ -38,6 +38,7 @@ const FollowUpTransit = () => {
     const [petData, setPetData] = useState('')
 
     const [data, setData] = useState('')
+    const [editedFormData, seteditedFormData] = useState([])
 
     useEffect(() => {
         if(typeof(petsFromShelter) !== "string"){
@@ -51,13 +52,14 @@ const FollowUpTransit = () => {
             // console.log("petsIdAndName------------------>", petsIdAndName)
             setPetData(petsIdAndName)
             setData(allFollowUpTransits)
+            // seteditedFormData([])
         }
     }, [petsFromShelter, allFollowUpTransits])
+
+
     
     // console.log("data-------------------->", data)
 
-    const [editedFormData, seteditedFormData] = useState([]
-    )
 
     const handleEditedFormChange = (event) => {
     event.preventDefault();
@@ -76,13 +78,17 @@ const FollowUpTransit = () => {
 
 
 
-    const handleEditClick = (event, data) => {
+    const handleEditClick = async (event, data) => {
+        
         event.preventDefault();
+        seteditedFormData([])
         setEditableTransitId(data.id)
+        await dispatch(getPetsForDashboard(route))
         // const formValues = {
         //     petsAssigned: data.petsAssigned,
         // }
-        // seteditedFormData()    
+        
+        
     }
 
     const handleEditedFormSubmit =  async (event) => {
@@ -96,14 +102,14 @@ const FollowUpTransit = () => {
         const status = true
         await dispatch(editPetInTransitStatus(status, payload))
         await dispatch(getFollowUpTransits(shelterId))
+        
         setEditableTransitId(null);
-        console.log("segundo editableTransitId",editableTransitId)
     }
 
     const handleCancelClick = (event) => {
         event.preventDefault();
         setEditableTransitId(null);
-        seteditedFormData([]);
+        // seteditedFormData([]);
     }
 
     const handleHideClick = async (event, transitId) => {
@@ -131,7 +137,7 @@ const FollowUpTransit = () => {
         await dispatch(editPetInTransitStatus(status, payload))
         await dispatch(editPetsAssigned(transitId, arreglo))
         await dispatch(getFollowUpTransits(shelterId))
-
+        await dispatch(getPetsForDashboard(route))
 
     }
 
