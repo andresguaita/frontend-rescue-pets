@@ -15,9 +15,7 @@ const GraficoStatisPais = () => {
 const paises = useSelector(state => state.countries)
 
 const ShelterXPais = useSelector(state => state.SheltersPaises)
-console.log("ShelterXPais",ShelterXPais)
-console.log("Codigo Refugio",ShelterXPais[0].id)
-console.log("Nombre Refugio",ShelterXPais[0].name)
+
 
 let auxArrayPaises=[]; 
 let auxArrayDatos=[];

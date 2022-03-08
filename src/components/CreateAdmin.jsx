@@ -43,8 +43,11 @@ export function CreateAdmin() {
   const { allAdmins } = useSelector(state => state)
 
   useEffect(() => {
-    const admins = allAdmins?.filter(element => element.id != id)
+    if(allAdmins){
+      const admins = allAdmins.filter(element => element.id != id)
     setAdmin(admins)
+    }
+    
   }, [allAdmins])
 
   const handleDelete = (id) => {
