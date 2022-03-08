@@ -104,7 +104,6 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
                 <Fragment key={p.id}>
                   <Link to={`/details/${p.id}`}>
                     <StyledCardMini>
-            
                       <h1>{p.name}</h1>
                       <p>{[p.temperament][0].temperament}</p>
                       {/* <p>{p.description}</p> */}
