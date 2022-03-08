@@ -156,7 +156,7 @@ const Details = () => {
 
       <Donaciones />
       <div>
-        <FormAdoption Datos={Datos} />
+        <FormAdoption />
       </div>
 
       {Datos.length ? <SimilarPets /> : ""}
