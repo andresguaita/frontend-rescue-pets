@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { DivContainer } from "../Styles/StyledFormShelter";
 import { resetPassword } from '../Redux/Actions';
 import { Button } from '../Styles/StyledLogin';
 
@@ -31,16 +32,17 @@ export const ResetPassword = () => {
 
   };
   return (
-    <div style={{marginTop: 100}}>
+    <div >
+      <DivContainer>
         <h1>Resetear Contraseña</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formulario">
         <label>Escriba su nueva contraseña</label>
-        <input name="password1" value={input.password1} type="password" onChange={handleChange}/>
-        <label>confirme su nueva contraseña</label>
-        <input name="password2" value={input.password2} type="password" onChange={handleChange}/>
+        <input name="password1" value={input.password1} type="password" onChange={handleChange} className="inputForm"/>
+        <label>Confirme su nueva contraseña</label>
+        <input name="password2" value={input.password2} type="password" onChange={handleChange} className="inputForm"/>
         <Button type='submit'>Restaurar contraseña</Button>
         </form>
-        
+    </DivContainer>
     </div>
   )
 }
