@@ -88,7 +88,8 @@ import {
     ORDER_BY_WEIGHT,
     ORDER_BY_NAME,
     EDIT_FOLLOW_UP_TRANSIT,
-    EDIT_PET_IN_TRANSIT_STATUS
+    EDIT_PET_IN_TRANSIT_STATUS,
+    EDIT_PETS_ASSIGNED
 
 } from './types.js'
 
@@ -778,9 +779,15 @@ export const editPetInTransitStatus = (status, payload) => {
     };
 }
 
-
-
-
+export const editPetsAssigned = (id, payload) => {
+    // console.log("editableTransitId de accion", editableTransitId)
+    // console.log("payload", payload)
+    return async function (dispatch) {
+        const editAssignedPets = await axios.put(`${APIGATEWAY_URL}/followUpTransit/petsAssigned/${id}`, payload);
+        // console.log("respuesta editTransit", editTransit)
+        return dispatch({ type: EDIT_PETS_ASSIGNED, payload: editAssignedPets });
+    };
+}
 
 
 
