@@ -73,6 +73,7 @@ import {
   ORDER_BY_ID,
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
+  GET_SHELTERS_PAISES,
   GET_QUESTIONS
 
 } from "../Actions/types";
@@ -154,6 +155,7 @@ const initialState = {
   allPets:[],
   allAdmins: {},
   petSearchForAdmin: [],
+  SheltersPaises: [],
   allQuestions: []
 };
 

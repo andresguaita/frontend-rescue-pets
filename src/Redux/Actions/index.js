@@ -88,6 +88,7 @@ import {
   ORDER_BY_ID,
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
+  GET_SHELTERS_PAISES,
   EDIT_FOLLOW_UP_TRANSIT,
   EDIT_PET_IN_TRANSIT_STATUS,
   EDIT_PETS_ASSIGNED,
@@ -1259,6 +1260,16 @@ export const orderByWeight = (order) => {
 
 export const orderByName = (order) => {
     return {type:ORDER_BY_NAME, payload: order}
+}
+
+export const getSheltersPaises = () => {
+  return async function (dispatch) {
+      let json = await axios(`${APIGATEWAY_URL}/sheltersCountry`)
+      return dispatch({
+          type: GET_SHELTERS_PAISES,
+          payload: json.data
+      })
+  }
 }
 
 export const sendEmailHelp = (payload) => {
