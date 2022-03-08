@@ -83,13 +83,13 @@ import {
     GET_TECH_HELP,
     GET_PETS_ALL,
     ADD_FOLLOW_UP_TRANSIT,
+    GET_ALL_ADMIN,
     GET_DATA_SEARCH,
     ORDER_BY_ID,
     ORDER_BY_WEIGHT,
     ORDER_BY_NAME,
     EDIT_FOLLOW_UP_TRANSIT,
     EDIT_PET_IN_TRANSIT_STATUS
-
 } from './types.js'
 
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -751,7 +751,7 @@ export const addFollowUpTransit = (data) => {
 
 export const getFollowUpTransits = (shelterId) => {
     return async function (dispatch) {
-        const allFollowUpTransits= await axios.get(`${APIGATEWAY_URL}/followUpTransit/${shelterId}`);
+        const allFollowUpTransits = await axios.get(`${APIGATEWAY_URL}/followUpTransit/${shelterId}`);
         return dispatch({ type: GET_ALL_FOLLOW_UP_TRANSITS, payload: allFollowUpTransits.data });
     };
 }
@@ -943,6 +943,7 @@ export const createAdmin = (email, password, roleId, userRole) => {
         const body = await resp.json();
 
         if (body.ok) {
+            dispatch(getAllAdmin())
             Swal.fire('Exito', body.msg, 'success')
         } else {
             Swal.fire('Error', body.msg, 'error')
@@ -1057,14 +1058,14 @@ export const getShelterOfPetForAdmin = () => {
 }
 
 export const resetIndivualForm = () => {
-    return {type: RESET_INDIVIDUAL_FORM, payload: null}
+    return { type: RESET_INDIVIDUAL_FORM, payload: null }
 }
 
-export const getIndividualPetForAdmin = (cityId,id) => {
-    return async function(dispatch){
+export const getIndividualPetForAdmin = (cityId, id) => {
+    return async function (dispatch) {
         try {
             let json = await axios(`${APIGATEWAY_URL}/pets/${cityId}?id=${id}`)
-            return dispatch({type:GET_INDIVIDUAL_PET_FOR_ADMIN, payload:json.data})
+            return dispatch({ type: GET_INDIVIDUAL_PET_FOR_ADMIN, payload: json.data })
         } catch (error) {
             return error
         }
@@ -1072,15 +1073,15 @@ export const getIndividualPetForAdmin = (cityId,id) => {
 }
 
 export const setCurrentCity = (city) => {
-    return {type:CURRENT_CITY, payload:city}
+    return { type: CURRENT_CITY, payload: city }
 }
 
 
 export const editPetFromAdmin = (info) => {
-    return async function(dispatch){
+    return async function (dispatch) {
         try {
-            let json = await axios.put(`${APIGATEWAY_URL}/pets/editPetFromAdmin`,info)
-            return dispatch({type:EDIT_PET_FROM_ADMIN, payload:json.data})
+            let json = await axios.put(`${APIGATEWAY_URL}/pets/editPetFromAdmin`, info)
+            return dispatch({ type: EDIT_PET_FROM_ADMIN, payload: json.data })
         } catch (error) {
             return error
         }
@@ -1091,6 +1092,7 @@ export const getTechHelp = () => {
     return async function (dispatch) {
       
         let json = await axios(`${APIGATEWAY_URL}/getTechSuport`);
+
         return dispatch({ type: GET_TECH_HELP, payload: json.data });
     };
 };
@@ -1106,7 +1108,7 @@ export const getAllPets = () => {
     };
 };
 
-export const editHelpByAdmin = (payload, idSuport) =>{
+export const editHelpByAdmin = (payload, idSuport) => {
 
     return async (dispatch) => {
         const Put = await axios.put(`${APIGATEWAY_URL}/putTechSuport/${idSuport}`, payload);
@@ -1119,6 +1121,41 @@ export const editHelpByAdmin = (payload, idSuport) =>{
     };
 }
 
+export const getAllAdmin = () => {
+    return async (dispatch) => {
+
+        try {
+            const resp = await fetchSinToken('allAdmin');
+            const body = await resp.json()
+
+            if (body.ok) {
+                dispatch({ type: GET_ALL_ADMIN, payload: body.allAdmin })
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+};
+
+export const deleteAdmin = (id) => {
+    return async (dispatch) => {
+        const resp = await fetchConToken(`deleteAdmin/${id}`,{}, 'DELETE')
+        const body = await resp.json()
+
+        if (body.ok) {
+
+            Swal.fire('Borrar', body.msg, 'success')
+            dispatch(getAllAdmin())
+        }
+
+        else {
+            Swal.fire('Error', body.msg, 'error')
+        }
+    }
+
+}
 
 export const getDataSearch = (info) => {
     return {type: GET_DATA_SEARCH, payload: info}
@@ -1135,3 +1172,4 @@ export const orderByWeight = (order) => {
 export const orderByName = (order) => {
     return {type:ORDER_BY_NAME, payload: order}
 }
+

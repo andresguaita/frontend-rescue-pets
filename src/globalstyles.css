@@ -182,6 +182,17 @@ html {
 }
 
 
+.admin{
+ display: flex;
+ flex-direction: row;
+}
+
+.container__admin{
+    width: 100%;
+    height: 100vh;
+}
+
+
 .logo {
 
     float: left;
@@ -189,3 +200,4 @@ html {
     margin: 10px 25px 15px 10px;
     padding-right: 250px;
 }
+
