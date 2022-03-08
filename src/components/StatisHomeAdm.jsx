@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState}  from 'react';
 
 import GraficoStatisPais from "./GraficoStatisPais"
 import CuadroStatisGral from './CuadroStatisGral';
-import NavBStatisHomeAdm from './NavBStatisHomeAdm'
+
 import {
   StyledDetails,
   StyledDetailsLeft,
@@ -13,9 +13,6 @@ export const StatisHomeAdm = () => {
  
   return (
     <Fragment>
-
-        <NavBStatisHomeAdm />
-
         <StyledDetails>
             <StyledDetailsRight>
                 <h1>Cantidad de Refugios por País</h1>
@@ -24,7 +21,7 @@ export const StatisHomeAdm = () => {
             </StyledDetailsRight>
             
               <StyledDetailsLeft> 
-                  <CuadroStatisGral />
+                <CuadroStatisGral />             
                </StyledDetailsLeft>
          </StyledDetails>
      </Fragment>)
