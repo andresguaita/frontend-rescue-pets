@@ -1257,5 +1257,13 @@ export const orderByWeight = (order) => {
 };
 
 export const orderByName = (order) => {
-  return { type: ORDER_BY_NAME, payload: order };
-};
+    return {type:ORDER_BY_NAME, payload: order}
+}
+
+export const sendEmailHelp = (payload) => {
+    return async function () {
+        await axios.post(`${APIGATEWAY_URL}/nodemailer/sendmailhelp`, payload)
+        console.log("MAIL ENVIADO")
+    }
+}
+
