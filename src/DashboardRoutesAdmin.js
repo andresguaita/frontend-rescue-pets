@@ -15,16 +15,16 @@ import { DashboardShelterAdmin } from './components/DashboardShelterAdmin';
 import NavbarDashboardAdmin from './components/NavbarDashboardAdmin';
 import DashboardAdminHelp from './components/DashboardAdminHelp';
 import { DashboardPetEditAdmin } from './components/DashboardPetEditAdmin';
+import { Sidebar } from './components/Sidebar';
 
 
 
 
 export const DashboardRoutesAdmin = () => {
     return (
-        <div>
-   
-        <div className='container'>
-        <NavbarDashboardAdmin/>
+        <div className='admin'>
+        <Sidebar/>
+        <div className='container__admin'>
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
                 <Route path="dashboard/createadmin" element={<CreateAdmin />} />
@@ -34,5 +34,6 @@ export const DashboardRoutesAdmin = () => {
             </Routes>
         </div>
         </div>
+       
     )
 }

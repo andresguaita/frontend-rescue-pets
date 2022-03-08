@@ -399,7 +399,7 @@ export const DashboardPetAdmin = () => {
                                 <td>{pet.shelter.name}</td>
                                 <td>
                                 <div>
-                                    <StyledButtonDeleteAdminPet onClick={() => handleDeletePet(pet.id)}><i class="fas fa-trash"></i></StyledButtonDeleteAdminPet>
+                                    <StyledButtonDeleteAdminPet onClick={() => handleDeletePet(pet.id)}><i className="fas fa-trash"></i></StyledButtonDeleteAdminPet>
                                     <StyledButtonEditAdminPet onClick={() => handleGetIndividualPet(pet)}><i className="fas fa-edit"></i></StyledButtonEditAdminPet> 
                                 </div>
                                 </td>
