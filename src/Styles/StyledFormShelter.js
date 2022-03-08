@@ -6,8 +6,7 @@ export const DivContainer = styled.div`
   //position: relative;
   top: 15rem;
   width: 100%;
- 
-  min-height: 83vw;
+  min-height: 70vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,8 +32,6 @@ export const DivContainer = styled.div`
       left: 50rem;
       bottom: 21rem;
   }
-
-
 
   .formulario {
     width: 50rem;
