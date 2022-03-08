@@ -1,42 +1,44 @@
-import React from 'react'
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getShelterById, shelterStartUpdate } from '../Redux/Actions';
-import { Button } from '../Styles/StyledLogin'
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getShelterById, shelterStartUpdate } from "../Redux/Actions";
+import { Button } from "../Styles/StyledLogin";
 
 export const ShelterProfile = () => {
-
-  const {id} = useSelector((state) => state);
+  const { id } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getShelterById(id))
- }, [dispatch])
+    dispatch(getShelterById(id));
+  }, [dispatch]);
 
-
-  const {name, address, phoneNumber, description} = useSelector((state) => state.shelterProfile);
+  const { name, address, phoneNumber, description, token, accessToken } =
+    useSelector((state) => state.shelterProfile);
 
   const [input, setInput] = useState({
-    id: '',
-    name:'',
-    phoneNumber: '',
-    description: '',
-    address : ''
+    id: "",
+    name: "",
+    phoneNumber: "",
+    description: "",
+    address: "",
+    token: "",
+    accessToken: "",
   });
 
   useEffect(() => {
     setInput({
       ...input,
       id: id,
-    name: name,
-    phoneNumber: phoneNumber,
-    description: description,
-    address : address
-    })
- }, [name,address,phoneNumber,description])
-
+      name: name,
+      phoneNumber: phoneNumber,
+      description: description,
+      address: address,
+      token: token,
+      accessToken: accessToken,
+    });
+  }, [name, address, phoneNumber, description, token, accessToken]);
 
   const handleChange = (e) => {
     setInput({
@@ -45,50 +47,63 @@ export const ShelterProfile = () => {
     });
   };
 
- 
- const handleSubmit = (e) => {
-  e.preventDefault();
-  dispatch(shelterStartUpdate(input))
-
-};
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(shelterStartUpdate(input));
+  };
 
   return (
-    <div style={{width: 400, height: 400, marginTop: 100, marginLeft: 100}}>
+    <div style={{ width: 400, height: 400, marginTop: 100, marginLeft: 100 }}>
       <h1>Perfil</h1>
       <form onSubmit={handleSubmit}>
-      <span>Nombre</span>
-      <input
-      onChange={handleChange}
-      value={input.name}
-      name="name"
-      type="text"
-      ></input>
-      <hr/>
-      <span>Direccion</span>
-      <input
-      onChange={handleChange}
-      value={input.address}
-      name="address"
-      type="text"
-      ></input>
-      <hr/>
-      <span>Numero de telefono</span>
-      <input
-      onChange={handleChange}
-      value={input.phoneNumber}
-      name="phoneNumber"
-      type="text"></input>
-      <hr/>
-      <span>Descripción</span>
-      <textarea
-      onChange={handleChange}
-      name="description" 
-      value={input.description}
-      ></textarea>
-      <Button type='submit'>Guardar Cambios</Button>
+        <span>Nombre</span>
+        <input
+          onChange={handleChange}
+          value={input.name}
+          name="name"
+          type="text"
+        ></input>
+        <hr />
+        <span>Direccion</span>
+        <input
+          onChange={handleChange}
+          value={input.address}
+          name="address"
+          type="text"
+        ></input>
+        <hr />
+        <span>Numero de telefono</span>
+        <input
+          onChange={handleChange}
+          value={input.phoneNumber}
+          name="phoneNumber"
+          type="text"
+        ></input>
+        <hr />
+        <span>Descripción</span>
+        <textarea
+          onChange={handleChange}
+          name="description"
+          value={input.description}
+        ></textarea>
+        <hr />
+        <span>Token Mercado Pago</span>
+        <input
+          onChange={handleChange}
+          value={input.token}
+          name="token"
+          type="text"
+        ></input>
+        <hr />
+        <span>Access Token Mercado Pago</span>
+        <input
+          onChange={handleChange}
+          value={input.accessToken}
+          name="accessToken"
+          type="text"
+        ></input>
+        <Button type="submit">Guardar Cambios</Button>
       </form>
-      
     </div>
-  )
-}
+  );
+};
