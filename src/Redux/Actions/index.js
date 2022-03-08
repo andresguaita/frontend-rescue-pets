@@ -87,6 +87,7 @@ import {
     ORDER_BY_ID,
     ORDER_BY_WEIGHT,
     ORDER_BY_NAME,
+    GET_SHELTERS_PAISES
 } from './types.js'
 
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -1114,4 +1115,14 @@ export const orderByWeight = (order) => {
 
 export const orderByName = (order) => {
     return {type:ORDER_BY_NAME, payload: order}
+}
+
+export const getSheltersPaises = () => {
+    return async function (dispatch) {
+        let json = await axios(`${APIGATEWAY_URL}/sheltersCountry`)
+        return dispatch({
+            type: GET_SHELTERS_PAISES,
+            payload: json.data
+        })
+    }
 }
