@@ -413,6 +413,12 @@ export default function rooReducer(state = initialState, { type, payload }) {
             Shelters: payload
           };
 
+        case GET_SHELTERS_PAISES:
+          return {
+            ...state,
+            SheltersPaises: payload
+          }  
+
         case GETT_TEMPERAMENTS:
           return {
             ...state,
