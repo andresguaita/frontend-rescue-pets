@@ -19,14 +19,13 @@ const ShelterDetail = () => {
   let Data = useSelector((state) => state.shelterDetail);
   let cityId= Data.cityId
 
-
   const [input, setInput] = useState({})
  
 
   const link = `${APIGATEWAY_URL}/pets/${cityId}?shelterId=${id}`
 
-  useEffect(() => {
-    dispatch(getShelterDetail(id))
+  useEffect(async() => {
+    await dispatch(getShelterDetail(id))
   }, [id]);
 
   useEffect(() => {
@@ -47,7 +46,7 @@ const ShelterDetail = () => {
       <ShelterDetailNav id={id}  />
       <Routes>
         <Route path="/" element={<ShelterInfo Data={Data} pets = {pets} input={input} setInput={setInput}/>} />
-        <Route path="/form" element={<FormTransit id={id} shelterName={Data.name}/>} />
+        <Route path="/form" element={<FormTransit id={id} shelterName={Data.name} shelterEmail={Data.user.email}/>} />
       </Routes>
     </StyledDiv>
   ); 

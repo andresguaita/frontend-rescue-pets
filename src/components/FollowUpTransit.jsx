@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -10,13 +10,13 @@ import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
 const FollowUpTransit = () => {
 
     const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
-    console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
+    // console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
     
     
     const shelterId = ShelterAndCityINfo.shelterId
-    console.log("shelterId------------>",shelterId)
+    // console.log("shelterId------------>",shelterId)
     const cityId = ShelterAndCityINfo.cityId
-    console.log("cityId------------>",cityId)
+    // console.log("cityId------------>",cityId)
     const route = `${APIGATEWAY_URL}/pets/${cityId}?shelterId=${shelterId}`
   
     const dispatch = useDispatch();
@@ -31,32 +31,46 @@ const FollowUpTransit = () => {
 
 
     const allFollowUpTransits = useSelector(state => state.followUpTransits)
-    console.log("allFollowUpTransits---------------------->", allFollowUpTransits)
+    // console.log("allFollowUpTransits---------------------->", allFollowUpTransits)
     const petsFromShelter = useSelector( state => state.petsForDashboard )
 
 
     const [petData, setPetData] = useState('')
+
     const [data, setData] = useState('')
 
     useEffect(() => {
-        const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2)
-        setPetData(filteredPets)
-        setData(allFollowUpTransits)
-    }, [petsFromShelter])
+        if(typeof(petsFromShelter) !== "string"){
+            const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2 && el.inTransit !== true)
+            const petsIdAndName = filteredPets.map(el => {
+                return {
+                    id: el.id,
+                    name: el.name
+                }
+            })
+            // console.log("petsIdAndName------------------>", petsIdAndName)
+            setPetData(petsIdAndName)
+            setData(allFollowUpTransits)
+        }
+    }, [petsFromShelter, allFollowUpTransits])
+    
+    // console.log("data-------------------->", data)
 
-    console.log("data-------------------->", data)
-
-    const [editedFormData, seteditedFormData] = useState({
-        petsAssigned: '',
-    })
+    const [editedFormData, seteditedFormData] = useState([]
+    )
 
     const handleEditedFormChange = (event) => {
     event.preventDefault();
-    seteditedFormData({
-        ...editedFormData,
-        [event.target.name]: event.target.value
-        
-    })}
+    // console.log("event.target.name-------------------->", event.target.name)
+    // console.log("event.target.value-------------------->", event.target.value)
+    let temp = event.target.value.split(",")
+
+    seteditedFormData(
+        [...editedFormData, {id: parseInt(temp[0]), name: temp[1]}]
+        // petsAssigned: [...editedFormData.petsAssigned, "pet" ]
+        // "Hola Mundo"
+
+    )}
 
     const [editableTransitId, setEditableTransitId] = useState('')
 
@@ -65,22 +79,32 @@ const FollowUpTransit = () => {
     const handleEditClick = (event, data) => {
         event.preventDefault();
         setEditableTransitId(data.id)
-        const formValues = {
-            petsAssigned: data.petsAssigned,
-        }
-        seteditedFormData(formValues)    
+        // const formValues = {
+        //     petsAssigned: data.petsAssigned,
+        // }
+        // seteditedFormData()    
     }
 
     const handleEditedFormSubmit =  async (event) => {
+        console.log("hola")
         event.preventDefault();
-        // await dispatch(editFollowUp(editFollowUpId, editFormData))
-        // await dispatch(getFollowUpsFromShelter(shelterId))
+        console.log("primer editableTransitId",editableTransitId)
+        console.log("editedFormData",editedFormData)
+        const payload = {
+            data: editedFormData
+        }
+        await dispatch(editFollowUpTransit(editableTransitId, payload))
+        const status = true
+        await dispatch(editPetInTransitStatus(status, payload))
+        await dispatch(getFollowUpTransits(shelterId))
         setEditableTransitId(null);
+        console.log("segundo editableTransitId",editableTransitId)
     }
 
     const handleCancelClick = (event) => {
         event.preventDefault();
         setEditableTransitId(null);
+        seteditedFormData([]);
     }
 
     const handleHideClick = async (event, transitId) => {
@@ -114,7 +138,9 @@ const FollowUpTransit = () => {
                             {editableTransitId === data.id ? (
                                 <EditableRowsTransit
                                 data={data}
+                                petData={petData}
                                 editedFormData={editedFormData}
+                                seteditedFormData={seteditedFormData}
                                 handleEditedFormChange={handleEditedFormChange}
                                 handleCancelClick={handleCancelClick}
                                 />

@@ -121,7 +121,8 @@ const FormAdoption = ({ petId, Datos }) => {
     let info = {
       userMail: profileData.email, 
       petName: Datos[0].name,
-      type:2
+      type:2,
+      shelterMail:Datos[0].shelter.user.email
     }
     dispatch(sendEmailFormstoShelter(info))
     

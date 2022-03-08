@@ -83,7 +83,13 @@ import {
     GET_TECH_HELP,
     GET_PETS_ALL,
     ADD_FOLLOW_UP_TRANSIT,
-    GET_ALL_ADMIN
+    GET_ALL_ADMIN,
+    GET_DATA_SEARCH,
+    ORDER_BY_ID,
+    ORDER_BY_WEIGHT,
+    ORDER_BY_NAME,
+    EDIT_FOLLOW_UP_TRANSIT,
+    EDIT_PET_IN_TRANSIT_STATUS
 } from './types.js'
 
 import { APIGATEWAY_URL } from '../../utils/constant';
@@ -723,7 +729,7 @@ export const sendEmailFormstoShelter = (payload) => {
 
 export const postHelpSupport = (payload) => {
     return async function () {
-        await axios.post(`${APIGATEWAY_URL}/techSuport`, payload);
+        await axios.post(`${APIGATEWAY_URL}/postTechSuport`, payload);
         Swal.fire(
             "Genial!",
             "Registro realizado correctamente. Pronto nos comunicaremos contigo",
@@ -750,10 +756,27 @@ export const getFollowUpTransits = (shelterId) => {
     };
 }
 
+export const editFollowUpTransit = (editableTransitId, payload) => {
+    // console.log("editableTransitId de accion", editableTransitId)
+    // console.log("payload", payload)
+    return async function (dispatch) {
+        const editTransit = await axios.put(`${APIGATEWAY_URL}/followUpTransit/${editableTransitId}`, payload);
+        // console.log("respuesta editTransit", editTransit)
+        return dispatch({ type: EDIT_FOLLOW_UP_TRANSIT, payload: editTransit });
+
+    };
+}
 
 
-
-
+export const editPetInTransitStatus = (status, payload) => {
+    // console.log("editableTransitId de accion", editableTransitId)
+    // console.log("payload", payload)
+    return async function (dispatch) {
+        const editTransitStatus = await axios.put(`${APIGATEWAY_URL}/pets/updateTransitStatus/${status}`, payload);
+        // console.log("respuesta editTransit", editTransit)
+        return dispatch({ type: EDIT_PET_IN_TRANSIT_STATUS, payload: editTransitStatus });
+    };
+}
 
 
 
@@ -1067,8 +1090,9 @@ export const editPetFromAdmin = (info) => {
 
 export const getTechHelp = () => {
     return async function (dispatch) {
+      
+        let json = await axios(`${APIGATEWAY_URL}/getTechSuport`);
 
-        let json = await axios(`${APIGATEWAY_URL}/techSuport`);
         return dispatch({ type: GET_TECH_HELP, payload: json.data });
     };
 };
@@ -1087,7 +1111,7 @@ export const getAllPets = () => {
 export const editHelpByAdmin = (payload, idSuport) => {
 
     return async (dispatch) => {
-        const Put = await axios.put(`${APIGATEWAY_URL}/techSuport/${idSuport}`, payload);
+        const Put = await axios.put(`${APIGATEWAY_URL}/putTechSuport/${idSuport}`, payload);
         if (Put) {
             Swal.fire('Genial!', Put.data.msg, 'sucess')
             dispatch(getTechHelp())
@@ -1096,7 +1120,6 @@ export const editHelpByAdmin = (payload, idSuport) => {
         }
     };
 }
-
 
 export const getAllAdmin = () => {
     return async (dispatch) => {
@@ -1132,5 +1155,21 @@ export const deleteAdmin = (id) => {
         }
     }
 
+}
+
+export const getDataSearch = (info) => {
+    return {type: GET_DATA_SEARCH, payload: info}
+}
+
+export const orderById = (order) => {
+    return {type:ORDER_BY_ID, payload: order}
+}
+
+export const orderByWeight = (order) => {
+    return {type:ORDER_BY_WEIGHT, payload: order}
+}
+
+export const orderByName = (order) => {
+    return {type:ORDER_BY_NAME, payload: order}
 }
 

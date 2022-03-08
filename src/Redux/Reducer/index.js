@@ -68,7 +68,12 @@ import {
   CURRENT_CITY,
   GET_TECH_HELP,
   GET_PETS_ALL,
-  GET_ALL_ADMIN
+  GET_ALL_ADMIN,
+  GET_DATA_SEARCH,
+  ORDER_BY_ID,
+  ORDER_BY_WEIGHT,
+  ORDER_BY_NAME
+
 } from "../Actions/types";
 
 
@@ -146,7 +151,8 @@ const initialState = {
   favorites: checkLocalStorage(),
   allTechHelp:[],
   allPets:[],
-  allAdmins: {}
+  allAdmins: {},
+  petSearchForAdmin: []
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -551,7 +557,8 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_PETS_FILTER_FOR_ADMIN:
               return{
                 ...state,
-                petsfilterforadmin : payload
+                petsfilterforadmin : payload,
+                petSearchForAdmin: payload,
               }
             
             case GET_ONLY_STATES_WITH_SHELTERS:
@@ -676,6 +683,53 @@ export default function rooReducer(state = initialState, { type, payload }) {
                   ...state,
                   allAdmins: payload
                 }
+          
+             
+            case GET_DATA_SEARCH:
+              return{
+                ...state,
+                petSearchForAdmin : state.petsfilterforadmin.filter(pet => pet.shelter.name.includes(payload))
+              }
+            
+            case ORDER_BY_ID:
+              if(payload === 'asc'){
+                  return{
+                    ...state,
+                    petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return a.id - b.id})
+                  }
+              }else if(payload === 'des'){
+                  return{
+                    ...state,
+                    petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return b.id - a.id})
+                  }
+              }
+
+            case ORDER_BY_WEIGHT:
+              if(payload === 'asc'){
+                  return{
+                    ...state,
+                    petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return a.weight - b.weight})
+                  }
+              }else if(payload === 'des'){
+                  return{
+                    ...state,
+                    petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return b.weight - a.weight})
+                  }
+              }
+
+            case ORDER_BY_NAME:
+              if(payload === 'asc'){
+                return{
+                  ...state,
+                  petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return a.name - b.name})
+                }
+              }else if(payload === 'des'){
+                  return{
+                    ...state,
+                    petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return b.name - a.name})
+                  }
+              }
+              
         default:
           return state;
       }

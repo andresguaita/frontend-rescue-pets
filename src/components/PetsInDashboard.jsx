@@ -53,8 +53,10 @@ const PetsInDashboard = () => {
 
 
       useEffect(() => {
-        const filteredPets = petsFromShelter.filter(el => el.hideFromDash === false)
-          setData(filteredPets)
+        if(typeof(petsFromShelter) !== "string"){
+          const filteredPets = petsFromShelter.filter(el => el.hideFromDash === false)
+            setData(filteredPets)
+        }
       }, [petsFromShelter])
 
 

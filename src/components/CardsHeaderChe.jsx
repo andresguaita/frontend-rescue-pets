@@ -23,7 +23,6 @@ function CardsHeader(props) {
         }));
 
     const classes=useStyles();
-    console.log("props",props)
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -34,7 +33,6 @@ function CardsHeader(props) {
 
                 <Typography className={classes.texto}>
                 {props.texto}
-                {/* {props.shelterId} */}
                 </Typography>
 
             </CardContent>

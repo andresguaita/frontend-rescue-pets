@@ -22,9 +22,15 @@ import { Sidebar } from './components/Sidebar';
 
 export const DashboardRoutesAdmin = () => {
     return (
+
         <div className='admin'>
         <Sidebar/>
         <div className='container__admin'>
+
+        <div>
+   
+        <div>
+       
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
                 <Route path="dashboard/createadmin" element={<CreateAdmin />} />

@@ -18,7 +18,7 @@ export const DashboardRoutes = () => {
     return (
         <div>
    
-        <div className='container'>
+        <div>
             <NavbarDashboard/>
             <Routes>
                 <Route path="dashboard" element={<Dashboard />} />

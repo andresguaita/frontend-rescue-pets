@@ -44,6 +44,22 @@ const DashboardAdminHelp = () => {
   const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
 
+  //paginado
+
+  const [currentPage, setCurrentPAge] = useState(1);
+  const [rowsXpage, setRowsxPage] = useState(5);
+  const [orden, setOrden] = useState('')
+  //console.log(orden)
+
+  let indexLastRow = currentPage * rowsXpage; //0
+  let indexFirstRow = indexLastRow - rowsXpage; //0
+  let currentRows = help.slice(indexFirstRow, indexLastRow);
+
+  const paginado = (event, pageNumber) => {
+    setCurrentPAge(pageNumber);
+  };
+  //paginado
+
   useEffect(() => {
     dispatch(getTechHelp());
   }, [dispatch]);
@@ -88,11 +104,11 @@ const DashboardAdminHelp = () => {
   const filter = (searchTerm) => {
     let result = allTechHelp.filter((el) => {
       if (
-        el.shelter.name
+        el.email
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        el.email.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        el.status.toString().toLowerCase().includes(searchTerm.toLowerCase())
       ) {
         return el;
       }
@@ -262,7 +278,7 @@ const DashboardAdminHelp = () => {
           <form>
             <StyledDivFlexAdmin>
               <div>
-                <h3>BUSQUEDA</h3>
+                <h3>BUSQUEDA por Email o Status</h3>
                 <StyledInputSearch
                   type="text"
                   placeholder="Buscar por..."
@@ -270,23 +286,25 @@ const DashboardAdminHelp = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
-                <StyledInputButton type="button" value="buscar" />
-              </div>
             </StyledDivFlexAdmin>
           </form>
         </StyledDivFlexAdmin>
 
-        <div>
-          <Input type="select">
+        <div className="paginado">
+          <select type="select" onChange={(e)=>setRowsxPage(e.target.value)}>
             <option selected disabled>--Mostrar--</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
             <option value={50}>50</option>
             <option value={100}>100</option>
-          </Input>
-          <PaginationAdmin />
+          </select>
+          <PaginationAdmin 
+          rowsXpage={rowsXpage}
+          helpLength={help.length}
+          paginado={paginado}
+          currentPage={currentPage}
+          />
         </div>
 
         <div>
@@ -304,8 +322,8 @@ const DashboardAdminHelp = () => {
               <th>Acciones</th>
             </thead>
             <tbody>
-              {help &&
-                help?.map((help) => (
+              {currentRows.length &&
+                currentRows?.map((help) => (
                   <tr key={help.id}>
                     <td>{help.id}</td>
                     <td>{help.email}</td>
@@ -319,7 +337,7 @@ const DashboardAdminHelp = () => {
                         Actualizado: {help.updatedAt}
                     </td>
                     <td>{help.comments}</td> */}
-                    <td>{help.userId}</td>
+                    <td>{help.user?.email}</td>
                     <td>
                       <StyledButtonEditAdminPet
                         onClick={() => openUpdateModal(help)}

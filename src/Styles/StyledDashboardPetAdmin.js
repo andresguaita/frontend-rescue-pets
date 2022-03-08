@@ -3,11 +3,15 @@ import allColors from "../variables/Colors";
 
 export const StyledDashboardPetAdmin = styled.div`
     margin-bottom: 250px;
-    margin-top: 50px;
-    margin-left:50px;
+    margin: 2rem 5rem 0 5rem ;
     a{
       text-decoration: none;
       color: white;
+    }
+
+    h1{
+      text-align: center ;
+      font-weight:bolder ;
     }
 
     .contentImages{
@@ -52,6 +56,21 @@ export const StyledDashboardPetAdmin = styled.div`
         height: 50px;
         
       }
+
+      .paginado{
+        display: flex ;
+        justify-content: center ;
+        margin: 2rem;
+        align-items: baseline ;
+        justify-content: space-evenly ;
+
+        select{
+          width: 100px ;
+          height: 20px ;
+          font-size: 12px ;
+          border-radius: 3px ;
+        }
+      }
   `;
 
   export const StyledDashboardPetModal = styled.div`
@@ -95,8 +114,8 @@ export const StyledInputForDashboardPetEditAdmin = styled.input`
 `
 
 export const StyledDivFlexAdmin = styled.div`
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -226,7 +245,7 @@ export const StyledButtonEditAdminPet = styled.button`
 export const StyledInputSearch = styled.input`
     border-radius: 10px;
     font-size: 20px;
-
+    margin-top: 1rem ;
 `
 
 export const StyledInputButton = styled.input`
