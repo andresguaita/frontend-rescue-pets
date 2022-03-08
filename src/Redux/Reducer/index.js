@@ -137,7 +137,7 @@ const initialState = {
   followUpStatuses: [],
   countShelters:{},
   countAdopted1:{},
-  countAdopted2:{},
+  countAdopted2:[],
   countAdopted3:{},
   allShelters: {},
   onlyStatesWithShelter : [],
@@ -409,6 +409,12 @@ export default function rooReducer(state = initialState, { type, payload }) {
             ...state,
             Shelters: payload
           };
+
+          case GET_SHELTERS_PAISES:
+            return {
+              ...state,
+              SheltersPaises: payload
+            }
 
         case GETT_TEMPERAMENTS:
           return {
@@ -710,7 +716,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
                     petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return b.id - a.id})
                   }
               }
-
+            
             case ORDER_BY_WEIGHT:
               if(payload === 'asc'){
                   return{

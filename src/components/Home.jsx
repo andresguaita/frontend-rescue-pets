@@ -58,7 +58,6 @@ export function Home() {
     return (<Fragment>
         <Navbar/>
         <Header></Header>
-      
          
         <Filters idcity={idcity} cambiarEstado={cambiarEstadoModal}/>
         {estadoModal == true ? (<Modal modal={true} setidcity={setidcity} estado={estadoModal} cambiarEstado={cambiarEstadoModal}/>) : ""}
