@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -86,10 +86,9 @@ const FollowUpTransit = () => {
     }
 
     const handleEditedFormSubmit =  async (event) => {
-        console.log("hola")
         event.preventDefault();
-        console.log("primer editableTransitId",editableTransitId)
-        console.log("editedFormData",editedFormData)
+        // console.log("primer editableTransitId",editableTransitId)
+        // console.log("editedFormData",editedFormData)
         const payload = {
             data: editedFormData
         }
@@ -115,6 +114,27 @@ const FollowUpTransit = () => {
         // await dispatch(hideFollowUpfromDash(transitId, payload))
         // await dispatch(getFollowUpsFromShelter(shelterId))
     }
+
+    const handleRemovefromTransit =  async (event, petId, el, transitId) => {
+        console.log("data recieved-------------->", el)
+        const arreglo = {
+            data: [el]
+        }
+        // console.log("arreglo-------------->", arreglo)
+        // console.log("transitId-------------->", transitId)
+        // console.log("data recieved-------------->", petId)
+        event.preventDefault();
+        const status = false
+        const payload = {
+            data: petId
+        }
+        await dispatch(editPetInTransitStatus(status, payload))
+        await dispatch(editPetsAssigned(transitId, arreglo))
+        await dispatch(getFollowUpTransits(shelterId))
+
+
+    }
+
 
     return (
         <Center>
@@ -149,6 +169,7 @@ const FollowUpTransit = () => {
                                     data={data}
                                     handleEditClick={handleEditClick}
                                     handleHideClick={handleHideClick}
+                                    handleRemovefromTransit={handleRemovefromTransit}
                                     />
                                     )}
                             </Fragment>
