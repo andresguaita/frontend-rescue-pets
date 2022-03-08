@@ -185,3 +185,49 @@ form * {
 font-size: 28px;
 }
 `
+
+export const DivForImageModal = styled.div`
+  background: #f3f3f3;
+  border-radius: 20px;
+  margin-top: 2%;
+  postion:relative;
+  height: 250px;
+  width: 250px;
+  margin-bottom: 5%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.5);
+
+  button{
+    postion: absolute;
+    z-index: 2;
+    font-size:18px;
+    width: 50px;
+    margin-left: 60%;
+    margin-bottom: 0px;
+    background: ${allColors.colors[1]};
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10%;
+    color: white;
+    box-shadow: 0px 0px 6px 1px rgba(255, 255, 255, 0.5);
+    &:hover{
+      background: ${allColors.colors[2]};
+    }
+  }
+
+  img{
+    margin-top: -12.4%;;
+    postion:absolute;
+    z-index: 1;
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+  }
+`
+
+export const DivContentForDivImage = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`

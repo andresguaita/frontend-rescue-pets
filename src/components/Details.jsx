@@ -48,19 +48,19 @@ const Details = () => {
     
     };
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0)
+  // useLayoutEffect(() => {
+  //   window.scrollTo(0, 0)
 
-    if (pets && Datos) {
-      dispatch(getPetsSimilar(Datos, pets));
-    }
+  //   if (pets && Datos) {
+  //     dispatch(getPetsSimilar(Datos, pets));
+  //   }
 
-    if (!id2) {
-      dispatch(getPetId(id));
-    } else {
-      dispatch(getPetId(id2));
-    }
-  }, [dispatch]);
+  //   if (!id2) {
+  //     dispatch(getPetId(id));
+  //   } else {
+  //     dispatch(getPetId(id2));
+  //   }
+  // }, [dispatch]);
 
   const pet = {
     id: id,
