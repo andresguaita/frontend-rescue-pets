@@ -16,8 +16,9 @@ import Img from "../Icos/homeim5.svg"
 import { Centro, DivContainer, Left, Right } from "../Styles/StyledFormTransit";
 
 
-const FormAdoption = ({ petId, Datos }) => {
+const FormAdoption = () => {
 
+  const Datos = useSelector((state) => state.petOne);
   
   const dispatch = useDispatch();
   const history = useNavigate();
