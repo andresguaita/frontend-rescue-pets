@@ -26,10 +26,6 @@ export const DashboardRoutesAdmin = () => {
         <div className='admin'>
         <Sidebar/>
         <div className='container__admin'>
-
-        <div>
-   
-        <div>
        
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
