@@ -18,8 +18,8 @@ const ShelterDetail = () => {
   const dispatch = useDispatch();
   let Data = useSelector((state) => state.shelterDetail);
   let cityId= Data.cityId
-  console.log(Data)
-
+  
+  
   const [input, setInput] = useState({})
  
 
