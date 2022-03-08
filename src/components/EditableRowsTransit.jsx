@@ -5,6 +5,7 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
     console.log("editedFormData-------------->", editedFormData)
     let result = petData.filter(o1 => !editedFormData.some(o2 => o1.id === o2.id));
     console.log("result-------------->", result)
+    console.log("data------------>",data)
 
     const handleDeletePetFromList = (el) => {
       console.log("handleDeletePetFromList element ---->", el)
@@ -24,6 +25,13 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
             <td>{data.profile.petsAssigned}</td> : <td>Sin mascotas asignadas</td>
         } */}
         <td>
+
+          {
+            data.petsAssigned !== "empty" && data.petsAssigned.length ? data.petsAssigned.map(el =>
+              <div>{el.name}</div>
+              ) : null
+          }
+
           {
             result.length? 
             <select name='petsAssigned' onChange={handleEditedFormChange}>
@@ -58,5 +66,5 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
 }
 
 
-
 export default EditableRowsTransit
+
