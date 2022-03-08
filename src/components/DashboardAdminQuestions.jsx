@@ -87,7 +87,7 @@ function DashboardAdminQuestions() {
       setEdit(false)
     }
   
-  
+
     const handleSubmit = () => {
       
       let idquestion = form.id;
