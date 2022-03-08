@@ -9,7 +9,7 @@ import {
   StyledDetailsRight,
 } from "../Styles/StyledDetails.js";
 
-const StatisHomeAdm = () => {
+export const StatisHomeAdm = () => {
  
   return (
     <Fragment>
@@ -31,4 +31,3 @@ const StatisHomeAdm = () => {
   
 }
 
-export default StatisHomeAdm
