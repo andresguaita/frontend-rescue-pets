@@ -18,7 +18,6 @@ import { Centro, DivContainer, Left, Right } from "../Styles/StyledFormTransit";
 
 const FormAdoption = ({ petId, Datos }) => {
 
-  console.log("DATOS--------", Datos)
   
   const dispatch = useDispatch();
   const history = useNavigate();
