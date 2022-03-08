@@ -200,15 +200,16 @@ export const DivForImageModal = styled.div`
   box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.5);
 
   button{
-    postion: absolute;
+    postion: fixed;
     z-index: 2;
+    margin-top: 8px;
     font-size:18px;
     width: 50px;
-    margin-left: 60%;
-    margin-bottom: 0px;
+    margin-left: 75%;
+    margin-bottom: -10px;
     background: ${allColors.colors[1]};
     border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 10%;
+    border-radius: 20%;
     color: white;
     box-shadow: 0px 0px 6px 1px rgba(255, 255, 255, 0.5);
     &:hover{
@@ -217,12 +218,12 @@ export const DivForImageModal = styled.div`
   }
 
   img{
-    margin-top: -12.4%;;
+    margin-top: -11.6%;;
     postion:absolute;
     z-index: 1;
     width: 250px;
     height: 250px;
-    border-radius: 20px;
+    border-radius: 15px;
   }
 `
 
