@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import {StyleNavBar, StyleLi , Divmenu } from '../Styles/StyledNav';
 import { StyleInput} from '../Styles/StyledSearch'
 import Search from './Search';
+import Logo from '../Icos/logo.png';
+
 
 export default function Navbar() {
     return (
@@ -26,7 +28,7 @@ export default function Navbar() {
                             </StyleLi>
                             {/* <StyleInput name='Search' placeholder='Escriba elemento a buscar'></StyleInput> */}
                                 <Search/>
-                            </Divmenu> 
+                            </Divmenu> <img src={Logo} className="logo"></img>
                             </ul>
                     </StyleNavBar>
                     </header>

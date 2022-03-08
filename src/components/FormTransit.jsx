@@ -17,12 +17,12 @@ import Img from "../Icos/homeim5.svg"
 import { DivContainer ,  Left, Right , Centro} from "../Styles/StyledFormTransit";
 
 
-const FormTransit = ({ id,shelterName }) => {
+const FormTransit = ({ id,shelterName, shelterEmail }) => {
+  
   const dispatch = useDispatch();
   const history = useNavigate();
   const form = useSelector((state) => state.formAdoption);
   
-
   const [input, setInput] = useState([]);
   const [profileData, setProfileData] = useState({
     name: "",
@@ -121,7 +121,8 @@ const FormTransit = ({ id,shelterName }) => {
     
     let info = {
       userMail: profileData.email, 
-      type:1
+      type:1,
+      shelterMail: shelterEmail
     }
     dispatch(sendEmailFormstoShelter(info))
 

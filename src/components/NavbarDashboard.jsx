@@ -31,9 +31,6 @@ export default function NavbarDashboard() {
                                 <NavLink activeclassname="active" to="dashboard/profile">Perfil</NavLink>
                             </StyleLi>
                             <StyleLi>
-                                <NavLink activeclassname="active" to="dashboard/config"><i className="fas fa-cog"></i></NavLink>
-                            </StyleLi>
-                            <StyleLi>
                                 <Button onClick={handleLogout}>Salir</Button>
                             </StyleLi>
                             
