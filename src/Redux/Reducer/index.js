@@ -68,11 +68,13 @@ import {
   CURRENT_CITY,
   GET_TECH_HELP,
   GET_PETS_ALL,
+  GET_ALL_ADMIN,
   GET_DATA_SEARCH,
   ORDER_BY_ID,
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
-  GET_SHELTERS_PAISES
+  GET_QUESTIONS
+
 } from "../Actions/types";
 
 
@@ -150,8 +152,9 @@ const initialState = {
   favorites: checkLocalStorage(),
   allTechHelp:[],
   allPets:[],
+  allAdmins: {},
   petSearchForAdmin: [],
-  SheltersPaises: [],
+  allQuestions: []
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -682,7 +685,18 @@ export default function rooReducer(state = initialState, { type, payload }) {
               return {
                 ...state,
                 allPets: payload
-              }
+              } 
+              case GET_ALL_ADMIN:
+                return{
+                  ...state,
+                  allAdmins: payload
+                }
+              case GET_QUESTIONS:
+                return {
+                  ...state,
+                  allQuestions: payload
+                }
+          
              
             case GET_DATA_SEARCH:
               return{

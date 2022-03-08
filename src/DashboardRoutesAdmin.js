@@ -15,24 +15,29 @@ import { DashboardShelterAdmin } from './components/DashboardShelterAdmin';
 import NavbarDashboardAdmin from './components/NavbarDashboardAdmin';
 import DashboardAdminHelp from './components/DashboardAdminHelp';
 import { DashboardPetEditAdmin } from './components/DashboardPetEditAdmin';
+import { Sidebar } from './components/Sidebar';
+import DashboardAdminQuestions from './components/DashboardAdminQuestions';
 
 
 
 
 export const DashboardRoutesAdmin = () => {
     return (
-        <div>
-   
-        <div>
-        <NavbarDashboardAdmin/>
+
+        <div className='admin'>
+        <Sidebar/>
+        <div className='container__admin'>
+       
             <Routes>
                 <Route path="dashboard" element={<DashboardAdmin />} />
                 <Route path="dashboard/createadmin" element={<CreateAdmin />} />
                 <Route path="dashboard/DashboardPetAdmin" element={<DashboardPetAdmin/>} /> 
                 <Route path="dashboard/DashboardShelterAdmin" element={<DashboardShelterAdmin/>} /> 
                 <Route path="dashboard/help" element={<DashboardAdminHelp/>} /> 
+                <Route path="dashboard/questions" element={<DashboardAdminQuestions/>} /> 
             </Routes>
         </div>
         </div>
+       
     )
 }

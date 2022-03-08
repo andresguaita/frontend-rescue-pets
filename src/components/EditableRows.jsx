@@ -4,7 +4,7 @@ import {
 } from "../Styles/StyledPetsInDashboard"
 import { Link } from 'react-router-dom'
 
-const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, allSpecies, allTemperaments, allPetStatus, allAges, allGenres}) => {
+const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, allSpecies, allTemperaments, allPetStatus, allAges, allGenres, setmodal}) => {
     
     const stringy = editFormData.sterilization.toString()
     
@@ -60,7 +60,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
             onChange={handleEditFormChange}
             ></input>
         </td> */}
-        <td><Link to=''>Editar imágenes de mascota</Link></td>
+        <td><button type="button" onClick={() => setmodal(true)} >Editar imágenes de mascota</button></td>
         <td>
             <select name='speciesId' onChange={handleEditFormChange}>
                 <option hidden value="editFormData.speciesId" name='default' >{editFormData.species2.specie}</option>

@@ -2,8 +2,9 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyledAnswersView = styled.div`
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 20%;
+    width: 60%;
+    margin-top: 50px;
     margin-bottom: 150px;
     display: flex;
     flex-direction: column;
@@ -18,7 +19,7 @@ export const StyledAnswersView = styled.div`
       border-radius: 20px;
       text-align: center;
       font-size: 20px;
-      background-color: rgba(97, 93, 108,0.6);
+      background-color: ${allColors.colors[1]};
       color: rgba(255,255,255,0.9);
       box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
     }
@@ -30,5 +31,10 @@ export const StyledAnswersView = styled.div`
     h3{
       font-size: 18px;
       color: black;
+    }
+
+    button{
+      postion:relative;
+      margin-left: 50px;
     }
   `;

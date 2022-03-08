@@ -1,16 +1,16 @@
 import React, { useEffect, useState, Fragment} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen, hidePetInDashbaord } from '../Redux/Actions'
+import {  uploadImageCloud, getPetsForDashboard, getAllSpecies, gettTemperaments, getAllPetStatus, getAllAges, getGenres, deletePet, editPet,ModalDashboardOpen, hidePetInDashbaord } from '../Redux/Actions'
 import styled from 'styled-components';
 import ReadOnlyRows from './ReadOnlyRows';
 import EditableRows from './EditableRows';
 import { Link } from 'react-router-dom';
 import { APIGATEWAY_URL } from '../utils/constant';
 import CreatePets from './CreatePets'
-
+import {ModalDashboardPet} from './ModalDashboardPet'
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button3
+  Container, Center, CenterChild ,Table,Button,Button3, DivForImageModal,DivContentForDivImage
 } from "../Styles/StyledPetsInDashboard"
 
 
@@ -47,7 +47,7 @@ const PetsInDashboard = () => {
 
     useEffect(()=>{
         dispatch(getPetsForDashboard(route))
-      },[dispatch ])
+      },[dispatch])
 
 
 
@@ -171,6 +171,57 @@ const PetsInDashboard = () => {
     
   }
 
+  /// estados para el modal ↓
+  const[modal, setmodal] = useState(false)
+  const[change,setchange] = useState()
+  const[image,setimage] = useState()
+  /// estado para el modal ↑
+
+
+  /// function para eliminar la imágen en el index específico ↓ ---------------- ↓
+  function handleDeleteImage(img){
+      setchange('deleteImage -->'+img)
+      let temp = editFormData.image.filter(i => i !== img)
+      seteditFormData({
+        ...editFormData,
+        image: temp
+      })
+  }
+  /// function para eliminar la imágen en el index específico ↑ ---------------- ↑
+
+
+  /// function para agregar imágenes a la mascota ↓ --------- ↓
+  const handleAddImage = async  (e) => {
+    if(editFormData.image.length < 5){
+      const formData = new FormData()
+      formData.append("file", e.target.files[0])
+      formData.append("upload_preset", "rescuePetsUpload")
+      let link = await dispatch(uploadImageCloud(formData))
+      setimage(link)
+    }else{
+      setchange('alert')
+      alert('no se puede cargar más de 5 imágenes')
+    }  
+  }
+  /// function para agregar imágenes a la mascota ↑ --------- ↑
+
+  /// useEffect parar recargar con cada adición ↓ -------- ↓
+  useEffect(()=>{
+    if(image){
+      if(editFormData.image.length < 5){
+        editFormData.image.push(image)
+      }
+    }
+    setchange('addImage ---> '+image)
+  },[image])
+  /// useEffect para recargar con cada adición ↑ ------ ↑
+
+  /// useEffect para recargar con cada eliminación de imágen ↓
+  useEffect(() => {
+    dispatch(getPetsForDashboard(route))
+  },[change])
+  /// useEffect para recargar con cada eliminación de imágen ↑
+
 
   return (
     <Center>
@@ -189,6 +240,28 @@ const PetsInDashboard = () => {
             <Link to='/dashboard/pets/FollowUp'>
       <Button3>Seguimiento a Mascotas adoptadas</Button3>
       </Link>
+
+      {/* modal para cambiar las imagenes de la mascota ↓ -------------------- ↓ */}
+       <ModalDashboardPet modal={modal} setModal={setmodal}>
+            <h1>Imágenes actuales</h1>
+                  <input
+                      className="custom-file-upload"
+                      type="file"
+                      multiple="multiple"
+                      name="file"
+                      placeholder="Inserte Imagen"
+                      onChange={(e)=>{handleAddImage(e)}}
+                    />
+                <DivContentForDivImage>
+                  {editFormData.image ? editFormData.image.map((i,index)=> (
+                    i?<DivForImageModal>
+                        <button onClick={() => handleDeleteImage(i)}><i class="fas fa-trash"></i></button>
+                        <img src={i}/>
+                    </DivForImageModal>:null
+                  )):<h3>No hay imágenes cargadas</h3>}
+                </DivContentForDivImage>    
+        </ModalDashboardPet>
+      {/* modal para cambiar las imagenes de la mascota ↑ --------------------- ↑*/}
 
       <Link to='/dashboard'>
       <Button3>Regresar</Button3>
@@ -224,6 +297,7 @@ const PetsInDashboard = () => {
                         editFormData={editFormData}
                         handleEditFormChange={handleEditFormChange}
                         handleCancelClick={handleCancelClick}
+                        setmodal={setmodal}
                         />
                         ) : (
                           <ReadOnlyRows

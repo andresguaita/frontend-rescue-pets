@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -41,7 +41,7 @@ const FollowUpTransit = () => {
 
     useEffect(() => {
         if(typeof(petsFromShelter) !== "string"){
-            const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2)
+            const filteredPets = petsFromShelter.filter(el => el.petStatusId !== 2 && el.inTransit !== true)
             const petsIdAndName = filteredPets.map(el => {
                 return {
                     id: el.id,
@@ -52,7 +52,7 @@ const FollowUpTransit = () => {
             setPetData(petsIdAndName)
             setData(allFollowUpTransits)
         }
-    }, [petsFromShelter])
+    }, [petsFromShelter, allFollowUpTransits])
     
     // console.log("data-------------------->", data)
 
@@ -87,9 +87,17 @@ const FollowUpTransit = () => {
 
     const handleEditedFormSubmit =  async (event) => {
         event.preventDefault();
-        // await dispatch(editFollowUp(editFollowUpId, editFormData))
-        // await dispatch(getFollowUpsFromShelter(shelterId))
+        // console.log("primer editableTransitId",editableTransitId)
+        // console.log("editedFormData",editedFormData)
+        const payload = {
+            data: editedFormData
+        }
+        await dispatch(editFollowUpTransit(editableTransitId, payload))
+        const status = true
+        await dispatch(editPetInTransitStatus(status, payload))
+        await dispatch(getFollowUpTransits(shelterId))
         setEditableTransitId(null);
+        console.log("segundo editableTransitId",editableTransitId)
     }
 
     const handleCancelClick = (event) => {
@@ -106,6 +114,27 @@ const FollowUpTransit = () => {
         // await dispatch(hideFollowUpfromDash(transitId, payload))
         // await dispatch(getFollowUpsFromShelter(shelterId))
     }
+
+    const handleRemovefromTransit =  async (event, petId, el, transitId) => {
+        console.log("data recieved-------------->", el)
+        const arreglo = {
+            data: [el]
+        }
+        // console.log("arreglo-------------->", arreglo)
+        // console.log("transitId-------------->", transitId)
+        // console.log("data recieved-------------->", petId)
+        event.preventDefault();
+        const status = false
+        const payload = {
+            data: petId
+        }
+        await dispatch(editPetInTransitStatus(status, payload))
+        await dispatch(editPetsAssigned(transitId, arreglo))
+        await dispatch(getFollowUpTransits(shelterId))
+
+
+    }
+
 
     return (
         <Center>
@@ -140,6 +169,7 @@ const FollowUpTransit = () => {
                                     data={data}
                                     handleEditClick={handleEditClick}
                                     handleHideClick={handleHideClick}
+                                    handleRemovefromTransit={handleRemovefromTransit}
                                     />
                                     )}
                             </Fragment>

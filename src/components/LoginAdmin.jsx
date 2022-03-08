@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { startGoogleLogin, startLogin, startLoginAdmin } from '../Redux/Actions';
-import { Container, Button, Center, MiniText, LinkStyle, Background, Cuadro } from '../Styles/StyledLogin'
+import { Container, Button, Center, MiniText, LinkStyle, Background, Cuadro } from '../Styles/StyledAdminLogin.js'
 
 
 
@@ -39,7 +39,6 @@ const LoginAdmin = () => {
         <Center>
             <Container><Cuadro>
                 <h1 className="header1">Iniciar sesión</h1>
-                <h2 className="header1">ó</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="input-parent">
                         <label>Correo electrónico</label>
@@ -49,7 +48,7 @@ const LoginAdmin = () => {
                         <label>Contraseña</label>
                         <input name='password' value={input.password} type="password" id="password" onChange={handleChange}></input>
                     </div>
-                    <MiniText ><Link to='/forgotpassword'>¿Olvidó su contraseña?</Link> </MiniText>
+                    <br></br>
                 <Button type="submit">Iniciar sesión</Button>
                 </form>
                 </Cuadro>   
