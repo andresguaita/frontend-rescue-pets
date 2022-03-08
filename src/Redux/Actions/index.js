@@ -91,6 +91,7 @@ import {
   EDIT_FOLLOW_UP_TRANSIT,
   EDIT_PET_IN_TRANSIT_STATUS,
   EDIT_PETS_ASSIGNED,
+  GET_QUESTIONS
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -1266,4 +1267,42 @@ export const sendEmailHelp = (payload) => {
         console.log("MAIL ENVIADO")
     }
 }
+
+export const getQuestions = () => {
+  return async function (dispatch) {
+    let json = await axios(`${APIGATEWAY_URL}/getAllQuestions`);
+
+    return dispatch({ type: GET_QUESTIONS, payload: json.data });
+  };
+};
+
+export const editQuestions = (payload, idquestion) => {
+  return async (dispatch) => {
+    const Put = await axios.put(
+      `${APIGATEWAY_URL}/putQuestions/${idquestion}`,
+      payload
+    );
+    if (Put) {
+      Swal.fire("Genial!", Put.data, "sucess");
+      dispatch(getQuestions());
+    } else {
+      Swal.fire("Error", Put.data, "error");
+    }
+  };
+};
+
+export const postQuestions = (question) => {
+  return async (dispatch) => {
+    const Post = await axios.post(
+      `${APIGATEWAY_URL}/postQuestions/`,
+      question
+    );
+    if (Post) {
+      Swal.fire("Genial!", Post.data, "sucess");
+      dispatch(getQuestions());
+    } else {
+      Swal.fire("Error", Post.data, "error");
+    }
+  };
+};
 

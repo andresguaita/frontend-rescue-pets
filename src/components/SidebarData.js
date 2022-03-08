@@ -26,5 +26,10 @@ export const SidebarData = [
         icon:  "fas fa-headset fa-2x",
         link: "/admin/dashboard/help"
     },
+    {
+        title: "Questions",
+        icon:  "fas fa-headset fa-2x",
+        link: "/admin/dashboard/questions"
+    },
     
 ]
