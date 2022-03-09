@@ -1,6 +1,9 @@
 import React, {Fragment} from "react";
 import Img from "../Icos/house.png";
 import Img2 from "../Icos/espe.png";
+import Statistics from "../Icos/statistics.png";
+import Support from "../Icos/support.png";
+import Transit from "../Icos/transit.png";
 import Imglist from "../Icos/list.png";
 
 import New from "../Icos/new.png";
@@ -65,6 +68,33 @@ export default function DashboardIcos({refugio}) {
                     <img src={Ok}></img>
                     <br/>
                     Nuevo Formulario
+                </button>
+            </Link>
+            <Link to="/dashboard/pets/FollowUpTransit">
+                {" "}
+                <button className="but">
+                    {" "}
+                    <img src={Transit}></img>
+                    <br/>
+                    Seguimiento a Tránsitos
+                </button>
+            </Link>
+            <Link to="/dashboard/DashStatisChelter">
+                {" "}
+                <button className="but">
+                    {" "}
+                    <img src={Statistics}></img>
+                    <br/>
+                    Estadísticas
+                </button>
+            </Link>
+            <Link to="/dashboard/help">
+                {" "}
+                <button className="but">
+                    {" "}
+                    <img src={Support}></img>
+                    <br/>
+                    Soporte Técnico
                 </button>
             </Link>
         </Fragment>
