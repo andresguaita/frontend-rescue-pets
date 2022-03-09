@@ -16,7 +16,6 @@ import { DashboardPetEditAdmin } from './DashboardPetEditAdmin'
 import {ModalDashboard} from './ModalDashboard'
 
 export const DashboardPetAdmin = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     /// estados principales
@@ -140,9 +139,11 @@ export const DashboardPetAdmin = () => {
             dispatch(getcities(e.target.value))
         }
         if(e.target.name === 'City'){
-            setCurrentcity(Number(e.target.value))
-            dispatch(setCurrentCity(Number(e.target.value)))
-            dispatch(setLink(`${APIGATEWAY_URL}/pets/${Number(e.target.value)}`))
+            if(e.target.value !== 'not'){
+                setCurrentcity(Number(e.target.value))
+                dispatch(setCurrentCity(Number(e.target.value)))
+                dispatch(setLink(`${APIGATEWAY_URL}/pets/${Number(e.target.value)}`))
+            }
         }
     }
     /// manejar cambios en la ubicación ↑
@@ -216,14 +217,10 @@ export const DashboardPetAdmin = () => {
         dispatch(orderByName(e.target.value))
     }
 
-    const Back = () => {
-        navigate('/dashboard')
-    }
 
     return (
         <StyledDashboardPetAdmin>
-            <StyleButtonBack onClick={Back}>{'<'}</StyleButtonBack>
-            <h1>DashboardPetAdmin</h1>
+            <h1>Mascotas</h1>
             <StyledDivFlexAdmin>
 
             {/* input de busqueda ↓ */}
@@ -265,10 +262,9 @@ export const DashboardPetAdmin = () => {
                 
                 {/* Ubicación local city ↓ */}
                 <StyledSelectForDashboardPetAdmin name="City" onChange={e => handleSubmitPrincipalLocation(e)}>
-                    <option disabled selected>
+                    <option value={'not'}>
                             Ciudad
                     </option>
-                    <option value={''}>Todos</option>
                     {onlycitieswithshelter.length ? onlycitieswithshelter.map(city => (
                         <option key={city.id} value={city.id}>{city.city}</option>
                     )):<p>Cargando...</p>}   

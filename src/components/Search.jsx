@@ -27,7 +27,7 @@ const [name, setName] = React.useState();
 
     return (
     <Fragment>
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit} style={{marginTop:"1rem"}}>
         < StyleInputMin   name='buscar' type='text' placeholder='Buscar' value={name} onChange={handleInputChange}/>
         <StyleButtonMini2  type="submit"><IoSearchCircleSharp
 /></StyleButtonMini2> </form>

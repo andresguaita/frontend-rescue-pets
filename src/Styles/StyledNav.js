@@ -10,14 +10,19 @@ background-color: ${allColors.colors[3]} ;
   height: 14%;
   display: flex ;
   flex-direction: row-reverse;
- align-items: center;
+  align-items: center;
+  justify-content: space-between ;
  
+  .logo{
+    height: 7rem ;
+    margin-left: 3rem ;
+  }
 `;
 
 export const Divmenu = styled.div`
   display: flex;
   /* padding-right: 3rem; */
-  float: right;
+  /* float: right; */
   font-size: 15px;
   text-decoration: none;
   font-weight: bold;
@@ -31,7 +36,7 @@ export const Divmenu = styled.div`
 export const StyleLi = styled.li`
   margin: 1em;
   display: flex;
-  
+  align-items: center ;
   
   white-space: nowrap;
   a {
