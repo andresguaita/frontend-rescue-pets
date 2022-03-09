@@ -6,7 +6,7 @@ export const DivContainer = styled.div`
   //position: relative;
   font-size: 12px;
   text-align: center;
-  margin: 2px;
+  margin-top: -80px;
   position: fixed; 
   z-index: 100;
   display: flex;
