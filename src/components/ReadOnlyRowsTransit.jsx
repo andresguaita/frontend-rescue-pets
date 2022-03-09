@@ -1,3 +1,4 @@
+import {Button} from '../Styles/StyledFollowUpTransit'
 
 const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick, handleRemovefromTransit}) => {
     
@@ -9,15 +10,15 @@ const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick, handleRemo
             <td>{data.profile.phoneNumber}</td>
             {Array.isArray(data.petsAssigned) ? data.petsAssigned.map(el => 
                 <div>
-                    <td>{el.name}<button type='button' onClick={(event)=> handleRemovefromTransit(event, el.id, el, data.id)}>X</button></td>
+                    <td>{el.name}<Button type='button' onClick={(event)=> handleRemovefromTransit(event, el.id, el, data.id)}>X</Button></td>
                     
                 </div>
             )
             : <td>Sin mascotas asignadas</td> 
         }
             <td>
-                <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>
-                <button type='button' onClick={(event) => handleHideClick(event, data.id)}>Ocultar</button>
+                <Button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</Button>
+                <Button type='button' onClick={(event) => handleHideClick(event, data.id)}>Ocultar</Button>
             </td>
         </tr>
     )

@@ -1,11 +1,12 @@
 import React from 'react'
-import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
+import {Center, CenterChild, Table, LinkBack, BackStyl} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
 import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned, hideTransitfromDash } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
+import { Link } from 'react-router-dom'
 
 const FollowUpTransit = () => {
 
@@ -146,6 +147,10 @@ const FollowUpTransit = () => {
 
 
     return (
+        <div>
+            <LinkBack to="/dashboard">
+            <BackStyl>⮨</BackStyl>
+                </LinkBack>
         <Center>
             <CenterChild>
                 <form onSubmit={handleEditedFormSubmit}>
@@ -189,6 +194,7 @@ const FollowUpTransit = () => {
                 </form>
             </CenterChild>
         </Center>
+        </div>
     )
 }
 
