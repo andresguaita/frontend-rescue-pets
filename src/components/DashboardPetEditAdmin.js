@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { StyledButtonEditAdminPet, StyledSelectForDashboardPetEditAdmin,
     StyledDivFlexAdmin, StyledDivFlexColumnAdmin, StyledDashboardPetModal,StyledButtonDeleteAdminPet} from '../Styles/StyledDashboardPetAdmin'
 import {editPetFromAdmin} from '../Redux/Actions'   
+import Swal from 'sweetalert2'
 
 
 export const DashboardPetEditAdmin = ({id,hideFromDash,name,setActive}) => {
@@ -31,7 +32,7 @@ export const DashboardPetEditAdmin = ({id,hideFromDash,name,setActive}) => {
     /// envio de datos para ser modificados ↓
     const handleSubmit = () => {
         dispatch(editPetFromAdmin(currentpet))
-        alert('Hide editado con éxito')
+        Swal.fire('Ok!','Hide editado con éxito', 'success');
     }
     /// envio de datos para ser modificados ↑
 

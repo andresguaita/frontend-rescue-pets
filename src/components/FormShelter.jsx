@@ -131,7 +131,6 @@ const FormShelter = () => {
       role: "1",
       img: "",
     });
-    alert('registro exitoso')
     history("/reviewemail");
   };
 

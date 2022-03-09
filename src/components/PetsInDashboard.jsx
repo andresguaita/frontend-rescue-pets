@@ -12,6 +12,7 @@ import {ModalDashboardPet} from './ModalDashboardPet'
 import {
   Container, Center, CenterChild ,Table,Button,Button3, DivForImageModal,DivContentForDivImage
 } from "../Styles/StyledPetsInDashboard"
+import Swal from 'sweetalert2';
 
 
 
@@ -200,7 +201,8 @@ const PetsInDashboard = () => {
       setimage(link)
     }else{
       setchange('alert')
-      alert('no se puede cargar más de 5 imágenes')
+      Swal.fire('Ups!','No se puede cargar más de 5 imágenes', 'info');
+
     }  
   }
   /// function para agregar imágenes a la mascota ↑ --------- ↑
