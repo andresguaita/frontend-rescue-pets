@@ -4,7 +4,7 @@ import allColors from "../variables/Colors";
 
 export const StyleInput = styled.input`
   width: 100%;
-  height: 50px;
+  height: 30px;
   background: ${allColors.colors[7]};
   color: gray;
   padding-left: 5px;
@@ -16,6 +16,8 @@ export const StyleInput = styled.input`
   border-color: ${allColors.colors[8]};
   border-width: 3px;
   border-radius: 5px;
+  justify-content: center ;
+  align-items:  center;
   cursor: pointer;
   
 `;
@@ -24,7 +26,7 @@ export const StyleInput = styled.input`
 
 export const StyleInputMin = styled.input`
   width: 60%;
-  height: 41px;
+  height: 35px;
   background: ${allColors.colors[7]};
   color: gray;
   padding-left: 5px;
