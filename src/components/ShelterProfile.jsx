@@ -96,6 +96,7 @@ export const ShelterProfile = () => {
             <hr />
             <span>Token Mercado Pago</span>
             <input
+              className="inputForm"
               onChange={handleChange}
               value={input.token}
               name="token"
@@ -104,6 +105,7 @@ export const ShelterProfile = () => {
             <hr />
             <span>Access Token Mercado Pago</span>
             <input
+              className="inputForm"
               onChange={handleChange}
               value={input.accessToken}
               name="accessToken"

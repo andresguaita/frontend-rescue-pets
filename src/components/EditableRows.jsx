@@ -60,7 +60,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
             onChange={handleEditFormChange}
             ></input>
         </td> */}
-        <td><button type="button" onClick={() => setmodal(true)} >Editar imágenes de mascota</button></td>
+        <td><Button type="button" onClick={() => setmodal(true)} >Editar imágenes</Button></td>
         <td>
             <select name='speciesId' onChange={handleEditFormChange}>
                 <option hidden value="editFormData.speciesId" name='default' >{editFormData.species2.specie}</option>

@@ -8,16 +8,18 @@ import {
   gettTemperaments,
   getAllSpecies,
   getAllAges,
-  getAllPetStatus,
+  /* getAllPetStatus, */
   getGenres,
   ModalDashboardOpen,
   uploadImageCloud,
   getPetsForDashboard
 } from "../Redux/Actions/index";
 
-import { DivContainer } from "../Styles/StyledCreatePets";
+import { DivContainer, DivImages,ButtonDelete,
+         P1, P2, P3, P4, P5, P6, P7, P8, P9, CountImg } from "../Styles/StyledCreatePets";
 
 import { StyleButton } from "../Styles/StyledButtons.js";
+
 export function CreatePets() {
   const dispatch = useDispatch();
 
@@ -48,18 +50,37 @@ export function CreatePets() {
 
   const AllAges = useSelector((state) => state.allAges);
 
-  // useEffect(() => {
-  //   dispatch(getAllPetStatus());
-  // }, [dispatch]);
-
-  // const Status = useSelector((state) => state.petStatus[0]?.id); 
-
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
 
   const Genres = useSelector((state) => state.allGenres);
 
+  function validate (state){
+    let errors = {};
+    if(!state.name){
+      errors.name = '*';
+    } else if(!state.sterilization){
+      errors.sterilization = '*'
+    } else if(!state.weight){
+      errors.weight = '*'
+    } else if(!state.description){
+      errors.description = '*'
+    } else if(!state.image){
+      errors.image = '*'
+    } else if(!state.speciesId){
+      errors.speciesId = '*'
+    } else if(!state.temperamentId){
+      errors.temperamentId = '*'
+    } else if(!state.ageId){
+      errors.ageId = '*'
+    } else if(!state.genreId){
+      errors.genreId = '*'
+    }
+    return errors;
+  };
+
+  const [errors, setErrors] = React.useState({});
   const [state, setState] = useState({
     name: "",
     sterilization: "",
@@ -74,6 +95,7 @@ export function CreatePets() {
     genreId: "",
   });
 
+  // console.log('errors: ', errors);
   // console.log('state: ', state);
 
   const uploadImage = async (e) => {
@@ -87,6 +109,10 @@ export function CreatePets() {
         ...state,
         image: [...state.image, link]
       })
+      setErrors(validate({
+        ...state,
+        image: e.target.value
+      }))
     } else {
       alert('No se pueden cargar mas de 5 Imagenes.');
     }
@@ -96,62 +122,102 @@ export function CreatePets() {
     setState({
       ...state,
       [e.target.name]: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      [e.target.name]: e.target.value
+    }))
   };
 
   const handleSelectBoolean = (e) => {
     setState({
       ...state,
       sterilization: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      sterilization: e.target.value
+    }))
   };
 
   const handleSelectSpecies = (e) => {
     setState({
       ...state,
       speciesId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      speciesId: e.target.value
+    }))
   };
 
   const handleSelectTemperament = (e) => {
     setState({
       ...state,
       temperamentId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      temperamentId: e.target.value
+    }))
   };
 
   const handleSelectAge = (e) => {
     setState({
       ...state,
       ageId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      ageId: e.target.value
+    }))
   };
 
   const handleSelectGenres = (e) => {
     setState({
       ...state,
       genreId: e.target.value,
-    });
+    })
+    setErrors(validate({
+      ...state,
+      genreId: e.target.value
+    }))
   };
 
   const routeInfo = useSelector(state => state.ShelterAndCityId)
   const route = `${APIGATEWAY_URL}/pets/${routeInfo.cityId}?shelterId=${routeInfo.shelterId}`
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postPets(state));
-    dispatch(ModalDashboardOpen ("icos"))
-    setState({name:'',sterilization:'',weight: '',description: '',image:'',speciesId:'',shelterId:'',
-            temperamentId:'',ageId:'',petStatusId:'',genreId:''})
-
-    alert('¡La mascota fue creada con exito!');
-    dispatch(getPetsForDashboard(route))
+    if(!state.name || !state.sterilization || !state.weight || !state.description || !state.image ||
+      !state.speciesId || !state.temperamentId || !state.ageId || !state.genreId){
+        e.preventDefault();
+        alert('¡Debe completar todos los campos para crear una Mascota!');
+      } else {
+        e.preventDefault();
+        dispatch(postPets(state));
+        dispatch(ModalDashboardOpen ("icos"))
+        setState({name:'',sterilization:'',weight: '',description: '',image:'',speciesId:'',shelterId:'',
+                temperamentId:'',ageId:'',petStatusId:'',genreId:''})
+    
+        alert('¡La mascota fue creada con exito!');
+        dispatch(getPetsForDashboard(route));
+      }
   };
 
   function handleClickCencel(e) {
     e.preventDefault();
     dispatch(ModalDashboardOpen("icos"));
   }
+
+  ///
+  const handleDeleteImage = (imag) => {
+    setState({
+      ...state,
+      image: state.image.filter(im => im !== imag)
+    })
+  }
+  ///
+
   return (
     <DivContainer>
       <form onSubmit={handleSubmit}>
@@ -163,8 +229,9 @@ export function CreatePets() {
           name="name"
           value={state.name}
           onChange={handleChanges}
-        />
-        <br /> <br />
+        /><P1>{errors.name&&(<p>{errors.name}</p>)}</P1>
+        <br />
+        <br />
         <select onChange={handleSelectBoolean}>
           <option disabled selected>
             ¿Esterilizado/a?
@@ -175,7 +242,7 @@ export function CreatePets() {
           <option name="false" value={false}>
             No
           </option>
-        </select>
+        </select><P2>{errors.sterilization&&(<p>{errors.sterilization}</p>)}</P2>
         <br />
         <br />
         <input
@@ -184,7 +251,7 @@ export function CreatePets() {
           name="weight"
           value={state.weight}
           onChange={handleChanges}
-        />
+        /><P3>{errors.weight&&(<p>{errors.weight}</p>)}</P3>
         <br />
         <br />
         <input
@@ -193,7 +260,7 @@ export function CreatePets() {
           name="description"
           value={state.description}
           onChange={handleChanges}
-        />
+        /><P5>{errors.description&&(<p>{errors.description}</p>)}</P5>
         <br />
         <br />
         <select onChange={handleSelectSpecies}>
@@ -205,19 +272,7 @@ export function CreatePets() {
               {e.specie}
             </option>
           ))}
-        </select>
-        <br />
-        <br />
-        {/* <select onChange={handleSelectShelter}>
-          <option disabled selected>
-            -- Seleccione Refugio --
-          </option>
-          {Shelters?.map((e) => (
-            <option value={e.id} key={e.id}>
-              {e.name}
-            </option>
-          ))}
-        </select> */}
+        </select><P6>{errors.speciesId&&(<p>{errors.speciesId}</p>)}</P6>
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -229,7 +284,7 @@ export function CreatePets() {
               {e.temperament}
             </option>
           ))}
-        </select>
+        </select><P7>{errors.temperamentId&&(<p>{errors.temperamentId}</p>)}</P7>
         <br />
         <br />
         <select onChange={handleSelectAge}>
@@ -241,19 +296,7 @@ export function CreatePets() {
               {e.age}
             </option>
           ))}
-        </select>
-        <br />
-        <br />
-        {/* <select onChange={handleSelectState}>
-          <option disabled selected>
-            -- Seleccione Estado --
-          </option>
-          {Status?.map((e) => (
-            <option value={e.id} key={e.id}>
-              {e.status}
-            </option>
-          ))}
-        </select> */}
+        </select><P8>{errors.ageId&&(<p>{errors.ageId}</p>)}</P8>
         <br />
         <br />
         <select onChange={handleSelectGenres}>
@@ -265,7 +308,7 @@ export function CreatePets() {
               {e.genre}
             </option>
           ))}
-        </select>
+        </select><P9>{errors.genreId&&(<p>{errors.genreId}</p>)}</P9>
         <>
           {" "}
           <br /> <br />
@@ -276,12 +319,8 @@ export function CreatePets() {
             name="file"
             placeholder="Inserte Imagen"
             onChange={(e)=>{uploadImage(e)}}
-          />
-          {loading ? (
-            <h3>Cargando Imagenes... </h3>
-          ) : (
-            <img src={image} style={{ width: "300px" }} />
-          )}
+          /><P4>{errors.image&&(<p>{errors.image}</p>)}</P4>
+          <CountImg>{`${state.image.length}/5`}</CountImg>
         </>
         <br /> <br />
         <StyleButton type="submit">¡Crear Mascota!</StyleButton>{" "}
@@ -289,6 +328,14 @@ export function CreatePets() {
           Cancelar
         </StyleButton>
       </form>
+      {state.image.length ? <h3>Imágenes seleccionadas</h3>: null}
+      <DivImages>
+        {state.image.length ?state.image.map(img => 
+          <div>
+              <ButtonDelete onClick={() => handleDeleteImage(img)}><i class="fas fa-trash"></i></ButtonDelete>
+              <img src={img} width="100px" height="100px"/></div>):
+          <h3>No ha selecionado imágenes</h3>}
+      </DivImages>
     </DivContainer>
   );
 }

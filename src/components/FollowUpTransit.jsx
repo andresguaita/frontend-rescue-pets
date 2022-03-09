@@ -1,11 +1,12 @@
 import React from 'react'
-import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
+import {Center, CenterChild, Table, LinkBack, BackStyl} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned, hideTransitfromDash } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
+import { Link } from 'react-router-dom'
 
 const FollowUpTransit = () => {
 
@@ -38,6 +39,7 @@ const FollowUpTransit = () => {
     const [petData, setPetData] = useState('')
 
     const [data, setData] = useState('')
+    const [editedFormData, seteditedFormData] = useState([])
 
     useEffect(() => {
         if(typeof(petsFromShelter) !== "string"){
@@ -50,14 +52,18 @@ const FollowUpTransit = () => {
             })
             // console.log("petsIdAndName------------------>", petsIdAndName)
             setPetData(petsIdAndName)
-            setData(allFollowUpTransits)
+            // setData(allFollowUpTransits)
+            // seteditedFormData([])
         }
     }, [petsFromShelter, allFollowUpTransits])
+
+    useEffect(() => {
+        const filteredTransits = allFollowUpTransits.filter(el => el.hideTransit === false)
+        setData(filteredTransits)
+      }, [allFollowUpTransits])
     
     // console.log("data-------------------->", data)
 
-    const [editedFormData, seteditedFormData] = useState([]
-    )
 
     const handleEditedFormChange = (event) => {
     event.preventDefault();
@@ -76,13 +82,17 @@ const FollowUpTransit = () => {
 
 
 
-    const handleEditClick = (event, data) => {
+    const handleEditClick = async (event, data) => {
+        
         event.preventDefault();
+        seteditedFormData([])
         setEditableTransitId(data.id)
+        await dispatch(getPetsForDashboard(route))
         // const formValues = {
         //     petsAssigned: data.petsAssigned,
         // }
-        // seteditedFormData()    
+        
+        
     }
 
     const handleEditedFormSubmit =  async (event) => {
@@ -96,23 +106,23 @@ const FollowUpTransit = () => {
         const status = true
         await dispatch(editPetInTransitStatus(status, payload))
         await dispatch(getFollowUpTransits(shelterId))
+        
         setEditableTransitId(null);
-        console.log("segundo editableTransitId",editableTransitId)
     }
 
     const handleCancelClick = (event) => {
         event.preventDefault();
         setEditableTransitId(null);
-        seteditedFormData([]);
+        // seteditedFormData([]);
     }
 
     const handleHideClick = async (event, transitId) => {
         event.preventDefault();
         const payload = {
-            hideFollowUp: true
+            hideTransit: true
         }
-        // await dispatch(hideFollowUpfromDash(transitId, payload))
-        // await dispatch(getFollowUpsFromShelter(shelterId))
+        await dispatch(hideTransitfromDash(transitId, payload))
+        await dispatch(getFollowUpTransits(shelterId))
     }
 
     const handleRemovefromTransit =  async (event, petId, el, transitId) => {
@@ -131,12 +141,16 @@ const FollowUpTransit = () => {
         await dispatch(editPetInTransitStatus(status, payload))
         await dispatch(editPetsAssigned(transitId, arreglo))
         await dispatch(getFollowUpTransits(shelterId))
-
+        await dispatch(getPetsForDashboard(route))
 
     }
 
 
     return (
+        <div>
+            <LinkBack to="/dashboard">
+            <BackStyl>⮨</BackStyl>
+                </LinkBack>
         <Center>
             <CenterChild>
                 <form onSubmit={handleEditedFormSubmit}>
@@ -180,6 +194,7 @@ const FollowUpTransit = () => {
                 </form>
             </CenterChild>
         </Center>
+        </div>
     )
 }
 

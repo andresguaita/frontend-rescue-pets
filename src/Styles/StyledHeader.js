@@ -15,13 +15,16 @@ export const StyledImg = styled.img`
 `;
 
 export const StyledLeft = styled.div`
+  display: flex;
+  align-items: center;
   margin: 5px;
   width: 40%;
   border-radius: 9px;
   padding: 1em;
-  font-size: 38px;
   color: ${allColors.colors[3]};
- 
+  h1{
+    font-size: 55px;
+  }
 `;
 
 export const StyledRight = styled.div`

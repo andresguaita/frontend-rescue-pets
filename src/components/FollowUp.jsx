@@ -1,8 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, deleteFollowUp, hideFollowUpfromDash } from '../Redux/Actions'
+import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, sendEmailReminder, hideFollowUpfromDash } from '../Redux/Actions'
 import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
 
@@ -15,10 +15,10 @@ import {
 const FollowUP = () => {
 
   const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
-  console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
+  // console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
   
   const shelterId = ShelterAndCityINfo.shelterId
-  console.log("shelterId------------>",shelterId)
+  // console.log("shelterId------------>",shelterId)
 
   const dispatch = useDispatch();
   const allFollowUpStatuses = useSelector(state => state.followUpStatuses)
@@ -98,6 +98,19 @@ const FollowUP = () => {
       await dispatch(getFollowUpsFromShelter(shelterId))
     }
 
+    
+    const handleSendReminder = async (event, followUpId, date) => {
+      event.preventDefault();
+      const payload = {
+        followUpId: followUpId,
+        date: date
+      }
+      // console.log("followUpId--------------->", followUpId)
+      // console.log("date--------------->", date)
+      await dispatch(sendEmailReminder(payload))
+      await dispatch(getFollowUpsFromShelter(shelterId))
+    }
+
   return (
     <Center>
         <CenterChild>
@@ -134,6 +147,7 @@ const FollowUP = () => {
                           data={data}
                           handleEditClick={handleEditClick}
                           handleDeleteClick={handleDeleteClick}
+                          handleSendReminder={handleSendReminder}
                           />
                           )}
                     </Fragment>

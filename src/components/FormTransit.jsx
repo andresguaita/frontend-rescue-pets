@@ -17,7 +17,11 @@ import Img from "../Icos/homeim5.svg"
 import { DivContainer ,  Left, Right , Centro} from "../Styles/StyledFormTransit";
 
 
-const FormTransit = ({ id,shelterName, shelterEmail }) => {
+const FormTransit = ({id}) => {
+
+  let Data = useSelector((state) => state.shelterDetail);
+  let shelterName=Data.name
+  let shelterEmail=Data.user.email
   
   const dispatch = useDispatch();
   const history = useNavigate();
