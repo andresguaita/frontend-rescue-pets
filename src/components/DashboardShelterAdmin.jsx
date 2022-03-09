@@ -38,7 +38,7 @@ export const DashboardShelterAdmin = () => {
 
   let indexLastRow = currentPage * rowsXpage; //0
   let indexFirstRow = indexLastRow - rowsXpage; //0
-  let currentRows = shelters?.slice(indexFirstRow, indexLastRow);
+  let currentRows = shelters.length && shelters.slice(indexFirstRow, indexLastRow);
 
   const paginado = (event, pageNumber) => {
     setCurrentPAge(pageNumber);
