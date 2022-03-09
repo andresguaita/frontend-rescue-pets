@@ -96,7 +96,8 @@ import {
   GET_QUESTIONS,
   HIDE_TRANSIT,
   GET_ALL_DONATIONS,
-  SEND_EMAIL_REMINDER
+  SEND_EMAIL_REMINDER,
+  PIC_PRIMER
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -199,6 +200,8 @@ export const getPetId = (id) => {
     }
   };
 };
+
+
 
 export const getPetByShelter = (id) => {
   return async function (dispatch) {
@@ -323,6 +326,13 @@ export const startRegister = (
 export const getTemperaments = () => {
   return { type: GET_TEMPERAMENTS, payload: null };
 };
+
+export const UpdatePrimerPic = (pic) => {
+  return { type: PIC_PRIMER, payload: pic };
+};
+
+
+
 
 export const getCityId = (id) => {
   return { type: GET_ID_CITY, payload: id };
