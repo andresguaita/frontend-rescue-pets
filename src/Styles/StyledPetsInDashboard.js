@@ -190,7 +190,7 @@ export const DivForImageModal = styled.div`
   background: #f3f3f3;
   border-radius: 20px;
   margin-top: 2%;
-  postion:relative;
+  position: relative;
   height: 250px;
   width: 250px;
   margin-bottom: 5%;
@@ -200,7 +200,7 @@ export const DivForImageModal = styled.div`
   box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.5);
 
   button{
-    postion: fixed;
+    position: fixed;
     z-index: 2;
     margin-top: 8px;
     font-size:18px;
@@ -219,7 +219,7 @@ export const DivForImageModal = styled.div`
 
   img{
     margin-top: -11.6%;;
-    postion:absolute;
+    position:absolute;
     z-index: 1;
     width: 250px;
     height: 250px;

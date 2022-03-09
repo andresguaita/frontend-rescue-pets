@@ -1,18 +1,19 @@
 import React from 'react'
+import {Button} from '../Styles/StyledFollowUpTransit'
 
 const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, handleEditedFormChange, handleCancelClick}) => {
-    console.log("petData----------------------->",petData)
-    console.log("editedFormData-------------->", editedFormData)
+    // console.log("petData----------------------->",petData)
+    // console.log("editedFormData-------------->", editedFormData)
     let result = petData.filter(o1 => !editedFormData.some(o2 => o1.id === o2.id));
-    console.log("result-------------->", result)
-    console.log("data------------>",data)
+    // console.log("result-------------->", result)
+    // console.log("data------------>",data)
 
     const handleDeletePetFromList = (el) => {
-      console.log("handleDeletePetFromList element ---->", el)
+      // console.log("handleDeletePetFromList element ---->", el)
       seteditedFormData(
         editedFormData.filter(param => param !== el)
       )
-      console.log("editFormData del handleDelete ---->", editedFormData)
+      // console.log("editFormData del handleDelete ---->", editedFormData)
   }
     
   return (
@@ -49,7 +50,7 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
           {editedFormData?.map(el=> 
           <div key={el.id}>
           <div>{el.name}</div>
-          <button type='button' onClick={() => handleDeletePetFromList(el)}>X</button>
+          <Button type='button' onClick={() => handleDeletePetFromList(el)}>X</Button>
 
           </div>
 
@@ -58,8 +59,8 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
           
         </td>
         <td>
-            <button type='submit' >Guardar</button>
-            <button type='button' onClick={handleCancelClick}>Cancelar</button>
+            <Button type='submit' >Guardar</Button>
+            <Button type='button' onClick={handleCancelClick}>Cancelar</Button>
         </td>
     </tr>
   )
