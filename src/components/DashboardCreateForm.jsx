@@ -2,13 +2,12 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { Left, Right, StyledDashboardForms } from '../Styles/StyledDashboardForms'
+import { Right, StyledDashboardForms } from '../Styles/StyledDashboardForms'
 import { editForm, getAllQuestions, getFormByShelter, getFormtypes, postCreateForm } from '../Redux/Actions/index'
-import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
+import { StyleButtonBack, StyleButtonRejected, StyleButtonMini} from '../Styles/StyledButtons.js';
 import { useState } from "react"
-import Img from "../Icos/homeim1.svg"
-import trash from "../Icos/trash-solid.svg"
 import Swal from "sweetalert2"
+import {BackStyl} from '../Styles/StyledFollowUpTransit'
 
 export const DashboardCreateForm = () => {
     const navigate = useNavigate()
@@ -92,8 +91,7 @@ export const DashboardCreateForm = () => {
 
     return (
         <StyledDashboardForms>
-            
-            <StyleButtonBack onClick={handleClick}>{'Regresar'}</StyleButtonBack>
+            <BackStyl onClick={handleClick}>⮨</BackStyl>
             <h1>{existingform.length ? 'Edita formulario': 'Crea formulario'}</h1>
             <div>
                 <Right>
@@ -103,7 +101,7 @@ export const DashboardCreateForm = () => {
                             Tipo formulario
                         </option>
                         {typeof(formtypes) !== 'string' ? formtypes.map(e => (
-                            <option key={e.id} value={e.id} name={e.typeName}>{e.typeName}</option>
+                           e.typeName !== 'Rescate' ? <option key={e.id} value={e.id} name={e.typeName}>{e.typeName}</option> : null
                         )):'Cargando'}
                     </select>
                      
