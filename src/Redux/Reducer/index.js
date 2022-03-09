@@ -184,6 +184,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
       };
 
     case GET_PET_ID:
+      console.log(payload)
       return {
         ...state,
         petOne: payload,
@@ -411,6 +412,12 @@ export default function rooReducer(state = initialState, { type, payload }) {
             ...state,
             Shelters: payload
           };
+
+        case GET_SHELTERS_PAISES:
+          return {
+            ...state,
+            SheltersPaises: payload
+          }  
 
         case GETT_TEMPERAMENTS:
           return {

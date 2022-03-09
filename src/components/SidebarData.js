@@ -2,9 +2,9 @@ import React from 'react'
 
 export const SidebarData = [
     {
-        title: "Home",
-        icon:  "fas fa-home fa-2x",
-        link: "dashboard/createadmin"
+        title: "Estadisticas",
+        icon:  "fas fa-chart-bar fa-2x",
+        link: "/admin/dashboard"
     },
     {
         title: "Administrador",
@@ -27,8 +27,8 @@ export const SidebarData = [
         link: "/admin/dashboard/help"
     },
     {
-        title: "Questions",
-        icon:  "fas fa-headset fa-2x",
+        title: "Preguntas",
+        icon:  "fas fa-question fa-2x",
         link: "/admin/dashboard/questions"
     },
     
