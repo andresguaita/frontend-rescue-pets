@@ -8,6 +8,7 @@ import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected, StyleButtonMi
 import { useState } from "react"
 import Img from "../Icos/homeim1.svg"
 import trash from "../Icos/trash-solid.svg"
+import Swal from "sweetalert2"
 
 export const DashboardCreateForm = () => {
     const navigate = useNavigate()
@@ -69,11 +70,11 @@ export const DashboardCreateForm = () => {
 
     const handleSubmitFormCreated = () => {
         if(!type || question.length === 0 || existingform.length){
-            alert('deben llenarse los campos')
+            Swal.fire('Hey!','Deben llenarse los campos', 'info');
         }else{
             dispatch(postCreateForm(form))
             setquestion([])
-            alert('creado con exito')
+            Swal.fire('Ok!','Creado con exito', 'success');
         } 
     }
 
@@ -86,7 +87,7 @@ export const DashboardCreateForm = () => {
         if(form.type && form.questions.length){
             dispatch(editForm(Number(existingform[0].id),Number(form.type),{questions : form.questions}))
         }
-        alert('editado con exito')
+        Swal.fire('Ok!','Editado con exito', 'success');
     }
 
     return (

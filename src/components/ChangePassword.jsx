@@ -58,7 +58,7 @@ export const ChangePassword = () => {
       onChange={handleChange}
       value={input.oldPassword}
       name="oldPassword"
-      type="text"
+      type="password"
       ></input>
       <hr/>
       <span>Escriba su nueva contraseña</span>
@@ -67,7 +67,7 @@ export const ChangePassword = () => {
       onChange={handleChange}
       value={input.password1}
       name="password1"
-      type="text"
+      type="password"
       ></input>
       <hr/>
       <span>Confirme su nueva contraseña</span>
@@ -76,7 +76,7 @@ export const ChangePassword = () => {
       onChange={handleChange}
       value={input.password2}
       name="password2"
-      type="text"></input>
+      type="password"></input>
       <Button type='submit'>Cambiar Contraseña</Button>
       </form>
       

@@ -258,7 +258,7 @@ export const startLogin = (email, password) => {
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(login({ id: body.id, email: body.email }));
     } else {
-      alert(body.msg);
+      Swal.fire('Error',body.msg, 'error');
     }
   };
 };
@@ -279,7 +279,7 @@ export const startLoginAdmin = (email, password) => {
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(loginAdmin({ id: body.id, email: body.email, rol: body.role }));
     } else {
-      alert(body.msg);
+      Swal.fire('Error',body.msg, 'error');
     }
   };
 };
@@ -798,9 +798,9 @@ export const postHelpSupport = (payload) => {
   return async function () {
     await axios.post(`${APIGATEWAY_URL}/postTechSuport`, payload);
     Swal.fire(
-      "Genial!",
-      "Registro realizado correctamente. Pronto nos comunicaremos contigo",
-      "sucess"
+      "Ok!",
+      "Pregunta enviada exitosamente, pronto nos comunicaremos contigo",
+      "success"
     );
   };
 };

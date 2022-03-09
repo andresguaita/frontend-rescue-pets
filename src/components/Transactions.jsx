@@ -77,7 +77,7 @@ export const Transactions = () => {
 
                             </th>
                             <th>
-                                Monto (Dolares)
+                                Monto
                             </th>
                             <th>
                                 Estado

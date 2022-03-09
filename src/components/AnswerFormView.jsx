@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm, updatePetStatus, addFollowUpTransit} from "../Redux/Actions/index"
 import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
@@ -34,7 +35,7 @@ export const AnswerFormView = () => {
     }
 
     const handleAllow = () => {
-        alert('Petición aceptada')
+        Swal.fire('Ok!','Peticion Aceptada', 'success');
         if(Number(formtypeid) === 2){
             dispatch(addFollowUp({
                 followUpStatusId:1,
@@ -60,7 +61,7 @@ export const AnswerFormView = () => {
     }
 
     const handleDeny = () => {
-        alert('Petición denegada')
+        Swal.fire('Ups!','Peticion Denegada', 'error');
         dispatch(setFormStatus(false,Number(formId),Number(adoYreqid)))
         dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
     }
