@@ -47,8 +47,6 @@ const Details = () => {
   let id2 = window.location.pathname;
   id2 = id2.replace("/details/", "");
 
-  const token = Datos[0].shelter.token;
-
   const handleClick2 = (e) => {
     dispatch(getPetId(id));
     dispatch(getPetsSimilar(Datos, pets));
@@ -88,7 +86,8 @@ const Details = () => {
       dispatch(addToFavorites(pet));
     }
   };
-
+  const token = Datos[0].shelter.token;
+  console.log(token);
   return (
     <Fragment>
       <Navbar />

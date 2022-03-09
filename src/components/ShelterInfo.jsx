@@ -84,8 +84,6 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
     setitemsPerPage(itemsPerPage + 5);
   };
 
-  console.log(Data);
-
   return (
     <Fragment>
       <ShelterData Data={Data} />
