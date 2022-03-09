@@ -16,6 +16,7 @@ import {
 export const Transactions = () => {
 
     const [donation, setDonation] = useState([])
+    const [search, setSearch] = useState('')
 
     const dispatch = useDispatch()
 
@@ -29,14 +30,44 @@ export const Transactions = () => {
 
     useEffect(() => {
         setDonation(allDonations)
-    }, [])
+    }, [donation])
+
+    const handleInputChange = (e) => {
+        setSearch(e.target.value)
+        filter(e.target.value)
+    
+      }
+
+      const filter = (searchTerm) => {
+        let result = donation.filter((el) => {
+          if (el.shelter.name.toString().toLowerCase().includes(searchTerm.toLowerCase())) {
+            return el
+          }
+        })
+    
+        setDonation(result)
+      }
 
     return (
         <>
 
             <StyledDashboardPetAdmin>
                 <h1>Donaciones a los Refugios</h1>
+                <StyledDivFlexAdmin>
+                    <form>
+                        <StyledDivFlexAdmin>
+                            <div>
+                                <h3>BUSQUEDA</h3>
+                                <StyledInputSearch type="text" placeholder="Buscar nombre de refugio" value={search} onChange={handleInputChange} />
+                            </div>
+                            <div>
 
+                                <StyledInputButton type="button" value="buscar" />
+                            </div>
+
+                        </StyledDivFlexAdmin>
+                    </form>
+                </StyledDivFlexAdmin>
                 <div>
                     <table>
                         <thead>
