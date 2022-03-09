@@ -13,7 +13,7 @@ export default function NavbarDashboard() {
 
     const dispatch=  useDispatch()
 
-    let {shelterDetail} = useSelector(state => state)
+    let {shelterProfile} = useSelector(state => state)
     const handleLogout= () =>{
         dispatch(startLogout())
        
@@ -38,7 +38,7 @@ export default function NavbarDashboard() {
                             
                             </Divmenu> 
                             </ul>
-                            <h1>{shelterDetail.name}</h1>
+                            <h1>{shelterProfile.name}</h1>
                             <img src={Logo} className="logo"></img>
                     </StyleNavBar>
                 
