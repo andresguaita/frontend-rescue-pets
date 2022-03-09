@@ -32,6 +32,7 @@ export const StyleButtonMini = styled.button`
   font-weight: bold;
   color : white;
   cursor: pointer;
+ 
   a {
     color: white;
   }
@@ -67,16 +68,18 @@ export const StyleButtonMini2 = styled.button`
   background-color: ${allColors.colors[8]};
   border-radius: 5px;
   height: 40px;
-  font-size: 17px;
-  padding: 10px;
+  font-size: 20px;
+  padding: 2px 10px 3px 10px;
   border: 0;
   font-weight: bold;
   color : white;
   position: relative;
   bottom: 9px;
+  text-align: center ;
   cursor: pointer;
   a {
     color: white;
+   
   }
   &:hover {
     background-color: ${allColors.colors[2]};
