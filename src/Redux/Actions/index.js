@@ -103,7 +103,7 @@ import {
 
   SEND_EMAIL_REMINDER,
   PIC_PRIMER,
-
+ DELETE_ALERT
   
 
 } from "./types.js";
@@ -1379,6 +1379,7 @@ export function postAlert({description, direction, image,shelterId}) {
   return async function () {
     
       const post = await axios.post(`${APIGATEWAY_URL}/ShelterAlert`, {description, direction ,image ,shelterId});
+      Swal.fire('Ok!','Alerta Enviada!', 'success')
       return post;
   }
 }
@@ -1442,3 +1443,14 @@ export const sendEmailReminder = (payload) => {
   };
 };
 
+export function deleteAlert(id) {
+  return async function (dispatch) {
+      try {
+           await axios.delete(`${APIGATEWAY_URL}/deleteAlert/${id}`)
+          dispatch(getAlert())
+         
+      } catch (error) {
+          console.log(error)
+      }
+  }
+}

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { validateFormRegister } from "../helpers/validation";
+import Swal from "sweetalert2";
 import Img from "../Icos/homeim5.svg";
 import {
   cleanStateForm,
@@ -132,7 +133,7 @@ const FormAlerta = () => {
     } else {
       e.preventDefault();
      dispatch(postAlert(input));
-      alert("¡Alerta enviada!");
+     Swal.fire('Ok!','Alerta Enviada!', 'success')
       setInput({
         direction: "",
         description: "",
