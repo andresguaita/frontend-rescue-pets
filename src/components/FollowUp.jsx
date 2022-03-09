@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
 import { getFollowUpsFromShelter, getFollowUpStatuses, editFollowUp, sendEmailReminder, hideFollowUpfromDash } from '../Redux/Actions'
@@ -15,10 +15,10 @@ import {
 const FollowUP = () => {
 
   const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
-  console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
+  // console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
   
   const shelterId = ShelterAndCityINfo.shelterId
-  console.log("shelterId------------>",shelterId)
+  // console.log("shelterId------------>",shelterId)
 
   const dispatch = useDispatch();
   const allFollowUpStatuses = useSelector(state => state.followUpStatuses)

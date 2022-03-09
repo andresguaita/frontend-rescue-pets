@@ -130,7 +130,7 @@ export const DashboardShelterAdmin = () => {
 
       </ModalDashboard>
       <StyledDashboardPetAdmin>
-        <h1>DashboardShelterAdmin</h1>
+        <h1>Refugios</h1>
 
         <StyledDivFlexAdmin>
           <form>

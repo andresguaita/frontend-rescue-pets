@@ -3,11 +3,11 @@ import allColors from "../variables/Colors";
 import Img from "../Icos/homeim1.svg"
 
 export const DivContainer = styled.div`
-  //position: relative;
-  font-size: 18px;
+
+  position: absolute;
+  margin-top: -12%;
+  font-size: 13px;
   text-align: center;
-  margin: 2px;
-  position: fixed; 
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ export const DivContainer = styled.div`
 
 input {
     width: 50%;
-    height: 25px;
+    height: 20px;
     background: #ddf4ff !important;
     color: gray !important;
     padding-left: 5px !important;
@@ -47,7 +47,7 @@ input {
 
 select{
     width: 200px;
-    height: 25px;
+    height: 20px;
     background: #ddf4ff !important;
     color: gray !important;
     padding-left: 5px !important;
@@ -132,7 +132,7 @@ textarea{
 `;
 
 export const ButtonDelete = styled.button`
-  position: fixed;
+  position: absolute;
   margin-left: 138px;
   margin-top: 22px;
   width: 30px;

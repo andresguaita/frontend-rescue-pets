@@ -94,10 +94,18 @@ import {
   EDIT_PET_IN_TRANSIT_STATUS,
   EDIT_PETS_ASSIGNED,
   GET_QUESTIONS,
+
+  POST_ALERT, 
+  GET_ALERT
+
   HIDE_TRANSIT,
   GET_ALL_DONATIONS,
+
   SEND_EMAIL_REMINDER,
-  PIC_PRIMER
+  PIC_PRIMER,
+
+  SEND_EMAIL_REMINDER,
+
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -1342,6 +1350,28 @@ export const postQuestions = (question) => {
 };
 
 
+export function postAlert({description, direction, image,shelterId}) {
+  console.log(description,direction,image,shelterId)
+  return async function () {
+    
+      const post = await axios.post(`${APIGATEWAY_URL}/ShelterAlert`, {description, direction ,image ,shelterId});
+      return post;
+  }
+}
+
+export const getAlert= () => {
+  return async function (dispatch) {
+      try {
+          let json = await axios(`${APIGATEWAY_URL}/getAlerts`);
+          return dispatch({ type: GET_ALERT, payload: json.data });
+      } catch (error) {
+          return error;
+      }
+  };
+};
+
+
+
 
 export const hideTransitfromDash = (transitId, payload) => {
   return async function (dispatch) {
@@ -1386,3 +1416,4 @@ export const sendEmailReminder = (payload) => {
     return dispatch({ type: SEND_EMAIL_REMINDER, payload: emailReminder });
   };
 };
+
