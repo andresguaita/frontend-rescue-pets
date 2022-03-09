@@ -34,7 +34,7 @@ console.log("ShelterXPais",ShelterXPais)
                 <th>CANT_ADOP</th>
               </tr>
             </thead>  
-            {AdopGral?.map(p =>{
+            {AdopGral.length && AdopGral?.map(p =>{
                 for(let i=0; i<ShelterXPais.length;i++){
                   if (p.shelterId === ShelterXPais[i].id){
                     return(
