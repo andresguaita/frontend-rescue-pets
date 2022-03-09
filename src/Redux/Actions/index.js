@@ -96,7 +96,7 @@ import {
   GET_QUESTIONS,
 
   POST_ALERT, 
-  GET_ALERT
+  GET_ALERT,
 
   HIDE_TRANSIT,
   GET_ALL_DONATIONS,
@@ -104,7 +104,7 @@ import {
   SEND_EMAIL_REMINDER,
   PIC_PRIMER,
 
-  SEND_EMAIL_REMINDER,
+  
 
 } from "./types.js";
 
