@@ -3,7 +3,7 @@ import allColors from "../variables/Colors";
 import {Link} from "react-router-dom";
 import Img from "../Icos/wave2.svg"
 export const StyledDiv = styled.div `
-  margin-top: 5.1rem;
+  margin-top: 0rem;
 `;
 export const StyledNav = styled.div `
   background-color: ${
@@ -13,6 +13,8 @@ export const StyledNav = styled.div `
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   font-size: 2rem;
+  height: 6rem ;
+  align-content:  center;
 `;
 
 export const StyledLink = styled(Link)`
