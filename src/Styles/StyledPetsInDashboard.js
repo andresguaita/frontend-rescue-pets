@@ -58,7 +58,7 @@ margin: 0.2em;
   background-color: ${allColors.colors[3]};
   border-radius: 3px;
   height: 30px;
-  font-size: 10px;
+  font-size: 15px;
   width: auto;
   
   border: 0;
@@ -153,8 +153,8 @@ text-align: center;
 padding: 8px;
 padding-left: 4px;
 padding-right: 4px;
-font-size: 10px;
-
+font-size: 15px;
+font-family: "roboto";
 overflow-x:auto;
 width:1%;
 }
