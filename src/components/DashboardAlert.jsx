@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAlert,deleteAlert } from "../Redux/Actions";
 
 import { Table } from "../Styles/StyledAlert";
-import { DivContainer } from "../Styles/StyledTech.js";
+import { DivContainer } from "../Styles/StyledFormShelter";
 import { StyledButtonEditAdminPet} from '../Styles/StyledDashboardPetAdmin'
 export default function Alerta() {
   const alert = useSelector((state) => state.alert);
@@ -51,7 +51,7 @@ export default function Alerta() {
        
     </>
     </Table>):(
-          <DivContainer><h2>NO HAY ALERTAS EN ESTE MOMENTO</h2> <i className="fas fa-folder-open fa-10x"></i></DivContainer>
+          <div><h2>NO HAY ALERTAS EN ESTE MOMENTO</h2> <i className="fas fa-folder-open fa-10x"></i></div>
         )}
     </DivContainer>
   );
