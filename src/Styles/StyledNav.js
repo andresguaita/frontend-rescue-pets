@@ -16,6 +16,14 @@ background-color: ${allColors.colors[3]} ;
   .logo{
     height: 7rem ;
     margin-left: 3rem ;
+  };
+
+  h1{
+    font-family: Roboto ;
+    font-weight: bolder ;
+    color: ${allColors.colors[6]} ;
+    letter-spacing: 0.3rem ;
+    padding-right: 8rem ;
   }
 `;
 

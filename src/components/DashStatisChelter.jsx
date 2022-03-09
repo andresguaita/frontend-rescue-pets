@@ -84,9 +84,6 @@ const DetailPets=useSelector(state => state.allPets)
 
 const DetailPetsFilter = DetailPets.filter(el => el.shelterId === shelterId)
 
-// const petsAll = useSelector(state => state.petsfilter);
-// console.log("petsAll",petsAll)
-
 var cont_pets=0;
 for(let i=0; i<DetailPetsFilter.length; i++){
     if(shelterId === DetailPetsFilter[i].shelterId){
@@ -96,11 +93,8 @@ for(let i=0; i<DetailPetsFilter.length; i++){
 
 
 const enAdopcion=DetailPetsFilter.filter(el => el.petStatus.id === 1)
-// console.log("En Adopocion",enAdopcion)
 const adoptados=DetailPetsFilter.filter(el => el.petStatus.id === 2)
-// console.log("Adoptados",adoptados)
 const enProceso=DetailPetsFilter.filter(el => el.petStatus.id === 3)
-// console.log("En proceso",enProceso)
 
 const PorcentajeAdop=(adoptados.length * 100)/cont_pets
 
@@ -116,6 +110,9 @@ const porAves=(Aves.length * 100)/cont_pets
 const porCerdos=(Cerdos.length * 100)/cont_pets
 const porOtros=(Otros.length * 100)/cont_pets
 
+function formatNumber(number){
+    return new Intl.NumberFormat().format(number)
+}
 useEffect(() => {
     dispatch(getIdFromShelterAndCity(idUser))
 }, [])
@@ -135,19 +132,19 @@ useEffect(() => {
                         <CardsHeader titulo="TOTAL MASCOTAS" texto={cont_pets}  color="#6F8AB7" font="white"/>
                     </Grid>  
                     <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
-                        <CardsHeader titulo="Gatos" texto={porGatos +" %"} color="#EE6C4D" font="white"/>
+                        <CardsHeader titulo="Gatos" texto={formatNumber(porGatos) +" %"} color="#EE6C4D" font="white"/>
                     </Grid>
                     <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
-                        <CardsHeader titulo="Perros" texto={porPerros +" %"} color="#F38D68" font="white"/>
+                        <CardsHeader titulo="Perros" texto={formatNumber(porPerros) +" %"} color="#F38D68" font="white"/>
                     </Grid>
                     <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
-                        <CardsHeader titulo="Aves" texto={porAves +" %"} color="#662C91" font="white"/>
+                        <CardsHeader titulo="Aves" texto={formatNumber(porAves) +" %"} color="#662C91" font="white"/>
                     </Grid>
                     <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
-                        <CardsHeader titulo="Cerdos" texto={porCerdos +" %"} color="#17A398" font="white"/>
+                        <CardsHeader titulo="Cerdos" texto={formatNumber(porCerdos) +" %"} color="#17A398" font="white"/>
                     </Grid>
                     <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
-                        <CardsHeader titulo="Otros" texto={porOtros +" %"} color="#33312E" font="white"/>
+                        <CardsHeader titulo="Otros" texto={formatNumber(porOtros) +" %"} color="#33312E" font="white"/>
                     </Grid>
                 </Grid>                
 
@@ -165,7 +162,7 @@ useEffect(() => {
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    <Cards titulo="PORCENTAJE ADOPCIONES" texto={PorcentajeAdop +" %"}/>
+                    <Cards titulo="PORCENTAJE ADOPCIONES" texto={formatNumber(PorcentajeAdop) +" %"}/>
                     </Grid>
 
                     </Grid>
@@ -175,13 +172,6 @@ useEffect(() => {
                     <Grid item xs={12} sm={12} md={5} lg={5} xl={5} className={classes.containerGrafica}>
                         <Graphics />
                     </Grid>
-
-
-                    {/* <Grid item xs={12} className={classes.containerTabla}>
-                    <TableMaterial data={data}/>
-                    </Grid> */}
-
-
             </Grid>
         </div>
     );
