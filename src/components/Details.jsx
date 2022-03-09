@@ -41,6 +41,7 @@ const Details = () => {
 
   const pets = useSelector((state) => state.petsfilter);
   const Datos = useSelector((state) => state.petOne);
+  const PicOne = useSelector((state) => state.pic_one);
 
   const favorites = useSelector((state) => state.favorites);
   let { id } = useParams();
@@ -54,6 +55,7 @@ const Details = () => {
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
+   
 
     if (pets && Datos) {
       dispatch(getPetsSimilar(Datos, pets));
@@ -97,9 +99,10 @@ const Details = () => {
           <>
             <StyledDetailsLeft>
               <Cuadro>
-                <Imgag src={Datos[0].image} />
+                {Datos[0].image ? (<Imgag src={PicOne} />) : (<Imgag src={Datos[0].image} />)}
+                
               </Cuadro>
-              <Pics imagenes={Datos[0].image}></Pics>
+              <Pics imagenes={Datos}></Pics>
             </StyledDetailsLeft>
             <StyledDetailsRight>
               <h3> {Datos[0].name}</h3>

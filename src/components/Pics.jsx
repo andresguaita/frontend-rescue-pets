@@ -8,9 +8,11 @@ export default function Pics({imagenes}) {
     const dispatch = useDispatch();
     const picprincipal = useSelector((state) => state.pic_one);
     
- const handleClick = (ep) => {
-    dispatch(UpdatePrimerPic (ep.target.src));
+ const handleClick = (ep, imagen) => {
+    dispatch(UpdatePrimerPic (imagen));
+    console.log(imagen , "imagen")
   };
+ 
 
     let im = imagenes[0].image;
 
@@ -22,10 +24,12 @@ export default function Pics({imagenes}) {
     b = b.replace('"', '');
     b =  b.split('"').join('')
     b =  b.split('\"').join('')
+    b =  b.split(']').join('')
+    b =  b.split('[').join('')
     b = b.replace('"', '');
     b.replace("'\'", '');
     b = b.split(',');
-   
+    console.log(b, "DATA RECIBIDA PICS")
    
 
    
@@ -38,7 +42,7 @@ export default function Pics({imagenes}) {
                     {console.log(item)}
                     <ImgCard src={
                         item
-                    } onClick={(e) => handleClick(e)} />
+                    } name={item} onClick={(e) => handleClick(e, item)} />
                 </StyledCard>) : ""
             } </StyledCardContainer>
         </Fragment>
