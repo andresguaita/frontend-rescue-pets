@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 // import Colors from "../variables/Corlos"
 import { NavLink } from 'react-router-dom';
 import { startLogout } from "../Redux/Actions";
@@ -7,11 +7,13 @@ import { Button } from "../Styles/StyledLogin";
 import {StyleNavBar, StyleLi , Divmenu } from '../Styles/StyledNav';
 import { StyleInput} from '../Styles/StyledSearch'
 import Search from './Search';
+import Logo from "../Icos/Logo2.png";
 
 export default function NavbarDashboard() {
 
     const dispatch=  useDispatch()
 
+    let {shelterDetail} = useSelector(state => state)
     const handleLogout= () =>{
         dispatch(startLogout())
        
@@ -36,6 +38,8 @@ export default function NavbarDashboard() {
                             
                             </Divmenu> 
                             </ul>
+                            <h1>{shelterDetail.name}</h1>
+                            <img src={Logo} className="logo"></img>
                     </StyleNavBar>
                 
             </header>
