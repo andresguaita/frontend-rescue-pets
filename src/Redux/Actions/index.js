@@ -93,6 +93,7 @@ import {
   EDIT_PET_IN_TRANSIT_STATUS,
   EDIT_PETS_ASSIGNED,
   GET_QUESTIONS,
+  HIDE_TRANSIT,
   GET_ALL_DONATIONS
 } from "./types.js";
 
@@ -1318,6 +1319,21 @@ export const postQuestions = (question) => {
   };
 };
 
+
+
+export const hideTransitfromDash = (transitId, payload) => {
+  return async function (dispatch) {
+    const hideTransit = await axios.put(
+      `${APIGATEWAY_URL}/followUpTransit/hide/${transitId}`,
+      payload
+    );
+    return dispatch({
+      type: HIDE_TRANSIT,
+      payload: hideTransit,
+    });
+  };
+};
+
 export const getAllDonations = () =>{
   return async (dispatch) => {
     try {
@@ -1334,6 +1350,4 @@ export const getAllDonations = () =>{
     }
   };
 }
-
-
 
