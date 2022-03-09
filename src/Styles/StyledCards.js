@@ -18,7 +18,6 @@ export const StyledCard = styled.div`
   background: #fff;
   text-align: center;
   text-decoration: none;
-  
   align-self: start;
 
 
@@ -62,6 +61,7 @@ export const StyledCardContainer = styled.div`
     font-size: 12px;
     
   }
+
 `
 
 
@@ -82,7 +82,7 @@ export const StyledCardMini = styled.div`
   background: #fff;
   text-align: center;
   text-decoration: none;
-  
+
   align-self: start;
 
   
@@ -107,6 +107,7 @@ export const StyledCardMini = styled.div`
 export const ImgCard = styled.img`
  height :80%;
 image-orientation: flip;
+
  
 `;
 

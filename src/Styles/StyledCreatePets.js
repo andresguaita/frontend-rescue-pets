@@ -3,6 +3,7 @@ import allColors from "../variables/Colors";
 import Img from "../Icos/homeim1.svg"
 
 export const DivContainer = styled.div`
+
   position: absolute;
   margin-top: -12%;
   font-size: 13px;

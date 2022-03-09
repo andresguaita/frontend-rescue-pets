@@ -16,8 +16,8 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             {data.sterilization? <td>True</td> : <td>False</td> }
             <td>{data.weight}</td>
             <td>{data.description}</td>
-            {/* <td><img src={data.image} className="icos20"></img> </td> */}
-            <td><Link to=''>Editar imágenes de mascota</Link></td>
+            <td><img src={data.image[0]} className="icos20"></img> </td>
+            {/* <td><Link to=''>Editar imágenes de mascota</Link></td> */}
             <td>{data.species.specie}</td>
             {data.temperament.temperament? 
                 <td>{data.temperament.temperament}</td> :
