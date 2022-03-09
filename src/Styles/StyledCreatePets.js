@@ -3,11 +3,11 @@ import allColors from "../variables/Colors";
 import Img from "../Icos/homeim1.svg"
 
 export const DivContainer = styled.div`
-  //position: relative;
-  font-size: 18px;
+
+  position: absolute;
+  margin-top: -12%;
+  font-size: 13px;
   text-align: center;
-  margin: 2px;
-  position: fixed; 
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ export const DivContainer = styled.div`
 
 input {
     width: 50%;
-    height: 25px;
+    height: 20px;
     background: #ddf4ff !important;
     color: gray !important;
     padding-left: 5px !important;
@@ -47,7 +47,7 @@ input {
 
 select{
     width: 200px;
-    height: 25px;
+    height: 20px;
     background: #ddf4ff !important;
     color: gray !important;
     padding-left: 5px !important;
@@ -132,7 +132,7 @@ textarea{
 `;
 
 export const ButtonDelete = styled.button`
-  position: fixed;
+  position: absolute;
   margin-left: 138px;
   margin-top: 22px;
   width: 30px;
@@ -196,56 +196,4 @@ export const StyledButton = styled.input`
   background-color: ${allColors.colors[2]};
   cursor: pointer;
 }
-`
-export const P1 = styled.p`
-color: #ff0000;
-margin-left: 55%;
-margin-top: -4%;
-`
-
-export const P2 = styled.p`
-color: #ff0000;
-margin-left: 30%;
-margin-top: -4%;
-`
-
-export const P3 = styled.p`
-color: #ff0000;
-margin-left: 53%;
-margin-top: -4%;
-`
-export const P4 = styled.p`
-color: #ff0000;
-margin-left: 53%;
-margin-top: -4%;
-`
-export const P5 = styled.p`
-color: #ff0000;
-margin-left: 53%;
-margin-top: -4%;
-`
-export const P6 = styled.p`
-color: #ff0000;
-margin-left: 30%;
-margin-top: -4%;
-`
-export const P7 = styled.p`
-color: #ff0000;
-margin-left: 30%;
-margin-top: -4%;
-`
-export const P8 = styled.p`
-color: #ff0000;
-margin-left: 30%;
-margin-top: -4%;
-`
-export const P9 = styled.p`
-color: #ff0000;
-margin-left: 30%;
-margin-top: -4%;
-`
-export const CountImg = styled.p`
-/* color: #ff0000; */
-margin-left: 70%; 
-margin-top: -5%;
 `

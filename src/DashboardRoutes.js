@@ -11,7 +11,7 @@ import { ShelterProfile } from './components/ShelterProfile';
 import FollowUp from './components/FollowUp';
 import FollowUpTransit from './components/FollowUpTransit';
 import TechSupport from './components/TechSupport';
-
+import DashboardAlert from './components/DashboardAlert';
 
 
 export const DashboardRoutes = () => {
@@ -32,7 +32,7 @@ export const DashboardRoutes = () => {
                 <Route path="dashboard/config" element={<ChangePassword/>}/>
                 <Route path="dashboard/forms/view/:adoYreqid/:formtypeid/:petId/:formId" element={<AnswerFormView/>}/>
                 <Route path="dashboard/createForm" element={<DashboardCreateForm/>}/>
-             
+                <Route path="dashboard/Alert" element={<DashboardAlert/>}/>
             </Routes>
         </div>
         </div>

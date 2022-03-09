@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from "../Styles/StyledPetsInDashboard"
 
 
 const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick, handleSendReminder}) => {
@@ -15,7 +16,7 @@ const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick, handleS
             <td>{
                 
                     data.followUpDate1? <div>{data.followUpDate1.slice(0,10)}
-                    <button type='button' onClick={(event) => handleSendReminder(event, data.id, data.followUpDate1.slice(0,10))}>Enviar recordatorio</button>
+                    <Button type='button' onClick={(event) => handleSendReminder(event, data.id, data.followUpDate1.slice(0,10))}>Enviar recordatorio</Button>
                     </div>
                     : <div>Sin fecha asignada</div>
                 }    
@@ -23,7 +24,7 @@ const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick, handleS
             <td>{
                 
                 data.followUpDate2? <div>{data.followUpDate2.slice(0,10)}
-                <button type='button' onClick={(event) => handleSendReminder(event, data.id, data.followUpDate2.slice(0,10))}>Enviar recordatorio</button>
+                <Button type='button' onClick={(event) => handleSendReminder(event, data.id, data.followUpDate2.slice(0,10))}>Enviar recordatorio</Button>
                 </div>
                 : <div>Sin fecha asignada</div>
             }    
@@ -31,7 +32,7 @@ const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick, handleS
             <td>{
                 
                 data.followUpDate3? <div>{data.followUpDate3.slice(0,10)}
-                <button type='button' onClick={(event) => handleSendReminder(event, data.id, data.followUpDate3.slice(0,10))}>Enviar recordatorio</button>
+                <Button type='button' onClick={(event) => handleSendReminder(event, data.id, data.followUpDate3.slice(0,10))}>Enviar recordatorio</Button>
                 </div>
                 : <div>Sin fecha asignada</div>
             }    
@@ -39,8 +40,8 @@ const ReadOnlyRowsFollowUp = ({data, handleEditClick, handleDeleteClick, handleS
             {/* <td>{data.followUpDate2? data.followUpDate2.slice(0,10) : null}</td>
             <td>{data.followUpDate3? data.followUpDate3.slice(0,10) : null}</td> */}
             <td>
-                <button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</button>
-                <button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Ocultar</button>
+                <Button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</Button>
+                <Button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Ocultar</Button>
             </td>
         </tr>
     )
