@@ -4,7 +4,7 @@ import Img from "../Icos/homeim1.svg"
 
 export const DivContainer = styled.div`
   //position: relative;
-  font-size: 18px;
+  font-size: 12px;
   text-align: center;
   margin: 2px;
   position: fixed; 

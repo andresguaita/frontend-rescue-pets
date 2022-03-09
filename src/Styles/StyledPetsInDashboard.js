@@ -117,7 +117,6 @@ right: 0;
 /* align-self: center; */
 justify-self: right;
 font-size: 10px;
-
 &:hover {
         cursor: pointer;;
     }
