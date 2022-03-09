@@ -454,8 +454,21 @@ export const getFormAdoption = (id, formtypeId) => {
 
 export const sendAdoption = (payload) => {
   return async function (dispatch) {
-    let response = await axios.post(`${APIGATEWAY_URL}/sendAdoption`, payload);
-    return response;
+    try {
+      await axios.post(`${APIGATEWAY_URL}/sendAdoption`, payload);
+    Swal.fire(
+      "Genial!",
+      "Registro realizado correctamente. Si has sido seleccionado pronto nos comunicaremos contigo",
+      "sucess"
+    );
+    
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        "no se pudo enviar formulario",
+        "error")
+    }
+    
   };
 };
 
@@ -776,21 +789,32 @@ export const checkForm = (shelterid) => {
 
 export const sendEmailForms = (payload) => {
   return async function () {
-    let json = await axios.post(
-      `${APIGATEWAY_URL}/nodemailer/sendEmailForms`,
-      payload
-    );
-    return json;
+    try {
+      await axios.post(
+        `${APIGATEWAY_URL}/nodemailer/sendEmailForms`,
+        payload
+      );
+      console.log("mensaje enviado a usuario")
+    } catch (error) {
+      console.log('mensaje no enviado a usuario')
+    }
+    
   };
 };
 
 export const sendEmailFormstoShelter = (payload) => {
   return async function () {
-    let json = await axios.post(
-      `${APIGATEWAY_URL}/nodemailer/sendEmailFormstoShelter`,
-      payload
-    );
-    return json;
+    try {
+      await axios.post(
+        `${APIGATEWAY_URL}/nodemailer/sendEmailFormstoShelter`,
+        payload
+      );
+      console.log("mendaje enviado a shelter")
+      
+    } catch (error) {
+      console.log("mensaje no enviado a shelter")
+    }
+    
   };
 };
 
