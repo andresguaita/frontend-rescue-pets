@@ -203,6 +203,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
       };
 
       case PIC_PRIMER:
+        console.log(payload)
       return {
         ...state,
         pic_one: payload,
