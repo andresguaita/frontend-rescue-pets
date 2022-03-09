@@ -3,11 +3,10 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {checkForm, deleteAnswerForm, getForms, getFormtypes, getPetsForDashboard, resetIndivualForm} from '../Redux/Actions/index'
 import { Link, useNavigate } from 'react-router-dom'
-import {StyleButton, StyleButtonBack, StyleButtonRejected, StyleButtonView} from '../Styles/StyledButtons.js';
+import { StyleButtonRejected, StyleButtonView} from '../Styles/StyledButtons.js';
 import { StyledDashboardForms, Left } from '../Styles/StyledDashboardForms'
 import { APIGATEWAY_URL } from '../utils/constant'
-import Img from "../Icos/homeim1.svg"
-import trash from "../Icos/trash-solid.svg"
+import {BackStyl} from '../Styles/StyledFollowUpTransit'
 
 export const DashboardForms= () => {
     const dispatch = useDispatch()
@@ -32,7 +31,7 @@ export const DashboardForms= () => {
     }, [dispatch])
 
     
-    let filterimages = typeof(pet) !== 'string'? pet.map(e => {return {id:e.id,image:e.image}}) : null
+    let filterimages = typeof(pet) !== 'string'? pet.map(e => {return {id:e.id,image:e.image, name: e.name}}) : null
 
     const handleSubmitGetForm = (e) => {
         if(Number(e.target.value) === 2){
@@ -69,8 +68,7 @@ export const DashboardForms= () => {
    
     return (
             <StyledDashboardForms>
-               
-                    <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
+                    <BackStyl onClick={handleClick}>⮨</BackStyl>
                     <h1>Tabla de formularios de {typeform}</h1>
                     
                     <select name='opcion' onChange={e => handleSubmitGetForm(e)}>
@@ -78,7 +76,7 @@ export const DashboardForms= () => {
                             -- Seleccione --
                         </option>
                         {typeof(formtypes) !== 'string'? formtypes.map(element => (
-                            <option name={element.typeName} key={element.id} value={element.id}> {element.typeName}</option>
+                            element.typeName !== 'Rescate' ? <option name={element.typeName} key={element.id} value={element.id}> {element.typeName}</option>  : null
                         )): 
                         typeof(formtypes) === 'string'? (<option>{formtypes}</option>): <option>Cargando...</option>}
                     </select>
@@ -101,7 +99,7 @@ export const DashboardForms= () => {
                                 <td>
                                 {filterimages ? filterimages.map(e => {
                                     if(e.id === Number(element.petId))
-                                    {return (<div><div><h4>{element.petId}</h4></div><div><img src={`${e.image}`} width="100" height="100" /></div></div>)
+                                    {return (<div><div><h2>{e.name} : {e.id}</h2></div><div><img src={`${e.image}`} width="100" height="100" /></div></div>)
                                     }
                                 }): <h1>No lo obtiene</h1>}
                                 </td>
