@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import ShelterData from "./ShelterData";
 
 // estilos
-import { DivContenedor2, Left, Right ,StyledCardMini} from "../Styles/StyledShelterDetails";
 import {
-  
-  StyledCardContainer,
-  ImgCard,
-} from "../Styles/StyledCards.js";
+  DivContenedor2,
+  Left,
+  Right,
+  StyledCardMini,
+} from "../Styles/StyledShelterDetails";
+import { StyledCardContainer, ImgCard } from "../Styles/StyledCards.js";
 
 import "../Styles/Styles.css";
 
@@ -82,22 +83,18 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
   const handleLoadMore = () => {
     setitemsPerPage(itemsPerPage + 5);
   };
- 
-  return (
-    
-    <Fragment>
-      
-    <ShelterData Data={Data}/>
-     
-      <DivContenedor2>
-        
-        <Left>
 
-        <FiltersInShelterDetails input={input} setInput={setInput}/>
-        
+  return (
+    <Fragment>
+      <ShelterData Data={Data} />
+
+      <DivContenedor2>
+        <Left>
+          <FiltersInShelterDetails input={input} setInput={setInput} />
         </Left>
 
-        <Right><br></br> <br></br> 
+        <Right>
+          <br></br> <br></br>
           <StyledCardContainer key={Math.random(5)}>
             {typeof pets !== "string" ? (
               currentItems?.map((p) => (
@@ -119,13 +116,14 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
             ) : (
               <h1> Cargando datos</h1>
             )}
-            
+
             {/* <button onClick={handleLoadMore} className="loadmore">
                         Load More
                         </button> */}
-                        
           </StyledCardContainer>
-          <div className="page"><br></br><center>
+          <div className="page">
+            <br></br>
+            <center>
               <ul className="pageNumbers">
                 <li>
                   <button
@@ -150,11 +148,11 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
                   </button>
                 </li>
               </ul>
-          </center>  </div>
-
-          </Right>
+            </center>{" "}
+          </div>
+        </Right>
       </DivContenedor2>
-      </Fragment>
+    </Fragment>
   );
 };
 

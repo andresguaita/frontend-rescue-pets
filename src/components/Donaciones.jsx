@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import useScript from "../hooks/useScript";
-
-import styled from "styled-components";
 
 import { APIGATEWAY_URL } from "../utils/constant";
 
 const Donaciones = () => {
   const pet = useSelector((state) => state.petOne);
+  const pets = useSelector((state) => state.petsfilter);
+
   let initialData = {
     quantity: 1,
     amount: 5,
   };
 
+  let token;
   if (pet.length) {
     initialData = {
       ...initialData,
@@ -21,6 +22,16 @@ const Donaciones = () => {
       shelterId: pet[0]?.shelterId,
       petId: pet[0]?.id,
     };
+
+    token = pet[0].shelter.token;
+  }
+  if (pets.length) {
+    initialData = {
+      ...initialData,
+      description: `Donación ${pets[0]?.shelter.name}`,
+      shelterId: pets[0]?.shelterId,
+    };
+    token = pets[0].shelter.token;
   }
   const [data, setData] = useState(initialData);
   const [preferenceId, setPreferenceId] = useState(null);
@@ -50,7 +61,7 @@ const Donaciones = () => {
 
   useEffect(() => {
     if (preferenceId) {
-      const mp = new MercadoPago(pet[0].shelter.token, {
+      const mp = new MercadoPago(token, {
         locale: "es-AR",
       });
       // Inicializa el checkout
