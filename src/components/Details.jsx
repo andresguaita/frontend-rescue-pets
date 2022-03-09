@@ -86,7 +86,7 @@ const Details = () => {
       dispatch(addToFavorites(pet));
     }
   };
-  const token = Datos[0].shelter.token;
+  const token = Datos[0]?.shelter.token;
   console.log(token);
   return (
     <Fragment>
