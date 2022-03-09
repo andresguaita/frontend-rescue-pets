@@ -27,7 +27,7 @@ const EditableRowsTransit = ({data, petData, editedFormData, seteditedFormData, 
         <td>
 
           {
-            data.petsAssigned !== "empty" && data.petsAssigned.length ? data.petsAssigned.map(el =>
+            data.petsAssigned !== null && data.petsAssigned.length ? data.petsAssigned.map(el =>
               <div>{el.name}</div>
               ) : null
           }

@@ -92,7 +92,8 @@ import {
   EDIT_FOLLOW_UP_TRANSIT,
   EDIT_PET_IN_TRANSIT_STATUS,
   EDIT_PETS_ASSIGNED,
-  GET_QUESTIONS
+  GET_QUESTIONS,
+  HIDE_TRANSIT
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -1317,3 +1318,16 @@ export const postQuestions = (question) => {
   };
 };
 
+
+export const hideTransitfromDash = (transitId, payload) => {
+  return async function (dispatch) {
+    const hideTransit = await axios.put(
+      `${APIGATEWAY_URL}/followUpTransit/hide/${transitId}`,
+      payload
+    );
+    return dispatch({
+      type: HIDE_TRANSIT,
+      payload: hideTransit,
+    });
+  };
+};

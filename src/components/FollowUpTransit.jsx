@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned, hideTransitfromDash } from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -51,12 +51,15 @@ const FollowUpTransit = () => {
             })
             // console.log("petsIdAndName------------------>", petsIdAndName)
             setPetData(petsIdAndName)
-            setData(allFollowUpTransits)
+            // setData(allFollowUpTransits)
             // seteditedFormData([])
         }
     }, [petsFromShelter, allFollowUpTransits])
 
-
+    useEffect(() => {
+        const filteredTransits = allFollowUpTransits.filter(el => el.hideTransit === false)
+        setData(filteredTransits)
+      }, [allFollowUpTransits])
     
     // console.log("data-------------------->", data)
 
@@ -115,10 +118,10 @@ const FollowUpTransit = () => {
     const handleHideClick = async (event, transitId) => {
         event.preventDefault();
         const payload = {
-            hideFollowUp: true
+            hideTransit: true
         }
-        // await dispatch(hideFollowUpfromDash(transitId, payload))
-        // await dispatch(getFollowUpsFromShelter(shelterId))
+        await dispatch(hideTransitfromDash(transitId, payload))
+        await dispatch(getFollowUpTransits(shelterId))
     }
 
     const handleRemovefromTransit =  async (event, petId, el, transitId) => {
