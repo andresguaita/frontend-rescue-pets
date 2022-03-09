@@ -92,7 +92,8 @@ import {
   EDIT_FOLLOW_UP_TRANSIT,
   EDIT_PET_IN_TRANSIT_STATUS,
   EDIT_PETS_ASSIGNED,
-  GET_QUESTIONS
+  GET_QUESTIONS,
+  GET_ALL_DONATIONS
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -1316,4 +1317,23 @@ export const postQuestions = (question) => {
     }
   };
 };
+
+export const getAllDonations = () =>{
+  return async (dispatch) => {
+    try {
+      const resp = await fetchSinToken(`allDonations`);
+      const body = await resp.json();
+
+      if (body.ok) {
+        dispatch({ type: GET_ALL_DONATIONS, payload: body.allDonations });
+      } else {
+        Swal.fire("Error", body.msg, "error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+
 

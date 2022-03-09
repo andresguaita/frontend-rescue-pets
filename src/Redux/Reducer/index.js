@@ -74,7 +74,8 @@ import {
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
   GET_SHELTERS_PAISES,
-  GET_QUESTIONS
+  GET_QUESTIONS,
+  GET_ALL_DONATIONS
 
 } from "../Actions/types";
 
@@ -156,7 +157,8 @@ const initialState = {
   allAdmins: {},
   petSearchForAdmin: [],
   SheltersPaises: [],
-  allQuestions: []
+  allQuestions: [],
+  allDonations: {}
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -583,7 +585,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_STATUS_FOR_ADMIN:
               let filteredStatusForAdmin = [];
         
-              state.petsfilterforadmin.map((el) => {
+              state.petsfilterforadmin?.map((el) => {
                 if (!filteredStatusForAdmin.length) return filteredStatusForAdmin.push(el.petStatus);
                 let ele = el.petStatus.id;
                 let obj = filteredStatusForAdmin.find((sta) => sta.id === ele);
@@ -597,7 +599,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_SPECIES_FOR_ADMIN:
               let filterSpeciesForAdmin = [];
 
-              state.petsfilterforadmin.map((e) => {
+              state.petsfilterforadmin?.map((e) => {
                 if (!filterSpeciesForAdmin.length) return filterSpeciesForAdmin.push(e.species);
                 let ele = e.species.id;
                 let obj = filterSpeciesForAdmin.find((s) => s.id === ele);
@@ -619,7 +621,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_PET_GENRE_FOR_ADMIN:
               let filterGenresForAdmin = []
               
-              state.petsfilterforadmin.map((e) => {
+              state.petsfilterforadmin?.map((e) => {
                 if(!filterGenresForAdmin.length) return filterGenresForAdmin.push(e.genre)
                 let ele = e.genre.id
                 let obj = filterGenresForAdmin.find((g) => g.id === ele)
@@ -633,7 +635,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_PET_HIDE_FOR_ADMIN:
               let filterHideForAdmin = []
               
-              state.petsfilterforadmin.map((e) => {
+              state.petsfilterforadmin?.map((e) => {
                 if(!filterHideForAdmin.length) return filterHideForAdmin.push(e.hideFromDash)
                 let ele = e.hideFromDash
                 let obj = filterHideForAdmin.find((h) => h === ele)
@@ -648,7 +650,7 @@ export default function rooReducer(state = initialState, { type, payload }) {
             case GET_SHELTER_OF_PET_FOR_ADMIN:
               let filterShelterPetForAdmin = []
               
-              state.petsfilterforadmin.map((e) => {
+              state.petsfilterforadmin?.map((e) => {
                 if(!filterShelterPetForAdmin.length) return filterShelterPetForAdmin.push(e.shelter)
                 let ele = e.shelterId
                 let obj = filterShelterPetForAdmin.find(sh => sh.id === ele)
@@ -746,6 +748,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
                   }
               }
               
+            case GET_ALL_DONATIONS:
+              return{
+                ...state,
+                allDonations: payload
+              }
         default:
           return state;
       }

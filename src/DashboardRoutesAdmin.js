@@ -18,6 +18,7 @@ import { DashboardPetEditAdmin } from './components/DashboardPetEditAdmin';
 import { Sidebar } from './components/Sidebar';
 import DashboardAdminQuestions from './components/DashboardAdminQuestions';
 import {StatisHomeAdm} from './components/StatisHomeAdm'
+import { Transactions } from './components/Transactions';
 
 
 
@@ -36,6 +37,7 @@ export const DashboardRoutesAdmin = () => {
                 <Route path="dashboard/DashboardShelterAdmin" element={<DashboardShelterAdmin/>} /> 
                 <Route path="dashboard/help" element={<DashboardAdminHelp/>} /> 
                 <Route path="dashboard/questions" element={<DashboardAdminQuestions/>} /> 
+                <Route path="dashboard/donations" element={<Transactions/>} /> 
             </Routes>
         </div>
         </div>

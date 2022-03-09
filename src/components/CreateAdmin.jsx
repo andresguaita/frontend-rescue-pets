@@ -43,7 +43,7 @@ export function CreateAdmin() {
   const { allAdmins } = useSelector(state => state)
 
   useEffect(() => {
-    if(allAdmins){
+    if(allAdmins.length){
       const admins = allAdmins.filter(element => element.id != id)
     setAdmin(admins)
     }
@@ -156,7 +156,7 @@ export function CreateAdmin() {
             color="primary"
             onClick={() => handleSubmit()}
           >
-            Editar
+            Crear Registro
           </Button>
           <Button
             color="danger"

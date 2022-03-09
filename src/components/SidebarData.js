@@ -22,6 +22,11 @@ export const SidebarData = [
         link: "/admin/dashboard/DashboardShelterAdmin"
     },
     {
+        title: "Donaciones",
+        icon:  "fas fa-money-bill fa-2x",
+        link: "/admin/dashboard/donations"
+    },
+    {
         title: "Soporte",
         icon:  "fas fa-headset fa-2x",
         link: "/admin/dashboard/help"
