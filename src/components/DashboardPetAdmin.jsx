@@ -14,6 +14,7 @@ import { APIGATEWAY_URL } from '../utils/constant';
 import search from "../Icos/search-solid.svg"
 import { DashboardPetEditAdmin } from './DashboardPetEditAdmin'
 import {ModalDashboard} from './ModalDashboard'
+import PaginationAdmin from './AdminPagination'
 
 export const DashboardPetAdmin = () => {
     const dispatch = useDispatch()
@@ -41,7 +42,18 @@ export const DashboardPetAdmin = () => {
 
     const currentpets =  petsearch
 
+    /// paginación ↓ ------------- ↓
+    const [currentPage, setCurrentPAge] = useState(1);
+    const [rowsXpage, setRowsxPage] = useState(5);
 
+    let indexLastRow = currentPage * rowsXpage; //0
+    let indexFirstRow = indexLastRow - rowsXpage; //0
+    let currentRows = currentpets.slice(indexFirstRow, indexLastRow);
+    
+    const paginado = (event, pageNumber) => {
+        setCurrentPAge(pageNumber);
+    };
+    /// paginación ↑ ------------- ↑
 
     /// estados locales para modificar petición ↓
     const [currentcity, setCurrentcity] = useState()
@@ -327,7 +339,22 @@ export const DashboardPetAdmin = () => {
                 {/* filtro para la prop oculata de las mascotas ↑ */}
             </StyledDivFlexAdmin>
             <div>
-
+            <div className="paginado">
+            <select type="select" onChange={(e) => setRowsxPage(e.target.value)}>
+                <option selected disabled>--Mostrar--</option>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+            </select>
+            <PaginationAdmin
+                rowsXpage={rowsXpage}
+                helpLength={currentpets.length}
+                paginado={paginado}
+                currentPage={currentPage}
+            />
+            </div>
 
             {/* Modal de alerta antes de eliminar ↓ */}
             <ModalDashboard modal={activealert} setModal={setactivealert}>
@@ -416,7 +443,7 @@ export const DashboardPetAdmin = () => {
                         </th>
                         <th>Acciones</th>
                     </thead>
-                        {typeof(currentpets) !== 'string' && currentpets.length? currentpets.map(pet => (
+                        {typeof(currentRows) !== 'string' && currentRows.length? currentRows.map(pet => (
                            <tbody key={pet.id}>
                                 <td>{pet.id}</td>
                                 <td>{pet.name}</td>
