@@ -74,7 +74,9 @@ import {
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
   GET_SHELTERS_PAISES,
-  GET_QUESTIONS
+  GET_QUESTIONS,
+  POST_ALERT,
+  GET_ALERT
 
 } from "../Actions/types";
 
@@ -156,7 +158,8 @@ const initialState = {
   allAdmins: {},
   petSearchForAdmin: [],
   SheltersPaises: [],
-  allQuestions: []
+  allQuestions: [],
+  alert:[]
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -738,7 +741,16 @@ export default function rooReducer(state = initialState, { type, payload }) {
                     petSearchForAdmin: state.petSearchForAdmin.sort((a,b)=>{return b.name - a.name})
                   }
               }
-              
+
+              case POST_ALERT:
+                return {
+                  ...state
+                }
+              case GET_ALERT:
+                return {
+                 ...state,
+                 alert: payload
+                 }
         default:
           return state;
       }

@@ -31,6 +31,7 @@ import { DashboardRoutesAdmin } from "./DashboardRoutesAdmin";
 import { DashboardAdmin } from "./components/DashboardAdmin";
 import TechSupport from './components/TechSupport.jsx'
 import DashStatisChelter from './components/DashStatisChelter'
+import FormAlerta from "./components/FormAlerta";
 
 
 
@@ -172,8 +173,17 @@ function App() {
         <TechSupport/>
         </>
       }/>
+
+<Route path="/formAlerta" element={
+          <PublicRoute>
+           
+            <FormAlerta />
+
+          </PublicRoute>
+        } />
       </Routes>
 
+  
 
 
       <Footer />
