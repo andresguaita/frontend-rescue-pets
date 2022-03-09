@@ -18,10 +18,10 @@ export const Dashboard = () => {
     console.log(idUser , "id user")
 
 const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
-  console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
+//   console.log("ShelterAndCityINfo------------>",ShelterAndCityINfo)
   
   const shelterId = ShelterAndCityINfo.shelterId
-  console.log("shelterId------------>",shelterId)
+//   console.log("shelterId------------>",shelterId)
 
     const dispatch = useDispatch()
 
@@ -39,11 +39,11 @@ const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
             <Container>
                 <Left>
                     <img src={LogoRefugio} className="icos20" />
-                    <Link to='/dashboard/pets/FollowUpTransit'> <LeftMini>Seguimiento a Tránsitos</LeftMini> </Link>
+                    {/* <Link to='/dashboard/pets/FollowUpTransit'> <LeftMini>Seguimiento a Tránsitos</LeftMini> </Link> */}
                     {/* <Link to='/dashboard/forms'><LeftMini> Go to Answers Forms</LeftMini> </Link>
                     <Link to='/dashboard/createForm'><LeftMini>  Go to create Forms</LeftMini> </Link> */}
-                     <Link to="/dashboard/DashStatisChelter" ><LeftMini>Estadísticas</LeftMini></Link>
-                     <Link to="/dashboard/help" ><LeftMini>Soporte Técnico</LeftMini></Link>
+                     {/* <Link to="/dashboard/DashStatisChelter" ><LeftMini>Estadísticas</LeftMini></Link> */}
+                     {/* <Link to="/dashboard/help" ><LeftMini>Soporte Técnico</LeftMini></Link> */}
                 </Left>
 
                 {modaldashboard === "CreatePets" ? <CreatePets></CreatePets> : ""}
