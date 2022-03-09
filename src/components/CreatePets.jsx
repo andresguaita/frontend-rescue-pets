@@ -15,9 +15,11 @@ import {
   getPetsForDashboard
 } from "../Redux/Actions/index";
 
-import { DivContainer, DivImages,ButtonDelete} from "../Styles/StyledCreatePets";
+import { DivContainer, DivImages,ButtonDelete,
+         P1, P2, P3, P4, P5, P6, P7, P8, P9, CountImg } from "../Styles/StyledCreatePets";
 
 import { StyleButton } from "../Styles/StyledButtons.js";
+
 export function CreatePets() {
   const dispatch = useDispatch();
 
@@ -227,8 +229,9 @@ export function CreatePets() {
           name="name"
           value={state.name}
           onChange={handleChanges}
-        />{errors.name&&(<p>{errors.name}</p>)}
-        <br /> <br />
+        /><P1>{errors.name&&(<p>{errors.name}</p>)}</P1>
+        <br />
+        <br />
         <select onChange={handleSelectBoolean}>
           <option disabled selected>
             ¿Esterilizado/a?
@@ -239,7 +242,7 @@ export function CreatePets() {
           <option name="false" value={false}>
             No
           </option>
-        </select>{errors.sterilization&&(<p>{errors.sterilization}</p>)}
+        </select><P2>{errors.sterilization&&(<p>{errors.sterilization}</p>)}</P2>
         <br />
         <br />
         <input
@@ -248,7 +251,7 @@ export function CreatePets() {
           name="weight"
           value={state.weight}
           onChange={handleChanges}
-        />{errors.weight&&(<p>{errors.weight}</p>)}
+        /><P3>{errors.weight&&(<p>{errors.weight}</p>)}</P3>
         <br />
         <br />
         <input
@@ -257,7 +260,7 @@ export function CreatePets() {
           name="description"
           value={state.description}
           onChange={handleChanges}
-        />{errors.description&&(<p>{errors.description}</p>)}
+        /><P5>{errors.description&&(<p>{errors.description}</p>)}</P5>
         <br />
         <br />
         <select onChange={handleSelectSpecies}>
@@ -269,7 +272,7 @@ export function CreatePets() {
               {e.specie}
             </option>
           ))}
-        </select>{errors.speciesId&&(<p>{errors.speciesId}</p>)}
+        </select><P6>{errors.speciesId&&(<p>{errors.speciesId}</p>)}</P6>
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -281,7 +284,7 @@ export function CreatePets() {
               {e.temperament}
             </option>
           ))}
-        </select>{errors.temperamentId&&(<p>{errors.temperamentId}</p>)}
+        </select><P7>{errors.temperamentId&&(<p>{errors.temperamentId}</p>)}</P7>
         <br />
         <br />
         <select onChange={handleSelectAge}>
@@ -293,7 +296,7 @@ export function CreatePets() {
               {e.age}
             </option>
           ))}
-        </select>{errors.ageId&&(<p>{errors.ageId}</p>)}
+        </select><P8>{errors.ageId&&(<p>{errors.ageId}</p>)}</P8>
         <br />
         <br />
         <select onChange={handleSelectGenres}>
@@ -305,7 +308,7 @@ export function CreatePets() {
               {e.genre}
             </option>
           ))}
-        </select>{errors.genreId&&(<p>{errors.genreId}</p>)}
+        </select><P9>{errors.genreId&&(<p>{errors.genreId}</p>)}</P9>
         <>
           {" "}
           <br /> <br />
@@ -316,8 +319,8 @@ export function CreatePets() {
             name="file"
             placeholder="Inserte Imagen"
             onChange={(e)=>{uploadImage(e)}}
-          />{errors.image&&(<p>{errors.image}</p>)}
-          {`${state.image.length}/5`}
+          /><P4>{errors.image&&(<p>{errors.image}</p>)}</P4>
+          <CountImg>{`${state.image.length}/5`}</CountImg>
         </>
         <br /> <br />
         <StyleButton type="submit">¡Crear Mascota!</StyleButton>{" "}

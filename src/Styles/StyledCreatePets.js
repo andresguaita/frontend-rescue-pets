@@ -197,3 +197,55 @@ export const StyledButton = styled.input`
   cursor: pointer;
 }
 `
+export const P1 = styled.p`
+color: #ff0000;
+margin-left: 55%;
+margin-top: -4%;
+`
+
+export const P2 = styled.p`
+color: #ff0000;
+margin-left: 30%;
+margin-top: -4%;
+`
+
+export const P3 = styled.p`
+color: #ff0000;
+margin-left: 53%;
+margin-top: -4%;
+`
+export const P4 = styled.p`
+color: #ff0000;
+margin-left: 53%;
+margin-top: -4%;
+`
+export const P5 = styled.p`
+color: #ff0000;
+margin-left: 53%;
+margin-top: -4%;
+`
+export const P6 = styled.p`
+color: #ff0000;
+margin-left: 30%;
+margin-top: -4%;
+`
+export const P7 = styled.p`
+color: #ff0000;
+margin-left: 30%;
+margin-top: -4%;
+`
+export const P8 = styled.p`
+color: #ff0000;
+margin-left: 30%;
+margin-top: -4%;
+`
+export const P9 = styled.p`
+color: #ff0000;
+margin-left: 30%;
+margin-top: -4%;
+`
+export const CountImg = styled.p`
+/* color: #ff0000; */
+margin-left: 70%; 
+margin-top: -5%;
+`
