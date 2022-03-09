@@ -1,5 +1,5 @@
 import React from 'react'
-import { LongInput } from '../Styles/StyledPetsInDashboard'
+import { LongInput, Button } from '../Styles/StyledPetsInDashboard'
 
 const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleCancelClick, allFollowUpStatuses}) => {
     
@@ -51,8 +51,8 @@ const EditableRowsFollowUp = ({data, editFormData, handleEditFormChange, handleC
             ></input>
         </td>
         <td>
-            <button type='submit' >Guardar</button>
-            <button type='button' onClick={handleCancelClick}>Cancelar</button>
+            <Button type='submit' >Guardar</Button>
+            <Button type='button' onClick={handleCancelClick}>Cancelar</Button>
         </td>
     </tr>
   )
