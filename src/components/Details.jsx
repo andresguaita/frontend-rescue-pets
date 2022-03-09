@@ -47,6 +47,8 @@ const Details = () => {
   let id2 = window.location.pathname;
   id2 = id2.replace("/details/", "");
 
+  const token = Datos[0].shelter.token;
+
   const handleClick2 = (e) => {
     dispatch(getPetId(id));
     dispatch(getPetsSimilar(Datos, pets));
@@ -153,8 +155,7 @@ const Details = () => {
           <h1>Sin Datos</h1>
         )}{" "}
       </StyledDetails>
-
-      <Donaciones />
+      {token && <Donaciones />}
       <div>
         <FormAdoption />
       </div>
