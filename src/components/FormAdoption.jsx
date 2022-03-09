@@ -19,6 +19,7 @@ import { Centro, DivContainer, Left, Right } from "../Styles/StyledFormTransit";
 const FormAdoption = () => {
 
   const Datos = useSelector((state) => state.petOne);
+ 
   
   const dispatch = useDispatch();
   const history = useNavigate();
