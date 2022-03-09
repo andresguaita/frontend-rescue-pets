@@ -95,7 +95,8 @@ import {
   EDIT_PETS_ASSIGNED,
   GET_QUESTIONS,
   HIDE_TRANSIT,
-  GET_ALL_DONATIONS
+  GET_ALL_DONATIONS,
+  SEND_EMAIL_REMINDER
 } from "./types.js";
 
 import { APIGATEWAY_URL } from "../../utils/constant";
@@ -1362,3 +1363,16 @@ export const getAllDonations = () =>{
   };
 }
 
+
+export const sendEmailReminder = (payload) => {
+  // console.log("editableTransitId de accion", editableTransitId)
+  // console.log("payload", payload)
+  return async function (dispatch) {
+    const emailReminder = await axios.post(
+      `${APIGATEWAY_URL}/findFollowUp`,
+      payload
+    );
+    // console.log("respuesta editTransit", editTransit)
+    return dispatch({ type: SEND_EMAIL_REMINDER, payload: emailReminder });
+  };
+};
