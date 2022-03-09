@@ -18,7 +18,7 @@ export default function Cards({pets}) {
                     {/* <p>{p.description}</p> */
                     
                     }
-                   <Link to={`/details/${p.id}`}>   <ImgCard src={p.image}/></Link>
+                   <Link to={`/details/${p.id}`}>   <ImgCard src={p.image[0]}/></Link>
 
                     <br/>
                 </StyledCard>
