@@ -4,7 +4,7 @@ import {StyledPreFooter, StyledCard} from "../Styles/StyledPreFooter.js";
 import {StyleButton, StyleButtonMini} from '../Styles/StyledButtons.js';
 import {Link} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountShelter, getCountAdopted1, getCountAdopted2 } from '../Redux/Actions';
+import { getCountShelter, getCountAdopted1, getCountAdopted11 } from '../Redux/Actions';
 
 import Im1 from "../Icos/health.png";
 
@@ -18,11 +18,11 @@ var auxDatos=[];
 
 const countShelters = useSelector(state => state.countShelters)
 const countAdopted1 = useSelector(state => state.countAdopted1)
-const countAdopted2 = useSelector(state => state.countAdopted2)
+const countAdopted11 = useSelector(state => state.countAdopted11)
 
 const shelter=countShelters.count
 const adopted1=countAdopted1.count
-const adopted2=countAdopted2.count
+const adopted2=countAdopted11.count
 
 if (shelter){
   auxDatos.push(shelter)
@@ -39,7 +39,7 @@ const estado=auxDatos
 useEffect(() => {
   dispatch(getCountShelter());
   dispatch(getCountAdopted1());
-  dispatch(getCountAdopted2());
+  dispatch(getCountAdopted11());
 },[])
     return (
         <Fragment>

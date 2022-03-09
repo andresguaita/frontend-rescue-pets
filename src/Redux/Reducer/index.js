@@ -49,6 +49,7 @@ import {
   GET_FOLLOW_UPS_STATUSES,
   GET_COUNT_SHELTER,
   GET_COUNT_ADOPTED1,
+  GET_COUNT_ADOPTED11,
   GET_COUNT_ADOPTED2,
   GET_ONLY_CITIES_WITH_SHELTERS,
   REMOVE_FROM_FAVORITES,
@@ -139,6 +140,7 @@ const initialState = {
   followUpStatuses: [],
   countShelters:{},
   countAdopted1:{},
+  countAdopted11:{},
   countAdopted2:{},
   countAdopted3:{},
   allShelters: {},
@@ -538,6 +540,12 @@ export default function rooReducer(state = initialState, { type, payload }) {
               ...state,
               countAdopted1:payload
             } 
+
+          case GET_COUNT_ADOPTED11:
+          return{
+            ...state,
+            countAdopted11:payload
+          } 
 
           case GET_COUNT_ADOPTED2:
             return{
