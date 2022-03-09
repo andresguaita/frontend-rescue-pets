@@ -128,11 +128,7 @@ const FormAdoption = () => {
     }
     dispatch(sendEmailFormstoShelter(info))
     
-    Swal.fire(
-      "Genial!",
-      "Registro realizado correctamente. Si has sido seleccionado pronto nos comunicaremos contigo",
-      "sucess"
-    );
+    
     setInput([])
 
   }
