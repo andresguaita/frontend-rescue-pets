@@ -53,10 +53,6 @@ const Login = () => {
         <Container><Cuadro>
           <h1 className="header1">Iniciar sesión</h1>
           <div className='centerButtons'>
-            <button className="loginBtn loginBtn--facebook">
-              Continuar con Facebook
-            </button>
-
             <button onClick={handleGoogleLogin} class="loginBtn loginBtn--google">
               Continuar con Google
             </button>

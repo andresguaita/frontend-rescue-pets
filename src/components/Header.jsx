@@ -12,14 +12,9 @@ export default function Header() {
 
             <StyledHeaderContainer>
                 <StyledLeft>
-                    <h2>Lorem ipsum dolor sectet.
-                    </h2>
-                    <Link to="/">
-                        <StyleButton>Refugios</StyleButton>
-                    </Link>
-                    <Link to="/contacto">
-                        <StyleButton>Mascotas</StyleButton>
-                    </Link>
+                    <h1>"Respetar a los animales es una obligación, 
+                        amarlos es un privilegio"
+                    </h1>
                 </StyledLeft>
 
                 <StyledRight>
