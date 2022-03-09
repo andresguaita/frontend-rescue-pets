@@ -74,7 +74,8 @@ import {
   ORDER_BY_WEIGHT,
   ORDER_BY_NAME,
   GET_SHELTERS_PAISES,
-  GET_QUESTIONS
+  GET_QUESTIONS,
+  GET_ALL_DONATIONS
 
 } from "../Actions/types";
 
@@ -156,7 +157,8 @@ const initialState = {
   allAdmins: {},
   petSearchForAdmin: [],
   SheltersPaises: [],
-  allQuestions: []
+  allQuestions: [],
+  allDonations: {}
 };
 
 export default function rooReducer(state = initialState, { type, payload }) {
@@ -746,6 +748,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
                   }
               }
               
+            case GET_ALL_DONATIONS:
+              return{
+                ...state,
+                allDonations: payload
+              }
         default:
           return state;
       }
