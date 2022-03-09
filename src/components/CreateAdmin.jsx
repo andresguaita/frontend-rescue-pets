@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAdmin, deleteAdmin, getAllAdmin, } from '../Redux/Actions'
 import {
-  StyledDashboardPetAdmin, StyledButtonEditAdminPet,
+  StyledDashboardPetAdmin, StyledButtonEditAdminPet, StyledInputSearch, StyledInputButton, StyledDivFlexAdmin,
 
 } from "../Styles/StyledDashboardPetAdmin"
 
@@ -20,11 +20,14 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import styled from 'styled-components'
+import PaginationAdmin from './AdminPagination'
 
 export function CreateAdmin() {
   const dispatch = useDispatch();
 
   const [admin, setAdmin] = useState([])
+  const [search, setSearch] = useState('')
   const [modal, setModal] = useState(false)
   const [form, setForm] = useState({
     email: '',
@@ -32,6 +35,18 @@ export function CreateAdmin() {
     password2: '',
     roleId: ''
   })
+
+
+  const [currentPage, setCurrentPAge] = useState(1);
+  const [rowsXpage, setRowsxPage] = useState(5);
+  const [orden, setOrden] = useState('')
+  //console.log(orden)
+
+  let indexLastRow = currentPage * rowsXpage; //0
+  let indexFirstRow = indexLastRow - rowsXpage; //0
+  let currentRows = admin.slice(indexFirstRow, indexLastRow);
+
+
   const { id, rol } = useSelector(state => state)
 
   useEffect(() => {
@@ -43,11 +58,11 @@ export function CreateAdmin() {
   const { allAdmins } = useSelector(state => state)
 
   useEffect(() => {
-    if(allAdmins){
+    if (allAdmins.length) {
       const admins = allAdmins.filter(element => element.id != id)
-    setAdmin(admins)
+      setAdmin(admins)
     }
-    
+
   }, [allAdmins])
 
   const handleDelete = (id) => {
@@ -71,6 +86,12 @@ export function CreateAdmin() {
 
   }
 
+  const handleInputChange = (e) => {
+    setSearch(e.target.value)
+    filter(e.target.value)
+
+  }
+
   const handleSubmit = () => {
     dispatch(createAdmin(form.email, form.password1, form.roleId, rol))
     setForm({
@@ -88,6 +109,19 @@ export function CreateAdmin() {
       roleId: e.target.value,
     });
 
+  };
+
+  const filter = (searchTerm) => {
+    let result = allAdmins.filter((el) => {
+      if (el.email.toString().toLowerCase().includes(searchTerm.toLowerCase())) {
+        return el
+      }
+    })
+    setAdmin(result)
+  }
+
+  const paginado = (event, pageNumber) => {
+    setCurrentPAge(pageNumber);
   };
 
   return (
@@ -143,10 +177,10 @@ export function CreateAdmin() {
           <FormGroup>
             <Label >Tipo de Admin</Label>
             <Input type="select" name="roleId" onChange={handleSelect}>
-            <option selected="selected">Seleccione el tipo de Admin</option>
+              <option selected="selected">Seleccione el tipo de Admin</option>
               <option value={2}>Admin</option>
               <option value={3}>SuperAdmin</option>
-              
+
             </Input>
           </FormGroup>
         </ModalBody>
@@ -156,7 +190,7 @@ export function CreateAdmin() {
             color="primary"
             onClick={() => handleSubmit()}
           >
-            Editar
+            Crear Registro
           </Button>
           <Button
             color="danger"
@@ -168,9 +202,40 @@ export function CreateAdmin() {
       </Modal>
       <StyledDashboardPetAdmin>
         <h1>Cuentas Administradoras</h1>
+        <StyledDivFlexAdmin>
+          <form>
+            <StyledDivFlexAdmin>
+              <div>
+                <h3>BUSQUEDA</h3>
+                <StyledInputSearch type="text" placeholder="Buscar por..." value={search} onChange={handleInputChange} />
+              </div>
+              <div>
 
+                <StyledInputButton type="button" value="buscar" />
+              </div>
+
+            </StyledDivFlexAdmin>
+          </form>
+        </StyledDivFlexAdmin>
         <div>
-          <button type="button" class="btn btn-primary" onClick={createModalOpen}>Crear cuenta administrativa</button>
+          <ButtonPrimary type="button" class="btn btn-primary" onClick={createModalOpen}><span style={{ fontSize: 15 }}>Crear Cuenta Administrativa</span></ButtonPrimary>
+
+          <div className="paginado">
+            <select type="select" onChange={(e) => setRowsxPage(e.target.value)}>
+              <option selected disabled>--Mostrar--</option>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+            <PaginationAdmin
+              rowsXpage={rowsXpage}
+              helpLength={admin.length}
+              paginado={paginado}
+              currentPage={currentPage}
+            />
+          </div>
           <table>
             <thead>
               <th>
@@ -192,7 +257,7 @@ export function CreateAdmin() {
 
               {
 
-                admin.length && admin?.map(admin => (
+                currentRows.length && currentRows?.map(admin => (
 
                   <tr key={admin.id}>
                     <td>{admin.id}</td>
@@ -212,5 +277,18 @@ export function CreateAdmin() {
 
   )
 }
+
+
+const ButtonPrimary = styled.button`
+ width: 130px;
+ height: 45px;
+ background: #1E88E5;
+ border-radius: 5px;
+ border: none;
+ margin-top: 10px;
+ margin-bottom: 10px;
+ color: white;
+ cursor: pointer;
+`;
 
 export default CreateAdmin;

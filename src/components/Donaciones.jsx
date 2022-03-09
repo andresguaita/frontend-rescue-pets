@@ -9,12 +9,10 @@ import { APIGATEWAY_URL } from "../utils/constant";
 
 const Donaciones = () => {
   const pet = useSelector((state) => state.petOne);
-  console.log(pet)
   let initialData
  
   if (pet.length){
     initialData = {
-
       quantity: 1,
       description: `Donación ${pet[0]?.shelter.name}`,
       amount: 5,

@@ -15,7 +15,7 @@ import {
   getPetsForDashboard
 } from "../Redux/Actions/index";
 
-import { DivContainer } from "../Styles/StyledCreatePets";
+import { DivContainer, DivImages,ButtonDelete} from "../Styles/StyledCreatePets";
 
 import { StyleButton } from "../Styles/StyledButtons.js";
 export function CreatePets() {
@@ -47,12 +47,6 @@ export function CreatePets() {
   }, [dispatch]);
 
   const AllAges = useSelector((state) => state.allAges);
-
-  // useEffect(() => {
-  //   dispatch(getAllPetStatus());
-  // }, [dispatch]);
-
-  // const Status = useSelector((state) => state.petStatus[0]?.id); 
 
   useEffect(() => {
     dispatch(getGenres());
@@ -212,6 +206,16 @@ export function CreatePets() {
     e.preventDefault();
     dispatch(ModalDashboardOpen("icos"));
   }
+
+  ///
+  const handleDeleteImage = (imag) => {
+    setState({
+      ...state,
+      image: state.image.filter(im => im !== imag)
+    })
+  }
+  ///
+
   return (
     <DivContainer>
       <form onSubmit={handleSubmit}>
@@ -268,18 +272,6 @@ export function CreatePets() {
         </select>{errors.speciesId&&(<p>{errors.speciesId}</p>)}
         <br />
         <br />
-        {/* <select onChange={handleSelectShelter}>
-          <option disabled selected>
-            -- Seleccione Refugio --
-          </option>
-          {Shelters?.map((e) => (
-            <option value={e.id} key={e.id}>
-              {e.name}
-            </option>
-          ))}
-        </select> */}
-        <br />
-        <br />
         <select onChange={handleSelectTemperament}>
           <option disabled selected>
             -- Seleccione Temperamento --
@@ -302,18 +294,6 @@ export function CreatePets() {
             </option>
           ))}
         </select>{errors.ageId&&(<p>{errors.ageId}</p>)}
-        <br />
-        <br />
-        {/* <select onChange={handleSelectState}>
-          <option disabled selected>
-            -- Seleccione Estado --
-          </option>
-          {Status?.map((e) => (
-            <option value={e.id} key={e.id}>
-              {e.status}
-            </option>
-          ))}
-        </select> */}
         <br />
         <br />
         <select onChange={handleSelectGenres}>
@@ -345,6 +325,14 @@ export function CreatePets() {
           Cancelar
         </StyleButton>
       </form>
+      {state.image.length ? <h3>Imágenes seleccionadas</h3>: null}
+      <DivImages>
+        {state.image.length ?state.image.map(img => 
+          <div>
+              <ButtonDelete onClick={() => handleDeleteImage(img)}><i class="fas fa-trash"></i></ButtonDelete>
+              <img src={img} width="100px" height="100px"/></div>):
+          <h3>No ha selecionado imágenes</h3>}
+      </DivImages>
     </DivContainer>
   );
 }
