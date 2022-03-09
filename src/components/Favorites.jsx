@@ -7,6 +7,7 @@ import {
   StyledCardContainer,
 } from "../Styles/StyledCardShelter.js";
 import Navbar from "./Navbar";
+import { DivContainer } from "../Styles/StyledFormShelter";
 
 
 export default function Favorites() {
@@ -36,7 +37,11 @@ export default function Favorites() {
             );
            
           })
-        ) : <h2>No hay mascotas favoritas</h2>}
+        ) : <DivContainer>
+          <h2>No tienes mascotas favoritas</h2>
+          <i className="fas fa-folder-open fa-10x"></i>
+        </DivContainer>
+        }
      
     </div>
   );

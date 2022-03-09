@@ -89,7 +89,7 @@ import { APIGATEWAY_URL } from "../utils/constant.js";
           </div>
 
           <div className="campo">
-            <label>Ciudad: </label>
+            <label>Localidad: </label>
             <Styledselect id="ciudades" onChange={handleSelectCity}>
               <option disabled selected>
                 -- Seleccione --
