@@ -13,6 +13,7 @@ import {
 import { ModalDashboard } from './ModalDashboard'
 
 import styled from 'styled-components'
+import PaginationAdmin from './AdminPagination'
 
 
 
@@ -29,6 +30,20 @@ export const DashboardShelterAdmin = () => {
   })
   const [modal, setModal] = useState(false)
   const [search, setSearch] = useState('')
+
+  const [currentPage, setCurrentPAge] = useState(1);
+  const [rowsXpage, setRowsxPage] = useState(5);
+  const [orden, setOrden] = useState('')
+  //console.log(orden)
+
+  let indexLastRow = currentPage * rowsXpage; //0
+  let indexFirstRow = indexLastRow - rowsXpage; //0
+  let currentRows = shelters.slice(indexFirstRow, indexLastRow);
+
+  const paginado = (event, pageNumber) => {
+    setCurrentPAge(pageNumber);
+  };
+  //paginado
 
   useEffect(() => {
     dispatch(getAllShelters())
@@ -132,7 +147,22 @@ export const DashboardShelterAdmin = () => {
             </StyledDivFlexAdmin>
           </form>
         </StyledDivFlexAdmin>
-
+        <div className="paginado">
+          <select type="select" onChange={(e) => setRowsxPage(e.target.value)}>
+            <option selected disabled>--Mostrar--</option>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
+          <PaginationAdmin
+            rowsXpage={rowsXpage}
+            helpLength={shelters.length}
+            paginado={paginado}
+            currentPage={currentPage}
+          />
+        </div>
         <div>
           <table>
             <thead>
@@ -157,7 +187,7 @@ export const DashboardShelterAdmin = () => {
 
               {
 
-                shelters.length && shelters?.map(shelter => (
+                currentRows.length && currentRows?.map(shelter => (
 
                   <tr key={shelter.id}>
                     <td>{shelter.id}</td>
