@@ -1413,6 +1413,7 @@ export const sendEmailReminder = (payload) => {
       payload
     );
     // console.log("respuesta editTransit", editTransit)
+    Swal.fire('Ok!','Recordatorio enviado', 'success')
     return dispatch({ type: SEND_EMAIL_REMINDER, payload: emailReminder });
   };
 };
