@@ -19,6 +19,7 @@ export const Transactions = () => {
     const [search, setSearch] = useState('')
 
     const dispatch = useDispatch()
+    const { allDonations } = useSelector(state => state)
 
     useEffect(() => {
 
@@ -26,11 +27,10 @@ export const Transactions = () => {
 
     }, [dispatch])
 
-    const { allDonations } = useSelector(state => state)
 
     useEffect(() => {
         setDonation(allDonations)
-    }, [donation])
+    }, [allDonations])
 
     const handleInputChange = (e) => {
         setSearch(e.target.value)
