@@ -10,7 +10,7 @@ import CreatePets from './CreatePets'
 import {ModalDashboardPet} from './ModalDashboardPet'
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button3, DivForImageModal,DivContentForDivImage
+  Container, Center, CenterChild ,Table,Button,Button3, DivForImageModal,DivContentForDivImage, SpanStyled
 } from "../Styles/StyledPetsInDashboard"
 import Swal from 'sweetalert2';
 
@@ -273,7 +273,7 @@ const PetsInDashboard = () => {
               <thead>
               <tr>
                   <th>Nombre</th>
-                  <th>Esterelization</th>
+                  <th>Esterelización</th>
                   <th>Peso</th>
                   <th>Descripción</th>
                   <th>Imágenes</th>
