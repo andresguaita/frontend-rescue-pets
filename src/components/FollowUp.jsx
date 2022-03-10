@@ -7,7 +7,7 @@ import EditableRowsFollowUp from './EditableRowsFollowUp'
 import ReadOnlyRowsFollowUp from './ReadOnlyRowsFollowUp'
 
 import {
-  Container, Center, CenterChild ,Table,Button,Button3, 
+  Container, Center, CenterChild ,Table,Button,Button3, BackStyl, LinkBack
 } from "../Styles/StyledPetsInDashboard"
 
 
@@ -112,6 +112,10 @@ const FollowUP = () => {
     }
 
   return (
+    <div>
+                  <LinkBack to="/dashboard">
+            <BackStyl>⮨</BackStyl>
+                </LinkBack>
     <Center>
         <CenterChild>
         <form onSubmit={handleEditedFormSubmit}>
@@ -158,6 +162,7 @@ const FollowUP = () => {
       </form>
         </CenterChild>
     </Center>
+    </div>
   )
 }
 

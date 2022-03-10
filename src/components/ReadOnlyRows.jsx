@@ -13,7 +13,7 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
     return (
         <tr key={data.id}>
             <td>{data.name}</td>
-            {data.sterilization? <td>True</td> : <td>False</td> }
+            {data.sterilization? <td>Sí</td> : <td>No</td> }
             <td>{data.weight}</td>
             <td>{data.description}</td>
             <td><img src={data.image[0]} className="icos20"></img> </td>

@@ -24,9 +24,11 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
         </td>
         <td>
             <select name='sterilization' onChange={handleEditFormChange}>
-                <option value="editFormData.sterilization" hidden name='default' >{(editFormData.sterilization2.toString())}</option>
-                <option name='sterilization' value="true" >True</option>
-                <option name='sterilization' value="false" >False</option>
+                <option value="editFormData.sterilization" hidden name='default' >{
+                editFormData.sterilization2? "Sí" : "No"
+                }</option>
+                <option name='sterilization' value="true" >Sí</option>
+                <option name='sterilization' value="false" >No</option>
             </select>
         </td>
         <td>

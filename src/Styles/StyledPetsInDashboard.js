@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import allColors from "../variables/Colors";
 import Img from "../Icos/wave2.svg"
+import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
   //Contenedor
@@ -240,4 +241,48 @@ export const SpanStyled = styled.span`
   margin: 0;
   word-break: keep-all;
   text-align: center;
+`
+
+export const BackStyl = styled.button`
+/* margin-top: 2%; */
+/* margin-left: 2%; */
+background: none;
+border: none;
+padding: 0;
+outline: inherit;
+font-size: 50px;
+/* font-family: 'Space Grotesk', sans-serif; */
+font-weight: bold;
+color: ${allColors.colors[3]};
+width: 3%;
+display: flex;
+/* position: absolute; */
+/* top: 2%; */
+justify-content: left;
+height: 100px;
+
+    &:hover{
+        cursor:pointer;
+        color: ${allColors.colors[2]};
+        transition: all .6s ease
+    }
+    &:focus {
+        outline: none;
+    }
+`
+
+
+
+export const LinkBack = styled(Link)`
+color: white;
+display: flex;
+justify-content: left;
+font-size: 10 rem;
+margin-left: 2.5%;
+/* margin-top: 2%; */
+    &:hover{
+            cursor:pointer;
+            color: #26ddf2;
+            transition: all .6s ease
+        }
 `
