@@ -41,7 +41,7 @@ export const DashboardCreateForm = () => {
     let questionexistingform = existingform.length ? existingform[0].questions.map(e => e.id) : []
     
     const handleSubmitChange = (e) => {
-           if(e.target[e.target.value].attributes.name.nodeValue === formtypes[1].typeName){
+           if(e.target[e.target.value].attributes.name.nodeValue === formtypes[2].typeName){
                 settype(e.target.value)
                 
             }if(e.target[e.target.value].attributes.name.nodeValue === formtypes[0].typeName){
@@ -71,6 +71,7 @@ export const DashboardCreateForm = () => {
         if(!type || question.length === 0 || existingform.length){
             Swal.fire('Hey!','Deben llenarse los campos', 'info');
         }else{
+            console.log('Se envio la info')
             dispatch(postCreateForm(form))
             setquestion([])
             Swal.fire('Ok!','Creado con exito', 'success');
