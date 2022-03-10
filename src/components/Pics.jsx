@@ -8,8 +8,8 @@ export default function Pics({imagenes}) {
     const dispatch = useDispatch();
     const picprincipal = useSelector((state) => state.pic_one);
     
- const handleClick = (imagen) => {
-    dispatch(UpdatePrimerPic (imagen));
+ const handleClick = ( imagen) => {
+    dispatch(UpdatePrimerPic(imagen));
     console.log(imagen , "imagen")
   };
  
@@ -38,11 +38,11 @@ export default function Pics({imagenes}) {
         <Fragment>
 
             <StyledCardContainer> {
-                b.length  ? b.map((item) => <StyledCard>
+                b.length  ? b.map((item) => <StyledCard >
                     {console.log(item)}
                     <ImgCard src={
                         item
-                    } onClick={(e) => handleClick(item)} onMouseEnter={(e) => handleClick(item)} />
+                    }  onClick={(e) => handleClick(item)} onMouseEnter={(e) => handleClick(item)}  />
                 </StyledCard>) : ""
             } </StyledCardContainer>
         </Fragment>
