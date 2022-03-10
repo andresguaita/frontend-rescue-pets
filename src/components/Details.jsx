@@ -41,30 +41,34 @@ const Details = () => {
 
   const pets = useSelector((state) => state.petsfilter);
   const Datos = useSelector((state) => state.petOne);
-  const PicOne = useSelector((state) => state.pic_one);
+ 
 
   const favorites = useSelector((state) => state.favorites);
   let { id } = useParams();
   let id2 = window.location.pathname;
   id2 = id2.replace("/details/", "");
-
+let controlpic= "";
  
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
    
 
-    if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined   ) {
-      dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
-    } 
-    else  if (Datos[0]?.image[0]  ) {
-      dispatch(UpdatePrimerPic (Datos[0]?.image[0]));
-    }
-    
-    else 
-    if (Datos[0]?.image ) {
-      dispatch(UpdatePrimerPic (Datos[0]?.image));
-    }
+ if (Datos[0].image[0] == undefined && Datos[0].image == undefined   ) {
+    dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
+    controlpic = "1";
+  } 
+  else  if (Datos[0].image[0]  ) {
+    dispatch(UpdatePrimerPic (Datos[0]?.image[0]));
+    controlpic = "2";
+  }
   
+  else 
+  if (Datos[0].image ) {
+    dispatch(UpdatePrimerPic (Datos[0].image));
+    controlpic = "3";
+    
+  }
+
 
     if (pets && Datos) {
       dispatch(getPetsSimilar(Datos, pets));
@@ -78,12 +82,25 @@ const Details = () => {
   }, [dispatch]);
 
  
- 
+  const PicOne = useSelector((state) => state.pic_one);
+  
+  const handlePic = (p) => {
+    dispatch(UpdatePrimerPic(p));
+  };
 
   const handleClick2 = (e) => {
     dispatch(getPetId(id));
     dispatch(getPetsSimilar(Datos, pets));
-    dispatch(UpdatePrimerPic (PicOne));
+    
+    if (controlpic = "2") {
+      dispatch(UpdatePrimerPic (Datos[0].image[0]));
+    }
+    else
+     if   (controlpic = "3")
+    {
+      dispatch(UpdatePrimerPic (Datos[0].image)); 
+    }
+   
   };
 
 
@@ -112,7 +129,7 @@ const Details = () => {
   return (
     <Fragment>
       <Navbar />
-      <StyledDetails onPointerEnter={(e) => handleClick2(e)}>
+      <StyledDetails onPointerEnter={(e) => {handleClick2(e) }} >
         {" "}
         {Datos.length ? (
           <>
