@@ -1380,7 +1380,7 @@ export function postAlert({description, direction, image,shelterId}) {
   return async function () {
     
       const post = await axios.post(`${APIGATEWAY_URL}/ShelterAlert`, {description, direction ,image ,shelterId});
-      Swal.fire('Ok!','Alerta Enviada!', 'success')
+    
       return post;
   }
 }
