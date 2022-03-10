@@ -1443,3 +1443,18 @@ export const sendEmailReminder = (payload) => {
   };
 };
 
+
+
+export const sendEmailNotificationTransit = (payload) => {
+  // console.log("editableTransitId de accion", editableTransitId)
+  // console.log("payload", payload)
+  return async function (dispatch) {
+    const emailNotification = await axios.post(
+      `${APIGATEWAY_URL}/findFollowUpTransit`,
+      payload
+    );
+    // console.log("respuesta editTransit", editTransit)
+    Swal.fire('Ok!','Notificación enviada', 'success')
+    return dispatch({ type: SEND_EMAIL_REMINDER, payload: emailNotification });
+  };
+};
