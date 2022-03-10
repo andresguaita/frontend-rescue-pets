@@ -255,7 +255,7 @@ const PetsInDashboard = () => {
                       onChange={(e)=>{handleAddImage(e)}}
                     />
                 <DivContentForDivImage>
-                  {editFormData.image ? editFormData.image.map((i,index)=> (
+                  {editFormData.image ? editFormData.image.map((i)=> (
                     i?<DivForImageModal>
                         <button onClick={() => handleDeleteImage(i)}><i class="fas fa-trash"></i></button>
                         <img src={i}/>
