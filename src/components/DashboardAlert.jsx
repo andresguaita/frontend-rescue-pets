@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAlert } from "../Redux/Actions";
+import { getAlert,deleteAlert } from "../Redux/Actions";
+
 import { Table } from "../Styles/StyledAlert";
 import { DivContainer } from "../Styles/StyledTech.js";
-
+import { StyledButtonEditAdminPet} from '../Styles/StyledDashboardPetAdmin'
 export default function Alerta() {
   const alert = useSelector((state) => state.alert);
   const dispatch = useDispatch();
@@ -12,10 +13,18 @@ export default function Alerta() {
     dispatch(getAlert());
   }, [dispatch]);
 
+  const handleSubmit = (id) => {
+    console.log(id)
+    dispatch(deleteAlert(id))
+   
+  }
 
+  
+ 
   return (
     <DivContainer>
-    <Table>
+    {alert.length?
+   ( <Table>
     <>
     <h2 className="text-center" >MIS ALERTAS</h2>
       <table align="center" >
@@ -23,22 +32,27 @@ export default function Alerta() {
           <th>Direccion</th>
           <th>Descripción</th>
           <th>Imagen</th>
+          <th>Eliminar Alerta</th>
         </thead>
         {alert.length ? (
           alert.map((alert) => (
-            <tbody key={alert.id}>
+        
+            <tbody key={alert.id} id={alert.id}>
               <td>{alert.direction}</td>
               <td>{alert.description}</td>
               <img src={alert.image} width='150 px' height='150 px'/>
+              <td>{<StyledButtonEditAdminPet onClick={() => handleSubmit(alert.id)}><i className="fas fa-edit"></i></StyledButtonEditAdminPet>}</td>
             </tbody>
           ))
         ) : (
-          <p>Cargando...</p>
+          <DivContainer><h2 >NO HAY ALERTAS EN ESTE MOMENTO</h2></DivContainer>
         )}
       </table>
        
     </>
-    </Table>
+    </Table>):(
+          <DivContainer><h2>NO HAY ALERTAS EN ESTE MOMENTO</h2> <i className="fas fa-folder-open fa-10x"></i></DivContainer>
+        )}
     </DivContainer>
   );
 }

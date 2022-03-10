@@ -2,7 +2,6 @@ import styled from "styled-components";
 import allColors from "../variables/Colors";
 
 export const StyledHeaderContainer = styled.div`
-  padding-top: 8em;
   text-align: center;
   width: 100%;
   height: 70%;
@@ -24,6 +23,7 @@ export const StyledLeft = styled.div`
   color: ${allColors.colors[3]};
   h1{
     font-size: 55px;
+    color: ${allColors.colors[8]} ;
   }
 `;
 

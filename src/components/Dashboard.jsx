@@ -45,7 +45,7 @@ const ShelterAndCityINfo = useSelector(state => state.ShelterAndCityId)
 
                      {/* <Link to="/dashboard/DashStatisChelter" ><LeftMini>Estadísticas</LeftMini></Link> */}
                      {/* <Link to="/dashboard/help" ><LeftMini>Soporte Técnico</LeftMini></Link> */}
-                     {/*<Link to="/dashboard/Alert" ><LeftMini>Mis Alertas</LeftMini></Link>*/}
+                     <Link to="/dashboard/Alert" ><LeftMini>Mis Alertas</LeftMini></Link>
 
                 </Left>
 

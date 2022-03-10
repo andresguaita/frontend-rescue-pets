@@ -24,6 +24,7 @@ import {
   Input,
 } from "reactstrap";
 import PaginationAdmin from "./AdminPagination.jsx";
+import {StyledHeaderAdmin} from "../Styles/StyledHeaderAdmin"
 
 const DashboardAdminHelp = () => {
   const dispatch = useDispatch();
@@ -278,8 +279,11 @@ const DashboardAdminHelp = () => {
         </ModalFooter>
       </Modal>
 
-      <StyledDashboardPetAdmin>
+      <StyledHeaderAdmin>
         <h1>Tickets de Soporte Técnico</h1>
+        </StyledHeaderAdmin>
+      <StyledDashboardPetAdmin>
+
 
         <StyledDivFlexAdmin>
           <form>

@@ -79,8 +79,8 @@ import {
 
   POST_ALERT,
   GET_ALERT,
-  GET_ALL_DONATIONS
-
+  GET_ALL_DONATIONS,
+  DELETE_ALERT
 
 } from "../Actions/types";
 
@@ -782,6 +782,11 @@ export default function rooReducer(state = initialState, { type, payload }) {
                 ...state,
                 allDonations: payload
               }
+              case DELETE_ALERT:
+                return {
+                  ...state,
+                }
+
         default:
           return state;
       }

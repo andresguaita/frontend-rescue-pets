@@ -22,6 +22,7 @@ import {
 } from "reactstrap";
 import styled from 'styled-components'
 import PaginationAdmin from './AdminPagination'
+import {StyledHeaderAdmin} from "../Styles/StyledHeaderAdmin"
 
 export function CreateAdmin() {
   const dispatch = useDispatch();
@@ -200,8 +201,13 @@ export function CreateAdmin() {
           </Button>
         </ModalFooter>
       </Modal>
+
+<StyledHeaderAdmin>
+<h1>Cuentas Administradoras</h1>
+</StyledHeaderAdmin>
+
       <StyledDashboardPetAdmin>
-        <h1>Cuentas Administradoras</h1>
+        
         <StyledDivFlexAdmin>
           <form>
             <StyledDivFlexAdmin>
@@ -209,11 +215,7 @@ export function CreateAdmin() {
                 <h3>BUSQUEDA</h3>
                 <StyledInputSearch type="text" placeholder="Buscar por..." value={search} onChange={handleInputChange} />
               </div>
-              <div>
-
-                <StyledInputButton type="button" value="buscar" />
-              </div>
-
+          
             </StyledDivFlexAdmin>
           </form>
         </StyledDivFlexAdmin>
