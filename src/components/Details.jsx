@@ -48,14 +48,23 @@ const Details = () => {
   let id2 = window.location.pathname;
   id2 = id2.replace("/details/", "");
 
-  const handleClick2 = (e) => {
-    dispatch(getPetId(id));
-    dispatch(getPetsSimilar(Datos, pets));
-  };
-
+ 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
    
+
+    if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined   ) {
+      dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
+    } 
+    else  if (Datos[0]?.image[0]  ) {
+      dispatch(UpdatePrimerPic (Datos[0]?.image[0]));
+    }
+    
+    else 
+    if (Datos[0]?.image ) {
+      dispatch(UpdatePrimerPic (Datos[0]?.image));
+    }
+  
 
     if (pets && Datos) {
       dispatch(getPetsSimilar(Datos, pets));
@@ -68,21 +77,15 @@ const Details = () => {
     }
   }, [dispatch]);
 
-  if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined   ) {
-    dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
-  } 
-  else  if (Datos[0]?.image[0]  ) {
-    dispatch(UpdatePrimerPic (Datos[0]?.image[0]));
-  }
-  
-  else 
-  if (Datos[0]?.image ) {
-    dispatch(UpdatePrimerPic (Datos[0]?.image));
-  }
-
+ 
  
 
-  
+  const handleClick2 = (e) => {
+    dispatch(getPetId(id));
+    dispatch(getPetsSimilar(Datos, pets));
+    dispatch(UpdatePrimerPic (PicOne));
+  };
+
 
   const pet = {
     id: id,

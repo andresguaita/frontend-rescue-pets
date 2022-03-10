@@ -57,7 +57,7 @@ export function SimilarPets() {
               <StyledCard key={e.id}>
                 {" "}
                 <h1>{e.name} </h1>
-                <ImgCard src={e.image} />
+                <ImgCard src={ e.image ? e.image : e.image[0]} />
                 <br />
               </StyledCard>
             </Link>
