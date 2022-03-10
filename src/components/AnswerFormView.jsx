@@ -56,14 +56,14 @@ export const AnswerFormView = () => {
             }))
         }    
         dispatch(setFormStatus(true,Number(formId),Number(adoYreqid)))
-        dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid)}))
+        dispatch(sendEmailAccepted({email:profile.user.email,type:Number(formtypeid),humaname:profile.name+' '+profile.lastName}))
         if(petId){dispatch(updatePetStatus(petId, {petStatusId: 2}))}      
     }
 
     const handleDeny = () => {
         Swal.fire('Ups!','Peticion Denegada', 'error');
         dispatch(setFormStatus(false,Number(formId),Number(adoYreqid)))
-        dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid)}))
+        dispatch(sendEmailRejected({email:profile.user.email,type:Number(formtypeid),humaname:profile.name+' '+profile.lastName}))
     }
 
     return (<StyledAnswersView>
