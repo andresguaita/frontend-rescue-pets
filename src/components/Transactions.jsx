@@ -7,7 +7,7 @@ import {
     StyledDashboardPetAdmin, StyledDivFlexAdmin,
     StyledInputSearch, StyledInputButton,
 } from "../Styles/StyledDashboardPetAdmin"
-
+import {StyledHeaderAdmin} from "../Styles/StyledHeaderAdmin"
 
 
 
@@ -50,19 +50,17 @@ export const Transactions = () => {
 
     return (
         <>
-
+        <StyledHeaderAdmin>
+        <h1>Donaciones a los Refugios</h1>
+        </StyledHeaderAdmin>
             <StyledDashboardPetAdmin>
-                <h1>Donaciones a los Refugios</h1>
+                
                 <StyledDivFlexAdmin>
                     <form>
                         <StyledDivFlexAdmin>
                             <div>
                                 <h3>BUSQUEDA</h3>
                                 <StyledInputSearch type="text" placeholder="Buscar nombre de refugio" value={search} onChange={handleInputChange} />
-                            </div>
-                            <div>
-
-                                <StyledInputButton type="button" value="buscar" />
                             </div>
 
                         </StyledDivFlexAdmin>

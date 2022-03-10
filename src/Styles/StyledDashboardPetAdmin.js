@@ -65,10 +65,16 @@ export const StyledDashboardPetAdmin = styled.div`
         justify-content: space-evenly ;
 
         select{
-          width: 100px ;
-          height: 20px ;
-          font-size: 12px ;
+          width: 120px ;
+          
+          height: 27px ;
+          font-size: 15px ;
           border-radius: 3px ;
+          background-color: rgba(204, 194, 234, 0.6);
+          padding: 0.2rem ;
+          border-color: ${allColors.colors[1]};
+          font-family: roboto ;
+         
         }
       }
   `;

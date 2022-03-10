@@ -26,7 +26,8 @@ export default function PaginationAdmin({
       variant="outlined" 
       color="primary"
       page={currentPage}
-      onChange={paginado} />
+      onChange={paginado}
+       />
     </div>
   );
 }

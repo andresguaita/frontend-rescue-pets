@@ -14,7 +14,7 @@ import { ModalDashboard } from './ModalDashboard'
 
 import styled from 'styled-components'
 import PaginationAdmin from './AdminPagination'
-
+import {StyledHeaderAdmin} from "../Styles/StyledHeaderAdmin"
 
 
 
@@ -129,8 +129,14 @@ export const DashboardShelterAdmin = () => {
         </ButtonContain>
 
       </ModalDashboard>
-      <StyledDashboardPetAdmin>
+
+    
+      <StyledHeaderAdmin>
         <h1>Refugios</h1>
+        </StyledHeaderAdmin>
+
+      <StyledDashboardPetAdmin>
+      
 
         <StyledDivFlexAdmin>
           <form>
@@ -139,10 +145,7 @@ export const DashboardShelterAdmin = () => {
                 <h3>BUSQUEDA</h3>
                 <StyledInputSearch type="text" placeholder="Buscar por..." value={search} onChange={handleInputChange} />
               </div>
-              <div>
-
-                <StyledInputButton type="button" value="buscar" />
-              </div>
+              
 
             </StyledDivFlexAdmin>
           </form>
