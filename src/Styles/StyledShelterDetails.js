@@ -136,6 +136,25 @@ export const DivContenedor2 = styled.div `
     }
 `;
 
+export const DivContenedor3 = styled.div `
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  box-shadow: 0 0 15px #b8b9ba;
+  border-radius: 12px; 
+  margin:  0 50px;
+  background-image: url(${Img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: ${
+    allColors.colors[8]
+};
+  align-items: center;
+  justify-content: space-around;
+  
+`;
+
 export const FormStyle = styled.form `
   background-color: ${
     allColors.colors[8]

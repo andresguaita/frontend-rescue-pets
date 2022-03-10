@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import useScript from "../hooks/useScript";
+import {StyledDonacion} from "../Styles/StylesDonaciones.jsx"
 
 import { APIGATEWAY_URL } from "../utils/constant";
 
@@ -94,7 +95,11 @@ const Donaciones = () => {
   console.log("preference: ", preferenceId);
   console.log("data: ", data);
   return (
-    <div>
+    <StyledDonacion>
+      <h3>Ayudá al refugio con una donación</h3>
+      <p>así, podrán rescatar mas mascotas</p>
+      <label>Selecciona el monto (u$s)</label>
+      <p>Al clickear en "Donar" el monto pasara a tu moneda local</p>
       <input
         onChange={handleChange}
         value={data.amount}
@@ -102,7 +107,7 @@ const Donaciones = () => {
         type="number"
       ></input>
       <div className="cho-container"></div>
-    </div>
+    </StyledDonacion>
   );
 };
 

@@ -143,7 +143,7 @@ image-orientation: flip;
 `;
 
 export const ImgCardFlag = styled.img`
- height :10%;
+ height :30px;
 image-orientation: flip;
  
 `;
