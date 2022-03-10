@@ -129,17 +129,19 @@ export const StyleButtonRejected = styled.button`
 `;
 
 export const StyleButtonView = styled.button`
+  position: absolute;
+  margin-left: -60px;
+  margin-top: -35px;
   width: 120px;
   font-size: 20px;
   border-radius: 10px;
   border-style: none;
   box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   &:hover{
-    background-color: ${allColors.colors[8]};
-    position: absolute;
-    z-index: 2;
+    postion: absolute;
     margin-left: -65px;
-    margin-top: -28px;
+    background-color: ${allColors.colors[8]};
+    z-index: 2;
     height: 60px;
     width: 130px;
   }
