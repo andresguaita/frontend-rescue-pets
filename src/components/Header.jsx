@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {StyledImg, StyledHeaderContainer, StyledLeft, StyledRight} from '../Styles/StyledHeader.js';
 import {StyleButton} from '../Styles/StyledButtons.js';
 import {Link} from "react-router-dom";
-import pets1 from "../Icos/pets2.jpg"
+import pets1 from "../Icos/pets2-removebg-preview.png"
 
 
 export default function Header() {
