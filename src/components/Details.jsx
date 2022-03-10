@@ -114,8 +114,7 @@ const Details = () => {
       dispatch(addToFavorites(pet));
     }
   };
-  const token = Datos[0]?.shelter.token;
-  console.log(token);
+  
   return (
     <Fragment >
       <Navbar />
@@ -196,7 +195,7 @@ const Details = () => {
           <h1>Sin Datos</h1>
         )}{" "}
       </StyledDetails>
-      {token && <Donaciones />}
+      
       <div>
         <FormAdoption />
       </div>

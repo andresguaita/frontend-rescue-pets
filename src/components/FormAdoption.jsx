@@ -14,12 +14,13 @@ import TerminosyCondiciones from "./TerminosyCondiciones";
 import Img from "../Icos/homeim5.svg"
 //estilos
 import { Centro, DivContainer, Left, Right } from "../Styles/StyledFormTransit";
-
+import Donaciones from "./Donaciones.jsx";
 
 const FormAdoption = () => {
 
   const Datos = useSelector((state) => state.petOne);
- 
+  const token = Datos[0]?.shelter.token;
+  console.log(token);
   
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -136,12 +137,14 @@ const FormAdoption = () => {
 
   return (
     <Fragment>
-      <Centro><br></br><h1>Formulario de Adopción</h1>
-    <p>Estas a un paso de cambiar una vida</p>
+      <Centro><br></br>
+    
     <DivContainer>
    
       <Left>
-     
+      <h1>Formulario de Adopción</h1>
+      <p>Estas a un paso de cambiar una vida</p>
+      
       <form className="formulario">
      
       <br/>  <br/> <br/>
@@ -255,7 +258,7 @@ const FormAdoption = () => {
       </form>
       </Left>
       <Right>
-
+      {token && <Donaciones />}
 <img src={Img} className="icos40"></img>
       </Right>
       </DivContainer> <br/> <br/> </Centro>
