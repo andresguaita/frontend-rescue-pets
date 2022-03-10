@@ -12,7 +12,7 @@ const ShelterDetailNav = ({id}) => {
 
   return (
    <Fragment>
-     <StyledNav style={{display: 'flex', justifyContent: 'center' , alignItems: 'center'}}>
+     <StyledNav >
         <StyledLink to={`/shelters/${id}`}>Ver Todas las Mascotas</StyledLink>
         {
          email===null && <StyledLink to={`/shelters/${id}/form`}>Quiero ser un hogar de Tránsito</StyledLink>
