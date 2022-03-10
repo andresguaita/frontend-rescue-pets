@@ -2,7 +2,7 @@ import React from 'react'
 import {Center, CenterChild, Table, LinkBack, BackStyl} from '../Styles/StyledFollowUpTransit'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, Fragment } from 'react'
-import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned, hideTransitfromDash } from '../Redux/Actions'
+import { getFollowUpTransits, getPetsForDashboard, editFollowUpTransit, editPetInTransitStatus, editPetsAssigned, hideTransitfromDash, sendEmailNotificationTransit} from '../Redux/Actions'
 import { APIGATEWAY_URL } from '../utils/constant';
 import EditableRowsTransit from './EditableRowsTransit'
 import ReadOnlyRowsTransit from './ReadOnlyRowsTransit'
@@ -145,6 +145,21 @@ const FollowUpTransit = () => {
 
     }
 
+    const handleSendEmailNotification =  async (event, transitId) => {
+        event.preventDefault();
+        console.log("transitId-------------->", transitId)
+        const payload = {
+            transitId: transitId
+        }
+        // console.log("arreglo-------------->", arreglo)
+        // console.log("transitId-------------->", transitId)
+        // console.log("data recieved-------------->", petId)
+        await dispatch(sendEmailNotificationTransit(payload))
+        await dispatch(getFollowUpTransits(shelterId))
+
+
+    }
+
 
     return (
         <div>
@@ -184,6 +199,7 @@ const FollowUpTransit = () => {
                                     handleEditClick={handleEditClick}
                                     handleHideClick={handleHideClick}
                                     handleRemovefromTransit={handleRemovefromTransit}
+                                    handleSendEmailNotification={handleSendEmailNotification}
                                     />
                                     )}
                             </Fragment>

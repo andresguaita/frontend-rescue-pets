@@ -1,6 +1,6 @@
 import {Button} from '../Styles/StyledFollowUpTransit'
 
-const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick, handleRemovefromTransit}) => {
+const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick, handleRemovefromTransit, handleSendEmailNotification}) => {
     
     return (
         <tr key={data.id}>
@@ -11,7 +11,7 @@ const ReadOnlyRowsTransit = ({data, handleEditClick, handleHideClick, handleRemo
             {Array.isArray(data.petsAssigned) ? data.petsAssigned.map(el => 
                 <div>
                     <td>{el.name}<Button type='button' onClick={(event)=> handleRemovefromTransit(event, el.id, el, data.id)}>X</Button></td>
-                    
+                    <td><Button type='button' onClick={(event)=> handleSendEmailNotification(event, data.id)}>Enviar notificación</Button></td>
                 </div>
             )
             : <td>Sin mascotas asignadas</td> 
