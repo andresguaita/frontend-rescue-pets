@@ -60,7 +60,7 @@ a{
 
 export const Right = styled.div`
   width: 70%;
-  padding: 48px;
+  padding:  40px 15px 40px 40px;
   margin: 19px;
   box-shadow: 0 0 15px #b8b9ba;
   border-radius: 12px;
