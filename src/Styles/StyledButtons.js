@@ -46,9 +46,9 @@ export const StyleButtonUbicacion = styled.button`
   margin: 0em;
   background-color: ${allColors.colors[3]};
   border-radius: 5px;
-  height: 50px;
+  height: 7rem;
   font-size: 12px;
-  padding: 6px;
+  padding: 6px 7px;
   border: 0;
   font-weight: bold;
   color : white;

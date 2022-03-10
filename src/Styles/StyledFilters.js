@@ -4,7 +4,8 @@ export const Container = styled.div`
   display: flex;
   margin-top: 2%;
   justify-content: center;
-  padding:25px;
+  align-items: center ;
+  padding: 0 30px;
 `;
 export const SelectStyle = styled.select`
   width: 100%;
