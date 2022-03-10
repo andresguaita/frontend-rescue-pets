@@ -65,6 +65,7 @@ export const StyledCardContainer = styled.div`
     padding: 3px;
     color: ${allColors.colors[3]};
     
+    
   }
   
   p{
@@ -86,6 +87,12 @@ export const StyledInfo = styled.div`
 color: ${allColors.colors[2]};
 background-color: ${allColors.colors[8]};
 text-align: center;
+margin-bottom : 0px !important;
+
+
+h1{
+  margin-bottom : 0px !important;
+}
  
 `;
 
@@ -93,5 +100,11 @@ export const StyledInfo2 = styled.div`
 color: white;
 background-color: ${allColors.colors[8]};
 text-align: center;
+margin-bottom : 0px !important;
+
+h1{
+  margin-bottom : 0px !important;
+  padding: 20px ;
+}
  
 `;

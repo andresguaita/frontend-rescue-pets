@@ -26,7 +26,7 @@ import {
   StyleButtonBack,
   StyleButtonMini,
 } from "../Styles/StyledButtons.js";
-import { getPetsSimilar , UpdatePrimerPic } from "../Redux/Actions/index.js";
+import { getPetsSimilar, UpdatePrimerPic } from "../Redux/Actions/index.js";
 import Navbar from "./Navbar";
 import Espe from "../Icos/espe.png";
 import House from "../Icos/house.png";
@@ -41,34 +41,30 @@ const Details = () => {
 
   const pets = useSelector((state) => state.petsfilter);
   const Datos = useSelector((state) => state.petOne);
- 
 
   const favorites = useSelector((state) => state.favorites);
   let { id } = useParams();
   let id2 = window.location.pathname;
   id2 = id2.replace("/details/", "");
-let controlpic= "";
- 
+  let controlpic = "";
+
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-   
 
- if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined   ) {
-    dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
-    controlpic = "1";
-  } 
-  else  if (Datos[0].image[0]  ) {
-    dispatch(UpdatePrimerPic (Datos[0]?.image[0]));
-    controlpic = "2";
-  }
-  
-  else 
-  if (Datos[0].image ) {
-    dispatch(UpdatePrimerPic (Datos[0].image));
-    controlpic = "3";
-    
-  }
-
+    if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined) {
+      dispatch(
+        UpdatePrimerPic(
+          "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"
+        )
+      );
+      controlpic = "1";
+    } else if (Datos[0].image[0]) {
+      dispatch(UpdatePrimerPic(Datos[0]?.image[0]));
+      controlpic = "2";
+    } else if (Datos[0].image) {
+      dispatch(UpdatePrimerPic(Datos[0].image));
+      controlpic = "3";
+    }
 
     if (pets && Datos) {
       dispatch(getPetsSimilar(Datos, pets));
@@ -81,9 +77,8 @@ let controlpic= "";
     }
   }, [dispatch]);
 
- 
   const PicOne = useSelector((state) => state.pic_one);
-  
+
   const handlePic = (p) => {
     dispatch(UpdatePrimerPic(p));
   };
@@ -91,18 +86,13 @@ let controlpic= "";
   const handleClick2 = (e) => {
     dispatch(getPetId(id));
     dispatch(getPetsSimilar(Datos, pets));
-    
-    if (controlpic = "2") {
-      dispatch(UpdatePrimerPic (Datos[0].image[0]));
-    }
-    else
-     if   (controlpic = "3")
-    {
-      dispatch(UpdatePrimerPic (Datos[0].image)); 
-    }
-   
-  };
 
+    if ((controlpic = "2")) {
+      dispatch(UpdatePrimerPic(Datos[0].image[0]));
+    } else if ((controlpic = "3")) {
+      dispatch(UpdatePrimerPic(Datos[0].image));
+    }
+  };
 
   const pet = {
     id: id,
@@ -127,20 +117,31 @@ let controlpic= "";
   const token = Datos[0]?.shelter.token;
   console.log(token);
   return (
-    <Fragment>
+    <Fragment >
       <Navbar />
-      <StyledDetails onPointerEnter={(e) => {handleClick2(e) }} >
+      <StyledDetails  
+        onPointerEnter={(e) => {
+          handleClick2(e);
+        }}
+      >
         {" "}
         {Datos.length ? (
           <>
-            <StyledDetailsLeft  >
+            <StyledDetailsLeft onPointerEnter={(e) => {
+      handleClick2(e);
+    } }>
               <Cuadro>
+                {" "}
                 {/* {PicOne ? (<Imgag src={PicOne} />) : Datos[0].image < 1 ? (<Imgag src={Datos[0].image[0]} />): (<Imgag src={Datos[0].image} />)} */}
+               
+               
                 <Imgag src={PicOne} />
               </Cuadro>
               <Pics imagenes={Datos}></Pics>
             </StyledDetailsLeft>
-            <StyledDetailsRight>
+            <StyledDetailsRight onPointerEnter={(e) => {
+      handleClick2(e);
+    } } >
               <h3> {Datos[0].name}</h3>
 
               <h1> {Datos[0].description}</h1>
@@ -184,7 +185,9 @@ let controlpic= "";
                   }}
                 >
                   <img src={Hueso} className="icos"></img>
-                  {isFavorite ? "Eliminar de favoritos" : "Agregar a favoritos"}
+                  {isFavorite
+                    ? "Eliminar de favoritos"
+                    : "Agregar a favoritos"}{" "}
                 </StyleButtonMini>
               </center>
             </StyledDetailsRight>
@@ -197,8 +200,7 @@ let controlpic= "";
       <div>
         <FormAdoption />
       </div>
-
-      {Datos.length ? <SimilarPets  /> : ""}
+      {Datos.length ? <SimilarPets /> : ""}{" "}
     </Fragment>
   );
 };

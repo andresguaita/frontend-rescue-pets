@@ -102,7 +102,7 @@ export const StyledCardMini = styled.div`
   background-color: ${allColors.colors[3]};
   border-radius: 4px;
   padding-top: 1em;
-  margin: 1%;
+  margin: 1.5%;
   transition: top ease 0.5s;
   cursor: pointer;
   text-decoration: none;
