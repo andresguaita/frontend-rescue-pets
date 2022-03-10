@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import { ImgCard} from '../Styles/StyledCards.js';
 import { StyledCard } from "../Styles/StyledCards.js";
 import { Link } from "react-router-dom";
+import {StyledLink} from "../Styles/StyledShelterDetails"
+import allColors from "../variables/Colors.js";
 
 
 export default function FavoritesCard({
@@ -19,12 +21,8 @@ export default function FavoritesCard({
     
 
   return (<Fragment >
-     <br/>
-    <div>
-      <h1>Tu mascota favorita</h1>
-
-      <div>
-      <Link to={`/details/${id}`}>
+    
+      <StyledLink to={`/details/${id}`} style={{color:`${allColors.colors[2]}`}}>
         <StyledCard>
           <h1>{name}</h1>
           <h3>
@@ -33,8 +31,8 @@ export default function FavoritesCard({
           <ImgCard src={image}/>
           <br/>
         </StyledCard>
-        </Link>
-      </div>
-    </div>
+        </StyledLink>
+      
+    
     </Fragment> );
 }

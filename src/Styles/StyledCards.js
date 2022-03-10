@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import allColors from "../variables/Colors";
+import Img from "../Icos/homeim2.svg"
 
 export const StyledCard = styled.div`
   height: 390px ;
@@ -46,6 +47,36 @@ export const StyledCardContainer = styled.div`
   align-items: center;
   justify-content: space-around; 
   text-decoration: none;
+  a{
+    color:  ${allColors.colors[2]}
+  }
+  h1{
+    text-align: center !important;
+    padding: 1px;
+    
+  }
+  
+  p{
+    text-align: center !important;
+    color: ${allColors.colors[2]};
+    font-size: 12px;
+    
+  }
+
+`
+
+export const StyledCardContainerFav = styled.div`
+  padding-top: 1em;
+  text-align: center;
+  width: 100%;
+  color: ${allColors.colors[8]};
+  display: grid ;
+  grid-template-columns: repeat(4, 1fr) ;
+  text-decoration: none;
+  background-image: url(${Img});
+  justify-content: center ;
+  align-items: center ;
+
   a{
     color:  ${allColors.colors[2]}
   }
