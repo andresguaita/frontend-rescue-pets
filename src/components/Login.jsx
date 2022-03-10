@@ -52,12 +52,13 @@ const Login = () => {
       <Center>
         <Container><Cuadro>
           <h1 className="header1">Iniciar sesión</h1>
+          <h2 className="header1">ó</h2>
           <div className='centerButtons'>
             <button onClick={handleGoogleLogin} class="loginBtn loginBtn--google">
               Continuar con Google
             </button>
           </div>
-          <h2 className="header1">ó</h2>
+          
           <form onSubmit={handleSubmit}>
             <div className="input-parent">
               <label>Correo electrónico</label>
@@ -68,11 +69,12 @@ const Login = () => {
               <input name='password' value={input.password} type="password" id="password" onChange={handleChange}></input>
             </div>
             <MiniText ><Link to='/forgotpassword'>¿Olvidó su contraseña?</Link> </MiniText>
-            <div style={{display: 'flex',justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+            <div style={{display: 'flex',justifyContent: 'center', alignItems: 'center', marginTop: 10, height:120}}>
               <ReCAPTCHA
                 ref={captcha}
                 sitekey="6Lch0sQeAAAAABQIXlfPAHknKHDzPyfmQOgg4WJe"
                 onChange={onChange}
+                
               />
             </div>
             <Button 
