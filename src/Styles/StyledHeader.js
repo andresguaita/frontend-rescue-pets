@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import allColors from "../variables/Colors";
+import Img from "../Icos/Back.webp"
 
 export const StyledHeaderContainer = styled.div`
   text-align: center;
@@ -7,6 +8,10 @@ export const StyledHeaderContainer = styled.div`
   height: 70%;
   display: flex;
   margin: 1em;
+  background-image: url(${Img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  
 `;
 
 export const StyledImg = styled.img`
