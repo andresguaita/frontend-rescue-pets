@@ -65,6 +65,8 @@ export const DashboardForms= () => {
         }
         
     },[typeform,check])
+
+    console.log(forms)
    
     return (
             <StyledDashboardForms>

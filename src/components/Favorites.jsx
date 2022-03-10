@@ -39,7 +39,7 @@ export default function Favorites() {
                 temperament={favorite.temperament}
                 specie={favorite.specie}
                 shelter={favorite.shelter}
-                image={favorite.image}
+                image={favorite.image[0]}
               />
                
             );
