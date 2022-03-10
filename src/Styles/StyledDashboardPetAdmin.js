@@ -3,13 +3,13 @@ import allColors from "../variables/Colors";
 
 export const StyledDashboardPetAdmin = styled.div`
     margin-bottom: 250px;
-    margin: 2rem 5rem 0 5rem ;
+    margin: 0rem 5rem 0 5rem ;
     a{
       text-decoration: none;
       color: white;
     }
 
-    h1{
+    h3{
       text-align: center ;
       font-weight:bolder ;
     }

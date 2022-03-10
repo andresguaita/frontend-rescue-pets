@@ -83,3 +83,17 @@ export const Cuadro = styled.div`
 export const Imgag = styled.img`
   width: 120%;
 `
+
+export const StyledDetails2 = styled.div`
+  //Contenedor
+  height: 90%;
+  display: flex;
+  color: ${allColors.colors[8]};
+  align-items: center;
+  justify-content: space-around;
+  background-image: url(${Img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding : 0 40px;
+  
+`;
