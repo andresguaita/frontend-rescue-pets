@@ -96,7 +96,7 @@ margin: 0.2em;
   border-radius: 3px;
   height: 28px;
   font-size: 15px;
-  width: auto;
+  width: max-content;
   
   border: 0;
   font-weight: bold;

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Container, Center, CenterChild ,Table,Button,Button3
+    Container, Center, CenterChild ,Table,Button,Button3, SpanStyled
 } from "../Styles/StyledPetsInDashboard"
 import { Link } from 'react-router-dom'
 
@@ -60,7 +60,7 @@ const EditableRows = ({editFormData, handleEditFormChange, handleCancelClick, al
             onChange={handleEditFormChange}
             ></input>
         </td> */}
-        <td><Button type="button" onClick={() => setmodal(true)} >Editar imágenes</Button></td>
+        <td><Button type="button" onClick={() => setmodal(true)} ><SpanStyled>Editar imágenes</SpanStyled></Button></td>
         <td>
             <select name='speciesId' onChange={handleEditFormChange}>
                 <option hidden value="editFormData.speciesId" name='default' >{editFormData.species2.specie}</option>

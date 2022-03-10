@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 import {
-    Container, Center, CenterChild ,Table,Button,Button3
+    Container, Center, CenterChild ,Table,Button,Button3, SpanStyled
   } from "../Styles/StyledPetsInDashboard"
 
 const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
@@ -33,7 +33,7 @@ const ReadOnlyRows = ({data, handleEditClick, handleDeleteClick}) => {
             <td>{data.genre.genre}</td>
             <td>
                 <Button type='button' onClick={(event) => handleEditClick(event, data)}>Editar</Button>
-                <Button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>Ocultar</Button>
+                <Button type='button' onClick={(event) => handleDeleteClick(event, data.id)}>X</Button>
             </td>
         </tr>
     )

@@ -59,14 +59,15 @@ margin: 0.2em;
   border-radius: 3px;
   height: 30px;
   font-size: 15px;
-  width: auto;
-  
+  width: max-content;
+
+  word-wrap: break-word;
   border: 0;
   font-weight: bold;
   color : white;
   text-align: center;
-vertical-align: middle;
-line-height: 1px; 
+  vertical-align: middle;
+  line-height: 1px; 
   cursor: pointer;
   a {
     color: white;
@@ -229,4 +230,14 @@ export const DivContentForDivImage = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+`
+
+export const SpanStyled = styled.span`
+  display: block;
+  /* width: 50px; */
+ 
+  padding: 0 20px;
+  margin: 0;
+  word-break: keep-all;
+  text-align: center;
 `

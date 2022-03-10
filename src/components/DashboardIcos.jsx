@@ -23,68 +23,6 @@ export default function DashboardIcos({refugio}) {
 
     return (
         <Fragment>
-            <Link to={`/shelters/${refugio}`} ><button className="but" >
-                <img src={Img} style={{marginTop:"1rem"}}></img>
-                <br/>
-                <h2 style={{marginTop:"1rem"}}>Mi Refugio</h2>
-            </button></Link> 
-            <Link to="/dashboard/pets">
-                <button className="but">
-                    {" "}
-                    <img src={Img2} style={{marginTop:"1rem"}}></img>
-                    <br/>
-                    <h2 style={{marginTop:"1rem"}}>Mis mascotas</h2>
-                
-                </button>
-            </Link>
-            <button onClick={
-                    (event) => handleClick(event, "CreatePets")
-                }
-                className="but">
-                {" "}
-                <img src={New} style={{marginTop:"1rem"}}></img>
-                <br/>
-                <h2 style={{marginTop:"1rem"}}>Nueva Mascota</h2>
-                
-            </button>
-            <Link to="/dashboard/pets/FollowUp">
-                <button className="but">
-                    {" "}
-                    <img src={Imglist} style={{marginTop:"1rem"}}></img>
-                    <br/>
-                    <h2 style={{marginTop:"1rem"}}>Seguimiento de Mascotas</h2>
-                    
-                </button>
-            </Link>
-            <Link to="/dashboard/forms">
-                <button className="but">
-                    {" "}
-                    <img src={Edad} style={{marginTop:"1rem"}}></img>
-                    <br/>
-                    <h2 style={{marginTop:"1rem"}}>Preguntas</h2>
-                   
-                </button>
-            </Link>
-            <Link to="/dashboard/createForm">
-                {" "}
-                <button className="but">
-                    {" "}
-                    <img src={Ok} style={{marginTop:"1rem"}}></img>
-                    <br/>
-                    <h2 style={{marginTop:"1rem"}}>Nuevo Formulario</h2>
-                    
-                </button>
-            </Link>
-            <Link to="/dashboard/pets/FollowUpTransit">
-                {" "}
-                <button className="but">
-                    {" "}
-                    <img src={Transit} style={{marginTop:"1rem"}}></img>
-                    <br/>
-                    <h2 style={{marginTop:"1rem"}}>Seguimiento a Tránsitos</h2>
-                    
-                </button>
-            </Link>
             <Link to="/dashboard/DashStatisChelter">
                 {" "}
                 <button className="but">
@@ -95,6 +33,76 @@ export default function DashboardIcos({refugio}) {
                   
                 </button>
             </Link>
+
+            <Link to={`/shelters/${refugio}`} ><button className="but" >
+                <img src={Img} style={{marginTop:"1rem"}}></img>
+                <br/>
+                <h2 style={{marginTop:"1rem"}}>Mi Refugio</h2>
+            </button></Link> 
+
+            <button onClick={
+                    (event) => handleClick(event, "CreatePets")
+                }
+                className="but">
+                {" "}
+                <img src={New} style={{marginTop:"1rem"}}></img>
+                <br/>
+                <h2 style={{marginTop:"1rem"}}>Nueva Mascota</h2>
+                
+            </button>
+
+            <Link to="/dashboard/pets">
+                <button className="but">
+                    {" "}
+                    <img src={Img2} style={{marginTop:"1rem"}}></img>
+                    <br/>
+                    <h2 style={{marginTop:"1rem"}}>Mis mascotas</h2>
+                
+                </button>
+            </Link>
+
+            <Link to="/dashboard/createForm">
+                {" "}
+                <button className="but">
+                    {" "}
+                    <img src={Ok} style={{marginTop:"1rem"}}></img>
+                    <br/>
+                    <h2 style={{marginTop:"1rem"}}>Nuevo Formulario</h2>
+                    
+                </button>
+            </Link>
+            
+            <Link to="/dashboard/forms">
+                <button className="but">
+                    {" "}
+                    <img src={Edad} style={{marginTop:"1rem"}}></img>
+                    <br/>
+                    <h2 style={{marginTop:"1rem"}}>Preguntas</h2>
+                
+                </button>
+            </Link>
+
+            <Link to="/dashboard/pets/FollowUp">
+                <button className="but">
+                    {" "}
+                    <img src={Imglist} style={{marginTop:"1rem"}}></img>
+                    <br/>
+                    <h2 style={{marginTop:"1rem"}}>Seguimiento de Mascotas</h2>
+                    
+                </button>
+            </Link>
+
+            <Link to="/dashboard/pets/FollowUpTransit">
+                {" "}
+                <button className="but">
+                    {" "}
+                    <img src={Transit} style={{marginTop:"1rem"}}></img>
+                    <br/>
+                    <h2 style={{marginTop:"1rem"}}>Seguimiento a Tránsitos</h2>
+                    
+                </button>
+            </Link>
+            
             <Link to="/dashboard/help">
                 {" "}
                 <button className="but">
@@ -102,9 +110,10 @@ export default function DashboardIcos({refugio}) {
                     <img src={Support} style={{marginTop:"1rem"}}></img>
                     <br/>
                     <h2 style={{marginTop:"1rem"}}>Soporte Técnico</h2>
-                   
+
                 </button>
             </Link>
+
         </Fragment>
     );
 }
