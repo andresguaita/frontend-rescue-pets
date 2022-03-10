@@ -233,7 +233,7 @@ const PetsInDashboard = () => {
         <Button3 onClick={
                     (event) => handleClickModalCreate(event, "CreatePets")
                 }
-                className="but">
+                className="butaaa">
 
                 <br/>
                 Nueva Mascota
