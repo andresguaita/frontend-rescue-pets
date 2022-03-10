@@ -108,6 +108,7 @@ const FormAdoption = () => {
       idpet: Datos[0].id,
       profileId: profile.foundProfile ? profile.foundProfile.id : profile.createProfile.id
     }
+    console.log(payload)
 
     dispatch(sendAdoption(payload))
     
