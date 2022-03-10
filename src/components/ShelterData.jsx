@@ -14,14 +14,17 @@ import Donaciones from "./Donaciones.jsx";
 
 const ShelterData = ({ Data }) => {
   return (
+    <Fragment><h1 className="title">{Data.name}</h1>
+
     <DivContenedor key={Math.random(5)}>
+    
       {" "}
       <PrimerLeft>
         {typeof Data !== "string" ? (
           <Fragment>
             {/* <Link to={`/details/${p.id}`}> */}
 
-            <h1>{Data.name}</h1>
+           
 
             <h3>{Data.description}</h3>
 
@@ -38,7 +41,7 @@ const ShelterData = ({ Data }) => {
 
             {typeof Data["city"] != "undefined" || Data["city"] != null ? (
               // <h2>{Data["city"]["state"]["country"]["flag"]}</h2> : <h1> Cargando datos</h1>
-              <ImgCardFlag src={Data["city"]["state"]["country"]["flag"]} />
+              <ImgCardFlag src={Data["city"]["state"]["country"]["flag"]} className="icosr" />
             ) : (
               <h1> Cargando datos</h1>
             )}
@@ -56,6 +59,8 @@ const ShelterData = ({ Data }) => {
         <ImgCard src={Data.img} className="icos50" />
       </PrimerRight>
     </DivContenedor>
+
+    </Fragment> 
   );
 };
 

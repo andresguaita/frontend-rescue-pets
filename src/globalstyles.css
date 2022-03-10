@@ -74,6 +74,24 @@ text-align: center;
 margin-left: 20PX;
 border-radius: 12px;
 }
+.icosr {
+    width: 12%;
+    padding: 20px;
+    
+}
+
+.title {
+    font-size: 45px !important;
+    color: #63ac44;
+    text-align: center;
+    padding: 20px;
+}
+
+
+.title h1 {
+   
+    text-align: center;
+}
  .hashtag{
      
     color: white !important;
@@ -162,8 +180,22 @@ margin-left: 20PX;
     padding:5px;
     border: 0px;
     margin: 8px;
-    cursor: pointer;
+    cursor: pointer;border-radius: 20px;
 }
+
+.but:hover{
+    width: 31%;
+    padding-right: 5px;
+    background-color: #6F8AB7;
+    color: rgb(255, 255, 255) !important;
+}
+
+.but:hover h2{
+   
+    color: rgb(255, 255, 255) !important;
+}
+
+
 .active a {
 background-color: #63ac44 ;
 padding: 20px  ;
