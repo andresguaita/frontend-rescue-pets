@@ -82,15 +82,15 @@ setPayload({
             name="description" 
             value={payload.description}
             cols="30" 
-            rows="20"
+            rows="15"
             onChange={(e)=>handleChange(e)}
             ></textarea>
             
           </div>
 
-          
+          <div style={{display:"flex", justifyContent:"center"}}>
             <StyledButton type="submit">Enviar</StyledButton>
-          
+            </div>
         </fieldset>
       </form>
     </DivContainer>
