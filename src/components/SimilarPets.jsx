@@ -53,7 +53,7 @@ export function SimilarPets() {
         {pets.length ? (<StyledInfo2 ><h1>Más recomendaciones del refugio {pets[0].shelter.name} </h1></StyledInfo2  >)  :""}
         <StyledCardContainer  onPointerEnter={(e) => handleClick2(e)}>
         {Datos.length ? ( pets.map((e) => (
-            <Link to={`/details/${e.id}`}  onChange={(e) => handleClick2(e) } key={e.id} onClick= {(e) => {handleClick(e); handleClick2(e)}} key={e.id}>
+            <Link to={`/details/${e.id}`}  onChange={(e) => handleClick2(e) } key={e.id} onClick= {(e) => {handleClick(e); handleClick2(e)}} >
               <StyledCard key={e.id}>
                 {" "}
                 <h1>{e.name} </h1>

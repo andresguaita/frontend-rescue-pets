@@ -336,6 +336,7 @@ export const getTemperaments = () => {
 };
 
 export const UpdatePrimerPic = (pic) => {
+  console.log(pic, "UPDATE PIC");
   return { type: PIC_PRIMER, payload: pic };
 };
 

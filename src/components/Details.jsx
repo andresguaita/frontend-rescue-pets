@@ -26,7 +26,7 @@ import {
   StyleButtonBack,
   StyleButtonMini,
 } from "../Styles/StyledButtons.js";
-import { getPetsSimilar } from "../Redux/Actions/index.js";
+import { getPetsSimilar , UpdatePrimerPic } from "../Redux/Actions/index.js";
 import Navbar from "./Navbar";
 import Espe from "../Icos/espe.png";
 import House from "../Icos/house.png";
@@ -68,6 +68,22 @@ const Details = () => {
     }
   }, [dispatch]);
 
+  if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined   ) {
+    dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
+  } 
+  else  if (Datos[0]?.image[0]  ) {
+    dispatch(UpdatePrimerPic (Datos[0]?.image[0]));
+  }
+  
+  else 
+  if (Datos[0]?.image ) {
+    dispatch(UpdatePrimerPic (Datos[0]?.image));
+  }
+
+ 
+
+  
+
   const pet = {
     id: id,
     name: Datos[0]?.name,
@@ -97,10 +113,10 @@ const Details = () => {
         {" "}
         {Datos.length ? (
           <>
-            <StyledDetailsLeft>
+            <StyledDetailsLeft  >
               <Cuadro>
-                {Datos[0].image ? (<Imgag src={PicOne} />) : (<Imgag src={Datos[0].image} />)}
-                
+                {/* {PicOne ? (<Imgag src={PicOne} />) : Datos[0].image < 1 ? (<Imgag src={Datos[0].image[0]} />): (<Imgag src={Datos[0].image} />)} */}
+                <Imgag src={PicOne} />
               </Cuadro>
               <Pics imagenes={Datos}></Pics>
             </StyledDetailsLeft>
@@ -162,7 +178,7 @@ const Details = () => {
         <FormAdoption />
       </div>
 
-      {Datos.length ? <SimilarPets /> : ""}
+      {Datos.length ? <SimilarPets  /> : ""}
     </Fragment>
   );
 };
