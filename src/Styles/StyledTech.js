@@ -33,6 +33,7 @@ export const DivContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 12px;
 
     .inputForm {
     width: 100%;
@@ -48,6 +49,7 @@ export const DivContainer = styled.div`
     border-width: 3px !important;
     border-radius: 5px !important;
     cursor: pointer;
+
 
 }
 
@@ -139,6 +141,7 @@ export const StyledButton = styled.button`
   border: none;
   width: 80%;
   margin-top: 2rem;
+  align-self: center;
 
 :hover {
   background-color: ${allColors.colors[2]};

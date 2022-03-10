@@ -10,7 +10,7 @@ export const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 7rem;
+  padding-top: 5rem;
   background-image: url(${Img});
   background-repeat: no-repeat;
   background-size: cover;
@@ -36,6 +36,7 @@ export const DivContainer = styled.div`
   .formulario {
     width: 50rem;
     margin: 0 auto;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,11 +111,12 @@ select{
         margin-bottom: 2rem;
         border-radius: 4px;
         
+        
       }
     }
     .campo {
       display: flex;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       align-items: center;
       label {
         flex-basis: 7rem;
@@ -129,10 +131,14 @@ select{
     .campo textarea,
     .campo select {
       flex: 1;
-    
+      font-size: 12px;
       padding: 1rem;
     }
   }
+  p{
+          color:red;
+          text-align: center;
+        }
 `;
 
 
