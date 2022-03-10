@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { StyleNavBar, StyleLi, Divmenu } from "../Styles/StyledNav";
 import { StyleInput } from "../Styles/StyledSearch";
 import Search from "./Search";
-import Logo from "../Icos/logo.png";
+import Logo2 from "../Icos/Logo2.png";
 
 export default function Navbar() {
   return (
@@ -36,7 +36,7 @@ export default function Navbar() {
             <Search />
           </Divmenu>
 
-          <img src={Logo} className="logo"></img>
+          <img src={Logo2} className="logo"></img>
         </StyleNavBar>
       </header>
     </div>
