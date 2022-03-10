@@ -65,7 +65,7 @@ useEffect(() => {
                         <br/>
                         <img src={Im2} className="img"/><br></br>
                         <Link to="/">
-                            <StyleButtonMini>{estado[1]}</StyleButtonMini>
+                            <StyleButtonMini>{estado[2]}</StyleButtonMini>
                         </Link>
                         <p>Mascotas fueron adoptados.</p>
                         <center>Frente al abandono de animales, la adopción de mascotas es la mejor forma de darles una segunda oportunidad y una familia.</center><br></br>
@@ -78,7 +78,7 @@ useEffect(() => {
                         <br/>
                         <img src={Img3} className="img"/><br></br>
                         <Link to="/">
-                            <StyleButtonMini>{estado[2]}</StyleButtonMini>
+                            <StyleButtonMini>{estado[1]}</StyleButtonMini>
                         </Link>
                         <p>Adorables mascotas ¡ESPERAN POR TI!.</p><br></br>
 
