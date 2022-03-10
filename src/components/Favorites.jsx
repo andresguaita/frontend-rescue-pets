@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CardsFavorites from "./CardsFavorites";
+import allColors from "../variables/Colors";
 
 import {
   
-  StyledCardContainer,
-} from "../Styles/StyledCardShelter.js";
+  StyledCardContainerFav,
+} from "../Styles/StyledCards.js";
 import Navbar from "./Navbar";
 import { DivContainer } from "../Styles/StyledFormShelter";
 
@@ -14,14 +15,21 @@ export default function Favorites() {
   const favorites = useSelector((state) => state.favorites);
 
   return (
-    <div>
-      <Navbar />
-     
+    <>
+    <Navbar />
+   
+    <div style={{textAlign: "center", marginTop:"3rem"}}>
+    <h1 style={{color:`${allColors.colors[8]}`, fontWeight:"bold", fontSize:"4rem" }}>
+      Favoritos
+      </h1>
+    </div> 
+<StyledCardContainerFav>
+  
         { Object.keys(favorites).length !== 0  ? (
           Object.values(favorites).map((favorite) => {
             
             return (
-              <StyledCardContainer>
+              
               <CardsFavorites 
                id={favorite.id}
                 key={favorite.id}
@@ -33,7 +41,7 @@ export default function Favorites() {
                 shelter={favorite.shelter}
                 image={favorite.image}
               />
-                </StyledCardContainer>
+               
             );
            
           })
@@ -42,7 +50,8 @@ export default function Favorites() {
           <i className="fas fa-folder-open fa-10x"></i>
         </DivContainer>
         }
-     
-    </div>
+     </StyledCardContainerFav>
+    
+    </>
   );
 }
