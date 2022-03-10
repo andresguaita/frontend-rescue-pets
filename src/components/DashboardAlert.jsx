@@ -23,7 +23,8 @@ export default function Alerta() {
  
   return (
     <DivContainer>
-    <Table>
+    {alert.length?
+   ( <Table>
     <>
     <h2 className="text-center" >MIS ALERTAS</h2>
       <table align="center" >
@@ -44,12 +45,14 @@ export default function Alerta() {
             </tbody>
           ))
         ) : (
-          <DivContainer><h2>NO HAY ALERTAS EN ESTE MOMENTO</h2></DivContainer>
+          <DivContainer><h2 >NO HAY ALERTAS EN ESTE MOMENTO</h2></DivContainer>
         )}
       </table>
        
     </>
-    </Table>
+    </Table>):(
+          <DivContainer><h2>NO HAY ALERTAS EN ESTE MOMENTO</h2> <i className="fas fa-folder-open fa-10x"></i></DivContainer>
+        )}
     </DivContainer>
   );
 }
