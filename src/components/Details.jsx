@@ -53,7 +53,7 @@ let controlpic= "";
     window.scrollTo(0, 0);
    
 
- if (Datos[0].image[0] == undefined && Datos[0].image == undefined   ) {
+ if (Datos[0]?.image[0] == undefined && Datos[0]?.image == undefined   ) {
     dispatch(UpdatePrimerPic ("https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-no-image-available-icon-flat.jpg"));
     controlpic = "1";
   } 
