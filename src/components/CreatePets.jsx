@@ -19,6 +19,7 @@ import { DivContainer, DivImages,ButtonDelete,
           CountImg } from "../Styles/StyledCreatePets";
 
 import { StyleButton } from "../Styles/StyledButtons.js";
+import Swal from "sweetalert2";
 
 export function CreatePets() {
   const dispatch = useDispatch();
@@ -114,7 +115,7 @@ export function CreatePets() {
         image: e.target.value
       }))
     } else {
-      alert('No se pueden cargar mas de 5 Imagenes.');
+      Swal.fire('Ups!','No se pueden cargar mas de 5 Imagenes.', 'error');
     }
   }
 
@@ -199,7 +200,9 @@ export function CreatePets() {
         setState({name:'',sterilization:'',weight: '',description: '',image:'',speciesId:'',shelterId:'',
                 temperamentId:'',ageId:'',petStatusId:'',genreId:''})
     
-        alert('¡La mascota fue creada con exito!');
+        
+        Swal.fire('Genial!','La mascota fue creada con exito.', 'success');
+        
         dispatch(getPetsForDashboard(route));
       }
   };
