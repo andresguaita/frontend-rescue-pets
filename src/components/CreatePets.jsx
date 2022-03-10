@@ -242,7 +242,7 @@ export function CreatePets() {
           <option name="false" value={false}>
             No
           </option>
-        </select>{errors.sterilization&&<p>{errors.sterilization}</p>}
+        </select>
         <br />
         <br />
         <input
@@ -251,7 +251,7 @@ export function CreatePets() {
           name="weight"
           value={state.weight}
           onChange={handleChanges}
-        />{errors.weight&&<p>{errors.weight}</p>}
+        />
         <br />
         <br />
         <input
@@ -260,7 +260,7 @@ export function CreatePets() {
           name="description"
           value={state.description}
           onChange={handleChanges}
-        />{errors.description&&<p>{errors.description}</p>}
+        />
         <br />
         <br />
         <select onChange={handleSelectSpecies}>
@@ -272,7 +272,7 @@ export function CreatePets() {
               {e.specie}
             </option>
           ))}
-        </select>{errors.speciesId&&<p>{errors.speciesId}</p>}
+        </select>
         <br />
         <br />
         <select onChange={handleSelectTemperament}>
@@ -284,7 +284,7 @@ export function CreatePets() {
               {e.temperament}
             </option>
           ))}
-        </select>{errors.temperamentId&&<p>{errors.temperamentId}</p>}
+        </select>
         <br />
         <br />
         <select onChange={handleSelectAge}>
@@ -296,7 +296,7 @@ export function CreatePets() {
               {e.age}
             </option>
           ))}
-        </select>{errors.ageId&&<p>{errors.ageId}</p>}
+        </select>
         <br />
         <br />
         <select onChange={handleSelectGenres}>
@@ -308,7 +308,7 @@ export function CreatePets() {
               {e.genre}
             </option>
           ))}
-        </select>{errors.genreId&&<p>{errors.genreId}</p>}
+        </select>
         <>
           {" "}
           <br /> <br />
