@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import {setFormStatus ,addFollowUp, getIndividualForm, getProfile, sendEmailAccepted, sendEmailRejected, deleteFollowUp, checkForm, updatePetStatus, addFollowUpTransit} from "../Redux/Actions/index"
 import {  StyledAnswersView } from '../Styles/StyledAnswersView.js'
 import {StyleButtonAccepted, StyleButtonBack, StyleButtonRejected} from '../Styles/StyledButtons.js';
+import {BackStyl} from '../Styles/StyledFollowUpTransit'
+
 
 export const AnswerFormView = () => {
     const dispatch = useDispatch()
@@ -68,7 +70,7 @@ export const AnswerFormView = () => {
 
     return (<StyledAnswersView>
     
-    <StyleButtonBack onClick={handleClick}>{"<"}</StyleButtonBack>
+    <BackStyl onClick={handleClick}>⮨</BackStyl>
     
     {profile.id? <div>
         <h2>{profile ? profile.name+' '+profile.lastName : 'Cargando...'}</h2><br></br>
