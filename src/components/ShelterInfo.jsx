@@ -104,7 +104,7 @@ const ShelterInfo = ({ Data, pets, input, setInput }) => {
                       <h1>{p.name}</h1>
                       <p>{[p.temperament][0].temperament}</p>
                       {/* <p>{p.description}</p> */}
-                      <ImgCard src={p.image} />
+                      <ImgCard src={p.image[0]} />
 
                       <br />
                     </StyledCardMini>
