@@ -184,9 +184,10 @@ export default function rooReducer(state = initialState, { type, payload }) {
         allTechHelp: payload
       };
     case GET_STATES:
+      let filterstates = payload.filter(s => state.Shelters.find(sh => Number(sh.city.stateId) === Number(s.id)))
       return {
         ...state,
-        states: payload,
+        states: filterstates,
       };
 
     case GET_PETS:
@@ -209,9 +210,10 @@ export default function rooReducer(state = initialState, { type, payload }) {
         pic_one: payload,
       };
     case GET_CITIES:
+      let filtercities = payload.filter(c => state.Shelters.find(s => s.cityId === c.id))
       return {
         ...state,
-        cities: payload,
+        cities: filtercities,
       };
     case CLEAN_STATE_FORM:
       return {

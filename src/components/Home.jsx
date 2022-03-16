@@ -7,7 +7,7 @@ import PreFooter from "./PreFooter";
 // import { StyleInput} from '../Styles/StyledSearch'
 import {Fragment, useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {getPets} from "../Redux/Actions";
+import {getPets, getShelters} from "../Redux/Actions";
 
 
 
@@ -26,7 +26,7 @@ export function Home() {
     const country=useSelector((state)=>state.countries)
 
     useEffect(()=>{
-
+      dispatch(getShelters())
       if(window.localStorage.getItem("modal")) 
     
       {
