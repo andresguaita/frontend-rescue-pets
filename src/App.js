@@ -32,7 +32,8 @@ import { DashboardAdmin } from "./components/DashboardAdmin";
 import TechSupport from './components/TechSupport.jsx'
 import DashStatisChelter from './components/DashStatisChelter'
 import FormAlerta from "./components/FormAlerta";
-
+import SobreNosotros from "./components/SobreNosotros";
+import { Nav } from "reactstrap";
 
 
 function App() {
@@ -61,6 +62,12 @@ function App() {
 
          <Route path="/Shelters" element={<Shelters/>}/>
 
+         <Route path="/nosotros" element={
+         <>
+         <Navbar/>
+         <SobreNosotros/>
+         </>}
+         />
         
          <Route path="/dashboard/CreatePets" element={
          <CreatePets/>}/>

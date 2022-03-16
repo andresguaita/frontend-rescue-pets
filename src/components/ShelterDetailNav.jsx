@@ -7,16 +7,15 @@ import {StyledNav, StyledLink} from '../Styles/StyledShelterDetails'
 
 const ShelterDetailNav = ({id}) => {
 
-  const {email} = useSelector(state => state)
+ 
  
 
   return (
    <Fragment>
      <StyledNav >
         <StyledLink to={`/shelters/${id}`}>Ver Todas las Mascotas</StyledLink>
-        {
-         email===null && <StyledLink to={`/shelters/${id}/form`}>Quiero ser un hogar de Tránsito</StyledLink>
-        }
+         <StyledLink to={`/shelters/${id}/form`}>Quiero ser un hogar de Tránsito</StyledLink>
+        
         
     </StyledNav></Fragment>
   )
