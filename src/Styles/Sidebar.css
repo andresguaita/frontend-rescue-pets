@@ -1,5 +1,5 @@
 .Sidebar{
-    height: 100vh;
+    height: auto;
     width: 280px;
     background-color: #2F4050;
 }
@@ -9,7 +9,8 @@
     padding: 0;
     width: 100%;
     gap: 10;
-    
+    position: sticky;
+    top:50px
 
 }
 
