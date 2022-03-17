@@ -47,7 +47,7 @@ useEffect(() => {
             
                 <StyledPreFooter>
                     <StyledCard>
-                        <h1>Mascotas Rescatadas</h1>
+                        <h1>Refugios registrados</h1>
                         <br/>
                         <p>En esta plataforma se encuentran: </p>
                         <br/>
